@@ -4,6 +4,7 @@ dotenv.config();
 const dbConnect = require("./config/db/dbConnect");
 const userRoutes = require("./routes/users/usersRoute");
 const deliveryMensRoutes = require("./routes/deliveryMens/deliveryMensRoute");
+const giftsRoutes = require("./routes/gifts/giftsRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 
 const app = express();
@@ -19,6 +20,8 @@ app.use("/api/users", userRoutes);
 //DeliveryMen route
 app.use("/api/DeliveryMen", deliveryMensRoutes);
 
+//gift route
+app.use("/api/gift", giftsRoutes);
 
 
 //err handler
