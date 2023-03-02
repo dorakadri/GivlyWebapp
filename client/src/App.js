@@ -1,10 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+
+import Dashboard from '../src/components/pages/Dashboard/Dashboard';
 
 function App() {
   return (
     <div className="App">
-     <h1>HELLO welcome to our app</h1>
+     <Dashboard/>
     </div>
   );
 }
