@@ -156,9 +156,38 @@ if(await user.isPasswordMatched(password)){
 });
 
 
+// ban user
+
+const banUserCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
+
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      isBanned: true,
+    },
+    { new: true }
+  );
+  res.json(user);
+});
 
 
+// unban user
 
+const unbanUserCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
+
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      isBanned: false,
+    },
+    { new: true }
+  );
+  res.json(user);
+});
 
 
 module.exports = {
@@ -169,5 +198,7 @@ module.exports = {
   userProfileCtrl,
   updateUserCtrl,
   updateUserPasswordCtrl,
+  banUserCtrl,
+  unbanUserCtrl,
 
 };
