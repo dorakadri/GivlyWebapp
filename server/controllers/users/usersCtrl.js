@@ -50,21 +50,31 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
  
   const userFound = await User.findOne({ email });
 
-  if (userFound && (await userFound.isPasswordMatched(password))) {
-    res.json({
-      _id: userFound?._id,
-      firstName: userFound?.firstName,
-      lastName: userFound?.lastName,
-      email: userFound?.email,
-      role:userFound?.role,
-      profilePhoto: userFound?.profilePhoto,
-      isAdmin: userFound?.isAdmin,
-      token: generateToken(userFound?._id),
-    });
+  if (userFound && (await userFound.isPasswordMatched(password)) )  {
+      if (userFound.isBanned) {
+        res.status(401);
+        throw new Error("you are banned ");
+      } 
+      else {
+           res.json({
+             _id: userFound?._id,
+             firstName: userFound?.firstName,
+             lastName: userFound?.lastName,
+             email: userFound?.email,
+             role: userFound?.role,
+             profilePhoto: userFound?.profilePhoto,
+             isAdmin: userFound?.isAdmin,
+             token: generateToken(userFound?._id),
+           });
+      }
+ 
+    
+      
   } else {
     res.status(401);
     throw new Error("invalid email or password ");
   }
+  
 });
 
 
