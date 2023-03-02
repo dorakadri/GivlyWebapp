@@ -12,6 +12,8 @@ const fs =require("fs");
 
 const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
 
+
+  
   const userExists = await User.findOne({ email: req?.body?.email });
   const localPath = `public/images/profile/${req.file.filename}`;
   const imgUploaded = await cloudinaryUploadImg(localPath);
