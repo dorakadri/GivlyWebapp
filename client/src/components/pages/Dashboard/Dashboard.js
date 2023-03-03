@@ -17,9 +17,7 @@ const store = configureStore({
 function Dashboard() {
   return (
     <Provider store={store}>
-
       <DashboardRoutes />
-   
     </Provider>
   );
 }

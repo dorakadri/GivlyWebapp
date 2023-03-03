@@ -15,6 +15,9 @@ export const tokensDark = {
       900: "#141414",
       1000: "#000000", 
     },
+
+  
+
     primary: {
   
       100: "#d3d4de",
@@ -87,6 +90,7 @@ export const tokensDark = {
               background: {
                 default: "#161719",
                 alt: "#1f2022",
+                nav: "#1f2022",
               },
             }
           : {
@@ -109,8 +113,9 @@ export const tokensDark = {
                 main: tokensDark.grey[500],
               },
               background: {
-                default: tokensDark.grey[0],
+                default:" #f5f5f5",
                 alt:"linear-gradient(to top, #ece9e6, #ffffff)",
+                nav: "linear-gradient(to top, #ece9e6, #ffffff)",
               },
             }),
       },
