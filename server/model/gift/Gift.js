@@ -17,7 +17,7 @@ const GiftSchema = new mongoose.Schema(
           
           giftType: {
             type: String,
-            enum: ["medium", "high", "low"],
+            enum: ["medium", "basic", "luxurious"],
             required: true
           },
          

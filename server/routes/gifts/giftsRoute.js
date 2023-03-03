@@ -5,11 +5,12 @@ const {
     deleteGiftCtrl,
     updateGiftCtrl,
 } = require("../../controllers/gift/giftCtrl");
+const { GiftImgResize, profilePhotoUpload } = require("../../middlewares/uploads/profilePhotoUpload");
 
 
 const giftsRoutes = express.Router();
 
-giftsRoutes.post("/", createGiftCtrl);
+giftsRoutes.post("/",profilePhotoUpload.single("giftPhoto"),GiftImgResize, createGiftCtrl);
 
 giftsRoutes.get("/", fetchAllGiftCtrl);
 

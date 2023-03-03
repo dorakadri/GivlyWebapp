@@ -3,20 +3,26 @@ const Gift= require("../../model/gift/Gift");
 const validateMongodbId = require("../../utils/validateMongodbID");
 const express = require('express');
 const router = express.Router();
+const cloudinaryUploadImg = require("../../utils/cloudinary");
 //---Create--
 
 const createGiftCtrl = expressAsyncHandler(async (req, res) => {
 
+  const localPath = `public/images/gifts/${req.file.filename}`;
 
-    const { name,type,giftPhoto,company,giftType} = req.body;
+  const imgUploaded = await cloudinaryUploadImg(localPath);
+
+
+  
     console.log(req.body);
   
     try {
       const gift = await Gift.create({
-        name,type,giftPhoto,company,giftType
+        ...req.body,
+        giftPhoto: imgUploaded?.url,
       });
       res.json(gift);
-      
+      fs.unlinkSync(localPath);
     } catch (error) {
       res.json(error);
     }
