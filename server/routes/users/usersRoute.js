@@ -26,7 +26,7 @@ userRoutes.post(
   profilePhotoResize,
   userRegisterCtrl
 );
-//done
+// login if not banned 
 userRoutes.post("/login", loginUserCtrl);
 
 //test autorisation
@@ -36,6 +36,7 @@ userRoutes.get("/", authMiddleware, isAdmin, fetchUsersCtrl);
 userRoutes.put("/password", authMiddleware, updateUserPasswordCtrl);
 
 userRoutes.put("/:id", authMiddleware, updateUserCtrl);
+// ban unban user 
 userRoutes.put("/ban-user/:id", banUserCtrl);
 userRoutes.put("/unban-user/:id" , unbanUserCtrl);
 module.exports = userRoutes;
