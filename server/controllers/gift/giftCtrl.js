@@ -3,6 +3,7 @@ const Gift= require("../../model/gift/Gift");
 const validateMongodbId = require("../../utils/validateMongodbID");
 const express = require('express');
 const router = express.Router();
+const fs =require("fs");
 const cloudinaryUploadImg = require("../../utils/cloudinary");
 //---Create--
 
@@ -12,10 +13,6 @@ const createGiftCtrl = expressAsyncHandler(async (req, res) => {
 
   const imgUploaded = await cloudinaryUploadImg(localPath);
 
-
-  
-    console.log(req.body);
-  
     try {
       const gift = await Gift.create({
         ...req.body,
@@ -81,8 +78,25 @@ const updateGiftCtrl = expressAsyncHandler(async (req, res) => {
     }
   });
 
+  const fetchById = expressAsyncHandler(async (req, res) => {
+    const { id } = req.params;
+    validateMongodbId(id);
+    
+    try {
+      const gift = await Gift.findById(id);
+      console.log(gift);
+      if (gift) {
+        res.json(gift);
+      } else {
+        res.status(404).json({ message: "Gift not found" });
+      }
+    } catch (error) {
+      res.json(error);
+    }
+  });
 
 
-  module.exports = {createGiftCtrl, fetchAllGiftCtrl, deleteGiftCtrl, updateGiftCtrl};
+
+  module.exports = {createGiftCtrl, fetchAllGiftCtrl, deleteGiftCtrl, updateGiftCtrl ,fetchById};
   
   
