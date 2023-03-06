@@ -28,11 +28,11 @@ const validationSchema = yup.object({
 export default function FormGift(props) {
   const [image, setImage] = useState(null);
   const [data, setDate] = useState(props);
-  console.log(props);
+  console.log(data);
 
-  const initialValues = data?.date
+  const initialValues = data?.data
   ? {
-      name: "lala",
+      name: "ff",
       company: "lala",
       type: "lala",
       giftPhoto:"https://img-19.commentcamarche.net/cI8qqj-finfDcmx6jMK6Vr-krEw=/1500x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg",

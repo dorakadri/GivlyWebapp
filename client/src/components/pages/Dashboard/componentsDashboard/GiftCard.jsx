@@ -23,11 +23,12 @@ export default function GiftCard({ gift }) {
     "  linear-gradient(-72deg,#ca7345,#ffdeca 16%,#ca7345 21%,#ffdeca 24%,#a14521 27%,#ca7345 36%,#ffdeca 45%,#ffdeca 60%,#ca7345 72%,#ffdeca 80%,#ca7345 84%,#732100)";
 
   const chipColor =
-    gift.gifttype === "basic"
+    gift.giftType === "basic"
       ? silver
-      : gift.gifttype === "luxurious"
+      : gift.giftType === "luxurious"
       ? gold
       : bronze;
+
 
 
   return (
@@ -39,7 +40,7 @@ export default function GiftCard({ gift }) {
       }}
     >
       <Chip
-        label={gift.gifttype}
+        label={gift.giftType}
         sx={{
           position: "absolute",
           top: "22px",
@@ -53,7 +54,7 @@ export default function GiftCard({ gift }) {
       <CardMedia
         component="img"
         height="200"
-        image={gift.photo}
+        src={gift.giftPhoto}
         alt={gift.name}
         sx={{ borderRadius: "8px" }}
       />
@@ -69,11 +70,11 @@ export default function GiftCard({ gift }) {
             fontSize="16px"
             sx={{ flexGrow: 1, pl: "0.5rem" }}
           >
-            {gift.companyName}
+            {gift.company}
           </Typography>
         </Box>
         <Typography variant="body2" sx={{ pt: "0.5rem" }} component="p">
-          Type: {gift.type}
+          Type: {gift.giftType}
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "space-evenly", flexWrap: "wrap" }}>
@@ -89,7 +90,7 @@ export default function GiftCard({ gift }) {
         <Button
           sx={{ mt: 1 }}
           component={Link}
-          to={`./update/${gift.id}`}
+          to={`./update/${gift._id}`}
           variant="contained"
           color="info"
           startIcon={<Edit />}
