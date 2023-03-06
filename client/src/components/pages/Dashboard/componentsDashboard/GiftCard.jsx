@@ -29,12 +29,7 @@ export default function GiftCard({ gift }) {
       ? gold
       : bronze;
 
-  const navigate = useNavigate();
 
-  function nav(id) {
-    console.log(id);
-    navigate("update/" + id);
-  }
   return (
     <Card
       sx={{
