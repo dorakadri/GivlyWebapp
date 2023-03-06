@@ -12,6 +12,8 @@ const fs =require("fs");
 
 const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
 
+
+  
   const userExists = await User.findOne({ email: req?.body?.email });
   const localPath = `public/images/profile/${req.file.filename}`;
   const imgUploaded = await cloudinaryUploadImg(localPath);
@@ -48,21 +50,31 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
  
   const userFound = await User.findOne({ email });
 
-  if (userFound && (await userFound.isPasswordMatched(password))) {
-    res.json({
-      _id: userFound?._id,
-      firstName: userFound?.firstName,
-      lastName: userFound?.lastName,
-      email: userFound?.email,
-      role:userFound?.role,
-      profilePhoto: userFound?.profilePhoto,
-      isAdmin: userFound?.isAdmin,
-      token: generateToken(userFound?._id),
-    });
+  if (userFound && (await userFound.isPasswordMatched(password)) )  {
+      if (userFound.isBanned) {
+        res.status(401);
+        throw new Error("you are banned ");
+      } 
+      else {
+           res.json({
+             _id: userFound?._id,
+             firstName: userFound?.firstName,
+             lastName: userFound?.lastName,
+             email: userFound?.email,
+             role: userFound?.role,
+             profilePhoto: userFound?.profilePhoto,
+             isAdmin: userFound?.isAdmin,
+             token: generateToken(userFound?._id),
+           });
+      }
+ 
+    
+      
   } else {
     res.status(401);
     throw new Error("invalid email or password ");
   }
+  
 });
 
 
@@ -154,9 +166,38 @@ if(await user.isPasswordMatched(password)){
 });
 
 
+// ban user
+
+const banUserCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
+
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      isBanned: true,
+    },
+    { new: true }
+  );
+  res.json(user);
+});
 
 
+// unban user
 
+const unbanUserCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
+
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      isBanned: false,
+    },
+    { new: true }
+  );
+  res.json(user);
+});
 
 
 module.exports = {
@@ -167,5 +208,7 @@ module.exports = {
   userProfileCtrl,
   updateUserCtrl,
   updateUserPasswordCtrl,
+  banUserCtrl,
+  unbanUserCtrl,
 
 };
