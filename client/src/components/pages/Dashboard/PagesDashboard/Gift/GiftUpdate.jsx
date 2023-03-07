@@ -15,13 +15,11 @@ export default function GiftUpdate() {
       myService.getGiftbyID(id).then((response) => {
     
         setData(response.data);
-    
-     
-    
+        console.log(response.data)
       });
     }, []);
   
-    
+
     
   return (
     <Card style={{padding: '20px' ,margin: '20px', boxSizing: 'border-box', }}>

@@ -27,7 +27,7 @@ function DashboardRoutes() {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
     <div className="index">
-      <BrowserRouter>
+
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Suspense
@@ -46,22 +46,19 @@ function DashboardRoutes() {
           >
             <Routes>
               <Route element={<Layout />}>
-                <Route
-                  path="/"
-                  element={<Navigate to="/dashboard" replace />}
-                />
+             
                 <Route path="/dashboard" element={<DashboardComponent />} />
-                <Route path="/userslist" element={<UserList />} />
-                <Route path="/delivererlist" element={<DelivererList />} />
-                <Route path="/adddeliverer" element={<AddDeliverer />} />
-                <Route path="/giftlist" element={<GiftList />} />
-                <Route path="/giftlist/update/:id" element={<GiftUpdate />} />
-                <Route path="/addgift" element={<AddGift />} />
+                <Route path="userslist" element={<UserList />} />
+                <Route path="delivererlist" element={<DelivererList />} />
+                <Route path="adddeliverer" element={<AddDeliverer />} />
+                <Route path="giftlist" element={<GiftList />} />
+                <Route path="giftlist/update/:id" element={<GiftUpdate />} />
+                <Route path="addgift" element={<AddGift />} />
               </Route>
             </Routes>
           </Suspense>
         </ThemeProvider>
-      </BrowserRouter>
+
     </div>
   );
 }

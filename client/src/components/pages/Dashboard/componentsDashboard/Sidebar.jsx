@@ -135,7 +135,7 @@ export default function Sidebar({
                     <ListItemButton
                       onClick={() => {
                         console.log(lcText);
-                        navigate(`/${lcText}`);
+                        navigate(`./${lcText}`);
                         setActive(lcText);
                       }}
                       sx={{

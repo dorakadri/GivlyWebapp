@@ -27,13 +27,13 @@ const validationSchema = yup.object({
 
 export default function FormGift(props) {
   const [image, setImage] = useState(null);
-  const [data, setDate] = useState(props);
-  console.log(data);
 
-  const initialValues = data?.data
+  console.log(props.data);
+
+  const initialValues = props.data
   ? {
-      name: "ff",
-      company: "lala",
+      name: "ddfd",
+      company: "fff",
       type: "lala",
       giftPhoto:"https://img-19.commentcamarche.net/cI8qqj-finfDcmx6jMK6Vr-krEw=/1500x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg",
       giftType: "Medium",
@@ -51,6 +51,7 @@ export default function FormGift(props) {
     setImage(selectedFile);
     formik.setFieldValue('giftPhoto', selectedFile);
   };
+ 
   const formik = useFormik({
     initialValues:initialValues,
     onSubmit: (values) => {
@@ -58,7 +59,8 @@ export default function FormGift(props) {
     },
     validationSchema: validationSchema,
   });
-
+ 
+  console.log(initialValues);
 
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: "flex" }}>
