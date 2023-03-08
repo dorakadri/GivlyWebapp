@@ -6,10 +6,13 @@ const userRoutes = require("./routes/users/usersRoute");
 const deliveryMensRoutes = require("./routes/deliveryMens/deliveryMensRoute");
 const giftsRoutes = require("./routes/gifts/giftsRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
+const cors = require("cors");
 
 const app = express();
 //DB
 dbConnect();
+
+app.use(cors());
 
 //Middleware
 app.use(express.json());
@@ -22,7 +25,6 @@ app.use("/api/DeliveryMen", deliveryMensRoutes);
 
 //gift route
 app.use("/api/gift", giftsRoutes);
-
 
 //err handler
 app.use(notFound);

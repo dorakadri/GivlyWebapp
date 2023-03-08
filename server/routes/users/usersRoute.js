@@ -7,6 +7,10 @@ const {
   updateUserPasswordCtrl,
   banUserCtrl,
   unbanUserCtrl,
+  generateVerificationTokenCtrl,
+  accountVerificationCtrl,
+  forgetPasswordToken,
+  passwordResetCtrl,
 } = require("../../controllers/users/usersCtrl");
 const {
   authMiddleware,
@@ -26,17 +30,25 @@ userRoutes.post(
   profilePhotoResize,
   userRegisterCtrl
 );
-// login if not banned 
+// login if not banned
 userRoutes.post("/login", loginUserCtrl);
-
+// Password reset
+userRoutes.post("/forget-password-token", forgetPasswordToken);
+userRoutes.put("/reset-password", passwordResetCtrl);
 //test autorisation
 userRoutes.get("/", authMiddleware, isAdmin, fetchUsersCtrl);
 // Password
 
 userRoutes.put("/password", authMiddleware, updateUserPasswordCtrl);
-
+userRoutes.post(
+  "/generate-verify-email-token",
+  authMiddleware,
+  generateVerificationTokenCtrl
+);
+userRoutes.put("/verify-account/", authMiddleware, accountVerificationCtrl);
 userRoutes.put("/:id", authMiddleware, updateUserCtrl);
-// ban unban user 
+// ban unban user
 userRoutes.put("/ban-user/:id", banUserCtrl);
-userRoutes.put("/unban-user/:id" , unbanUserCtrl);
+userRoutes.put("/unban-user/:id", unbanUserCtrl);
+
 module.exports = userRoutes;

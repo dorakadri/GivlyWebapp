@@ -10,12 +10,12 @@ const router = express.Router();
 const createDeliveryMenCtrl = expressAsyncHandler(async (req, res) => {
 
 
-  const { firstName,phone,isAvailable} = req.body;
+  const { firstName,Phone,isAvailable} = req.body;
   console.log(req.body);
 
   try {
     const deliveryMen = await DeliveryMen.create({
-        firstName,phone,isAvailable
+        firstName,Phone,isAvailable
     });
     res.json(deliveryMen);
     
