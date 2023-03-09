@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Hei buddy Password is required"],
     },
-   
+
     isBlocked: {
       type: Boolean,
       default: false,
@@ -44,9 +44,9 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: ["Admin", "SimpleUser", "Association"],
-      required: true
+      required: true,
     },
-   
+
     associationName: {
       type: String,
     },
@@ -60,7 +60,6 @@ const userSchema = new mongoose.Schema(
     accountVerificationToken: String,
     accountVerificationTokenExpires: Date,
 
- 
     passwordChangeAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
@@ -70,33 +69,32 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
 
-     location: String,
-     matches:  [
+    location: String,
+    matches: [
       {
         userId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "User"
+          ref: "User",
         },
         productId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Post"
-        }
-      }
+          ref: "Post",
+        },
+      },
     ],
-    matchesAsOwner:  [
+    matchesAsOwner: [
       {
         userId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "User"
+          ref: "User",
         },
         productId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Post"
-        }
-      }
+          ref: "Post",
+        },
+      },
     ],
-    Rankpoints:Number 
-
+    Rankpoints: Number,
   },
   {
     toJSON: {
@@ -117,6 +115,7 @@ userSchema.pre("save", async function (next) {
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+  console.log("ffgfr ");
   next();
 });
 
@@ -125,23 +124,26 @@ userSchema.methods.isPasswordMatched = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-
 userSchema.methods.createAccountVerificationToken = async function () {
-
   const verificationToken = crypto.randomBytes(32).toString("hex");
   this.accountVerificationToken = crypto
     .createHash("sha256")
     .update(verificationToken)
     .digest("hex");
-  this.accountVerificationTokenExpires = Date.now() + 30 * 60 * 1000; 
+  this.accountVerificationTokenExpires = Date.now() + 30 * 60 * 1000;
   return verificationToken;
 };
+//Password reset/forget
 
-
-
-
-
-
+userSchema.methods.createPasswordResetToken = async function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.passwordResetExpires = Date.now() + 30 * 60 * 1000; //10 minutes
+  return resetToken;
+};
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
