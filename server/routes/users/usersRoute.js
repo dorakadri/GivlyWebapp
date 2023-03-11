@@ -1,5 +1,5 @@
 const express = require("express");
-const passport = require("passport");
+
 const {
   userRegisterCtrl,
   loginUserCtrl,
@@ -25,21 +25,16 @@ const {
 
 const userRoutes = express.Router();
 //done
-userRoutes.get("/google", passport.authenticate("google", ["profile", "email"]));
 
-userRoutes.get(
-	"/google/callback",
-	passport.authenticate("google", {
-		successRedirect: process.env.CLIENT_URL,
-		failureRedirect: "/login/failed",
-	})
-);
+
 userRoutes.post(
   "/register",
   profilePhotoUpload.single("profilePhoto"),
   profilePhotoResize,
   userRegisterCtrl
 );
+
+
 // login if not banned
 userRoutes.post("/login", loginUserCtrl);
 // Password reset

@@ -83,6 +83,15 @@ export default function Register() {
       setImage(file);
     }
   };
+  const googleAuth = () => {
+		window.open(
+			`${process.env.REACT_APP_API}/auth/google/callback`,
+			"_self"
+		);
+
+		
+
+	};
 
   const storeData = useSelector((store) => store?.users);
   const { loading, appErr, serverErr, registered } = storeData;
@@ -287,6 +296,7 @@ export default function Register() {
             </Button>
           ) : (
             <Button
+            onClick={googleAuth}
               sx={{ mt: "2rem", width: "100%" }}
               variant="contained"
               size="large"
