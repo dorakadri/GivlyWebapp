@@ -7,7 +7,7 @@ const deliveryMensRoutes = require("./routes/deliveryMens/deliveryMensRoute");
 const giftsRoutes = require("./routes/gifts/giftsRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require('cors');
-const helmet =  require('helmet');
+
 
 const app = express();
 //DB
