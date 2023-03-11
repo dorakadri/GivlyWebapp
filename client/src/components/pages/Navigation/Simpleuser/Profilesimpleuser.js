@@ -18,8 +18,26 @@ import {
 import { borderRadius } from "@mui/system";
 import React from "react";
 
+import { useDispatch } from "react-redux";
+ import { useNavigate } from "react-router-dom";
+ import { logoutAction } from "../../../../ReduxB/slices/users/usersSlices";
+ 
+ 
+export default function Profilesimpleuser() {
 
-export default function PublicNavbar() {
+
+  
+   const navigate = useNavigate();
+   
+   //logout
+   const dispatch = useDispatch();
+  function handelLogout (){
+     console.log("logout");
+     dispatch(logoutAction());
+     navigate("/");
+  }
+
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -48,11 +66,9 @@ export default function PublicNavbar() {
               {" "}
               OUR PARTNER{" "}
             </Button>
-            <Button sx={{ color: "black", px: "1rem", py: "0.5rem" }}>
-              {" "}
-              CONTACT US
-            </Button>
+         
             <Button
+              onClick={handelLogout}
               sx={{
                 color: "white",
                 px: "1rem",
@@ -66,11 +82,16 @@ export default function PublicNavbar() {
               }}
             >
               {" "}
-              Register
+              Logout
             </Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </Box>
+          
+          
+           
+          
+        </Box>
+      </Toolbar>
+    </AppBar>
+    <Typography>WAA USER ENA</Typography>
+    </Box >
   );
 }

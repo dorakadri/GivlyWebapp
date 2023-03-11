@@ -53,6 +53,7 @@ export default function Login() {
   
   
   if(userAuth){
+  
   return <Navigate to="/profile" />;
   }
 

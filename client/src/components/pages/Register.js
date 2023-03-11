@@ -87,9 +87,9 @@ export default function Register() {
   const storeData = useSelector((store) => store?.users);
   const { loading, appErr, serverErr, registered } = storeData;
   if (registered) {
-    return <Navigate to="/profile" />;
+    return <Navigate to="/login" />;
   }
-
+ 
   
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: "flex" }}>
@@ -271,6 +271,29 @@ export default function Register() {
               type="submit"
             >
               Submit
+            </Button>
+          )}
+        </Grid>
+        <Grid item xs={12} sx={{ pb: "2rem" }}>
+          {loading ? (
+            <Button
+              sx={{ mt: "2rem", width: "100%" }}
+              variant="contained"
+              size="large"
+              color="error"
+              disabled
+            >
+              loading please wait...
+            </Button>
+          ) : (
+            <Button
+              sx={{ mt: "2rem", width: "100%" }}
+              variant="contained"
+              size="large"
+              color="success"
+              type="submit"
+            >
+              Signup with google
             </Button>
           )}
         </Grid>

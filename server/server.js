@@ -1,6 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
+const passport = require("passport");
+const cookieSession = require("cookie-session");
 const dbConnect = require("./config/db/dbConnect");
 const userRoutes = require("./routes/users/usersRoute");
 const deliveryMensRoutes = require("./routes/deliveryMens/deliveryMensRoute");
@@ -11,8 +13,21 @@ const cors = require("cors");
 const app = express();
 //DB
 dbConnect();
+app.use(
+	cookieSession({
+		name: "session",
+		keys: ["cyberwolve"],
+		maxAge: 24 * 60 * 60 * 100,
+	})
+);
 
-app.use(cors());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cors({
+    origin: "http://localhost:3000",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+}));
 
 //Middleware
 app.use(express.json());
