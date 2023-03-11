@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { Button, Box, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
-import NavbarLandingpage from "./NavbarLandingpage";
 
+import { useNavigate } from "react-router-dom"; 
 const StyledBox = styled(Box)({
   height: "75vh",
   scrollSnapAlign: "center",
@@ -43,6 +43,7 @@ const Title = styled(Typography)({
 });
 
 export default function Givlyapp() {
+  const navigate =useNavigate();
   return (
     <StyledBox>
 
@@ -61,6 +62,10 @@ export default function Givlyapp() {
           sx={{zIndex:"99999"}}
         >
          <Button
+
+         onClick={()=>{
+          navigate('/signup')
+         }}
               sx={{
 
                 color: "black",
@@ -77,6 +82,9 @@ export default function Givlyapp() {
               }}
             >Sign up </Button>
          <Button
+          onClick={()=>{
+            navigate('/login')
+           }}
               sx={{
                 color: "white",
                 px: "1rem",

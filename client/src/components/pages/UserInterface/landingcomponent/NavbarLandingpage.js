@@ -12,7 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+
 import logo from "./images/logo.png" ;
 import { useMediaQuery } from "@mui/material";
 
@@ -96,13 +96,13 @@ function NavbarLandingpage() {
           }}
         >
           <MenuItem   >
-            <Typography     textAlign="center">About Us</Typography>
-          </MenuItem>
-          <MenuItem>
             <Typography textAlign="center">About Us</Typography>
           </MenuItem>
           <MenuItem>
-            <Typography textAlign="center">About Us</Typography>
+            <Typography textAlign="center">contact us</Typography>
+          </MenuItem>
+          <MenuItem>
+            <Typography textAlign="center">our partner</Typography>
           </MenuItem>
         </Menu>
       </Box>
