@@ -19,8 +19,9 @@ const Role = userAuth?.role;
 console.log("lala " + userAuth)
   return (
     <BrowserRouter>
-
+ 
       <Routes>
+        {/* just badalt landing raja3ha / w loginn rodha login bch maysirch conflit   */}
         <Route exact path="/" element={<Landingpage />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
