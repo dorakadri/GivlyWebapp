@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import {
+  Avatar,
   Box,
   Button,
   FormControl,
@@ -96,6 +97,7 @@ export default function Register() {
     <form onSubmit={formik.handleSubmit} style={{ display: "flex" }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
+        
           <Box sx={{ gap: 3 }}>
             {appErr || serverErr ? (
               <Typography variant="h6">

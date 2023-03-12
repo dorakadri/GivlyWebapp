@@ -1,15 +1,27 @@
 import React from "react";
 import * as yup from "yup";
 import { Field, Form, Formik, useFormik } from "formik";
-import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
-import { Box } from "@mui/system";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 
+import { useDispatch, useSelector } from "react-redux";
+import { loginUserAction } from "../../../../ReduxB/slices/users/usersSlices";
+import { Navigate } from "react-router-dom";
 const validationSchema = yup.object({
   email: yup.string().email("invalid email").required("email is required"),
   password: yup.string().required(" password is required"),
 });
 export default function Loginform() {
   const isnonMobile = useMediaQuery("(min-width :600px)");
+  const dispatch = useDispatch();
   const initialValues = {
     email: "",
     password: "",
@@ -18,26 +30,38 @@ export default function Loginform() {
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (values) => {
+      dispatch(loginUserAction(values));
       console.log(values);
     },
     validationSchema: validationSchema,
   });
+  const store = useSelector((state) => state?.users);
+  console.log(store);
+  const { userAuth, loading } = store;
+
+  if (userAuth) {
+    if (userAuth?.role === "Admin") {
+      return <Navigate to="/admin/dashboard" />;
+    }
+    return <Navigate to="/profile" />;
+  }
+
   return (
     <form onSubmit={formik.handleSubmit}>
+    
       <Box
-      
         display="grid"
         gap="30px"
         gridTemplateColumns="repeat(4,minmax(0,1fr))"
         sx={{ "&>div": { gridColumn: isnonMobile ? undefined : "span 4" } }}
       >
-        <Typography variant="h6"> email :</Typography>
+   
         <TextField
           sx={{ gridColumn: "span 4" }}
           id="name"
           label=" email"
           placeholder="exemple@gmail.com "
-          variant="outlined"
+          variant="filled"
           value={formik.values.email}
           onChange={formik.handleChange}
           type="text"
@@ -46,14 +70,14 @@ export default function Loginform() {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
         />
-        <Typography variant="h6">password :</Typography>
+   
         <TextField
           sx={{ gridColumn: "span 4" }}
           type="password"
           id="outlined-basic"
           label="password"
           placeholder="password "
-          variant="outlined"
+          variant="filled"
           value={formik.values.password}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
@@ -62,48 +86,72 @@ export default function Loginform() {
           name="password"
         />
       </Box>
+      <Box
+  sx={{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gridColumn: "span 4",
+    alignItems:"center",
+    m:"1rem auto",
+  }}
+>
+  <FormControlLabel
+    control={<Checkbox />}
+    label="Remember Me"
+ 
+  />
+  
+  <Typography
+    sx={{
+      fontStyle: "italic",
+      color: "grey",
+      "&:hover": {
+        cursor: "pointer",
+        color: "green",
+      },
+    }}
+  >
+    forget password ?
+  </Typography>
+</Box>
       <Box>
-        <Button
-          fullWidth
-          type="submit"
-          sx={{
-            backgroundColor: "#06A696",
-  color:" white",
-  border: "none",
-  fontWeight:" bold",
-  cursor: "pointer",
-            m: "2rem 0",
-            p: "1rem",
     
-            "&:hover": { color: "black" , backgroundColor: "#06A696" },
-          }}
-        >
-          LOGIN
-        </Button>
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            color: "black",
-            "&:hover": {
+        {loading ? (
+          <Button
+            sx={{  width: "100%",   p: "1rem",  mt:"0",
+            mb:"2rem", }}
+            variant="contained"
+            size="large"
+            color="error"
+            disabled
+         
+          >
+            Loading....
+          </Button>
+        ) : (
+          <Button
+            fullWidth
+            type="submit"
+            sx={{
+              backgroundColor: "#06A696",
+              color: " white",
+              border: "none",
+              fontWeight: " bold",
               cursor: "pointer",
-              color: "green",
-            },
-          }}
-        >
-          Don't have an account? Sign Up here
-        </Typography>
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            color: "black",
-            "&:hover": {
-              cursor: "pointer",
-              color: "green",
-            },
-          }}
-        >
-          forget password
-        </Typography>
+              mt:"0",
+              mb:"2rem",
+              p: "1rem",
+              textAlign: "center",
+
+              "&:hover": { color: "white", backgroundColor: "#06A696" },
+            }}
+          >
+            LOGIN
+          </Button>
+        )}
+     
+     
       </Box>
     </form>
   );

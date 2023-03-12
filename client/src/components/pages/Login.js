@@ -1,22 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Box,
   Button,
-  FormControl,
-  FormHelperText,
+
   Grid,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Select,
+ 
   TextField,
   Typography,
+  useMediaQuery
 } from "@mui/material";
-import { PhotoCamera } from "@mui/icons-material";
+
 import * as yup from "yup";
-import { Field, Form, Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserAction } from "../../ReduxB/slices/users/usersSlices";
 import { Navigate } from "react-router-dom";
@@ -27,6 +23,8 @@ const validationSchema = yup.object({
 });
 
 export default function Login() {
+  const isNonMobileScreen=useMediaQuery("(min-width:1000px)")
+  const isnonMobile = useMediaQuery("(min-width :600px)");
   const dispatch = useDispatch();
   const initialValues = {
     email: "",
@@ -51,18 +49,32 @@ export default function Login() {
   console.log(store); 
   const {userAuth, loading ,serverErr, appErr} = store;
   
-  
+ 
   if(userAuth){
-  
+    if(userAuth?.role === "Admin"){
+      return <Navigate to="/admin/dashboard" />;
+    }
   return <Navigate to="/profile" />;
   }
 
 
   return (
-    <form onSubmit={formik.handleSubmit} style={{ display: "flex" }}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <Box sx={{ gap: 3 }}>
+
+    <Box  >
+    <Box width="100%" p="1rem 6%" textAlign ="center">
+    <Typography  fontWeight="bold" fontSize="32px" color="primary">
+      Welcome back 
+    </Typography>
+    </Box>
+    <Box width={isNonMobileScreen ? "50%" :"93%"} p="2rem" m="2rem auto" borderRadius="1.5rem" textAlign ="center"></Box>
+    <form onSubmit={formik.handleSubmit} >
+    <Box
+      
+      display="grid"
+      gap="30px"
+      gridTemplateColumns="repeat(4,minmax(0,1fr))"
+      sx={{ "&>div": { gridColumn: isnonMobile ? undefined : "span 4" } }}
+    >
 
 
           {appErr || serverErr ? (
@@ -121,8 +133,10 @@ export default function Login() {
           >
             Login
           </Button>}
-        </Grid>
-      </Grid>
+     
     </form>
+    </Box>
+    
+   
   );
 }

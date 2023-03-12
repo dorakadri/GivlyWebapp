@@ -1,10 +1,10 @@
 import styled from '@emotion/styled'
-import { CssBaseline } from '@mui/material'
+
 import { Box } from '@mui/system'
 import React, { lazy, Suspense } from 'react'
-import imagebg from './images/green3.jpg'
+import imagebg from "./images/green3.jpg"
 import NavbarLandingpage from './NavbarLandingpage'
-import Spline from '@splinetool/react-spline';
+
 
 const StyledBox = styled(Box)({
   height: '100vh',

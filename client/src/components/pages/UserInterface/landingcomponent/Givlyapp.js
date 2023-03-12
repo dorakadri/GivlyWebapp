@@ -64,7 +64,7 @@ export default function Givlyapp() {
          <Button
 
          onClick={()=>{
-          navigate('/signup')
+          navigate('/register')
          }}
               sx={{
 
