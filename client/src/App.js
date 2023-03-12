@@ -1,10 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+
+import ProfileCrad from "./components/pages/SimpleUserProfile/ProfileCrad";
+import TabProfile from "./components/pages/SimpleUserProfile/TabProfile";
+
+
 
 function App() {
   return (
     <div className="App">
-     <h1>HELLO welcome to our app</h1>
+     <ProfileCrad/>
     </div>
   );
 }
