@@ -2,49 +2,51 @@ import { Typography, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import Loginform from "./Loginform";
-import imagebg from "../landingcomponent/images/green3.jpg"
+import imagebg from "./hd.jpg";
 import { Link } from "react-router-dom";
+
 
 export default function LoginDesign() {
   const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
   return (
-    <Box sx={{
-      background: `url(${imagebg})`,
-      height: "100vh",
-      justifyContent: "center",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    }}
-  >
-      
+    <Box
+      sx={{
+        background: `url(${imagebg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Box
-        width={isNonMobileScreen ? "30%" : "93%"}
         p="2rem"
-        m="2rem auto"
         borderRadius="1.5rem"
+        width={isNonMobileScreen ? "30%" : "80%"}
         textAlign="center"
         sx={{
-          backgroundColor: 'rgba(255, 255, 255, 0.15)',
-          backdropFilter: 'blur(5px)',
-          borderRadius: '10px',
-          boxShadow: '0px 8px 10px rgba(0, 0, 0, 0.14), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 4px 5px rgba(0, 0, 0, 0.2)',
-        
+          backgroundColor: "rgba(255, 255, 255, 0.15)",
+          backdropFilter: "blur(5px)",
+          borderRadius: "10px",
+          boxShadow:
+            "0px 8px 10px rgba(0, 0, 0, 0.14), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 4px 5px rgba(0, 0, 0, 0.2)",
         }}
       >
-       <Typography variant="h4" style={{ fontWeight: "bold", marginBottom: "2rem" }}>
-        Welcome back !
-      </Typography>
+        <Typography
+          variant="h4"
+          style={{ fontWeight: "bold", marginBottom: "2rem" }}
+        >
+          Welcome back!
+        </Typography>
         <Loginform />
+        <Typography>
+          Don't have an account?{" "}
+          <Link to="/register" style={{ textDecoration: "none" }}>
+            Sign Up here
+          </Link>
+        </Typography>
       </Box>
-      <Typography>
-      
-      Don't have an account? {" "}
-  <Link to="/register" style={{ textDecoration: "none" }}>
-  Sign Up here
-  </Link>
-</Typography>
     </Box>
-
   );
 }

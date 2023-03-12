@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
 
-//register
+
 export const registerUserAction = createAsyncThunk(
   "users/register",
   async (user, { rejectWithValue, getState, dispatch }) => {
     try {
-      //http call
+  
 
       const config = {
         headers: { "Content-Type": "application/json" },
@@ -58,7 +58,7 @@ export const logoutAction = createAsyncThunk(
   async (payload,{rejectWithValue,getState,dispatch})=>{
     try{
       localStorage.removeItem("userInfo");
-
+      
     }catch(error){
       if(!error?.response){
         throw error;
@@ -109,6 +109,7 @@ const usersSlices = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(loginUserAction.fulfilled, (state, action) => {
+
       state.userAuth = action?.payload;
       state.loading = false;
       state.appErr = undefined;
@@ -123,17 +124,21 @@ const usersSlices = createSlice({
         //logout
         builder.addCase(logoutAction.pending, (state, action) => {
           state.loading = false;
+          console.log(state);
         });
         builder.addCase(logoutAction.fulfilled, (state, action) => {
+          console.log(state);
           state.userAuth = undefined;
           state.loading = false;
           state.appErr = undefined;
           state.serverErr = undefined;
+          console.log(state);
         });
         builder.addCase(logoutAction.rejected, (state, action) => {
           state.appErr = action?.payload?.message;
           state.serverErr = action?.error?.message;
           state.loading = false;
+          console.log(state);
         });
       },
     });

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PagesHeaders from "../componentsDashboard/PagesHeaders";
 import {
   Avatar,
   Button,
   Card,
+  Pagination,
   Paper,
   Table,
   TableBody,
@@ -14,66 +15,46 @@ import {
   TableRow,
 } from "@mui/material";
 import styled from "@emotion/styled";
+import myService from "../servicedash/Service";
+import { useSelector } from "react-redux";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
-    backgroundColor: "#e0dbdb",
+
+    backgroundColor: theme.palette.mode === 'dark' ?   '#363535' :"#e0dbdb",
+ 
   },
+
 }));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#363535",
-    color: "white",
-    fontWeight: "bold",
+  
+  
+    fontWeight: 'bold',
   },
 }));
 
 export default function UserList() {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      firstName: "yass",
-      lastName: "yass",
-      email: "yass.yass@esprit.tn",
-      profilePhoto: "https://picsum.photos/200/300",
-      role: "admin",
-      associationName: "Esprit",
-      associationAddress: "123 Tunis",
-      associationPhone: "7452364",
-      isBlocked: false,
-      isBanned: false,
-      isAccountVerified: true,
-    },
-    {
-      id: 2,
-      firstName: "Eya",
-      lastName: "Eya",
-      email: "eya.eya@esprit.tn",
-      profilePhoto: "https://picsum.photos/200/300",
-      role: "user",
-      associationName: "HAHAHA",
-      associationAddress: "75 Rue blbalbala",
-      associationPhone: "6783646",
-      isBlocked: false,
-      isBanned: true,
-      isAccountVerified: false,
-    },
-    {
-      id: 3,
-      firstName: "Dorra",
-      lastName: "Dorra",
-      email: "dorra.dorra@esprit.tn",
-      profilePhoto: "https://picsum.photos/200/300",
-      role: "user",
-      associationName: "GGGGGG",
-      associationAddress: "645 NNNN",
-      associationPhone: "7986531",
-      isBlocked: true,
-      isBanned: false,
-      isAccountVerified: false,
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+  const store = useSelector( state => state?.users.userAuth.token
+    );
+    const [page, setPage] = useState(1);
+    const rowsPerPage = 5;
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    };
+  
+    const startIndex = (page - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+  useEffect(() => {
+    myService.getalluser(store).then((users) => {
+      console.log(users);
+      setUsers(users.data);
+    });
+  }, []);
+
   const handleBan = (user) => {
     console.log("yassss ");
   };
@@ -106,7 +87,7 @@ export default function UserList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
+            {users.slice(startIndex, endIndex).map((user) => (
               <StyledTableRow key={user.id}>
                 <TableCell>{user.firstName}</TableCell>
                 <TableCell>{user.lastName}</TableCell>
@@ -128,7 +109,7 @@ export default function UserList() {
                 <TableCell>
                   <Button
                     variant="outlined"
-                    color="secondary"
+                    color="error"
                     size="small"
                     onClick={() => handleBan(user)}
                     disabled={user.isBanned}
@@ -137,7 +118,7 @@ export default function UserList() {
                   </Button>
                   <Button
                     variant="outlined"
-                    color="primary"
+                    color="success"
                     size="small"
                     onClick={() => handleUnban(user)}
                     disabled={!user.isBanned}
@@ -149,6 +130,14 @@ export default function UserList() {
             ))}
           </TableBody>
         </Table>
+        <Pagination
+        sx={{ display: "flex", justifyContent: "center", my: 2 }}
+        count={Math.ceil(users.length / rowsPerPage)}
+        page={page}
+        onChange={handleChangePage}
+        variant="outlined"
+        shape="rounded"
+      />
       </TableContainer>
     </Card>
   );

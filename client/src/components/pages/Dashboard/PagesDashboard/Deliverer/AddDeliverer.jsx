@@ -2,7 +2,7 @@ import { Box, Card } from "@mui/material";
 
 import { Field, Form, Formik, useFormik } from "formik";
 import * as yup from "yup";
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   FormControl,
@@ -14,24 +14,49 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import PagesHeaders from "../componentsDashboard/PagesHeaders";
+import { MuiTelInput } from "mui-tel-input";
+import myService from "../../servicedash/Service";
+import PagesHeaders from "../../componentsDashboard/PagesHeaders";
+
+
 const validationSchema = yup.object({
   firstName: yup.string().required("First name is required"),
   isAvailable: yup.boolean().required("Availability is required"),
-  phone: yup.number().required("Phone number is required"),
+  phone:yup.string().required("phone is required")
 });
 export default function AddDeliverer() {
+  const [phone, setphone] = useState("+216");
   const formik = useFormik({
     initialValues: {
       firstName: "",
       isAvailable: "",
-      phone: "",
+      phone:"",
+    
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit:  (values) => {
+
+      const v = {
+        ...values,
+        phone: +phone.split(" ").slice(1).join(""),
+      };
+      console.log(v)
+    myService.Add(v)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    });
     },
     validationSchema: validationSchema,
   });
+
+  const handleChangephone = (event) => {
+    formik.handleChange(event);
+    console.log(event)
+    formik.setFieldValue("phone",event)
+    setphone(event);
+  };
   return (
     <Card style={{ padding: "20px", margin: "20px", boxSizing: "border-box" }}>
       <PagesHeaders
@@ -91,19 +116,25 @@ export default function AddDeliverer() {
                 {formik.touched.isAvailable && formik.errors.isAvailable}
               </FormHelperText>
             </FormControl>
-            <Typography variant="h6">Phone Number:</Typography>
-            <TextField
-            
-              id="phone"
-              label="Phone Number"
+            <Typography variant="h6">phone Number:</Typography>
+       
+                   <MuiTelInput
+              sx={{ gridColumn: "span 4" }}
+              fullWidth
               variant="outlined"
-              value={formik.values.phone}
-              onChange={formik.handleChange}
-              type="number"
-              name="phone"
+              value={phone}
+              onChange={handleChangephone}
               onBlur={formik.handleBlur}
-              error={formik.touched.phone && Boolean(formik.errors.phone)}
-              helperText={formik.touched.phone && formik.errors.phone}
+              error={
+                formik.touched.phone &&
+                Boolean(formik.errors.phone)
+              }
+              helperText={
+                formik.touched.phone &&
+                formik.errors.phone
+              }
+              name="phone"
+              inputProps={{ maxLength: 15 }}
             />
             <Button
               /* onClick={() => }*/ sx={{

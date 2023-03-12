@@ -21,6 +21,7 @@ import {
   Tooltip,
   LinearProgress,
   InputAdornment,
+  Typography,
 } from "@mui/material";
 
 import * as yup from "yup";
@@ -131,7 +132,7 @@ export default function RegisterDesign() {
       console.log(error);
     }
   }
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+ 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file.size >= 1048576) {
@@ -219,6 +220,12 @@ export default function RegisterDesign() {
         gridTemplateColumns="repeat(4,minmax(0,1fr))"
         sx={{ "&>div": { gridColumn: isnonMobile ? undefined : "span 4" } }}
       >
+   {appErr || serverErr ? (
+              <Typography Typography variant="h6" color="error" align="center" sx={{ mt: 2 , gridColumn: "span 4" }}     >
+                {serverErr} {appErr}{" "}
+              </Typography>
+            ) : null}
+
         <TextField
           fullWidth
           sx={{ gridColumn: "span 2" }}
@@ -305,23 +312,7 @@ export default function RegisterDesign() {
           }}
         />
      
-    {/*    
-        <TextField
-          sx={{ gridColumn: "span 4" }}
-          fullWidth
-          id="outlined-basic"
-          label="bio"
-          placeholder="Tell us about yourself..."
-          variant="outlined"
-          value={formik.values.bio}
-          multiline
-          maxRows={4}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.bio && Boolean(formik.errors.bio)}
-          helperText={formik.touched.bio && formik.errors.bio}
-          name="bio"
-        /> */}
+ 
         <FormControl
           error={formik.touched.role && Boolean(formik.errors.role)}
           sx={{ gridColumn: "span 4" }}
@@ -339,7 +330,7 @@ export default function RegisterDesign() {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={"Admin"}>Admin</MenuItem>
+            
             <MenuItem value={"SimpleUser"}>SimpleUser</MenuItem>
             <MenuItem value={"Association"}>Association</MenuItem>
           </Select>

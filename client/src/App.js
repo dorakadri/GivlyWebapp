@@ -1,15 +1,16 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import LandingPage from "./components/pages/UserInterface/landingcomponent/LandingPage";
-import Login from "./components/pages/Login";
+
 import Dashboard from "../src/components/pages/Dashboard/Dashboard";
 import Profilesimpleuser from "./components/pages/Navigation/Simpleuser/Profilesimpleuser";
-import Register from "./components/pages/Register";
+
 import { useSelector } from "react-redux";
-import AdminNavbar from "./components/pages/Navigation/Admin/AdminNavbar";
+
 import PrivateNavbar from "./components/pages/Navigation/Private/PrivateNavbar";
 import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/LoginDesign";
-import RegisterDesign from "./components/pages/UserInterface/LoginAndRegister/RegisterDesign";
+
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
+import { useEffect } from "react";
 
 function App() {
   const state = useSelector((state) => state?.users);
@@ -25,11 +26,13 @@ function App() {
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/login" element={<LoginDesign />} />
+     
         <Route
           exact
           path="/profile"
           element={
             <SimpleUserElement Role={Role}>
+                {/* hne biich tet7at the  profile page mte3 simple user */}
               <Profilesimpleuser />
             </SimpleUserElement>
           }
@@ -49,31 +52,50 @@ function App() {
           path="/association"
           element={
             <AssoElement Role={Role}>
-      
+      {/* hne biich tet7at the Assotiation profile page */}
               <PrivateNavbar />
             </AssoElement>
           }
         />
+       
       </Routes>
     </BrowserRouter>
   );
 }
 
 function SimpleUserElement({ children, Role }) {
-  if (Role === "SimpleUser") {
-    return <>{children}</>;
-  }  return <Navigate to={"/"}/>;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Role !== "SimpleUser") {
+      navigate(-1);
+    }
+  }, [navigate, Role]);
+
+  return Role === "SimpleUser" ? <>{children}</> : null;
 }
 
 function AdminElement({ children, Role }) {
-  if (Role === "Admin") {
-    return <>{children}</>;
-  } else return <div> u dont have access to this page </div>;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Role !== "Admin") {
+      navigate(-1);
+    }
+  }, [navigate, Role]);
+
+  return Role === "Admin" ? <>{children}</> : null;
 }
 
 function AssoElement({ children, Role }) {
-  if (Role === "Association") {
-    return <>{children}</>;
-  } else return <div> u dont have access to this page </div>;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Role !== "Association") {
+      navigate(-1);
+    }
+  }, [navigate, Role]);
+
+  return Role === "Association" ? <>{children}</> : null;
 }
 export default App;

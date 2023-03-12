@@ -9,6 +9,8 @@ import { themeSettings } from "./theme";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Box } from "@mui/system";
+import DelivererUpdate from "./PagesDashboard/Deliverer/DelivererUpdate";
+import UserListDataGrid from "./PagesDashboard/UserListDataGrid";
 
 const DashboardComponent = lazy(() =>
   import("./PagesDashboard/DashboardComponent")
@@ -16,8 +18,8 @@ const DashboardComponent = lazy(() =>
 const Layout = lazy(() => import("./PagesDashboard/Layout"));
 const UserList = lazy(() => import("./PagesDashboard/UserList"));
 
-const DelivererList = lazy(() => import("./PagesDashboard/DelivererList"));
-const AddDeliverer = lazy(() => import("./PagesDashboard/AddDeliverer"));
+const DelivererList = lazy(() => import("./PagesDashboard/Deliverer/DelivererList"));
+const AddDeliverer = lazy(() => import("./PagesDashboard/Deliverer/AddDeliverer"));
 const GiftList = lazy(() => import("./PagesDashboard/Gift/GiftList"));
 const AddGift = lazy(() => import("./PagesDashboard/Gift/AddGift"));
 const GiftUpdate = lazy(() => import("./PagesDashboard/Gift/GiftUpdate"));
@@ -48,11 +50,13 @@ function DashboardRoutes() {
               <Route element={<Layout />}>
              
                 <Route path="/dashboard" element={<DashboardComponent />} />
-                <Route path="userslist" element={<UserList />} />
+                <Route path="userslist" element={<UserListDataGrid />} />
                 <Route path="delivererlist" element={<DelivererList />} />
                 <Route path="adddeliverer" element={<AddDeliverer />} />
+                <Route path="delivererlist/update/:id" element={<DelivererUpdate />} />
                 <Route path="giftlist" element={<GiftList />} />
                 <Route path="giftlist/update/:id" element={<GiftUpdate />} />
+             
                 <Route path="addgift" element={<AddGift />} />
               </Route>
             </Routes>

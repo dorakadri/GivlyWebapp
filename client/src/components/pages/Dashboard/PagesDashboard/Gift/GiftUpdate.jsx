@@ -23,8 +23,8 @@ export default function GiftUpdate() {
     
   return (
     <Card style={{padding: '20px' ,margin: '20px', boxSizing: 'border-box', }}>
-    <PagesHeaders title="ADD GIFT" subtitle="Register a New Gift Product" />
-   <FormGift data={data}/>
+    <PagesHeaders title="UPDATE GIFT" subtitle="Register a New Gift Product" />
+   <FormGift data={data} update={true}/>
    </Card>
   )
 }

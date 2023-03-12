@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import { Field, Form, Formik, useFormik } from "formik";
 import {
@@ -7,6 +7,8 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
+  IconButton,
+  InputAdornment,
   TextField,
   Typography,
   useMediaQuery,
@@ -15,11 +17,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserAction } from "../../../../ReduxB/slices/users/usersSlices";
 import { Navigate } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 const validationSchema = yup.object({
   email: yup.string().email("invalid email").required("email is required"),
   password: yup.string().required(" password is required"),
 });
 export default function Loginform() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const isnonMobile = useMediaQuery("(min-width :600px)");
   const dispatch = useDispatch();
   const initialValues = {
@@ -37,13 +43,13 @@ export default function Loginform() {
   });
   const store = useSelector((state) => state?.users);
   console.log(store);
-  const { userAuth, loading } = store;
+  const {userAuth, loading ,serverErr, appErr} = store;
 
   if (userAuth) {
     if (userAuth?.role === "Admin") {
       return <Navigate to="/admin/dashboard" />;
     }
-    return <Navigate to="/profile" />;
+    return <Navigate to="/" />;
   }
 
   return (
@@ -55,6 +61,12 @@ export default function Loginform() {
         gridTemplateColumns="repeat(4,minmax(0,1fr))"
         sx={{ "&>div": { gridColumn: isnonMobile ? undefined : "span 4" } }}
       >
+          {appErr || serverErr ? (
+              <Typography  variant="h6" color="error" align="center" sx={{ mt: 2 , gridColumn: "span 4" }}     >
+                {serverErr} {appErr}{" "}
+              </Typography>
+            ) : null}
+
    
         <TextField
           sx={{ gridColumn: "span 4" }}
@@ -73,7 +85,7 @@ export default function Loginform() {
    
         <TextField
           sx={{ gridColumn: "span 4" }}
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           id="outlined-basic"
           label="password"
           placeholder="password "
@@ -84,6 +96,19 @@ export default function Loginform() {
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
           name="password"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            )
+          }}
         />
       </Box>
       <Box

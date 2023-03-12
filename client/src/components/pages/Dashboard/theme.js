@@ -113,7 +113,7 @@ export const tokensDark = {
                 main: tokensDark.grey[500],
               },
               background: {
-                default:" #f5f5f5",
+                default:"rgba(245, 245, 245, 1)",
                 alt:"linear-gradient(to top, #ece9e6, #ffffff)",
                 nav: "linear-gradient(to top, #ece9e6, #ffffff)",
               },

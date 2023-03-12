@@ -7,7 +7,7 @@ const DeliveryMenSchema = new mongoose.Schema(
       required: [true, "First name is required"],
       type: String,
     },
-    Phone: {
+    phone: {
       required: [true, "phone is required"],
       type: Number,
     },
