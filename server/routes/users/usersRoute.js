@@ -3,9 +3,9 @@ const express = require("express");
 const {
   userRegisterCtrl,
   loginUserCtrl,
+  userProfileCtrl,
   fetchUsersCtrl,
   updateUserCtrl,
-  updateUserPasswordCtrl,
   banUserCtrl,
   unbanUserCtrl,
   generateVerificationTokenCtrl,
@@ -37,6 +37,9 @@ userRoutes.post(
 
 // login if not banned
 userRoutes.post("/login", loginUserCtrl);
+// profile
+userRoutes.get("/profile/:id", authMiddleware, userProfileCtrl);
+userRoutes.put("/", authMiddleware, updateUserCtrl);
 // Password reset
 userRoutes.post("/forget-password-token", forgetPasswordToken);
 userRoutes.put("/reset-password", passwordResetCtrl);
@@ -44,16 +47,17 @@ userRoutes.put("/reset-password", passwordResetCtrl);
 userRoutes.get("/", authMiddleware, isAdmin, fetchUsersCtrl);
 // Password
 
-userRoutes.put("/password", authMiddleware, updateUserPasswordCtrl);
+//userRoutes.put("/password", authMiddleware, updateUserPasswordCtrl);
 userRoutes.post(
   "/generate-verify-email-token",
   authMiddleware,
   generateVerificationTokenCtrl
 );
 userRoutes.put("/verify-account/", authMiddleware, accountVerificationCtrl);
-userRoutes.put("/:id", authMiddleware, updateUserCtrl);
+
 // ban unban user
 userRoutes.put("/ban-user/:id", banUserCtrl);
 userRoutes.put("/unban-user/:id", unbanUserCtrl);
+
 
 module.exports = userRoutes;

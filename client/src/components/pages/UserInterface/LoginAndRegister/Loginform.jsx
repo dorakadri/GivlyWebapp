@@ -44,7 +44,7 @@ export default function Loginform() {
   });
   const store = useSelector((state) => state?.users);
   console.log(store);
-  const {userAuth, loading ,serverErr, appErr} = store;
+  const { userAuth, loading, serverErr, appErr } = store;
 
   if (userAuth) {
     if (userAuth?.role === "Admin") {
@@ -55,20 +55,23 @@ export default function Loginform() {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-    
       <Box
         display="grid"
         gap="30px"
         gridTemplateColumns="repeat(4,minmax(0,1fr))"
         sx={{ "&>div": { gridColumn: isnonMobile ? undefined : "span 4" } }}
       >
-          {appErr || serverErr ? (
-              <Typography  variant="h6" color="error" align="center" sx={{ mt: 2 , gridColumn: "span 4" }}     >
-                {serverErr} {appErr}{" "}
-              </Typography>
-            ) : null}
+        {appErr || serverErr ? (
+          <Typography
+            variant="h6"
+            color="error"
+            align="center"
+            sx={{ mt: 2, gridColumn: "span 4" }}
+          >
+            {serverErr} {appErr}{" "}
+          </Typography>
+        ) : null}
 
-   
         <TextField
           sx={{ gridColumn: "span 4" }}
           id="name"
@@ -83,10 +86,10 @@ export default function Loginform() {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
         />
-   
+
         <TextField
           sx={{ gridColumn: "span 4" }}
-          type={showPassword ? 'text' : 'password'}
+          type={showPassword ? "text" : "password"}
           id="outlined-basic"
           label="password"
           placeholder="password "
@@ -108,54 +111,45 @@ export default function Loginform() {
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
         />
       </Box>
       <Box
-  sx={{
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gridColumn: "span 4",
-    alignItems:"center",
-    m:"1rem auto",
-  }}
->
-  <FormControlLabel
-    control={<Checkbox />}
-    label="Remember Me"
- 
-  />
-  
-  <Typography
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          gridColumn: "span 4",
+          alignItems: "center",
+          m: "1rem auto",
+        }}
+      >
+        <FormControlLabel control={<Checkbox />} label="Remember Me" />
 
-    sx={{
-      fontStyle: "italic",
-      color: "grey",
-      "&:hover": {
-        cursor: "pointer",
-        color: "green",
-      },
-    }}
-  >
-     <Link to="/password-reset-token" style={{ textDecoration: "none" }}>
-     forget password ?
+        <Typography
+          sx={{
+            fontStyle: "italic",
+            color: "grey",
+            "&:hover": {
+              cursor: "pointer",
+              color: "green",
+            },
+          }}
+        >
+          <Link to="/password-reset-token" style={{ textDecoration: "none" }}>
+            forget password ?
           </Link>
-  
-  </Typography>
-</Box>
+        </Typography>
+      </Box>
       <Box>
-    
         {loading ? (
           <Button
-            sx={{  width: "100%",   p: "1rem",  mt:"0",
-            mb:"2rem", }}
+            sx={{ width: "100%", p: "1rem", mt: "0", mb: "2rem" }}
             variant="contained"
             size="large"
             color="error"
             disabled
-         
           >
             Loading....
           </Button>
@@ -169,8 +163,8 @@ export default function Loginform() {
               border: "none",
               fontWeight: " bold",
               cursor: "pointer",
-              mt:"0",
-              mb:"2rem",
+              mt: "0",
+              mb: "2rem",
               p: "1rem",
               textAlign: "center",
 
@@ -180,8 +174,6 @@ export default function Loginform() {
             LOGIN
           </Button>
         )}
-     
-     
       </Box>
     </form>
   );

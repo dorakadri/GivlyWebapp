@@ -11,6 +11,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Box } from "@mui/system";
 import DelivererUpdate from "./PagesDashboard/Deliverer/DelivererUpdate";
 import UserListDataGrid from "./PagesDashboard/UserListDataGrid";
+import UpdateProfile from "../../shared/UpdateProfile";
 
 const DashboardComponent = lazy(() =>
   import("./PagesDashboard/DashboardComponent")
@@ -56,7 +57,7 @@ function DashboardRoutes() {
                 <Route path="delivererlist/update/:id" element={<DelivererUpdate />} />
                 <Route path="giftlist" element={<GiftList />} />
                 <Route path="giftlist/update/:id" element={<GiftUpdate />} />
-             
+              <Route exact path="/update/:id" element={<UpdateProfile/>} />
                 <Route path="addgift" element={<AddGift />} />
               </Route>
             </Routes>

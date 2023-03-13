@@ -5,6 +5,7 @@ const store = configureStore({
   reducer: {
     users: usersReducer,
     dashboard: globalReducer,
+    
   },
 });
 
