@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
 
-//register
+
 export const registerUserAction = createAsyncThunk(
   "users/register",
   async (user, { rejectWithValue, getState, dispatch }) => {
     try {
-      //http call
+  
 
       const config = {
         headers: { "Content-Type": "application/json" },
@@ -51,11 +51,35 @@ export const loginUserAction = createAsyncThunk(
     }
   }
 );
+//logout action 
+
+export const logoutAction = createAsyncThunk(
+  '/user/logout',
+  async (payload,{rejectWithValue,getState,dispatch})=>{
+    try{
+      localStorage.removeItem("userInfo");
+      
+    }catch(error){
+      if(!error?.response){
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+
+    }
+  }
+)
+
+//get user from local storge
+const userLoginFromStorage = localStorage.getItem('userInfo') 
+? JSON.parse(localStorage.getItem("userInfo"))
+: null;
+
 
 const usersSlices = createSlice({
   name: "users",
   initialState: {
-    userAuth: "login",
+    userAuth :userLoginFromStorage
+   
   },
 
   extraReducers: (builder) => {
@@ -85,6 +109,7 @@ const usersSlices = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(loginUserAction.fulfilled, (state, action) => {
+
       state.userAuth = action?.payload;
       state.loading = false;
       state.appErr = undefined;
@@ -95,7 +120,28 @@ const usersSlices = createSlice({
       state.serverErr = action?.error?.message;
       state.loading = false;
     });
-  },
-});
+
+        //logout
+        builder.addCase(logoutAction.pending, (state, action) => {
+          state.loading = false;
+          console.log(state);
+        });
+        builder.addCase(logoutAction.fulfilled, (state, action) => {
+          console.log(state);
+          state.userAuth = undefined;
+          state.loading = false;
+          state.appErr = undefined;
+          state.serverErr = undefined;
+          console.log(state);
+        });
+        builder.addCase(logoutAction.rejected, (state, action) => {
+          state.appErr = action?.payload?.message;
+          state.serverErr = action?.error?.message;
+          state.loading = false;
+          console.log(state);
+        });
+      },
+    });
+    
 
 export default usersSlices.reducer;

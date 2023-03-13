@@ -4,7 +4,9 @@ dotenv.config();
 const dbConnect = require("./config/db/dbConnect");
 const userRoutes = require("./routes/users/usersRoute");
 const deliveryMensRoutes = require("./routes/deliveryMens/deliveryMensRoute");
+
 const giftsRoutes = require("./routes/gifts/giftsRoute");
+
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
 
@@ -12,10 +14,18 @@ const app = express();
 //DB
 dbConnect();
 
-app.use(cors());
+
+
+app.use(cors({
+    origin: "http://localhost:3000",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+}));
 
 //Middleware
 app.use(express.json());
+
+
 
 //Users route
 app.use("/api/users", userRoutes);

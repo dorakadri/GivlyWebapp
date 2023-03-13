@@ -1,4 +1,5 @@
 const express = require("express");
+
 const {
   userRegisterCtrl,
   loginUserCtrl,
@@ -24,12 +25,16 @@ const {
 
 const userRoutes = express.Router();
 //done
+
+
 userRoutes.post(
   "/register",
   profilePhotoUpload.single("profilePhoto"),
   profilePhotoResize,
   userRegisterCtrl
 );
+
+
 // login if not banned
 userRoutes.post("/login", loginUserCtrl);
 // Password reset
