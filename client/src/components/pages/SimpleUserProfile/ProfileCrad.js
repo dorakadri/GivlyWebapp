@@ -16,13 +16,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { Box, Stack } from '@mui/system';
 import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
 import CardGiftcardOutlinedIcon from '@mui/icons-material/CardGiftcardOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
+import { Link } from "react-router-dom";
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -45,9 +44,10 @@ export default function ProfileCrad() {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
+      <CardHeader sx= {{justifyContent:'center',display:'flex'}}
         avatar={
           <Avatar   sx={{ width: 150, height: 150,
+            margin:'auto'
            
           }}
           src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -129,10 +129,11 @@ sx= {{
 Posts
         </Typography>
         </Box>
-        
-        <Button variant="contained" style={{ background: '#008B8B' }}>
-  Edit
-</Button>
+        <Typography pt="1rem">
+        <Link to="/register" style={{ textDecoration: "none" }}>
+            edit
+          </Link>
+          </Typography>
 </Stack>
 
       </CardContent>

@@ -11,6 +11,7 @@ import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/Login
 
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
 import { useEffect } from "react";
+import ProfilePage from "./components/pages/SimpleUserProfile/ProfilePage";
 
 function App() {
   const state = useSelector((state) => state?.users);
@@ -33,7 +34,7 @@ function App() {
           element={
             <SimpleUserElement Role={Role}>
                 {/* hne biich tet7at the  profile page mte3 simple user */}
-              <Profilesimpleuser />
+              <ProfilePage/>
             </SimpleUserElement>
           }
         />
