@@ -11,6 +11,8 @@ import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/Login
 
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
 import { useEffect } from "react";
+import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
+import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
 
 function App() {
   const state = useSelector((state) => state?.users);
@@ -26,7 +28,9 @@ function App() {
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/login" element={<LoginDesign />} />
-     
+        <Route exact path="/password-reset-token" element={<ResetPasswordForm />} />
+        <Route exact path="/reset-password/:token" element={<ResetPassword/>} />
+        {userAuth && <Route exact path="/reset-password/:token" element={<ResetPassword/>} />}
         <Route
           exact
           path="/profile"

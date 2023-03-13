@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUserAction } from "../../../../ReduxB/slices/users/usersSlices";
 import { Navigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup.string().email("invalid email").required("email is required"),
@@ -128,6 +129,7 @@ export default function Loginform() {
   />
   
   <Typography
+
     sx={{
       fontStyle: "italic",
       color: "grey",
@@ -137,7 +139,10 @@ export default function Loginform() {
       },
     }}
   >
-    forget password ?
+     <Link to="/password-reset-token" style={{ textDecoration: "none" }}>
+     forget password ?
+          </Link>
+  
   </Typography>
 </Box>
       <Box>
