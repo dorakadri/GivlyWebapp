@@ -36,6 +36,8 @@ const ExpandMore = styled((props) => {
 
 export default function ProfileCrad() {
   const [expanded, setExpanded] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -45,7 +47,11 @@ export default function ProfileCrad() {
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
-          <Avatar  sx={{ width: 70, height: 50}} >
+          <Avatar   sx={{ width: 150, height: 150,
+           
+          }}
+          src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          onClick={(e) => setOpen(true)} >
            
           </Avatar>
         }
@@ -124,7 +130,7 @@ Posts
         </Typography>
         </Box>
         
-        <Button variant="contained" color="success">
+        <Button variant="contained" style={{ background: '#008B8B' }}>
   Edit
 </Button>
 </Stack>
