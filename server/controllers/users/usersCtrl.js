@@ -92,16 +92,19 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//Update profile done
-
+//------------------------------
+//Update profile
+//------------------------------
 const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
   validateMongodbId(_id);
   const user = await User.findByIdAndUpdate(
     _id,
     {
-      ...req.body,
-      user: req.user?._id,
+      firstName: req?.body?.firstName,
+      lastName: req?.body?.lastName,
+      email: req?.body?.email,
+   profilePhoto: req?.body?.profilePhoto,
     },
     {
       new: true,
@@ -111,8 +114,27 @@ const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user);
 });
 
-//Update password  done
+//Update profile done
+/*
+const updateUserCtrl = expressAsyncHandler(async (req, res) => {
+  const { _id } = req?.user;
+  validateMongodbId(_id);
+  const user = await User.findByIdAndUpdate(
+    _id,
+    {
 
+      user: req.user?._id,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.json(user);
+});
+*/
+//Update password  done
+/*
 const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
  const { _id } = req.user;
  const { newpassword, password } = req.body;
@@ -140,7 +162,7 @@ const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
    });
  }
 });
-
+*/
 // ban user
 
 const banUserCtrl = expressAsyncHandler(async (req, res) => {
@@ -285,13 +307,14 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
   await user.save();
   res.json(user);
 });
+
 module.exports = {
+  userProfileCtrl,
   userRegisterCtrl,
   loginUserCtrl,
   fetchUsersCtrl,
   userProfileCtrl,
   updateUserCtrl,
-  updateUserPasswordCtrl,
   banUserCtrl,
   unbanUserCtrl,
   accountVerificationCtrl,

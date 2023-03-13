@@ -1,13 +1,18 @@
 import { Avatar, Button, Card } from '@mui/material';
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import myService from '../servicedash/Service';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import PagesHeaders from '../componentsDashboard/PagesHeaders';
 import { Box } from '@mui/system';
+import { useDispatch, useSelector } from "react-redux";
+import {
+  banUserAction,
+  unbanUserAction,
+} from "../../../../ReduxB/slices/users/usersSlices";
 
   
 export default function UserListDataGrid() {
+   const dispatch = useDispatch();
     const columns = [
         { field: 'firstName', headerName: 'First Name', width: 150 },
         { field: 'lastName', headerName: 'Last Name', width: 150 },
@@ -54,13 +59,22 @@ export default function UserListDataGrid() {
           setUsers(users.data);
         });
       }, []);
-      const handleBan = (user) => {
-        console.log("yassss ");
-      };
-    
-      const handleUnban = (user) => {
-        console.log("yassss ");
-      };
+    const handleBan = (user) => {
+      console.log(user);
+      const updatedUsers = users.map((u) =>
+        u.id === user.id ? { ...u, isBanned: true } : u
+      );
+      setUsers(updatedUsers);
+      dispatch(banUserAction(user.id));
+    };
+
+    const handleUnban = (user) => {
+      const updatedUsers = users.map((u) =>
+        u.id === user.id ? { ...u, isBanned: false } : u
+      );
+      setUsers(updatedUsers);
+      dispatch(unbanUserAction(user.id));
+    };
   return (
     <Card style={{ padding: "20px", margin: "20px", boxSizing: "border-box" }}>
       <PagesHeaders
