@@ -35,7 +35,7 @@ export default function DelivererUpdate() {
     myService.GetDelivererId(id).then((response) => {
   
      setData(response.data)
-     //setphone(response.data.phone)
+
       console.log(response)
     });
   }, []);

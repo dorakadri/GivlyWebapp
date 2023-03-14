@@ -52,9 +52,7 @@ export default function Givlyapp() {
           The place for anyone from anywhere to donate anything
         </Title>
         <Typography variant="body1">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-          nam vero eligendi. Distinctio error, magnam eum quam a earum tempora
-          laudantium ea. Cumque eius labore culpa commodi odit iste? Error.
+        we facilitate the act of giving by providing a safe and secure platform for donations, making it easy for anyone to make a positive difference in the world.
         </Typography>
         <Stack
           direction={{ xs: "column", sm: "row" }}
@@ -77,7 +75,7 @@ export default function Givlyapp() {
                   color: "black",
                   backgroundColor: "#38BC73",
                 },
-                width: "150px", // set the width of the button
+                width: "150px", 
        
               }}
             >Sign up </Button>
