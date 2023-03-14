@@ -2,15 +2,12 @@ import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
 
-
 const resetUserAction = createAction("user/profile/reset");
 
 export const registerUserAction = createAsyncThunk(
   "users/register",
   async (user, { rejectWithValue, getState, dispatch }) => {
     try {
-  
-
       const config = {
         headers: { "Content-Type": "application/json" },
       };
@@ -53,7 +50,7 @@ export const loginUserAction = createAsyncThunk(
     }
   }
 );
-//logout action 
+//logout action
 //Block User
 export const banUserAction = createAsyncThunk(
   "user/block",
@@ -106,20 +103,18 @@ export const unbanUserAction = createAsyncThunk(
   }
 );
 export const logoutAction = createAsyncThunk(
-  '/user/logout',
-  async (payload,{rejectWithValue,getState,dispatch})=>{
-    try{
+  "/user/logout",
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    try {
       localStorage.removeItem("userInfo");
-      
-    }catch(error){
-      if(!error?.response){
+    } catch (error) {
+      if (!error?.response) {
         throw error;
       }
       return rejectWithValue(error?.response?.data);
-
     }
   }
-)
+);
 
 export const passwordResetTokenAction = createAsyncThunk(
   "password/token",
@@ -146,7 +141,6 @@ export const passwordResetTokenAction = createAsyncThunk(
   }
 );
 
-
 export const passwordResetAction = createAsyncThunk(
   "password/reset",
   async (user, { rejectWithValue, getState, dispatch }) => {
@@ -155,7 +149,7 @@ export const passwordResetAction = createAsyncThunk(
         "Content-Type": "application/json",
       },
     };
- 
+
     try {
       const { data } = await axios.put(
         `http://localhost:5000/api/users/reset-password`,
@@ -175,7 +169,6 @@ export const passwordResetAction = createAsyncThunk(
 export const updateUserAction = createAsyncThunk(
   "users/update",
   async (userData, { rejectWithValue, getState, dispatch }) => {
-   
     const user = getState()?.users;
     const { userAuth } = user;
     const config = {
@@ -183,7 +176,7 @@ export const updateUserAction = createAsyncThunk(
         Authorization: `Bearer ${userAuth?.token}`,
       },
     };
-  
+
     try {
       const { data } = await axios.put(
         `http://localhost:5000/api/users`,
@@ -192,7 +185,7 @@ export const updateUserAction = createAsyncThunk(
           firstName: userData?.firstName,
           bio: userData?.bio,
           email: userData?.email,
-          profilePhoto:userData?.profilePhoto
+          profilePhoto: userData?.profilePhoto,
         },
         config
       );
@@ -212,7 +205,7 @@ export const userProfileAction = createAsyncThunk(
     //get user token
     const user = getState()?.users;
     const { userAuth } = user;
-    console.log(userAuth)
+    console.log(userAuth);
     const config = {
       headers: {
         Authorization: `Bearer ${userAuth?.token}`,
@@ -235,16 +228,14 @@ export const userProfileAction = createAsyncThunk(
 );
 
 //get user from local storge
-const userLoginFromStorage = localStorage.getItem('userInfo') 
-? JSON.parse(localStorage.getItem("userInfo"))
-: null;
-
+const userLoginFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
 
 const usersSlices = createSlice({
   name: "users",
   initialState: {
-    userAuth :userLoginFromStorage
-   
+    userAuth: userLoginFromStorage,
   },
 
   extraReducers: (builder) => {
@@ -266,7 +257,6 @@ const usersSlices = createSlice({
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
     });
-
 
     //login slice
     builder.addCase(loginUserAction.pending, (state, action) => {
@@ -340,7 +330,7 @@ const usersSlices = createSlice({
       state.loading = false;
       console.log(state);
     });
-  },
+
     //Profile
     builder.addCase(userProfileAction.pending, (state, action) => {
       state.loading = true;
@@ -382,7 +372,7 @@ const usersSlices = createSlice({
       state.serverErr = action?.error?.message;
     });
 
-    //PAssword Reset Token 
+    //PAssword Reset Token
     builder.addCase(passwordResetTokenAction.pending, (state, action) => {
       state.loading = true;
       state.appErr = undefined;
@@ -417,28 +407,7 @@ const usersSlices = createSlice({
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
     });
-
-    
-        builder.addCase(logoutAction.pending, (state, action) => {
-          state.loading = false;
-          console.log(state);
-        });
-        builder.addCase(logoutAction.fulfilled, (state, action) => {
-          console.log(state);
-          state.userAuth = undefined;
-          state.loading = false;
-          state.appErr = undefined;
-          state.serverErr = undefined;
-          console.log(state);
-        });
-        builder.addCase(logoutAction.rejected, (state, action) => {
-          state.appErr = action?.payload?.message;
-          state.serverErr = action?.error?.message;
-          state.loading = false;
-          console.log(state);
-        });
-      },
-    });
-    
+  },
+});
 
 export default usersSlices.reducer;
