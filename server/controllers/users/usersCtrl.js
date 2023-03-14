@@ -13,7 +13,7 @@ sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
 const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email: req?.body?.email });
-  //const localPath = `public/images/profile/${req.file.filename}`;
+  //const localPath = public/images/profile/${req.file.filename};
   //const imgUploaded = await cloudinaryUploadImg(localPath);
   if (userExists) throw new Error("User already exists");
   try {
@@ -93,9 +93,8 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//------------------------------
-//Update profile
-//------------------------------
+//Update profile done
+
 const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
   validateMongodbId(_id);
@@ -105,7 +104,8 @@ const updateUserCtrl = expressAsyncHandler(async (req, res) => {
       firstName: req?.body?.firstName,
       lastName: req?.body?.lastName,
       email: req?.body?.email,
-   profilePhoto: req?.body?.profilePhoto,
+      bio: req?.body?.bio,
+      profilePhoto: req?.body?.profilePhoto,
     },
     {
       new: true,
@@ -115,27 +115,8 @@ const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user);
 });
 
-//Update profile done
-/*
-const updateUserCtrl = expressAsyncHandler(async (req, res) => {
-  const { _id } = req?.user;
-  validateMongodbId(_id);
-  const user = await User.findByIdAndUpdate(
-    _id,
-    {
-
-      user: req.user?._id,
-    },
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
-  res.json(user);
-});
-*/
 //Update password  done
-/*
+
 const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
  const { _id } = req.user;
  const { newpassword, password } = req.body;
@@ -163,7 +144,7 @@ const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
    });
  }
 });
-*/
+
 // ban user
 
 const banUserCtrl = expressAsyncHandler(async (req, res) => {
@@ -208,7 +189,7 @@ const generateVerificationTokenCtrl = expressAsyncHandler(async (req, res) => {
     console.log(verificationToken);
     //build your message
 
-    const resetURL = `If you were requested to verify your account, verify now within 10 minutes, otherwise ignore this message <a href="http://localhost:3000/verify-account/${verificationToken}">Click to verify your account</a>`;
+    const resetURL =` If you were requested to verify your account, verify now within 10 minutes, otherwise ignore this message <a href="http://localhost:3000/verify-account/${verificationToken}">Click to verify your account</a>`;
     const msg = {
       to: user?.email,
       from: "givly2023@gmail.com",

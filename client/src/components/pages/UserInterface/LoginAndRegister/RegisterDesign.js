@@ -2,8 +2,9 @@ import styled from "@emotion/styled";
 import React, { useState } from "react";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { MuiTelInput } from "mui-tel-input";
-
+import ReCAPTCHA from "react-google-recaptcha";
 import GoogleIcon from "@mui/icons-material/Google";
+
 
 import {
   Box,
@@ -77,6 +78,7 @@ const validationSchema = yup.object({
   associationPhone: yup.string(),
 });
 export default function RegisterDesign() {
+  const [verified , setVerified] = useState(false);
   const [image, setImage] = useState(null);
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -112,6 +114,10 @@ export default function RegisterDesign() {
     },
     validationSchema: validationSchema,
   });
+  function onChange(value) {
+		console.log("Captcha value:",value);
+		setVerified(true);  
+	}
 
   async function uploadImage() {
     const data = new FormData();
@@ -399,6 +405,11 @@ export default function RegisterDesign() {
           </>
         )}
       </Box>
+      <ReCAPTCHA
+					sitekey="6Lekee4kAAAAAKm9bvcVtM9o4qeDS1hga6FrNaUc"
+
+					onChange= {onChange}
+					/>
       {loading ? (
         <Button
           sx={{ mt: "2rem", width: "100%" }}
@@ -420,17 +431,20 @@ export default function RegisterDesign() {
           variant="contained"
           size="large"
           type="submit"
+          disabled= {!verified}
         >
           Sign Up
         </Button>
       )}
-      <Button
+      <Button 
+      disabled= {!verified}
         sx={{ mt: "2rem", width: "100%" }}
         variant="contained"
         startIcon={<GoogleIcon />}
       >
         Sign up with Google
       </Button>
+     
     </form>
   );
 }
