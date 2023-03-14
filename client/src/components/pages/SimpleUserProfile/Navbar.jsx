@@ -14,6 +14,7 @@ import {
 import  { useState } from "react";
 
 import React from 'react'
+import { Link, useNavigate } from "react-router-dom";
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
     justifyContent: "space-between",
@@ -45,8 +46,10 @@ const StyledToolbar = styled(Toolbar)({
       display: "none",
     },
   }));
-export default function Navbar() {
+export default function Navbar(data) {
 const [open, setOpen] = useState(false);
+const navigate=useNavigate();
+console.log(data);
 
   return (
     <AppBar position="sticky" style={{ background: '#008B8B' }}>
@@ -67,7 +70,7 @@ const [open, setOpen] = useState(false);
         </Badge>
         <Avatar
           sx={{ width: 30, height: 30 }}
-          src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          src={data?.profileurl}
           onClick={(e) => setOpen(true)}
         />
       </Icons>
@@ -93,7 +96,7 @@ const [open, setOpen] = useState(false);
         horizontal: "right",
       }}
     >
-      <MenuItem>Profile</MenuItem>
+      <MenuItem  onClick={() => navigate(`./profile`)} >Profile</MenuItem>
       <MenuItem>My account</MenuItem>
       <MenuItem>Logout</MenuItem>
     </Menu>

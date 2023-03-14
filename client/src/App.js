@@ -3,7 +3,7 @@ import LandingPage from "./components/pages/UserInterface/landingcomponent/Landi
 
 import Dashboard from "../src/components/pages/Dashboard/Dashboard";
 import Profilesimpleuser from "./components/pages/Navigation/Simpleuser/Profilesimpleuser";
-
+import SimpleUserProfileEdit from "./components/pages/SimpleUserProfile/SimpleUserProfileEdit"
 import { useSelector } from "react-redux";
 
 import PrivateNavbar from "./components/pages/Navigation/Private/PrivateNavbar";
@@ -12,6 +12,7 @@ import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/Login
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
 import { useEffect } from "react";
 import ProfilePage from "./components/pages/SimpleUserProfile/ProfilePage";
+import SimpleUserProfile from "./components/pages/SimpleUserProfile/SimpleUserProfile";
 
 function App() {
   const state = useSelector((state) => state?.users);
@@ -19,7 +20,6 @@ function App() {
   const isAdmin = userAuth?.isAdmin;
   const Role = userAuth?.role;
 
-  console.log("lala " + userAuth);
   return (
     <BrowserRouter>
       <Routes>
@@ -28,16 +28,17 @@ function App() {
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/login" element={<LoginDesign />} />
      
-        <Route
+             <Route
           exact
-          path="/profile"
+          path="/user/*"
           element={
             <SimpleUserElement Role={Role}>
-                {/* hne biich tet7at the  profile page mte3 simple user */}
-              <ProfilePage/>
-            </SimpleUserElement>
+              <SimpleUserProfile />
+              </SimpleUserElement>
           }
         />
+               
+        
         <Route
           exact
           path="/admin/*"

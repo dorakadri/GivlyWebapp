@@ -20,7 +20,14 @@ import { Box, Stack } from '@mui/system';
 import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
 import CardGiftcardOutlinedIcon from '@mui/icons-material/CardGiftcardOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {useState,useEffect} from "react";
+import {
+
+  userProfileAction,
+}
+ from "../../../ReduxB/slices/users/usersSlices"
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -33,24 +40,25 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function ProfileCrad() {
-  const [expanded, setExpanded] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-
-
+export default function ProfileCrad({data}) {
+  const [expanded, setExpanded] = useState(false);
+  const [open, setOpen] = useState(false);
+  const navigate=useNavigate();
+  console.log(data);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardHeader sx= {{justifyContent:'center',display:'flex'}}
+    <Card     sx={{alignItems: "center" ,display:"flex",flexDirection:"column",textAlign:"center"}}>
+      <CardHeader 
+   
         avatar={
           <Avatar   sx={{ width: 150, height: 150,
-            margin:'auto'
+            
            
           }}
-          src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          src={data?.profilePhoto}
           onClick={(e) => setOpen(true)} >
            
           </Avatar>
@@ -68,7 +76,7 @@ export default function ProfileCrad() {
 
         }
         gutterBottom variant='h5'component='div'>
-            John Doo
+            {data?.firstName} {data?.lastName}
         </Typography>
         <Box sx= {{
             display:"flex",
@@ -81,8 +89,8 @@ export default function ProfileCrad() {
         <EmailOutlinedIcon />
         <Typography variant='body2' color='text.secondary'
         >
-John.Doo@gmail.com
 
+{data?.email}
         </Typography>
         </Box>
         <Box sx= {{
@@ -129,11 +137,30 @@ sx= {{
 Posts
         </Typography>
         </Box>
-        <Typography pt="1rem">
-        <Link to="/register" style={{ textDecoration: "none" }}>
+        <Button
+            fullWidth
+            type="submit"
+            sx={{
+              backgroundColor: "#06A696",
+              color: " white",
+              border: "none",
+              fontWeight: " bold",
+              cursor: "pointer",
+              mt:"0",
+              mb:"2rem",
+              p: "1rem",
+              textAlign: "center",
+           
+              "&:hover": { color: "white", backgroundColor: "#06A696" },
+            }}
+   
+            onClick={() => navigate(`./update/${ data?._id}`)}
+          > 
+      
             edit
-          </Link>
-          </Typography>
+   
+          </Button>
+          
 </Stack>
 
       </CardContent>

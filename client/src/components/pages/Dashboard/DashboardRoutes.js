@@ -56,7 +56,6 @@ function DashboardRoutes() {
                 <Route path="delivererlist/update/:id" element={<DelivererUpdate />} />
                 <Route path="giftlist" element={<GiftList />} />
                 <Route path="giftlist/update/:id" element={<GiftUpdate />} />
-             
                 <Route path="addgift" element={<AddGift />} />
               </Route>
             </Routes>
