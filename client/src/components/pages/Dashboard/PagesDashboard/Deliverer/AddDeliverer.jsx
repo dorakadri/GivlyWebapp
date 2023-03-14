@@ -17,6 +17,7 @@ import {
 import { MuiTelInput } from "mui-tel-input";
 import myService from "../../servicedash/Service";
 import PagesHeaders from "../../componentsDashboard/PagesHeaders";
+import { useNavigate } from "react-router-dom";
 
 
 const validationSchema = yup.object({
@@ -26,6 +27,7 @@ const validationSchema = yup.object({
 });
 export default function AddDeliverer() {
   const [phone, setphone] = useState("+216");
+  const navigate=useNavigate();
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -47,7 +49,9 @@ export default function AddDeliverer() {
     .catch((error) => {
       console.log(error)
     });
+    navigate("/admin/delivererlist")
     },
+
     validationSchema: validationSchema,
   });
 

@@ -2,38 +2,33 @@ import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-route
 import LandingPage from "./components/pages/UserInterface/landingcomponent/LandingPage";
 
 import Dashboard from "../src/components/pages/Dashboard/Dashboard";
-import Profilesimpleuser from "./components/pages/Navigation/Simpleuser/Profilesimpleuser";
 
 import { useSelector } from "react-redux";
-
-import PrivateNavbar from "./components/pages/Navigation/Private/PrivateNavbar";
 import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/LoginDesign";
-
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
 import { useEffect } from "react";
-
+import SimpleUserProfile from "./components/pages/SimpleUserProfile/SimpleUserProfile";
+import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
+import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
+import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
 function App() {
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
-  const isAdmin = userAuth?.isAdmin;
   const Role = userAuth?.role;
 
-  console.log("lala " + userAuth);
+  
   return (
     <BrowserRouter>
       <Routes>
-     
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/login" element={<LoginDesign />} />
-     
         <Route
           exact
-          path="/profile"
+          path="/user/*"
           element={
             <SimpleUserElement Role={Role}>
-                {/* hne biich tet7at the  profile page mte3 simple user */}
-              <Profilesimpleuser />
+              <SimpleUserProfile />
             </SimpleUserElement>
           }
         />
@@ -42,7 +37,6 @@ function App() {
           path="/admin/*"
           element={
             <AdminElement Role={Role}>
-       
               <Dashboard />
             </AdminElement>
           }
@@ -52,12 +46,32 @@ function App() {
           path="/association"
           element={
             <AssoElement Role={Role}>
-      {/* hne biich tet7at the Assotiation profile page */}
-              <PrivateNavbar />
+           ggggg
             </AssoElement>
           }
         />
-       
+        <Route
+          path="/verify-account/:token"
+          element={userAuth ? <AccountVerifed /> : <Navigate to="/login" />}
+        />
+      
+        <Route
+          exact
+          path="/password-reset-token"
+          element={<ResetPasswordForm />}
+        />
+        <Route
+          exact
+          path="/reset-password/:token"
+          element={<ResetPassword />}
+        />
+        {userAuth && (
+          <Route
+            exact
+            path="/reset-password/:token"
+            element={<ResetPassword />}
+          />
+        )}
       </Routes>
     </BrowserRouter>
   );

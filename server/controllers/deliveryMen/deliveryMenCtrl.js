@@ -4,6 +4,22 @@ const validateMongodbId = require("../../utils/validateMongodbID");
 const express = require("express");
 const router = express.Router();
 
+const fetchById = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
+
+  try {
+    const deliveryMen = await DeliveryMen.findById(id);
+    console.log(deliveryMen);
+    if (deliveryMen) {
+      res.json(deliveryMen);
+    } else {
+      res.status(404).json({ message: "Gift not found" });
+    }
+  } catch (error) {
+    res.json(error);
+  }
+});
 //---Create--
 
 const createDeliveryMenCtrl = expressAsyncHandler(async (req, res) => {
@@ -69,28 +85,11 @@ const deleteDeliveryMenCtrl = expressAsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
-const fetchById = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params;
-  validateMongodbId(id);
-
-  try {
-    const deliveryMen = await DeliveryMen.findById(id);
-    console.log(deliveryMen);
-    if (deliveryMen) {
-      res.json(deliveryMen);
-    } else {
-      res.status(404).json({ message: "Gift not found" });
-    }
-  } catch (error) {
-    res.json(error);
-  }
-});
-
 
 module.exports = {
   createDeliveryMenCtrl,
   fetchAllDeliveryMenCtrl,
   deleteDeliveryMenCtrl,
   updateDeliveryMenCtrl,
-  fetchById
+  fetchById,
 };

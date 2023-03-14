@@ -16,7 +16,10 @@ import {
 } from "@mui/material";
 import styled from "@emotion/styled";
 import myService from "../servicedash/Service";
-import { useSelector } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
+import { banUserAction,unbanUserAction } from "../../../../ReduxB/slices/users/usersSlices";
+
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -36,6 +39,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export default function UserList() {
+    const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
   const store = useSelector( state => state?.users.userAuth.token
     );
@@ -56,11 +60,11 @@ export default function UserList() {
   }, []);
 
   const handleBan = (user) => {
-    console.log("yassss ");
+   dispatch(banUserAction(user?.user?._id));
   };
 
   const handleUnban = (user) => {
-    console.log("yassss ");
+    dispatch(unbanUserAction(user?.user?._id));
   };
   return (
     <Card style={{ padding: "20px", margin: "20px", boxSizing: "border-box" }}>
@@ -68,8 +72,8 @@ export default function UserList() {
         title="USER LIST"
         subtitle="Review and Manage User Accounts"
       />
-      <TableContainer component={Paper} >
-        <Table >
+      <TableContainer component={Paper}>
+        <Table>
           <TableHead>
             <TableRow>
               <StyledTableCell>First Name</StyledTableCell>
@@ -104,7 +108,7 @@ export default function UserList() {
                 <TableCell>{user.associationAddress}</TableCell>
                 <TableCell>{user.associationPhone}</TableCell>
                 <TableCell>{user.isBlocked ? "Yes" : "No"}</TableCell>
-                <TableCell>{user.isBanned ? "Yes" : "No"}</TableCell>
+                <TableCell>{user.isBanned ? "yes" : "No"}</TableCell>
                 <TableCell>{user.isAccountVerified ? "Yes" : "No"}</TableCell>
                 <TableCell>
                   <Button
@@ -131,13 +135,13 @@ export default function UserList() {
           </TableBody>
         </Table>
         <Pagination
-        sx={{ display: "flex", justifyContent: "center", my: 2 }}
-        count={Math.ceil(users.length / rowsPerPage)}
-        page={page}
-        onChange={handleChangePage}
-        variant="outlined"
-        shape="rounded"
-      />
+          sx={{ display: "flex", justifyContent: "center", my: 2 }}
+          count={Math.ceil(users.length / rowsPerPage)}
+          page={page}
+          onChange={handleChangePage}
+          variant="outlined"
+          shape="rounded"
+        />
       </TableContainer>
     </Card>
   );

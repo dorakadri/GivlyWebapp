@@ -13,7 +13,7 @@ sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
 const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email: req?.body?.email });
-  //const localPath = `public/images/profile/${req.file.filename}`;
+  //const localPath = public/images/profile/${req.file.filename};
   //const imgUploaded = await cloudinaryUploadImg(localPath);
   if (userExists) throw new Error("User already exists");
   try {
@@ -59,6 +59,7 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
         profilePhoto: userFound?.profilePhoto,
         isAdmin: userFound?.isAdmin,
         token: generateToken(userFound?._id),
+        isAccountVerified:userFound?.isAccountVerified,
       });
     }
   } else {
@@ -92,16 +93,20 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//Update profile done
-
+//------------------------------
+//Update profile
+//------------------------------
 const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
   validateMongodbId(_id);
   const user = await User.findByIdAndUpdate(
     _id,
     {
-      ...req.body,
-      user: req.user?._id,
+      firstName: req?.body?.firstName,
+      lastName: req?.body?.lastName,
+      email: req?.body?.email,
+      bio: req?.body?.bio,
+      profilePhoto: req?.body?.profilePhoto,
     },
     {
       new: true,
@@ -111,37 +116,7 @@ const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user);
 });
 
-//Update password  done
 
-const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
- const { _id } = req.user;
- const { newpassword, password } = req.body;
- validateMongodbId(_id);
-
- const user = await User.findById(_id);
- if (await user.isPasswordMatched(password)) {
-   if (!newpassword) {
-     res.json({
-       status: "200",
-       message: "please provide the new password",
-     });
-   } else {
-     user.password = newpassword;
-     const updatedUser = await user.save();
-     res.json({
-       user: updatedUser,
-       msg: "password updated ",
-     });
-   }
- } else {
-   res.json({
-     status: "400",
-     message: "password incorrect",
-   });
- }
-});
-
-// ban user
 
 const banUserCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -179,15 +154,15 @@ const generateVerificationTokenCtrl = expressAsyncHandler(async (req, res) => {
 
   try {
     //Generate token
-    const verificationToken = await user.createAccountVerificationToken();
+    const verificationToken = await user?.createAccountVerificationToken();
     //save the user
     await user.save();
     console.log(verificationToken);
     //build your message
 
-    const resetURL = `If you were requested to verify your account, verify now within 10 minutes, otherwise ignore this message <a href="http://localhost:3000/verify-account/${verificationToken}">Click to verify your account</a>`;
+    const resetURL =` If you were requested to verify your account, verify now within 10 minutes, otherwise ignore this message <a href="http://localhost:3000/verify-account/${verificationToken}">Click to verify your account</a>`;
     const msg = {
-      to: req.user.email,
+      to: user?.email,
       from: "givly2023@gmail.com",
       subject: "My first Node js email sending",
       html: resetURL,
@@ -285,13 +260,14 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
   await user.save();
   res.json(user);
 });
+
 module.exports = {
+  userProfileCtrl,
   userRegisterCtrl,
   loginUserCtrl,
   fetchUsersCtrl,
   userProfileCtrl,
   updateUserCtrl,
-  updateUserPasswordCtrl,
   banUserCtrl,
   unbanUserCtrl,
   accountVerificationCtrl,

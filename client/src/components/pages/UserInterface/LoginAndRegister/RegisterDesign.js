@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React, { useState } from "react";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { MuiTelInput } from "mui-tel-input";
-
+import ReCAPTCHA from "react-google-recaptcha";
 import GoogleIcon from "@mui/icons-material/Google";
 
 import {
@@ -43,30 +43,18 @@ const validationSchema = yup.object({
     .required("Password is required")
     .min(8, "Password must be at least 8 characters long")
     .max(20, "Password must be at most 20 characters long")
+    .test("has-uppercase", "Add at least one uppercase letter", (password) => {
+      return /[A-Z]/.test(password);
+    })
+    .test("has-lowercase", "Add at least one lowercase letter", (password) => {
+      return /[a-z]/.test(password);
+    })
+    .test("has-number", "Add at least one number", (password) => {
+      return /\d/.test(password);
+    })
     .test(
-      'has-uppercase',
-      'Add at least one uppercase letter',
-      (password) => {
-        return /[A-Z]/.test(password);
-      }
-    )
-    .test(
-      'has-lowercase',
-      'Add at least one lowercase letter',
-      (password) => {
-        return /[a-z]/.test(password);
-      }
-    )
-    .test(
-      'has-number',
-      'Add at least one number',
-      (password) => {
-        return /\d/.test(password);
-      }
-    )
-    .test(
-      'has-special-char',
-      'Add at least one special character',
+      "has-special-char",
+      "Add at least one special character",
       (password) => {
         return /[!@#$%^&*()_+}{"':;?/>.<,]/.test(password);
       }
@@ -77,9 +65,9 @@ const validationSchema = yup.object({
   associationPhone: yup.string(),
 });
 export default function RegisterDesign() {
+  const [verified, setVerified] = useState(false);
   const [image, setImage] = useState(null);
   const [showPassword, setShowPassword] = React.useState(false);
-
 
   const [role, setRole] = useState("");
   const [phone, setPhone] = React.useState("+216");
@@ -112,6 +100,10 @@ export default function RegisterDesign() {
     },
     validationSchema: validationSchema,
   });
+  function onChange(value) {
+    console.log("Captcha value:", value);
+    setVerified(true);
+  }
 
   async function uploadImage() {
     const data = new FormData();
@@ -132,7 +124,7 @@ export default function RegisterDesign() {
       console.log(error);
     }
   }
- 
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file.size >= 1048576) {
@@ -145,7 +137,6 @@ export default function RegisterDesign() {
   if (registered) {
     return <Navigate to="/login" />;
   }
- 
 
   const handleChange = (event) => {
     formik.handleChange(event);
@@ -181,17 +172,17 @@ export default function RegisterDesign() {
   let progressBarColor;
 
   if (progress < 33) {
-    progressBarColor = 'error';
+    progressBarColor = "error";
   } else if (progress < 66) {
-    progressBarColor = 'warning';
+    progressBarColor = "warning";
   } else {
-    progressBarColor = 'success';
+    progressBarColor = "success";
   }
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <Badge
-        sx={{ mb: "2rem" }}
+        sx={{ mb: "1rem" }}
         overlap="circular"
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         badgeContent={
@@ -216,15 +207,20 @@ export default function RegisterDesign() {
       </Badge>
       <Box
         display="grid"
-        gap="30px"
+        gap="1rem"
         gridTemplateColumns="repeat(4,minmax(0,1fr))"
         sx={{ "&>div": { gridColumn: isnonMobile ? undefined : "span 4" } }}
       >
-   {appErr || serverErr ? (
-              <Typography Typography variant="h6" color="error" align="center" sx={{ mt: 2 , gridColumn: "span 4" }}     >
-                {serverErr} {appErr}{" "}
-              </Typography>
-            ) : null}
+        {appErr || serverErr ? (
+          <Typography
+            variant="h6"
+            color="error"
+            align="center"
+            sx={{ mt: 2, gridColumn: "span 4" }}
+          >
+            {serverErr} {appErr}{" "}
+          </Typography>
+        ) : null}
 
         <TextField
           fullWidth
@@ -242,7 +238,7 @@ export default function RegisterDesign() {
         />
         <TextField
           sx={{ gridColumn: "span 2" }}
-          id="outlined-basic"
+          id="lastName"
           label="lastName"
           placeholder="Doe "
           value={formik.values.lastName}
@@ -255,7 +251,7 @@ export default function RegisterDesign() {
         <TextField
           sx={{ gridColumn: "span 2" }}
           fullWidth
-          id="outlined-basic"
+          id="email"
           label="email"
           placeholder="exemple@gmail.com"
           variant="outlined"
@@ -266,13 +262,12 @@ export default function RegisterDesign() {
           helperText={formik.touched.email && formik.errors.email}
           name="email"
         />
-       
 
         <TextField
           sx={{ gridColumn: "span 2" }}
           fullWidth
-          id="outlined-basic"
-          type={showPassword ? 'text' : 'password'}
+          id="password"
+          type={showPassword ? "text" : "password"}
           label="password"
           placeholder="Enter your password "
           variant="outlined"
@@ -291,7 +286,6 @@ export default function RegisterDesign() {
                   variant="determinate"
                   value={progress}
                   color={progressBarColor}
-                 
                 />
               </span>
             )
@@ -308,11 +302,10 @@ export default function RegisterDesign() {
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
         />
-     
- 
+
         <FormControl
           error={formik.touched.role && Boolean(formik.errors.role)}
           sx={{ gridColumn: "span 4" }}
@@ -330,7 +323,7 @@ export default function RegisterDesign() {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            
+
             <MenuItem value={"SimpleUser"}>SimpleUser</MenuItem>
             <MenuItem value={"Association"}>Association</MenuItem>
           </Select>
@@ -399,38 +392,49 @@ export default function RegisterDesign() {
           </>
         )}
       </Box>
-      {loading ? (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <ReCAPTCHA
+          sitekey="6Lekee4kAAAAAKm9bvcVtM9o4qeDS1hga6FrNaUc"
+          onChange={onChange}
+        />
+      </Box>
+      <Box sx={{ display: "flex", gap: "0.5rem" }}>
+        {loading ? (
+          <Button
+            sx={{ mt: "1rem", width: "100%" }}
+            variant="contained"
+            size="large"
+            color="error"
+            disabled
+          >
+            loading please wait...
+          </Button>
+        ) : (
+          <Button
+            sx={{
+              mt: "1rem",
+              width: "100%",
+              backgroundColor: "#06A696",
+              "&:hover": { color: "white", backgroundColor: "#06A696" },
+            }}
+            variant="contained"
+            size="large"
+            type="submit"
+            disabled={!verified}
+          >
+            Sign Up
+          </Button>
+        )}
         <Button
-          sx={{ mt: "2rem", width: "100%" }}
+          disabled={!verified}
+          sx={{ mt: "1rem", width: "100%" }}
           variant="contained"
           size="large"
-          color="error"
-          disabled
+          startIcon={<GoogleIcon />}
         >
-          loading please wait...
+          Sign up with Google
         </Button>
-      ) : (
-        <Button
-          sx={{
-            mt: "2rem",
-            width: "100%",
-            backgroundColor: "#06A696",
-            "&:hover": { color: "black", backgroundColor: "#06A696" },
-          }}
-          variant="contained"
-          size="large"
-          type="submit"
-        >
-          Sign Up
-        </Button>
-      )}
-      <Button
-        sx={{ mt: "2rem", width: "100%" }}
-        variant="contained"
-        startIcon={<GoogleIcon />}
-      >
-        Sign up with Google
-      </Button>
+      </Box>
     </form>
   );
 }
