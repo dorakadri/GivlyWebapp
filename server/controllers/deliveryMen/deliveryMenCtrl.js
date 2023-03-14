@@ -23,13 +23,13 @@ const fetchById = expressAsyncHandler(async (req, res) => {
 //---Create--
 
 const createDeliveryMenCtrl = expressAsyncHandler(async (req, res) => {
-  const { firstName, Phone, isAvailable } = req.body;
+  const { firstName, phone, isAvailable } = req.body;
   console.log(req.body);
 
   try {
     const deliveryMen = await DeliveryMen.create({
       firstName,
-      Phone,
+      phone,
       isAvailable,
     });
     res.json(deliveryMen);
