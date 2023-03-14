@@ -57,8 +57,10 @@ export default function DelivererUpdate() {
       };
       console.log(v)
     myService.UpdateDeliverer(id,v)
+   
     .then((response) => {
       console.log(response)
+      console.log("alla")
     })
     .catch((error) => {
       console.log(error)
