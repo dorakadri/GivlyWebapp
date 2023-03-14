@@ -4,7 +4,6 @@ const {
   userRegisterCtrl,
   loginUserCtrl,
   userProfileCtrl,
-  userProfileCtrl,
   fetchUsersCtrl,
   updateUserCtrl,
   banUserCtrl,

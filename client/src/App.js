@@ -14,7 +14,8 @@ import { useEffect } from "react";
 import ProfilePage from "./components/pages/SimpleUserProfile/ProfilePage";
 import SimpleUserProfile from "./components/pages/SimpleUserProfile/SimpleUserProfile";
 import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
-
+import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
+import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
 function App() {
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
@@ -25,28 +26,23 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-     
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/login" element={<LoginDesign />} />
-     
-             <Route
+        <Route
           exact
           path="/user/*"
           element={
             <SimpleUserElement Role={Role}>
               <SimpleUserProfile />
-              </SimpleUserElement>
+            </SimpleUserElement>
           }
         />
-               
-        
         <Route
           exact
           path="/admin/*"
           element={
             <AdminElement Role={Role}>
-       
               <Dashboard />
             </AdminElement>
           }
@@ -56,17 +52,33 @@ function App() {
           path="/association"
           element={
             <AssoElement Role={Role}>
-      {/* hne biich tet7at the Assotiation profile page */}
+              {/* hne biich tet7at the Assotiation profile page */}
               <PrivateNavbar />
             </AssoElement>
           }
         />
-
-<Route
-      path="/verify-account/:token"
-      element={userAuth ? <AccountVerifed /> : <Navigate to="/login" />}
-    />
-       
+        <Route
+          path="/verify-account/:token"
+          element={userAuth ? <AccountVerifed /> : <Navigate to="/login" />}
+        />
+      
+        <Route
+          exact
+          path="/password-reset-token"
+          element={<ResetPasswordForm />}
+        />
+        <Route
+          exact
+          path="/reset-password/:token"
+          element={<ResetPassword />}
+        />
+        {userAuth && (
+          <Route
+            exact
+            path="/reset-password/:token"
+            element={<ResetPassword />}
+          />
+        )}
       </Routes>
     </BrowserRouter>
   );
