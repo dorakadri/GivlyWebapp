@@ -11,6 +11,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Box } from "@mui/system";
 import DelivererUpdate from "./PagesDashboard/Deliverer/DelivererUpdate";
 import UserListDataGrid from "./PagesDashboard/UserListDataGrid";
+import UpdateProfile from "../../shared/UpdateProfile";
 
 const DashboardComponent = lazy(() =>
   import("./PagesDashboard/DashboardComponent")
@@ -18,8 +19,12 @@ const DashboardComponent = lazy(() =>
 const Layout = lazy(() => import("./PagesDashboard/Layout"));
 const UserList = lazy(() => import("./PagesDashboard/UserList"));
 
-const DelivererList = lazy(() => import("./PagesDashboard/Deliverer/DelivererList"));
-const AddDeliverer = lazy(() => import("./PagesDashboard/Deliverer/AddDeliverer"));
+const DelivererList = lazy(() =>
+  import("./PagesDashboard/Deliverer/DelivererList")
+);
+const AddDeliverer = lazy(() =>
+  import("./PagesDashboard/Deliverer/AddDeliverer")
+);
 const GiftList = lazy(() => import("./PagesDashboard/Gift/GiftList"));
 const AddGift = lazy(() => import("./PagesDashboard/Gift/AddGift"));
 const GiftUpdate = lazy(() => import("./PagesDashboard/Gift/GiftUpdate"));
@@ -29,39 +34,40 @@ function DashboardRoutes() {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
     <div className="index">
-
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Suspense
-            fallback={
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: "100vh",
-                }}
-              >
-                <CircularProgress />
-              </Box>
-            }
-          >
-            <Routes>
-              <Route element={<Layout />}>
-             
-                <Route path="/dashboard" element={<DashboardComponent />} />
-                <Route path="userslist" element={<UserListDataGrid />} />
-                <Route path="delivererlist" element={<DelivererList />} />
-                <Route path="adddeliverer" element={<AddDeliverer />} />
-                <Route path="delivererlist/update/:id" element={<DelivererUpdate />} />
-                <Route path="giftlist" element={<GiftList />} />
-                <Route path="giftlist/update/:id" element={<GiftUpdate />} />
-                <Route path="addgift" element={<AddGift />} />
-              </Route>
-            </Routes>
-          </Suspense>
-        </ThemeProvider>
-
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Suspense
+          fallback={
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: "100vh",
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          }
+        >
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/dashboard" element={<DashboardComponent />} />
+              <Route path="userslist" element={<UserListDataGrid />} />
+              <Route path="delivererlist" element={<DelivererList />} />
+              <Route path="adddeliverer" element={<AddDeliverer />} />
+              <Route
+                path="delivererlist/update/:id"
+                element={<DelivererUpdate />}
+              />
+              <Route path="giftlist" element={<GiftList />} />
+              <Route path="giftlist/update/:id" element={<GiftUpdate />} />
+              <Route exact path="/update/:id" element={<UpdateProfile />} />
+              <Route path="addgift" element={<AddGift />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </ThemeProvider>
     </div>
   );
 }

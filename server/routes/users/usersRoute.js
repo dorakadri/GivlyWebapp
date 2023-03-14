@@ -4,6 +4,7 @@ const {
   userRegisterCtrl,
   loginUserCtrl,
   userProfileCtrl,
+  userProfileCtrl,
   fetchUsersCtrl,
   updateUserCtrl,
   banUserCtrl,
@@ -26,7 +27,6 @@ const {
 const userRoutes = express.Router();
 //done
 
-
 userRoutes.post(
   "/register",
   profilePhotoUpload.single("profilePhoto"),
@@ -34,9 +34,11 @@ userRoutes.post(
   userRegisterCtrl
 );
 
-
 // login if not banned
 userRoutes.post("/login", loginUserCtrl);
+// profile
+userRoutes.get("/profile/:id", authMiddleware, userProfileCtrl);
+userRoutes.put("/", authMiddleware, updateUserCtrl);
 // profile
 userRoutes.get("/profile/:id", authMiddleware, userProfileCtrl);
 userRoutes.put("/", authMiddleware, updateUserCtrl);
@@ -48,6 +50,7 @@ userRoutes.get("/", authMiddleware, isAdmin, fetchUsersCtrl);
 // Password
 
 //userRoutes.put("/password", authMiddleware, updateUserPasswordCtrl);
+//userRoutes.put("/password", authMiddleware, updateUserPasswordCtrl);
 userRoutes.post(
   "/generate-verify-email-token",
   authMiddleware,
@@ -58,6 +61,5 @@ userRoutes.put("/verify-account/", authMiddleware, accountVerificationCtrl);
 // ban unban user
 userRoutes.put("/ban-user/:id", banUserCtrl);
 userRoutes.put("/unban-user/:id", unbanUserCtrl);
-
 
 module.exports = userRoutes;

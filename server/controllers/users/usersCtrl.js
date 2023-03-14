@@ -93,8 +93,9 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//Update profile done
-
+//------------------------------
+//Update profile
+//------------------------------
 const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
   validateMongodbId(_id);
@@ -115,37 +116,7 @@ const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user);
 });
 
-//Update password  done
 
-const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
- const { _id } = req.user;
- const { newpassword, password } = req.body;
- validateMongodbId(_id);
-
- const user = await User.findById(_id);
- if (await user.isPasswordMatched(password)) {
-   if (!newpassword) {
-     res.json({
-       status: "200",
-       message: "please provide the new password",
-     });
-   } else {
-     user.password = newpassword;
-     const updatedUser = await user.save();
-     res.json({
-       user: updatedUser,
-       msg: "password updated ",
-     });
-   }
- } else {
-   res.json({
-     status: "400",
-     message: "password incorrect",
-   });
- }
-});
-
-// ban user
 
 const banUserCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;

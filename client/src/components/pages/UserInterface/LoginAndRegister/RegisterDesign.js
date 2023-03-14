@@ -227,7 +227,7 @@ export default function RegisterDesign() {
         sx={{ "&>div": { gridColumn: isnonMobile ? undefined : "span 4" } }}
       >
    {appErr || serverErr ? (
-              <Typography Typography variant="h6" color="error" align="center" sx={{ mt: 2 , gridColumn: "span 4" }}     >
+              <Typography  variant="h6" color="error" align="center" sx={{ mt: 2 , gridColumn: "span 4" }}     >
                 {serverErr} {appErr}{" "}
               </Typography>
             ) : null}
