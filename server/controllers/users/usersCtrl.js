@@ -59,6 +59,7 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
         profilePhoto: userFound?.profilePhoto,
         isAdmin: userFound?.isAdmin,
         token: generateToken(userFound?._id),
+        isAccountVerified:userFound?.isAccountVerified,
       });
     }
   } else {
@@ -179,7 +180,7 @@ const generateVerificationTokenCtrl = expressAsyncHandler(async (req, res) => {
 
   try {
     //Generate token
-    const verificationToken = await user.createAccountVerificationToken();
+    const verificationToken = await user?.createAccountVerificationToken();
     //save the user
     await user.save();
     console.log(verificationToken);
@@ -187,7 +188,7 @@ const generateVerificationTokenCtrl = expressAsyncHandler(async (req, res) => {
 
     const resetURL = `If you were requested to verify your account, verify now within 10 minutes, otherwise ignore this message <a href="http://localhost:3000/verify-account/${verificationToken}">Click to verify your account</a>`;
     const msg = {
-      to: req.user.email,
+      to: user?.email,
       from: "givly2023@gmail.com",
       subject: "My first Node js email sending",
       html: resetURL,

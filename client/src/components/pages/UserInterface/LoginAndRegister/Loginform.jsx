@@ -49,6 +49,9 @@ export default function Loginform() {
     if (userAuth?.role === "Admin") {
       return <Navigate to="/admin/dashboard" />;
     }
+    if (userAuth?.role === "SimpleUser") {
+      return <Navigate to="/profile" />;
+    }
     return <Navigate to="/" />;
   }
 
