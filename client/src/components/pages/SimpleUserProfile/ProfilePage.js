@@ -8,6 +8,7 @@ import { userProfileAction } from '../../../ReduxB/slices/users/usersSlices';
 import styled from '@emotion/styled';
 import { Box } from '@mui/system';
 import { Grid, Paper } from '@mui/material';
+import AccountVerifed from '../Navigation/Alerts/AccountVerifed';
 
 
 
@@ -35,8 +36,6 @@ console.log(profile);
   return (
     <Box  sx={{ mx:"2rem" }}>
     <Grid container spacing={2} sx={{ mt:"2rem" }} >
-  
-  
 
  
   <Grid item xs={4}>

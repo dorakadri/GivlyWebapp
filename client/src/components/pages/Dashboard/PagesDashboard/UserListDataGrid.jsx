@@ -22,7 +22,6 @@ export default function UserListDataGrid() {
         { field: 'associationName', headerName: 'Association Name', width: 200 },
         { field: 'associationAddress', headerName: 'Association Address', width: 250 },
         { field: 'associationPhone', headerName: 'Association Phone', width: 200 },
-        { field: 'isBlocked', headerName: 'Is Blocked', width: 150, renderCell: (params) => params.value ? 'Yes' : 'No' },
         { field: 'isBanned', headerName: 'Is Banned', width: 150, renderCell: (params) => params.value ? 'Yes' : 'No' },
         { field: 'isAccountVerified', headerName: 'Is Account Verified', width: 200, renderCell: (params) => params.value ? 'Yes' : 'No' },
         {

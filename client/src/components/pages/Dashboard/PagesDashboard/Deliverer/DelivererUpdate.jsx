@@ -35,6 +35,7 @@ export default function DelivererUpdate() {
     myService.GetDelivererId(id).then((response) => {
   
      setData(response.data)
+     //setphone(response.data.phone)
       console.log(response)
     });
   }, []);
@@ -43,7 +44,7 @@ export default function DelivererUpdate() {
   const formik = useFormik({
     initialValues: {
       firstName: data.firstName || "",
-      isAvailable: data.isAvailable || "",
+      isAvailable: data.isAvailable || false,
       phone: data.phone ||  "",
     
     },
@@ -140,7 +141,7 @@ export default function DelivererUpdate() {
               sx={{ gridColumn: "span 4" }}
               fullWidth
               variant="outlined"
-              value={phone}
+              value={phone }
               onChange={handleChangephone}
               onBlur={formik.handleBlur}
               error={

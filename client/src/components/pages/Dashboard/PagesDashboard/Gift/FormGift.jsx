@@ -19,6 +19,8 @@ import {
 import { Box } from "@mui/system";
 import { PhotoCamera } from "@mui/icons-material";
 import myService from "../../servicedash/Service";
+import { useNavigate } from "react-router-dom";
+
 
 const validationSchema = yup.object({
   name: yup.string().required("Name is required"),
@@ -30,7 +32,7 @@ const validationSchema = yup.object({
 
 export default function FormGift(props) {
   const [image, setImage] = useState(null);
-
+const navigate=useNavigate();
   
 
   const initialValues = props.data
@@ -89,6 +91,7 @@ export default function FormGift(props) {
   myService.update(props.data._id, v)
     .then((response) => {
       console.log(response)
+   
     })
     .catch((error) => {
       console.log(error)
@@ -101,7 +104,10 @@ export default function FormGift(props) {
     .catch((error) => {
       console.log(error)
     });
-}
+
+  }
+
+     navigate("/admin/giftlist");
     },
     validationSchema: validationSchema,
   });
