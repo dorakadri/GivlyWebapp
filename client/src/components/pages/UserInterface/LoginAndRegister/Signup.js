@@ -10,22 +10,19 @@ export default function Signup() {
   const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
   return (
     <Box
-    sx={{
-      background: `url(${imagebg})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      height: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }}
-  >
-     
-
-     <Box
-        p="2rem"
+      sx={{
+        background: `url(${imagebg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Box
+        px="2rem"
         borderRadius="1.5rem"
-        width={isNonMobileScreen ? "30%" : "80%"}
         textAlign="center"
         sx={{
           backgroundColor: "rgba(255, 255, 255, 0.15)",
@@ -35,21 +32,17 @@ export default function Signup() {
             "0px 8px 10px rgba(0, 0, 0, 0.14), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 4px 5px rgba(0, 0, 0, 0.2)",
         }}
       >
-          <Typography
-          variant="h4"
-          style={{ fontWeight: "bold", marginBottom: "2rem" }}
-        >
+        <Typography variant="body1" style={{ fontWeight: "bold", py: "1rem" }}>
           Ready to join us !
         </Typography>
         <RegisterDesign />
-        <Typography pt="1rem" >
-  Already have an account?{" "}
-  <Link to="/login" style={{ textDecoration: "none" }}>
-    Login
-  </Link>
-</Typography>
+        <Typography py="1rem">
+          Already have an account?{" "}
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            Login
+          </Link>
+        </Typography>
       </Box>
-  
     </Box>
   );
 }
