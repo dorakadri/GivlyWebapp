@@ -2,16 +2,11 @@ import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-route
 import LandingPage from "./components/pages/UserInterface/landingcomponent/LandingPage";
 
 import Dashboard from "../src/components/pages/Dashboard/Dashboard";
-import Profilesimpleuser from "./components/pages/Navigation/Simpleuser/Profilesimpleuser";
-import SimpleUserProfileEdit from "./components/pages/SimpleUserProfile/SimpleUserProfileEdit"
+
 import { useSelector } from "react-redux";
-
-import PrivateNavbar from "./components/pages/Navigation/Private/PrivateNavbar";
 import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/LoginDesign";
-
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
 import { useEffect } from "react";
-import ProfilePage from "./components/pages/SimpleUserProfile/ProfilePage";
 import SimpleUserProfile from "./components/pages/SimpleUserProfile/SimpleUserProfile";
 import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
 import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
@@ -19,7 +14,6 @@ import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/Re
 function App() {
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
-  const isAdmin = userAuth?.isAdmin;
   const Role = userAuth?.role;
 
   
@@ -52,8 +46,7 @@ function App() {
           path="/association"
           element={
             <AssoElement Role={Role}>
-              {/* hne biich tet7at the Assotiation profile page */}
-              <PrivateNavbar />
+           ggggg
             </AssoElement>
           }
         />
