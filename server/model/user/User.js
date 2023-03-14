@@ -29,18 +29,11 @@ const userSchema = new mongoose.Schema(
       required: [true, "Hei buddy Password is required"],
     },
 
-    isBlocked: {
-      type: Boolean,
-      default: false,
-    },
     isBanned: {
       type: Boolean,
       default: false,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
-    },
+
     role: {
       type: String,
       enum: ["Admin", "SimpleUser", "Association"],
