@@ -11,12 +11,15 @@ import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/Login
 
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
 import { useEffect } from "react";
+import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
 
 function App() {
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
   const isAdmin = userAuth?.isAdmin;
   const Role = userAuth?.role;
+
+
 
   console.log("lala " + userAuth);
   return (
@@ -57,6 +60,11 @@ function App() {
             </AssoElement>
           }
         />
+
+<Route
+      path="/verify-account/:token"
+      element={userAuth ? <AccountVerifed /> : <Navigate to="/login" />}
+    />
        
       </Routes>
     </BrowserRouter>
