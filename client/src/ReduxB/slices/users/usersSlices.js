@@ -186,6 +186,9 @@ export const updateUserAction = createAsyncThunk(
           bio: userData?.bio,
           email: userData?.email,
           profilePhoto: userData?.profilePhoto,
+          associationName:userData?.associationName,
+          associationAdress:userData?.associationAdress,
+          associationPhone:userData?.associationPhone,
         },
         config
       );

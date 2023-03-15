@@ -8,6 +8,7 @@ import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/Login
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
 import { useEffect } from "react";
 import SimpleUserProfile from "./components/pages/SimpleUserProfile/SimpleUserProfile";
+import AssociationUserProfile from "./components/pages/AssociationUserProfile/AssociationUserProfile"
 import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
 import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
 import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
@@ -43,10 +44,10 @@ function App() {
         />
         <Route
           exact
-          path="/association"
+          path="/association/*"
           element={
             <AssoElement Role={Role}>
-           ggggg
+                <AssociationUserProfile />
             </AssoElement>
           }
         />
