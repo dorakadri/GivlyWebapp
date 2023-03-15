@@ -117,6 +117,21 @@ export default function ProfileCrad({data}) {
             {data?.associationPhone}
         </Typography>
 </Box>
+<Box  sx= {{
+            display:"flex",
+            justifyContent:"left",
+            alignItems:"center",
+            gap:1
+        }
+
+        }
+
+        >
+           < PhoneIcon/>
+        <Typography variant='body2' color='text.secondary'>
+            {data?.bio}
+        </Typography>
+</Box>
 <Box
 sx= {{
     display:"flex",

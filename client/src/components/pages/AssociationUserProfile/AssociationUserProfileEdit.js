@@ -40,7 +40,7 @@ export default function UpdateProfile() {
 
   const users = useSelector((state) => state.users);
   const { profile, loading, appErr, serverErr } = users;
-
+console.log(profile);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -54,18 +54,22 @@ export default function UpdateProfile() {
 
     onSubmit: async (values) => {
       const url = await uploadImage(image1);
-      console.log(url);
+      console.log(values);
       const va = {
         ...values,
         profilePhoto: url,
+        firstName:profile.firstName,
+        lastName:profile.lastName
       };
-      console.log(values);
+
+ 
       dispatch(updateUserAction(va));
       navigate("/association/profile");
     },
     validationSchema: formSchema,
   });
   async function uploadImage() {
+    console.log("upload")
     const data = new FormData();
     data.append("file", image1);
     data.append("upload_preset", "aup1uxxk");
@@ -86,6 +90,7 @@ export default function UpdateProfile() {
   }
 
   const handleImageChange = (e) => {
+    console.log("hanfdl imaghe")
     const file = e.target.files[0];
     if (file.size >= 1048576) {
     } else {
@@ -160,9 +165,10 @@ export default function UpdateProfile() {
             ) : null}
             <TextField
               fullWidth
+              disabled
               sx={{ gridColumn: "span 2" }}
               id="associationName"
-              label=" associationName"
+              label="associationName"
               placeholder="foulen ben foulen "
               value={formik.values.associationName}
               onChange={formik.handleChange}
@@ -178,6 +184,7 @@ export default function UpdateProfile() {
               sx={{ gridColumn: "span 2" }}
               id="associationAdress"
               label="associationAdress"
+              disabled
               placeholder="21 Wall Street "
               type="text"
               value={formik.values.associationAdress}
@@ -193,6 +200,7 @@ export default function UpdateProfile() {
                 label="associationPhone"
                 placeholder="12345678 "
                 type="number"
+                disabled
                 value={formik.values.associationPhone}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
