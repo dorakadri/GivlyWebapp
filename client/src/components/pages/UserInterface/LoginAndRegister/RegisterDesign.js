@@ -64,7 +64,13 @@ const validationSchema = yup.object({
   associationAdress: yup.string(),
   associationPhone: yup.string(),
 });
-export default function RegisterDesign() {
+export default function RegisterDesign(data) {
+  const googleAuth = () => {
+		window.open(
+			'http://localhost:5000/auth/google/callback',
+			"_self"
+		);
+	};
   const [verified, setVerified] = useState(false);
   const [image, setImage] = useState(null);
   const [showPassword, setShowPassword] = React.useState(false);
@@ -73,10 +79,11 @@ export default function RegisterDesign() {
   const [phone, setPhone] = React.useState("+216");
   const dispatch = useDispatch();
   const isnonMobile = useMediaQuery("(min-width :600px)");
+ console.log(data)
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: data.datagoogle?.given_name ||  "",
+    lastName:data.datagoogle?.family_name  ||  "",
+    email: data.datagoogle?.email ||  "",
     password: "",
     bio: "",
     role: "",
@@ -85,6 +92,7 @@ export default function RegisterDesign() {
     associationPhone: "",
   };
   const formik = useFormik({
+    enableReinitialize:true,
     initialValues: initialValues,
     onSubmit: async (values) => {
       console.log(values);
@@ -427,6 +435,7 @@ export default function RegisterDesign() {
         )}
         <Button
           disabled={!verified}
+          onClick={googleAuth}
           sx={{ mt: "1rem", width: "100%" }}
           variant="contained"
           size="large"
