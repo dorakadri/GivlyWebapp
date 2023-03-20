@@ -87,14 +87,13 @@ const navigate=useNavigate();
       };
 
     if (props.update) {
-      console.log(props.data._id)
+
   myService.update(props.data._id, v)
     .then((response) => {
       console.log(response)
    
     })
     .catch((error) => {
-      console.log(error)
     });
 } else {
   myService.postData(v)

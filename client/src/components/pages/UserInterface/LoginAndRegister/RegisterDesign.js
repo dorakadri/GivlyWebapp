@@ -31,6 +31,7 @@ import { registerUserAction } from "../../../../ReduxB/slices/users/usersSlices"
 import { Navigate } from "react-router-dom";
 import { Stack } from "@mui/system";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { calculatePasswordStrength } from "../../../shared/calculatePasswordStrength";
 
 const validationSchema = yup.object({
   firstName: yup.string().required("Name is required"),
@@ -147,25 +148,7 @@ export default function RegisterDesign() {
     formik.handleChange(event);
     setPhone(event);
   };
-  const calculatePasswordStrength = (password) => {
-    let strength = 0;
-    if (password.length >= 8 && password.length <= 20) {
-      strength += 20;
-    }
-    if (password.match(/[a-z]/)) {
-      strength += 20;
-    }
-    if (password.match(/[A-Z]/)) {
-      strength += 20;
-    }
-    if (password.match(/\d/)) {
-      strength += 20;
-    }
-    if (password.match(/[!@#$%^&*()_+}{"':;?/>.<,]/)) {
-      strength += 20;
-    }
-    return strength;
-  };
+
 
   const progress = calculatePasswordStrength(formik.values.password);
 

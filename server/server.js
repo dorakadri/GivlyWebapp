@@ -1,5 +1,4 @@
-
-require('dotenv').config()
+require("dotenv").config();
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -16,18 +15,16 @@ const app = express();
 //DB
 dbConnect();
 
-
-
-app.use(cors({
+app.use(
+  cors({
     origin: "http://localhost:3000",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
-}));
+  })
+);
 
 //Middleware
 app.use(express.json());
-
-
 
 //Users route
 app.use("/api/users", userRoutes);

@@ -11,13 +11,12 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Box } from "@mui/system";
 import DelivererUpdate from "./PagesDashboard/Deliverer/DelivererUpdate";
 import UserListDataGrid from "./PagesDashboard/UserListDataGrid";
-import UpdateProfile from "../../shared/UpdateProfile";
+import UpdateProfile from "./PagesDashboard/UpdateProfile"
 
 const DashboardComponent = lazy(() =>
   import("./PagesDashboard/DashboardComponent")
 );
 const Layout = lazy(() => import("./PagesDashboard/Layout"));
-const UserList = lazy(() => import("./PagesDashboard/UserList"));
 
 const DelivererList = lazy(() =>
   import("./PagesDashboard/Deliverer/DelivererList")

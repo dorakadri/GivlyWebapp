@@ -12,6 +12,7 @@ import AssociationUserProfile from "./components/pages/AssociationUserProfile/As
 import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
 import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
 import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
+import NotFound from "./components/common/NotFound";
 function App() {
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
@@ -21,6 +22,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route exact path="*" element={<NotFound/>} />
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/login" element={<LoginDesign />} />
