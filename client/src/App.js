@@ -6,25 +6,44 @@ import Dashboard from "../src/components/pages/Dashboard/Dashboard";
 import { useSelector } from "react-redux";
 import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/LoginDesign";
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SimpleUserProfile from "./components/pages/SimpleUserProfile/SimpleUserProfile";
 import AssociationUserProfile from "./components/pages/AssociationUserProfile/AssociationUserProfile"
 import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
 import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
 import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
 import NotFound from "./components/common/NotFound";
+import axios from "axios";
+import Rolegoogle from "./components/pages/UserInterface/LoginAndRegister/Rolegoogle";
 function App() {
+  const [user, setUser] = useState(null);
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
   const Role = userAuth?.role;
+  const getUser = async () => {
+		try {
+			const url = 'http://localhost:5000/auth/login/success';
+			const { data } = await axios.get(url, { withCredentials: true });
+			setUser(data.user._json);
+			console.log(user);
+			console.log(data.user._json);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
+	useEffect(() => {
+		getUser();
+	}, []);
   
   return (
     <BrowserRouter>
       <Routes>
       <Route exact path="*" element={<NotFound/>} />
         <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/register" element={<Signup />} />
+        <Route exact path="/register" element={<Signup  />} />
+        <Route exact path="/register/Role" element={< Rolegoogle usergoogle={user} />} />
+       
         <Route exact path="/login" element={<LoginDesign />} />
         <Route
           exact

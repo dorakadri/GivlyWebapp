@@ -1,9 +1,6 @@
-import styled from "@emotion/styled";
 import React, { useState } from "react";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { MuiTelInput } from "mui-tel-input";
-import ReCAPTCHA from "react-google-recaptcha";
-import GoogleIcon from "@mui/icons-material/Google";
 
 import {
   Box,
@@ -29,7 +26,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUserAction } from "../../../../ReduxB/slices/users/usersSlices";
 import { Navigate } from "react-router-dom";
-import { Stack } from "@mui/system";
+import imagebg from "./hd.jpg";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { calculatePasswordStrength } from "../../../shared/calculatePasswordStrength";
 
@@ -65,74 +62,49 @@ const validationSchema = yup.object({
   associationAdress: yup.string(),
   associationPhone: yup.string(),
 });
-export default function RegisterDesign() {
-  const googleAuth = () => {
-		window.open(
-			'http://localhost:5000/auth/google/callback',
-			"_self"
-		);
-	};
-  const [verified, setVerified] = useState(false);
+export default function Rolegoogle(user) {
   const [image, setImage] = useState(null);
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [role, setRole] = useState("");
-  const [phone, setPhone] = React.useState("+216");
+  const [phone, setPhone] = useState("+216");
   const dispatch = useDispatch();
   const isnonMobile = useMediaQuery("(min-width :600px)");
-
+ 
   const initialValues = {
-    firstName:   "",
-    lastName:  "",
-    email: "",
+    firstName: user.usergoogle?.family_name || "",
+    lastName: user.usergoogle?.given_name || "",
+    email: user.usergoogle?.email || "",
     password: "",
     bio: "",
     role: "",
     associationName: "",
     associationAdress: "",
     associationPhone: "",
+   
   };
   const formik = useFormik({
-    enableReinitialize:true,
+    enableReinitialize: true,
     initialValues: initialValues,
     onSubmit: async (values) => {
-      console.log(values);
-      const url = await uploadImage(image);
-
+ 
       const v = {
         ...values,
-        profilePhoto: url,
+        profilePhoto: user.usergoogle?.picture,
         associationPhone: +phone.split(" ").slice(1).join(""),
+        
+
       };
       console.log(v);
       dispatch(registerUserAction(v));
+
+
+     
     },
     validationSchema: validationSchema,
   });
-  function onChange(value) {
-    console.log("Captcha value:", value);
-    setVerified(true);
-  }
 
-  async function uploadImage() {
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "aup1uxxk");
-    try {
-      let res = await fetch(
-        "https://api.cloudinary.com/v1_1/dbgphvyf9/image/upload",
-        {
-          method: "post",
-          body: data,
-        }
-      );
-      const urlData = await res.json();
-      console.log(urlData);
-      return urlData.url;
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -157,7 +129,6 @@ export default function RegisterDesign() {
     setPhone(event);
   };
 
-
   const progress = calculatePasswordStrength(formik.values.password);
 
   let progressBarColor;
@@ -169,25 +140,41 @@ export default function RegisterDesign() {
   } else {
     progressBarColor = "success";
   }
-
   return (
+    <Box   sx={{
+      background: `url(${imagebg})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      height: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <Box
+      px="2rem"
+      borderRadius="1.5rem"
+      textAlign="center"
+      sx={{
+        backgroundColor: "rgba(255, 255, 255, 0.15)",
+        backdropFilter: "blur(5px)",
+        borderRadius: "10px",
+        boxShadow:
+          "0px 8px 10px rgba(0, 0, 0, 0.14), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 4px 5px rgba(0, 0, 0, 0.2)",
+      }}
+    >
+        <Typography variant="body1" style={{ fontWeight: "bold", py: "1rem" }}>
+         One Step Closer !
+        </Typography>
     <form onSubmit={formik.handleSubmit}>
-      <Badge
-        sx={{ mb: "1rem" }}
-        overlap="circular"
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        badgeContent={
-          <Tooltip title="Upload Picture">
-            <IconButton component="label">
-              <input hidden type="file" onChange={handleImageChange} />
-              <CameraAltIcon sx={{ color: "#3aaca2" }} />
-            </IconButton>
-          </Tooltip>
-        }
-      >
+ <Badge        sx={{ mb: "1rem" }}>
         <Avatar
           alt="Profile pic"
-          src={ image ? URL.createObjectURL(image) : undefined}
+          src={
+            user.usergoogle?.picture
+              ? user.usergoogle?.picture
+              : undefined
+          }
           sx={{
             width: "8rem",
             height: "8rem",
@@ -195,8 +182,7 @@ export default function RegisterDesign() {
             alignSelf: "center",
           }}
         />
-     
-      </Badge>
+ </Badge>
       <Box
         display="grid"
         gap="1rem"
@@ -214,10 +200,12 @@ export default function RegisterDesign() {
           </Typography>
         ) : null}
 
+       
         <TextField
           fullWidth
           sx={{ gridColumn: "span 2" }}
           id="name"
+          disabled
           label=" firstName"
           placeholder="Jhon "
           value={formik.values.firstName}
@@ -232,6 +220,7 @@ export default function RegisterDesign() {
           sx={{ gridColumn: "span 2" }}
           id="lastName"
           label="lastName"
+          disabled
           placeholder="Doe "
           value={formik.values.lastName}
           onBlur={formik.handleBlur}
@@ -241,10 +230,11 @@ export default function RegisterDesign() {
           name="lastName"
         />
         <TextField
-          sx={{ gridColumn: "span 2" }}
+          sx={{ gridColumn: "span 4" }}
           fullWidth
           id="email"
           label="email"
+          disabled
           placeholder="exemple@gmail.com"
           variant="outlined"
           value={formik.values.email}
@@ -254,9 +244,8 @@ export default function RegisterDesign() {
           helperText={formik.touched.email && formik.errors.email}
           name="email"
         />
-
         <TextField
-          sx={{ gridColumn: "span 2" }}
+          sx={{ gridColumn: "span 4" }}
           fullWidth
           id="password"
           type={showPassword ? "text" : "password"}
@@ -384,50 +373,42 @@ export default function RegisterDesign() {
           </>
         )}
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <ReCAPTCHA
-          sitekey="6Lekee4kAAAAAKm9bvcVtM9o4qeDS1hga6FrNaUc"
-          onChange={onChange}
-        />
-      </Box>
+
       <Box sx={{ display: "flex", gap: "0.5rem" }}>
         {loading ? (
-          <Button
-            sx={{ mt: "1rem", width: "100%" }}
-            variant="contained"
-            size="large"
-            color="error"
-            disabled
-          >
-            loading please wait...
-          </Button>
+           <Button
+           sx={{ width: "100%", p: "1rem", mt: "0", mb: "2rem" }}
+           variant="contained"
+           size="large"
+           color="error"
+           disabled
+         >
+           Loading....
+         </Button>
         ) : (
           <Button
+          fullWidth
+            type="submit"
             sx={{
-              mt: "1rem",
-              width: "100%",
               backgroundColor: "#06A696",
+              color: " white",
+              border: "none",
+              fontWeight: " bold",
+              cursor: "pointer",
+           
+              my: "1rem",
+              p: "1rem",
+              textAlign: "center",
+
               "&:hover": { color: "white", backgroundColor: "#06A696" },
             }}
-            variant="contained"
-            size="large"
-            type="submit"
-            disabled={!verified}
           >
             Sign Up
           </Button>
         )}
-        <Button
-          disabled={!verified}
-          onClick={googleAuth}
-          sx={{ mt: "1rem", width: "100%" }}
-          variant="contained"
-          size="large"
-          startIcon={<GoogleIcon />}
-        >
-          Sign up with Google
-        </Button>
       </Box>
     </form>
+    </Box>
+     </Box>
   );
 }
