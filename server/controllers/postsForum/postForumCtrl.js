@@ -85,6 +85,7 @@ const fetchPostsForumCtrl = expressAsyncHandler(async (req, res) => {
 //Fetch a single post
 //------------------------------
 
+
 const fetchPostForumCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongodbId(id);
@@ -94,7 +95,7 @@ const fetchPostForumCtrl = expressAsyncHandler(async (req, res) => {
       .populate("disLikes")
       .populate("likes")
       .populate("comments");
-      
+
     //update number of views
     await PostForum.findByIdAndUpdate(
       id,
