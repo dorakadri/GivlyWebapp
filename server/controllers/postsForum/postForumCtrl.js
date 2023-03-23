@@ -56,7 +56,11 @@ const createPostForumCtrl = expressAsyncHandler(async (req, res) => {
 //-------------------------------
 const fetchPostsForumCtrl = expressAsyncHandler(async (req, res) => {
   try {
-    const postsForum = await PostForum.find({});
+    const postsForum = await PostForum.find({})
+       .populate("user")
+        .populate("comments")
+        .sort("-createdAt");
+
     res.json(postsForum);
   } catch (error) {}
 });
@@ -89,7 +93,7 @@ const fetchPostForumCtrl = expressAsyncHandler(async (req, res) => {
       .populate("user")
       .populate("disLikes")
       .populate("likes")
-     // .populate("comments");
+      .populate("comments");
     //update number of views
     await PostForum.findByIdAndUpdate(
       id,

@@ -11,6 +11,7 @@ const cookieSession = require("cookie-session");
 const passportStrategy = require("./passport");
 const giftsRoutes = require("./routes/gifts/giftsRoute");
 const postForumRoute = require("./routes/postsForum/postForumRoute");
+const commentRoutes = require("./routes/comments/commentRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
 
@@ -45,6 +46,8 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 //PostForum route
 app.use("/api/posts", postForumRoute);
+//comment routes
+app.use("/api/comments", commentRoutes);
 //DeliveryMen route
 app.use("/api/DeliveryMen", deliveryMensRoutes);
 
