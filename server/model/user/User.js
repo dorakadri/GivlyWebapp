@@ -61,7 +61,14 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-
+    newMessages: {
+      type: Object,
+      default: {},
+    },
+    status: {
+      type: String,
+      default: "offline",
+    },
     location: String,
     matches: [
       {
