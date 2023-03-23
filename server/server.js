@@ -10,7 +10,7 @@ const authRoute = require("./routes/auth");
 const cookieSession = require("cookie-session");
 const passportStrategy = require("./passport");
 const giftsRoutes = require("./routes/gifts/giftsRoute");
-
+const postForumRoute = require("./routes/postsForum/postForumRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
 
@@ -43,7 +43,8 @@ app.use(express.json());
 
 //Users route
 app.use("/api/users", userRoutes);
-
+//PostForum route
+app.use("/api/posts", postForumRoute);
 //DeliveryMen route
 app.use("/api/DeliveryMen", deliveryMensRoutes);
 
