@@ -29,5 +29,8 @@
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "sharp": "^0.28.3"
+  },
+  "devDependencies": {
+    "yarn": "^1.22.19"
   }
 }
