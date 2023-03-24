@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
 import { Link, useNavigate } from "react-router-dom";
 //import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,11 +39,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//Form schema
+//Validation
 const formSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   description: Yup.string().required("Description is required"),
-  image: Yup.string().required("Image is required"),
+  image: Yup.string().required("image is required"),
 });
 
 export default function CreatePost() {

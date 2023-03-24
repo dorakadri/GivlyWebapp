@@ -53,7 +53,7 @@ const PostsForumList = () => {
   }, [dispatch, likes, dislikes]);
 
   return (
-    <Card sx={{ maxWidth: 1000 }}>
+    <Card sx={{ maxWidth: 500 }}>
       {postLists?.map((postForum) => (
         <Grid spacing={10} key={postForum?.id}>
           <CardHeader
@@ -70,7 +70,7 @@ const PostsForumList = () => {
               </IconButton>
             }
             title=""
-            subheader={postForum?.user?.firstName}
+            subheader={`${postForum?.user?.firstName} ${postForum?.user?.lastName}`}
           />
           <CardContent>
             <Typography

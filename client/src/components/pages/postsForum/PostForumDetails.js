@@ -17,7 +17,6 @@ import {
 import AddComment from "../Comments/AddComment";
 import CommentsList from "../Comments/CommentsList";
 
-
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -45,10 +44,25 @@ import {
 export default function PostForumDetails(props) {
   const { id } = useParams();
   const dispatch = useDispatch();
- const navigate = useNavigate();
+  const navigate = useNavigate();
   //select post details from store
   const postForum = useSelector((state) => state?.postForum);
-  const { postDetails, loading, appErr, serverErr, isDeleted } = postForum;
+  const {
+    postDetails,
+    loading,
+    appErr,
+    serverErr,
+    isDeleted,
+    likes,
+    dislikes,
+  } = postForum;
+
+ 
+
+  //fetch post
+  useEffect(() => {
+    dispatch(fetchPostsAction(""));
+  }, [dispatch, likes, dislikes]);
 
   //comment
   const comment = useSelector((state) => state.comment);
@@ -66,7 +80,7 @@ export default function PostForumDetails(props) {
   //redirect
   if (isDeleted) return navigate("/forum");
   return (
-    <Card sx={{ maxWidth: 1000 }}>
+    <Card sx={{ maxWidth: 700 }}>
       <Grid spacing={10}>
         <CardHeader
           avatar={
@@ -82,7 +96,7 @@ export default function PostForumDetails(props) {
             </IconButton>
           }
           title=""
-          subheader={postDetails?.user?.firstName}
+          subheader={`${postDetails?.user?.firstName} ${postDetails?.user?.lastName}`}
         />
         <CardContent>
           <Typography
@@ -109,25 +123,7 @@ export default function PostForumDetails(props) {
               justifyContent: "space-between",
               alignItems: "center",
             }}
-          >
-            <IconButton aria-label="Like">
-              <ThumbUpIcon
-                onClick={() => dispatch(toggleAddLikesToPost(postDetails?._id))}
-              />
-            </IconButton>
-
-            <Typography> {postDetails?.likes?.length}</Typography>
-
-            <IconButton aria-label="disLike">
-              <ThumbDownIcon
-                onClick={() =>
-                  dispatch(toggleAddDisLikesToPost(postDetails?._id))
-                }
-              />
-            </IconButton>
-
-            <Typography> {postDetails?.disLikes?.length} </Typography>
-          </Box>
+          ></Box>
           <Box
             sx={{
               display: "flex",
@@ -136,14 +132,22 @@ export default function PostForumDetails(props) {
               ml: "1rem",
             }}
           >
-          
             <VisibilityIcon fontSize="small" />
             <Typography sx={{ pr: "8px" }}>{postDetails?.numViews}</Typography>
           </Box>
           <IconButton sx={{ ml: "auto" }} aria-label="Comment"></IconButton>{" "}
+          <Link to={`/update-post/${postDetails?._id}`}>
+            <IconButton aria-label="update">
+              <CreateIcon />
+            </IconButton>
+          </Link>
         </CardActions>
       </Grid>
-      
+
+      <Box display="flex" justifyContent="center" alignItems="center">
+        {userAuth && <AddComment postForumId={id} />}
+        <CommentsList comments={postDetails?.comments} />
+      </Box>
     </Card>
   );
 };

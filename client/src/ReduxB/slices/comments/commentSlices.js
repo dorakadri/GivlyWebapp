@@ -51,7 +51,7 @@ export const deleteCommentAction = createAsyncThunk(
     //http call
     try {
       const { data } = await axios.delete(
-        `http://localhost:5000/api/api/comments/${commentId}`,
+        `http://localhost:5000/api/comments/${commentId}`,
         config
       );
       return data;

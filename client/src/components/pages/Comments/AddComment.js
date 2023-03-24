@@ -2,18 +2,50 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-//import { createCommentAction } from "../../../ReduxB/slices/postsForum/postForumSlices";
-import { TextField, Button, CircularProgress } from "@material-ui/core";
+import { createCommentAction } from "../../../ReduxB/slices/comments/commentSlices";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-// Form schema
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  form: {
+    display: "flex",
+    maxWidth: "sm",
+    margin: "auto",
+    marginTop: "1rem",
+  },
+  textField: {
+    margin: theme.spacing(1),
+    width: "100%",
+  },
+  button: {
+    margin: theme.spacing(1),
+    minWidth: "6rem",
+  },
+  loadingButton: {
+    minWidth: "6rem",
+  },
+}));
+
+//Form schema
 const formSchema = Yup.object({
   description: Yup.string().required("Description is required"),
 });
 
 const AddComment = ({ postForumId }) => {
-  // Dispatch
+  const classes = useStyles();
+
+  //dispatch
   const dispatch = useDispatch();
-  // Select data from store
+
+  //select data from store
   const comment = useSelector((state) => state?.comment);
   const { loading, appErr, serverErr } = comment;
 
@@ -26,35 +58,30 @@ const AddComment = ({ postForumId }) => {
         postForumId,
         description: values?.description,
       };
-      // Dispatch action
-     // dispatch(createCommentAction(data));
+      //dispatch action
+      dispatch(createCommentAction(data));
     },
     validationSchema: formSchema,
   });
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      {/* Error message */}
+    <div className={classes.root}>
+      {/* Err */}
       {serverErr || appErr ? (
         <h2 className="text-red-400 pb-2">
           {serverErr} {appErr}
         </h2>
       ) : null}
-      <form
-        onSubmit={formik.handleSubmit}
-        className="mt-1 flex max-w-sm m-auto"
-      >
+      <form onSubmit={formik.handleSubmit} className={classes.form}>
         <TextField
-          onBlur={formik.handleBlur("description")}
-          value={formik.values.description}
-          onChange={formik.handleChange("description")}
-          type="text"
-          name="text"
-          id="text"
-          placeholder="Add New comment"
+          className={classes.textField}
           variant="outlined"
-          margin="normal"
-          fullWidth
+          id="description"
+          name="description"
+          label="Add New Comment"
+          value={formik.values.description}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           error={
             formik.touched.description && Boolean(formik.errors.description)
           }
@@ -62,22 +89,20 @@ const AddComment = ({ postForumId }) => {
         />
         {loading ? (
           <Button
-            disabled
+            className={`${classes.loadingButton}`}
             variant="contained"
-            color="primary"
-            disableElevation
-            startIcon={<CircularProgress size={20} color="inherit" />}
-            className="ml-2"
+            color="default"
+            disabled
+            startIcon={<CircularProgress size={20} />}
           >
-            Loading please wait...
+            Loading...
           </Button>
         ) : (
           <Button
+            className={`${classes.button}`}
             type="submit"
             variant="contained"
             color="primary"
-            disableElevation
-            className="ml-2"
           >
             Submit
           </Button>
