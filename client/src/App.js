@@ -82,7 +82,7 @@ function App() {
         />
         <Route
           exact
-          path="/association/addpostf"
+          path="/association/createpost"
           element={
             <AssoElement Role={Role}>
               <CreatePostForum />

@@ -8,30 +8,33 @@ import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { DropzoneArea } from "material-ui-dropzone";
 
+import { green } from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
   form: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     margin: theme.spacing(3),
   },
   textField: {
     margin: theme.spacing(1),
-    width: '100%',
+    width: "100%",
   },
   dropzone: {
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.text.primary,
-    textAlign: 'center',
+    textAlign: "center",
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     borderRadius: theme.shape.borderRadius,
     border: `1px dashed ${theme.palette.text.secondary}`,
-    cursor: 'pointer',
+    cursor: "pointer",
   },
   button: {
     margin: theme.spacing(3, 0),
     padding: theme.spacing(1, 3),
+   
+    backgroundColor: green[500],
   },
 }));
 
@@ -86,6 +89,7 @@ export default function CreatePost() {
         onBlur={formik.handleBlur}
         error={formik.touched.title && Boolean(formik.errors.title)}
         helperText={formik.touched.title && formik.errors.title}
+       
       />
       <TextField
         id="description"
