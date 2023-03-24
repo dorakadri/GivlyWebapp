@@ -51,7 +51,7 @@ export default function Loginform() {
       return <Navigate to="/admin/dashboard" />;
     }
     if (userAuth?.role === "SimpleUser") {
-      return <Navigate to="/user/profile" />;
+      return <Navigate to="/user/home" />;
     }
     if (userAuth?.role === "Association") {
       return <Navigate to="/association/profile" />;

@@ -53,8 +53,8 @@ useEffect(() => {
 
   const classes = useStyles();
   return (
-    <Box style={{ overflow: "hidden" }}>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+    <Box >
+      <Box sx={{ display: "flex", justifyContent: "center" ,mt:"10vh"}}>
         {Posts?.map((p) => (
           <TinderCard
             ref={cardRef}

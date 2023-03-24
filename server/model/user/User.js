@@ -87,6 +87,10 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    wishlist: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post'
+    }],
     Rankpoints: Number,
   },
   {

@@ -5,10 +5,7 @@ import React, { useEffect } from 'react'
 import Cardswipe from './SwipeCard/Cardswipe';
 
 const StyledBox = styled(Box)({
-  boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.2)',
-  borderTopLeftRadius: '16px',
-  borderBottomLeftRadius: '16px',
-  zIndex:"999999"
+backgroundColor:"lightblue"
 });
 export default function Homepage() {
   

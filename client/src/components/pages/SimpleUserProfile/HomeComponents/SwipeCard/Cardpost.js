@@ -38,6 +38,7 @@ export default function Cardpost(props) {
         overflow: "hidden",
         borderColor: "transparent",
         px: "0.6rem",
+        position:"relative"
       }}
     >
       <CardHeader
