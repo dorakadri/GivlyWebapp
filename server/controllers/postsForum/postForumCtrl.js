@@ -22,10 +22,10 @@ const createPostForumCtrl = expressAsyncHandler(async (req, res) => {
   if (isProfane) {
     await User.findByIdAndUpdate(_id, {
       isBanned: true,
+      
     });
-    throw new Error(
-      "Creating Failed because it contains profane words and you have been banned"
-    );
+  res.status(401);
+  throw new Error(" and you are banned for the bad words");
   }
 
 

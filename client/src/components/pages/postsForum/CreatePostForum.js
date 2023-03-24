@@ -74,7 +74,6 @@ export default function CreatePost() {
   
 
   return (
-   
     <form onSubmit={formik.handleSubmit} className={classes.form}>
       <TextField
         id="title"
@@ -104,12 +103,28 @@ export default function CreatePost() {
       />
       <Container className={classes.dropzone}>
         <DropzoneArea
-          acceptedFiles={['image/jpeg', 'image/png']}
-          dropzoneText={'Drag and drop an image here or click'}
+          acceptedFiles={["image/jpeg", "image/png"]}
+          dropzoneText={"Drag and drop an image here or click"}
           onChange={(files) => {
-            formik.setFieldValue('image', files[0]);
+            formik.setFieldValue("image", files[0]);
           }}
         />
+      </Container>
+      {/* Err msg */}
+      <Container className="text-red-500">
+        {formik?.touched?.description && formik.errors?.description}
+        
+          {appErr || serverErr ? (
+            <Typography
+              variant="h6"
+              color="error"
+              align="center"
+              sx={{ mt: 2, gridColumn: "span 4" }}
+            >
+              {serverErr} {appErr}{" "}
+            </Typography>
+          ) : null}
+        
       </Container>
       <Button
         type="submit"
@@ -119,7 +134,7 @@ export default function CreatePost() {
         className={classes.button}
         disabled={loading}
       >
-        {loading ? 'Loading please wait...' : 'Create'}
+        {loading ? "Loading please wait..." : "Create"}
       </Button>
     </form>
   );

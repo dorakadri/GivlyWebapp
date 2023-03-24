@@ -13,6 +13,7 @@ import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed"
 import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
 import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
 import CreatePostForum from "./components/pages/postsForum/CreatePostForum";
+import PostsForumList from "./components/pages/postsForum/PostsForumList";
 import NotFound from "./components/common/NotFound";
 import axios from "axios";
 import Rolegoogle from "./components/pages/UserInterface/LoginAndRegister/Rolegoogle";
@@ -43,6 +44,7 @@ function App() {
         <Route exact path="*" element={<NotFound />} />
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/register" element={<Signup />} />
+        <Route exact path="/forum" element={<PostsForumList />} />
         <Route
           exact
           path="/register/Role"
@@ -80,7 +82,7 @@ function App() {
         />
         <Route
           exact
-          path="/association/forum"
+          path="/association/addpostf"
           element={
             <AssoElement Role={Role}>
               <CreatePostForum />
