@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import baseUrl from "../../../utils/baseURL";
+
 //Create Post action
 
 //action to redirect
@@ -29,7 +29,7 @@ export const createpostAction = createAsyncThunk(
       formData.append("image", postForum?.image);
 
       const { data } = await axios.post(
-        `${baseUrl}/api/posts`,
+        "http://localhost:5000/api/posts",
         formData,
         config
       );
@@ -59,7 +59,7 @@ export const updatePostAction = createAsyncThunk(
     try {
       //http call
       const { data } = await axios.put(
-        `${baseUrl}/api/posts/${postForum?.id}`,
+        `http://localhost:5000/api/posts/${postForum?.id}`,
         postForum,
         config
       );
@@ -88,7 +88,7 @@ export const deletePostAction = createAsyncThunk(
     try {
       //http call
       const { data } = await axios.delete(
-        `${baseUrl}/api/posts/${postForumId}`,
+        `http://localhost:5000/api/posts/${postForumId}`,
         config
       );
       //dispatch
@@ -106,9 +106,7 @@ export const fetchPostsAction = createAsyncThunk(
   "post/list",
   async ({ rejectWithValue, getState, dispatch }) => {
     try {
-      const { data } = await axios.get(
-        `${baseUrl}/api/posts`
-      );
+      const { data } = await axios.get(`http://localhost:5000/api/posts`);
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -121,7 +119,9 @@ export const fetchPostDetailsAction = createAsyncThunk(
   "post/detail",
   async (postForumId, { rejectWithValue, getState, dispatch }) => {
     try {
-      const { data } = await axios.get(`${baseUrl}/api/posts/${postForumId}`);
+      const { data } = await axios.get(
+        `http://localhost:5000/api/posts/${postForumId}`
+      );
       return data;
     } catch (error) {
       if (!error?.response) throw error;

@@ -12,6 +12,7 @@ import AssociationUserProfile from "./components/pages/AssociationUserProfile/As
 import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
 import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
 import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
+import CreatePostForum from "./components/pages/postsForum/CreatePostForum";
 import NotFound from "./components/common/NotFound";
 import axios from "axios";
 import Rolegoogle from "./components/pages/UserInterface/LoginAndRegister/Rolegoogle";
@@ -39,12 +40,17 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route exact path="*" element={<NotFound/>} />
+        <Route exact path="*" element={<NotFound />} />
         <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/register" element={<Signup  />} />
-        <Route exact path="/register/Role" element={< Rolegoogle usergoogle={user} />} />
-       
+        <Route exact path="/register" element={<Signup />} />
+        <Route
+          exact
+          path="/register/Role"
+          element={<Rolegoogle usergoogle={user} />}
+        />
+
         <Route exact path="/login" element={<LoginDesign />} />
+
         <Route
           exact
           path="/user/*"
@@ -68,7 +74,16 @@ function App() {
           path="/association/*"
           element={
             <AssoElement Role={Role}>
-                <AssociationUserProfile />
+              <AssociationUserProfile />
+            </AssoElement>
+          }
+        />
+        <Route
+          exact
+          path="/association/forum"
+          element={
+            <AssoElement Role={Role}>
+              <CreatePostForum />
             </AssoElement>
           }
         />
@@ -76,7 +91,7 @@ function App() {
           path="/verify-account/:token"
           element={userAuth ? <AccountVerifed /> : <Navigate to="/login" />}
         />
-      
+
         <Route
           exact
           path="/password-reset-token"
