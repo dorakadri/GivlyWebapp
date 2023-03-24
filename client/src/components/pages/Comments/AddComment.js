@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { createCommentAction } from "../../../ReduxB/slices/postsForum/postForumSlices";
+//import { createCommentAction } from "../../../ReduxB/slices/postsForum/postForumSlices";
 import { TextField, Button, CircularProgress } from "@material-ui/core";
 
 // Form schema
@@ -27,7 +27,7 @@ const AddComment = ({ postForumId }) => {
         description: values?.description,
       };
       // Dispatch action
-      dispatch(createCommentAction(data));
+     // dispatch(createCommentAction(data));
     },
     validationSchema: formSchema,
   });

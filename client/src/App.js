@@ -14,6 +14,7 @@ import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagmen
 import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
 import CreatePostForum from "./components/pages/postsForum/CreatePostForum";
 import PostsForumList from "./components/pages/postsForum/PostsForumList";
+import PostForumDetails from "./components/pages/postsForum/PostForumDetails";
 import NotFound from "./components/common/NotFound";
 import axios from "axios";
 import Rolegoogle from "./components/pages/UserInterface/LoginAndRegister/Rolegoogle";
@@ -45,6 +46,7 @@ function App() {
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/forum" element={<PostsForumList />} />
+        <Route exact path="/posts/:id" element={<PostForumDetails/>} />
         <Route
           exact
           path="/register/Role"

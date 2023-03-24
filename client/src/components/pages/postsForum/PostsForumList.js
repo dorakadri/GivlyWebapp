@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
+import { Link} from "react-router-dom";
 import ForumIcon from "@mui/icons-material/Forum";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import axios from "axios";
@@ -126,11 +127,17 @@ const PostsForumList = () => {
               <VisibilityIcon fontSize="small" />
               <Typography sx={{ pr: "8px" }}>{postForum?.numViews}</Typography>
             </Box>
-
             <IconButton sx={{ ml: "auto" }} aria-label="Comment">
-              {" "}
-              Read more
-            </IconButton>
+              <Link
+                to={`/posts/${postForum?._id}`}
+                className="text-indigo-500 hover:underline"
+              >
+                <Typography variant="body2" color="text.secondary">
+                  {" "}
+                  Read More..
+                </Typography>
+              </Link>
+            </IconButton>{" "}
           </CardActions>
         </Grid>
       ))}
