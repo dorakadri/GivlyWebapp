@@ -1,47 +1,34 @@
 
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import { Link} from "react-router-dom";
-import ForumIcon from "@mui/icons-material/Forum";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import axios from "axios";
 import { useEffect } from "react";
 import { Visibility as VisibilityIcon } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
 import {
   fetchPostsAction,
   toggleAddLikesToPost,
   toggleAddDisLikesToPost,
 } from "../../../ReduxB/slices/postsForum/postForumSlices";
-import {
-  Box,
-  Divider,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@mui/material";
-import { useState } from "react";
+import { Box,} from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import CreateIcon from "@mui/icons-material/Create";
 import { useDispatch, useSelector } from "react-redux";
+
 const PostsForumList = () => {
 
 
   const postForum = useSelector(state => state?.postForum);
-  const { postLists, loading, appErr, serverErr, likes, dislikes } = postForum;
+  const { postLists, likes, dislikes } = postForum;
 
 
 
@@ -100,6 +87,7 @@ const PostsForumList = () => {
             >
               <IconButton aria-label="Like">
                 <ThumbUpIcon
+                  color="primary"
                   onClick={() => dispatch(toggleAddLikesToPost(postForum?._id))}
                 />
               </IconButton>
@@ -108,6 +96,7 @@ const PostsForumList = () => {
 
               <IconButton aria-label="disLike">
                 <ThumbDownIcon
+                  color="secondary"
                   onClick={() =>
                     dispatch(toggleAddDisLikesToPost(postForum?._id))
                   }
@@ -124,7 +113,7 @@ const PostsForumList = () => {
                 ml: "1rem",
               }}
             >
-              <VisibilityIcon fontSize="small" />
+              <VisibilityIcon fontSize="small" color="primary" />
               <Typography sx={{ pr: "8px" }}>{postForum?.numViews}</Typography>
             </Box>
             <IconButton sx={{ ml: "auto" }} aria-label="Comment">

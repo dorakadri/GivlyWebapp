@@ -1,46 +1,27 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-import {
-  deletePostAction,
-  fetchPostDetailsAction,
-} from "../../../ReduxB/slices/postsForum/postForumSlices";
+import {deletePostAction,fetchPostDetailsAction,} from "../../../ReduxB/slices/postsForum/postForumSlices";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Box,
-  Divider,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@mui/material";
+import { Box,} from "@mui/material";
+import {Button } from "@material-ui/core";
 import AddComment from "../Comments/AddComment";
 import CommentsList from "../Comments/CommentsList";
-
-import { styled } from "@mui/material/styles";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import ForumIcon from "@mui/icons-material/Forum";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Visibility as VisibilityIcon } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import CreateIcon from "@mui/icons-material/Create";
 import { useParams } from "react-router-dom";
-import {
-  fetchPostsAction,
-  toggleAddLikesToPost,
-  toggleAddDisLikesToPost,
-} from "../../../ReduxB/slices/postsForum/postForumSlices";
+import { fetchPostsAction,} from "../../../ReduxB/slices/postsForum/postForumSlices";
 export default function PostForumDetails(props) {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -49,9 +30,6 @@ export default function PostForumDetails(props) {
   const postForum = useSelector((state) => state?.postForum);
   const {
     postDetails,
-    loading,
-    appErr,
-    serverErr,
     isDeleted,
     likes,
     dislikes,
@@ -132,15 +110,25 @@ export default function PostForumDetails(props) {
               ml: "1rem",
             }}
           >
-            <VisibilityIcon fontSize="small" />
+            <VisibilityIcon fontSize="small" color="primary" />
             <Typography sx={{ pr: "8px" }}>{postDetails?.numViews}</Typography>
           </Box>
           <IconButton sx={{ ml: "auto" }} aria-label="Comment"></IconButton>{" "}
-          <Link to={`/update-post/${postDetails?._id}`}>
-            <IconButton aria-label="update">
-              <CreateIcon />
-            </IconButton>
-          </Link>
+          {isCreatedBy ? (
+            <p>
+              <Link to={`/update-post/${postDetails?._id}`}>
+                <IconButton aria-label="update">
+                  <CreateIcon color="secondary" />
+                </IconButton>
+              </Link>
+
+              <Button
+                onClick={() => dispatch(deletePostAction(postDetails?._id))}
+                startIcon={<DeleteIcon />}
+                color="secondary"
+              ></Button>
+            </p>
+          ) : null}
         </CardActions>
       </Grid>
 

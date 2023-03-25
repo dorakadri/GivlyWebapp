@@ -109,7 +109,7 @@ export const fetchCommentAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/api/comments/${id}`,
+      const { data } = await axios.get(`http://localhost:5000/api/comments/${id}`,
         config
       );
       return data;

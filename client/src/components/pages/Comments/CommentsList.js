@@ -72,14 +72,7 @@ export default function CommentsList({ comments }) {
               {/* Check if is the same user created this comment */}
               {isLoginuser === comment?.user?._id ? (
                 <Box display="flex" alignItems="center" mt={1}>
-                  <Link
-                    to={`/update-comment/${comment?._id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <IconButton color="primary">
-                      <EditIcon />
-                    </IconButton>
-                  </Link>
+                 
                   <Button
                     onClick={() => dispatch(deleteCommentAction(comment?._id))}
                     startIcon={<DeleteIcon />}

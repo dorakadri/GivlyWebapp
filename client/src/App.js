@@ -16,7 +16,6 @@ import CreatePostForum from "./components/pages/postsForum/CreatePostForum";
 import PostsForumList from "./components/pages/postsForum/PostsForumList";
 import PostForumDetails from "./components/pages/postsForum/PostForumDetails";
 import UpdatePostForum from "./components/pages/postsForum/UpdatePostForum";
-import UpdateComment from "./components/pages/Comments/UpdateComment";
 import NotFound from "./components/common/NotFound";
 import axios from "axios";
 import Rolegoogle from "./components/pages/UserInterface/LoginAndRegister/Rolegoogle";
@@ -49,6 +48,8 @@ function App() {
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/forum" element={<PostsForumList />} />
         <Route exact path="/posts/:id" element={<PostForumDetails />} />
+      
+
         <Route
           exact
           path="/register/Role"
@@ -56,9 +57,7 @@ function App() {
         />
 
         <Route exact path="/login" element={<LoginDesign />} />
-        <Route exact path="/update-comment/:id" element={<UpdateComment />} />
 
-       
         <Route
           exact
           path="/user/*"
