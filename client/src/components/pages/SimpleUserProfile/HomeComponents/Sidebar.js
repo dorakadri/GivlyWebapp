@@ -5,6 +5,7 @@ import { ExpandLess, ExpandMore, HomeOutlined, StarBorder } from "@mui/icons-mat
 import { Box } from "@mui/system";
 import { Avatar, Collapse, Divider, ListItemAvatar, ListItemButton, ListSubheader } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 const drawerWidth =290;
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Sidebar = () => {
     const store = useSelector((state) => state?.users);
-
+const navigate=useNavigate();
     console.log(store.profile)
     const [open, setOpen] = React.useState(true);
 
@@ -51,7 +52,7 @@ const Sidebar = () => {
     
         <List  >
 
-        <ListItemButton>
+        <ListItem button>
               <ListItemAvatar>
                 <Avatar
                   alt="your photo"
@@ -60,7 +61,7 @@ const Sidebar = () => {
                 />
               </ListItemAvatar>
               <ListItemText  primary={store.profile?.firstName +" " +store.profile?.lastName }  />
-            </ListItemButton>
+            </ListItem>
         <ListSubheader component="div" id="nested-list-subheader">
         Your shortcuts
         </ListSubheader>
@@ -98,22 +99,22 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText primary="Find The Right Association Nearby" />
           </ListItem>
-          <ListItemButton onClick={handleClick}>
+          <ListItem button onClick={handleClick}>
         <ListItemIcon>
             <HomeOutlined />
             </ListItemIcon>
             <ListItemText primary="Composting" />
             {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
+          </ListItem>
           <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
+        <List component="div"  >
+          <ListItemButton  sx={{ pl: 6 }}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText primary="Composting at home" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton sx={{ pl: 6 }} >
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
@@ -125,7 +126,7 @@ const Sidebar = () => {
       <ListSubheader component="div" id="nested-list-subheader">
           Object Related features
         </ListSubheader>
-          <ListItem button>
+          <ListItem button   onClick={()=>navigate("./diygeneration")}>
             <ListItemIcon>
             <HomeOutlined />
             </ListItemIcon>

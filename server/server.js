@@ -11,6 +11,7 @@ const cookieSession = require("cookie-session");
 const passportStrategy = require("./passport");
 const giftsRoutes = require("./routes/gifts/giftsRoute");
 const postRoutes=require("./routes/posts/postsRoute")
+const diyRoutes=require("./routes/Objects/objectRoute")
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
 
@@ -50,6 +51,7 @@ app.use("/api/DeliveryMen", deliveryMensRoutes);
 //gift route
 app.use("/api/gift", giftsRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/diy", diyRoutes);
 //err handler
 app.use(notFound);
 app.use(errorHandler);

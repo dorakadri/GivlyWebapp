@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TinderCard from "react-tinder-card";
-import { fetchPostsAction } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
+import { addtowishlistAction, fetchPostsAction } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
 import Cardpost from "./Cardpost";
 
 
@@ -16,11 +16,12 @@ const useStyles = makeStyles({
 export default function Cardswipe() {
 
   const [lastDirection, setLastDirection] = useState();
-
+  const store = useSelector((state) => state?.users);
   const [Posts, setPosts] = useState();
   const dispatch = useDispatch();
 
 useEffect(() => {
+
   dispatch(fetchPostsAction());
   
 }, [dispatch])
@@ -36,9 +37,13 @@ useEffect(() => {
 
   const swiped = async (direction, thepost) => {
     setLastDirection(direction);
-    if (direction === "down") {
-     console.log("down")
+    if (direction === "right") {
+  
+     dispatch(addtowishlistAction({ id: store.userAuth._id,_id: thepost._id }));
+
+
     }
+   
     setTimeout(() => {
       setPosts(Posts.filter((post) => post._id !== thepost._id));
     }, 100);
@@ -53,15 +58,16 @@ useEffect(() => {
 
   const classes = useStyles();
   return (
-    <Box >
+    <Box  sx={{overflow:"hidden"}} >
       <Box sx={{ display: "flex", justifyContent: "center" ,mt:"10vh"}}>
         {Posts?.map((p) => (
           <TinderCard
             ref={cardRef}
-          className={classes.swipe}
+            className={classes.swipe}
             key={p._id}
             onSwipe={(dir) => swiped(dir, p)}
             preventSwipe={"down"}
+           
           >
            <Cardpost data={p} onButtonClick={handleButtonClick} />
         

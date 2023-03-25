@@ -5,8 +5,8 @@ import Sidebar from "./Sidebar";
 
 export default function LayoutSidebar() {
   return (
-    <Box display={"flex"} >
-      <Box sx={{  height: "calc(100vh - 64px)", width: "30%" }}>
+    <Box display={"flex"} sx={{ height: "calc(100vh - 64px)"}}  >
+      <Box sx={{  width: "30%" }}>
        <Sidebar/>
       </Box>
       <Outlet />

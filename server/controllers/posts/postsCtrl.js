@@ -1,10 +1,8 @@
 const Post = require('../../model/post/Posts');
 const expressAsyncHandler = require("express-async-handler");
-
 const validateMongodbId = require("../../utils/validateMongodbID");
 const express = require("express");
 const User = require('../../model/user/User');
-const { post } = require('../../routes/posts/postsRoute');
 const createPost = expressAsyncHandler(async (req, res) => {
   try {
     const post = await Post.create({
@@ -38,6 +36,7 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
   const removefromwishlist = expressAsyncHandler(async (req, res) => {
     try {
       const { userId, productId } = req.params;
+   
       const user = await User.findByIdAndUpdate(
         userId,
         { $pull: { wishlist: productId } },
@@ -57,7 +56,7 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
  const addtowishlist=expressAsyncHandler(async(req,res)=>{
   const { id } = req.params;
   const { _id } = req.body;
-  
+  console.log( _id)
   try {
     const user = await User.findByIdAndUpdate(
       id,

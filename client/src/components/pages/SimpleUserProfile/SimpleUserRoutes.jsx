@@ -6,6 +6,7 @@ import SimpleUserProfileEdit from "../SimpleUserProfile/SimpleUserProfileEdit";
 import Homepage from "./HomeComponents/Homepage";
 import Layout from "./Layout";
 import LayoutSidebar from "./HomeComponents/LayoutSidebar";
+import DiyGeneration from "./FoodRelated/DiyGeneration";
 
 function SimpleUserRoutes() {
   return (
@@ -16,6 +17,7 @@ function SimpleUserRoutes() {
        
           <Route element={<LayoutSidebar />}>
           <Route path="/home" element={<Homepage />} />
+          <Route path="/diygeneration" element={<DiyGeneration/>}/>
           </Route>
           <Route
             path="profile/update/:id"

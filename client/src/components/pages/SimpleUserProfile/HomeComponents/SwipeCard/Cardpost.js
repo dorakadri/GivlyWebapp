@@ -13,12 +13,16 @@ import React, { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import StarIcon from "@mui/icons-material/Star";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from "react-redux";
+import { addtowishlistAction } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
 
 export default function Cardpost(props) {
   const [post, setPost] = useState(props.data);
 
   const handleWishlist = () => {
     props.onButtonClick("right");
+ 
+   // dispatch(addtowishlistAction(store.userAuth._id,id));
   };
 
   const handlePass = () => {
@@ -81,6 +85,7 @@ export default function Cardpost(props) {
           aria-label="pass"
           size="large"
           id="pass"
+       
           onClick={handlePass}
         >
           <CloseIcon color="error" />
@@ -93,6 +98,7 @@ export default function Cardpost(props) {
             background: " linear-gradient(to right, #67b26f, #4ca2cd)",
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
           }}
+          className="lalaa"
           onClick={handleTake}
         >
           <FavoriteIcon sx={{ color: "#fff" }} />
@@ -101,6 +107,7 @@ export default function Cardpost(props) {
           aria-label="wishlist"
           size="large"
           id="wishlist"
+          className="lala"
           onClick={handleWishlist}
         >
           <StarIcon color="info" />
