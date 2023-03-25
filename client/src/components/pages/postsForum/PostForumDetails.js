@@ -58,84 +58,88 @@ export default function PostForumDetails(props) {
   //redirect
   if (isDeleted) return navigate("/forum");
   return (
-    <Card sx={{ maxWidth: 700 }}>
-      <Grid spacing={10}>
-        <CardHeader
-          avatar={
-            <Avatar
-              sx={{ bgcolor: red[600] }}
-              aria-label="recipe"
-              src={postDetails?.user?.profilePhoto}
-            ></Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title=""
-          subheader={`${postDetails?.user?.firstName} ${postDetails?.user?.lastName}`}
-        />
-        <CardContent>
-          <Typography
-            variant="h4"
-            color="text.secondary"
-            paddingBottom="0.5 rem"
-          >
-            {postDetails?.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {postDetails?.description}
-          </Typography>
-        </CardContent>
-        <CardMedia
-          component="img"
-          image={`${postDetails?.image}`}
-          alt="Paella dish"
-        />
+    <Box display="flex" justifyContent="center">
+      <Card sx={{ maxWidth: 700 }}>
+        <Grid spacing={10}>
+          <CardHeader
+            avatar={
+              <Avatar
+                sx={{ bgcolor: red[600] }}
+                aria-label="recipe"
+                src={postDetails?.user?.profilePhoto}
+              ></Avatar>
+            }
+            action={
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title=""
+            subheader={`${postDetails?.user?.firstName} ${postDetails?.user?.lastName}`}
+          />
+          <CardContent>
+            <Typography
+              variant="h4"
+              color="text.secondary"
+              paddingBottom="0.5 rem"
+            >
+              {postDetails?.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {postDetails?.description}
+            </Typography>
+          </CardContent>
+          <CardMedia
+            component="img"
+            image={`${postDetails?.image}`}
+            alt="Paella dish"
+          />
 
-        <CardActions>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          ></Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              ml: "1rem",
-            }}
-          >
-            <VisibilityIcon fontSize="small" color="primary" />
-            <Typography sx={{ pr: "8px" }}>{postDetails?.numViews}</Typography>
-          </Box>
-          <IconButton sx={{ ml: "auto" }} aria-label="Comment"></IconButton>{" "}
-          {isCreatedBy ? (
-            <p>
-              <Link to={`/update-post/${postDetails?._id}`}>
-                <IconButton aria-label="update">
-                  <CreateIcon color="secondary" />
-                </IconButton>
-              </Link>
+          <CardActions>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            ></Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                ml: "1rem",
+              }}
+            >
+              <VisibilityIcon fontSize="small" color="primary" />
+              <Typography sx={{ pr: "8px" }}>
+                {postDetails?.numViews}
+              </Typography>
+            </Box>
+            <IconButton sx={{ ml: "auto" }} aria-label="Comment"></IconButton>{" "}
+            {isCreatedBy ? (
+              <p>
+                <Link to={`/update-post/${postDetails?._id}`}>
+                  <IconButton aria-label="update">
+                    <CreateIcon color="secondary" />
+                  </IconButton>
+                </Link>
 
-              <Button
-                onClick={() => dispatch(deletePostAction(postDetails?._id))}
-                startIcon={<DeleteIcon />}
-                color="secondary"
-              ></Button>
-            </p>
-          ) : null}
-        </CardActions>
-      </Grid>
+                <Button
+                  onClick={() => dispatch(deletePostAction(postDetails?._id))}
+                  startIcon={<DeleteIcon />}
+                  color="secondary"
+                ></Button>
+              </p>
+            ) : null}
+          </CardActions>
+        </Grid>
 
-      <Box display="flex" justifyContent="center" alignItems="center">
-        {userAuth && <AddComment postForumId={id} />}
-        <CommentsList comments={postDetails?.comments} />
-      </Box>
-    </Card>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          {userAuth && <AddComment postForumId={id} />}
+          <CommentsList comments={postDetails?.comments} />
+        </Box>
+      </Card>
+    </Box>
   );
 };

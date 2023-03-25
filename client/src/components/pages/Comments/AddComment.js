@@ -99,7 +99,6 @@ const AddComment = ({ postForumId }) => {
             className={`${classes.loadingButton}`}
             variant="contained"
             color="default"
-            disabled
             disabled={serverErr}
             startIcon={<CircularProgress size={20} />}
           >

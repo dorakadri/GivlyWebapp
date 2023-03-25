@@ -243,6 +243,18 @@ const usersSlices = createSlice({
   initialState: {
     userAuth: userLoginFromStorage,
   },
+      reducers: {
+        addNotifications: (state, { payload }) => {
+            if (state.newMessages[payload]) {
+                state.newMessages[payload] = state.newMessages[payload] + 1;
+            } else {
+                state.newMessages[payload] = 1;
+            }
+        },
+        resetNotifications: (state, { payload }) => {
+            delete state.newMessages[payload];
+        },
+    },
 
   extraReducers: (builder) => {
     //register
