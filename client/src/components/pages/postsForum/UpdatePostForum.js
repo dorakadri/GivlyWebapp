@@ -148,7 +148,7 @@ export default function UpdatePostForum(props) {
         className={classes.button}
         disabled={loading}
       >
-        {loading ? "Loading please wait..." : "Create"}
+        {loading ? "Loading please wait..." : "Update"}
       </Button>
     </form>
   );

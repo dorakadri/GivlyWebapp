@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import { Container, Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -66,12 +66,19 @@ const AddComment = ({ postForumId }) => {
 
   return (
     <div className={classes.root}>
-      {/* Err */}
-      {serverErr || appErr ? (
-        <h2 className="text-red-400 pb-2">
-          {serverErr} {appErr}
-        </h2>
-      ) : null}
+      {/* Err msg */}
+      <Container className="text-red-500">
+        {appErr || serverErr ? (
+          <Typography
+            variant="h6"
+            color="error"
+            align="center"
+            sx={{ mt: 2, gridColumn: "span 4" }}
+          >
+            {serverErr} {appErr}{" "}
+          </Typography>
+        ) : null}
+      </Container>
       <form onSubmit={formik.handleSubmit} className={classes.form}>
         <TextField
           className={classes.textField}
@@ -93,12 +100,14 @@ const AddComment = ({ postForumId }) => {
             variant="contained"
             color="default"
             disabled
+            disabled={serverErr}
             startIcon={<CircularProgress size={20} />}
           >
             Loading...
           </Button>
         ) : (
           <Button
+            disabled={serverErr}
             className={`${classes.button}`}
             type="submit"
             variant="contained"

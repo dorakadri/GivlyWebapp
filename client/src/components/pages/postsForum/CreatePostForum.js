@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3, 0),
     padding: theme.spacing(1, 3),
-   
+
     backgroundColor: green[500],
   },
 }));
@@ -48,8 +49,9 @@ export default function CreatePost() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //select store data
-  const postForum = useSelector(state => state?.postForum);
+  const postForum = useSelector((state) => state?.postForum);
   const { isCreated, loading, appErr, serverErr } = postForum;
+
   //formik
   const formik = useFormik({
     initialValues: {
@@ -57,23 +59,22 @@ export default function CreatePost() {
       description: "",
       image: null,
     },
-    onSubmit: values => {
+    onSubmit: (values) => {
       //dispath the action
 
       const data = {
-         title: values?.title,
+        title: values?.title,
         description: values?.description,
         image: values?.image,
       };
       dispatch(createpostAction(data));
-   
     },
     validationSchema: formSchema,
   });
-   const classes = useStyles();
+  const classes = useStyles();
   //redirect
   if (isCreated) return navigate("/forum");
-  
+
 
   return (
     <form onSubmit={formik.handleSubmit} className={classes.form}>
@@ -88,7 +89,6 @@ export default function CreatePost() {
         onBlur={formik.handleBlur}
         error={formik.touched.title && Boolean(formik.errors.title)}
         helperText={formik.touched.title && formik.errors.title}
-       
       />
       <TextField
         id="description"
@@ -116,18 +116,17 @@ export default function CreatePost() {
       {/* Err msg */}
       <Container className="text-red-500">
         {formik?.touched?.description && formik.errors?.description}
-        
-          {appErr || serverErr ? (
-            <Typography
-              variant="h6"
-              color="error"
-              align="center"
-              sx={{ mt: 2, gridColumn: "span 4" }}
-            >
-              {serverErr} {appErr}{" "}
-            </Typography>
-          ) : null}
-        
+
+        {appErr || serverErr ? (
+          <Typography
+            variant="h6"
+            color="error"
+            align="center"
+            sx={{ mt: 2, gridColumn: "span 4" }}
+          >
+            {serverErr} {appErr}{" "}
+          </Typography>
+        ) : null}
       </Container>
       <Button
         type="submit"
@@ -135,11 +134,10 @@ export default function CreatePost() {
         color="primary"
         size="large"
         className={classes.button}
-        disabled={loading}
+        disabled={loading || serverErr}
       >
         {loading ? "Loading please wait..." : "Create"}
       </Button>
     </form>
   );
 }
-

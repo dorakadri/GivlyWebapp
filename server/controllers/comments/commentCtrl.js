@@ -1,11 +1,27 @@
 const expressAsyncHandler = require("express-async-handler");
 const Comment = require("../../model/comment/Comment");
 const validateMongodbId = require("../../utils/validateMongodbID");
-
+const banUser = require("../../utils/banUser");
+const User = require("../../model/user/User");
+const Filter = require("bad-words");
+const PostForum = require("../../model/postForum/PostForum");
 //-------------------------------------------------------------
 //Create
 //-------------------------------------------------------------
 const createCommentCtrl = expressAsyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  banUser(req.user);
+  //Check for bad words
+  const filter = new Filter();
+  const isProfane = filter.isProfane(req.body.description);
+  //ban user
+  if (isProfane) {
+    await User.findByIdAndUpdate(_id, {
+      isBanned: true,
+    });
+    res.status(401);
+    throw new Error(" and you are banned for the bad words");
+  }
   //1.Get the user
   const user = req.user;
   //2.Get the postForum Id
