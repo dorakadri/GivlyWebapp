@@ -1,4 +1,5 @@
 import { Mail, Notifications, Pets } from "@mui/icons-material";
+import ForumIcon from "@mui/icons-material/Forum";
 import {
   AppBar,
   Avatar,
@@ -68,6 +69,12 @@ export default function Navbar(data) {
           <InputBase placeholder="Search Givly" />
         </Search>
         <Icons>
+          <Link to={"/association/createpost"}>
+            <Badge >
+              <ForumIcon />
+            </Badge>
+          </Link>
+
           <Badge badgeContent={4} color="error">
             <Mail />
           </Badge>
