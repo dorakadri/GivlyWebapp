@@ -23,6 +23,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import { useParams } from "react-router-dom";
 import { fetchPostsAction,} from "../../../ReduxB/slices/postsForum/postForumSlices";
 import Navbar from "../SimpleUserProfile/Navbar";
+import DateFormatter from "../../../utils/DateFormatter";
 export default function PostForumDetails(props) {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ export default function PostForumDetails(props) {
       <Box flexGrow={4}>
         <Navbar profileurl={postForum?.user?.profilePhoto} />
       </Box>
+
       <Box display="flex" justifyContent="center">
         <Card sx={{ maxWidth: 700 }}>
           <Grid spacing={10}>
@@ -74,13 +76,9 @@ export default function PostForumDetails(props) {
                   src={postDetails?.user?.profilePhoto}
                 ></Avatar>
               }
-              action={
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
-                </IconButton>
-              }
-              title=""
-              subheader={`${postDetails?.user?.firstName} ${postDetails?.user?.lastName}`}
+              subheader={<DateFormatter date={postDetails?.createdAt} />}
+        
+              title={`${postDetails?.user?.firstName} ${postDetails?.user?.lastName}`}
             />
             <CardContent>
               <Typography

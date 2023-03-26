@@ -24,6 +24,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../SimpleUserProfile/Navbar";
+import DateFormatter from "../../../utils/DateFormatter";
 const PostsForumList = () => {
 
 
@@ -56,14 +57,10 @@ const PostsForumList = () => {
                     src={postForum?.user?.profilePhoto}
                   ></Avatar>
                 }
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
-                title=""
-                subheader={`${postForum?.user?.firstName} ${postForum?.user?.lastName}`}
+                subheader={<DateFormatter date={postForum?.createdAt} />}
+                title={`${postForum?.user?.firstName} ${postForum?.user?.lastName}`}
               />
+
               <CardContent>
                 <Typography
                   variant="h4"
@@ -72,6 +69,7 @@ const PostsForumList = () => {
                 >
                   {postForum?.title}
                 </Typography>
+
                 <Typography variant="body2" color="text.secondary">
                   {postForum?.description}
                 </Typography>
@@ -81,7 +79,6 @@ const PostsForumList = () => {
                 image={`${postForum?.image}`}
                 alt="Paella dish"
               />
-
               <CardActions>
                 <Box
                   sx={{
@@ -127,7 +124,7 @@ const PostsForumList = () => {
                   }}
                 >
                   <VisibilityIcon fontSize="small" color="primary" />
-                  <Typography color="text.secondary"  sx={{ pr: "8px" }}>
+                  <Typography color="text.secondary" sx={{ pr: "8px" }}>
                     {postForum?.numViews}
                   </Typography>
                 </Box>
