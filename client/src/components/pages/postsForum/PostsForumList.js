@@ -41,106 +41,110 @@ const PostsForumList = () => {
   }, [dispatch, likes, dislikes]);
 
   return (
-    <Box>
+    <Box spacing={10}>
       <Box flexGrow={4}>
         <Navbar profileurl={postForum?.user?.profilePhoto} />
       </Box>
-      <Box display="flex" justifyContent="center">
-        <Card sx={{ maxWidth: 500 }}>
+      <Box display="flex" justifyContent="center" spacing={10}>
+        <Card sx={{ maxWidth: 500 }} spacing={10}>
           {postLists?.map((postForum) => (
-            <Grid spacing={10} key={postForum?.id}>
-              <CardHeader
-                avatar={
-                  <Avatar
-                    sx={{ bgcolor: red[600] }}
-                    aria-label="recipe"
-                    src={postForum?.user?.profilePhoto}
-                  ></Avatar>
-                }
-                subheader={<DateFormatter date={postForum?.createdAt} />}
-                title={`${postForum?.user?.firstName} ${postForum?.user?.lastName}`}
-              />
+            <Box key={postForum?.id} mb={2}>
+              {" "}
+              {/* Add margin to create space */}
+              <Card spacing={10}>
+                <CardHeader
+                  avatar={
+                    <Avatar
+                      sx={{ bgcolor: red[600] }}
+                      aria-label="recipe"
+                      src={postForum?.user?.profilePhoto}
+                    ></Avatar>
+                  }
+                  subheader={<DateFormatter date={postForum?.createdAt} />}
+                  title={`${postForum?.user?.firstName} ${postForum?.user?.lastName}`}
+                />
 
-              <CardContent>
-                <Typography
-                  variant="h4"
-                  color="text.secondary"
-                  paddingBottom="0.5 rem"
-                >
-                  {postForum?.title}
-                </Typography>
-
-                <Typography variant="body2" color="text.secondary">
-                  {postForum?.description}
-                </Typography>
-              </CardContent>
-              <CardMedia
-                component="img"
-                image={`${postForum?.image}`}
-                alt="Paella dish"
-              />
-              <CardActions>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <IconButton aria-label="Like">
-                    <ThumbUpIcon
-                      color="primary"
-                      onClick={() =>
-                        dispatch(toggleAddLikesToPost(postForum?._id))
-                      }
-                    />
-                  </IconButton>
-
-                  <Typography color="text.secondary">
-                    {" "}
-                    {postForum?.likes?.length}
-                  </Typography>
-
-                  <IconButton aria-label="disLike">
-                    <ThumbDownIcon
-                      color="secondary"
-                      onClick={() =>
-                        dispatch(toggleAddDisLikesToPost(postForum?._id))
-                      }
-                    />
-                  </IconButton>
-
-                  <Typography color="text.secondary">
-                    {" "}
-                    {postForum?.disLikes?.length}{" "}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    ml: "1rem",
-                  }}
-                >
-                  <VisibilityIcon fontSize="small" color="primary" />
-                  <Typography color="text.secondary" sx={{ pr: "8px" }}>
-                    {postForum?.numViews}
-                  </Typography>
-                </Box>
-                <IconButton sx={{ ml: "auto" }} aria-label="Comment">
-                  <Link
-                    to={`/posts/${postForum?._id}`}
-                    className="text-indigo-500 hover:underline"
+                <CardContent>
+                  <Typography
+                    variant="h4"
+                    color="text.secondary"
+                    paddingBottom="0.5 rem"
                   >
-                    <Typography variant="body2" color="text.secondary">
+                    {postForum?.title}
+                  </Typography>
+
+                  <Typography variant="body2" color="text.secondary">
+                    {postForum?.description}
+                  </Typography>
+                </CardContent>
+                <CardMedia
+                  component="img"
+                  image={`${postForum?.image}`}
+                  alt="Paella dish"
+                />
+                <CardActions>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <IconButton aria-label="Like">
+                      <ThumbUpIcon
+                        color="primary"
+                        onClick={() =>
+                          dispatch(toggleAddLikesToPost(postForum?._id))
+                        }
+                      />
+                    </IconButton>
+
+                    <Typography color="text.secondary">
                       {" "}
-                      Read More..
+                      {postForum?.likes?.length}
                     </Typography>
-                  </Link>
-                </IconButton>{" "}
-              </CardActions>
-            </Grid>
+
+                    <IconButton aria-label="disLike">
+                      <ThumbDownIcon
+                        color="secondary"
+                        onClick={() =>
+                          dispatch(toggleAddDisLikesToPost(postForum?._id))
+                        }
+                      />
+                    </IconButton>
+
+                    <Typography color="text.secondary">
+                      {" "}
+                      {postForum?.disLikes?.length}{" "}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      ml: "1rem",
+                    }}
+                  >
+                    <VisibilityIcon fontSize="small" color="primary" />
+                    <Typography color="text.secondary" sx={{ pr: "8px" }}>
+                      {postForum?.numViews}
+                    </Typography>
+                  </Box>
+                  <IconButton sx={{ ml: "auto" }} aria-label="Comment">
+                    <Link
+                      to={`/posts/${postForum?._id}`}
+                      className="text-indigo-500 hover:underline"
+                    >
+                      <Typography variant="body2" color="text.secondary">
+                        {" "}
+                        Read More..
+                      </Typography>
+                    </Link>
+                  </IconButton>{" "}
+                </CardActions>
+              </Card>
+            </Box>
           ))}
         </Card>
       </Box>

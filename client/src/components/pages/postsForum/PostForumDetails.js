@@ -77,7 +77,6 @@ export default function PostForumDetails(props) {
                 ></Avatar>
               }
               subheader={<DateFormatter date={postDetails?.createdAt} />}
-        
               title={`${postDetails?.user?.firstName} ${postDetails?.user?.lastName}`}
             />
             <CardContent>
@@ -115,7 +114,7 @@ export default function PostForumDetails(props) {
                 }}
               >
                 <VisibilityIcon fontSize="small" color="primary" />
-                <Typography sx={{ pr: "8px" }}>
+                <Typography color="text.secondary" sx={{ pr: "8px" }}>
                   {postDetails?.numViews}
                 </Typography>
               </Box>
