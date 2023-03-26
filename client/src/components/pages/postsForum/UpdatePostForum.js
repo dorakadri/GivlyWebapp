@@ -13,6 +13,8 @@ import {
   updatePostAction,
 } from "../../../ReduxB/slices/postsForum/postForumSlices";
 import { green } from "@material-ui/core/colors";
+import Navbar from "../SimpleUserProfile/Navbar";
+import { Box } from "@mui/material";
 const useStyles = makeStyles((theme) => ({
   form: {
     display: "flex",
@@ -38,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0),
     padding: theme.spacing(1, 3),
 
-    backgroundColor: green[500],
+    backgroundColor: "#06A696",
   },
 }));
 
@@ -46,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 const formSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   description: Yup.string().required("Description is required"),
-  image: Yup.string().required("Image is required"),
+ 
 });
 
 export default function UpdatePostForum(props) {
@@ -71,7 +73,7 @@ export default function UpdatePostForum(props) {
     initialValues: {
       title: postDetails?.title,
       description: postDetails?.description,
-      image: postDetails?.image,
+      
     },
     onSubmit: (values) => {
       const data = {
@@ -83,74 +85,74 @@ export default function UpdatePostForum(props) {
     },
     validationSchema: formSchema,
   });
- const classes = useStyles();
+  const classes = useStyles();
   //redirect
-  if (isUpdated) return navigate("/forum") ;
+  if (isUpdated) return navigate("/forum");
 
   return (
-    <form onSubmit={formik.handleSubmit} className={classes.form}>
-      <TextField
-        id="title"
-        name="title"
-        label="Title"
-        variant="outlined"
-        className={classes.textField}
-        value={formik.values.title}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.title && Boolean(formik.errors.title)}
-        helperText={formik.touched.title && formik.errors.title}
-      />
-      <TextField
-        id="description"
-        name="description"
-        label="Description"
-        variant="outlined"
-        className={classes.textField}
-        value={formik.values.description}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.description && Boolean(formik.errors.description)}
-        helperText={formik.touched.description && formik.errors.description}
-        multiline
-        rows={5}
-      />
-      <Container className={classes.dropzone}>
-        <DropzoneArea
-          src={formik.values.image}
-          acceptedFiles={["image/jpeg", "image/png"]}
-          dropzoneText={"Drag and drop an image here or click"}
-          onChange={(files) => {
-            formik.setFieldValue("image", files[0]);
-          }}
-        />
-      </Container>
-      {/* Err msg */}
-      <Container className="text-red-500">
-        {formik?.touched?.description && formik.errors?.description}
+    <Box>
+      <Box>
+        <Navbar profileurl={postUpdate?.user?.profilePhoto} />
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <form onSubmit={formik.handleSubmit} className={classes.form}>
+          <TextField
+            id="title"
+            name="title"
+            label="Title"
+            variant="outlined"
+            className={classes.textField}
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.title && Boolean(formik.errors.title)}
+            helperText={formik.touched.title && formik.errors.title}
+          />
+          <TextField
+            id="description"
+            name="description"
+            label="Description"
+            variant="outlined"
+            className={classes.textField}
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              formik.touched.description && Boolean(formik.errors.description)
+            }
+            helperText={formik.touched.description && formik.errors.description}
+            multiline
+        
+          />
+        
+          {/* Err msg */}
+          <Container className="text-red-500">
+            {formik?.touched?.image && formik.errors?.image}
 
-        {appErr || serverErr ? (
-          <Typography
-            variant="h6"
-            color="error"
-            align="center"
-            sx={{ mt: 2, gridColumn: "span 4" }}
+            {appErr || serverErr ? (
+              <Typography
+                variant="h6"
+                color="error"
+                align="center"
+                sx={{ mt: 2, gridColumn: "span 4" }}
+              >
+                {serverErr} {appErr}{" "}
+              </Typography>
+            ) : null}
+          </Container>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="large"
+            className={classes.button}
+            disabled={loading || serverErr}
+            backgroundColor="#06A696"
           >
-            {serverErr} {appErr}{" "}
-          </Typography>
-        ) : null}
-      </Container>
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        size="large"
-        className={classes.button}
-        disabled={loading}
-      >
-        {loading ? "Loading please wait..." : "Update"}
-      </Button>
-    </form>
+            {loading ? "Loading please wait..." : "update"}
+          </Button>
+        </form>
+      </Box>
+    </Box>
   );
 }
-

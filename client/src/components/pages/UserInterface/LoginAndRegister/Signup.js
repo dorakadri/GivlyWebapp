@@ -36,7 +36,9 @@ export default function Signup() {
         <Typography variant="body1" style={{ fontWeight: "bold", py: "1rem" }}>
           Ready to join us !
         </Typography>
+        
         <RegisterDesign/>
+        
         <Typography py="1rem">
           Already have an account?{" "}
           <Link to="/login" style={{ textDecoration: "none" }}>

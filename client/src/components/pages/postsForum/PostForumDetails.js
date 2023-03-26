@@ -22,6 +22,7 @@ import { Grid } from "@material-ui/core";
 import CreateIcon from "@mui/icons-material/Create";
 import { useParams } from "react-router-dom";
 import { fetchPostsAction,} from "../../../ReduxB/slices/postsForum/postForumSlices";
+import Navbar from "../SimpleUserProfile/Navbar";
 export default function PostForumDetails(props) {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -58,88 +59,95 @@ export default function PostForumDetails(props) {
   //redirect
   if (isDeleted) return navigate("/forum");
   return (
-    <Box display="flex" justifyContent="center">
-      <Card sx={{ maxWidth: 700 }}>
-        <Grid spacing={10}>
-          <CardHeader
-            avatar={
-              <Avatar
-                sx={{ bgcolor: red[600] }}
-                aria-label="recipe"
-                src={postDetails?.user?.profilePhoto}
-              ></Avatar>
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title=""
-            subheader={`${postDetails?.user?.firstName} ${postDetails?.user?.lastName}`}
-          />
-          <CardContent>
-            <Typography
-              variant="h4"
-              color="text.secondary"
-              paddingBottom="0.5 rem"
-            >
-              {postDetails?.title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {postDetails?.description}
-            </Typography>
-          </CardContent>
-          <CardMedia
-            component="img"
-            image={`${postDetails?.image}`}
-            alt="Paella dish"
-          />
-
-          <CardActions>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            ></Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                ml: "1rem",
-              }}
-            >
-              <VisibilityIcon fontSize="small" color="primary" />
-              <Typography sx={{ pr: "8px" }}>
-                {postDetails?.numViews}
+    <Box>
+      <Box flexGrow={4}>
+        <Navbar profileurl={postForum?.user?.profilePhoto} />
+      </Box>
+      <Box display="flex" justifyContent="center">
+        <Card sx={{ maxWidth: 700 }}>
+          <Grid spacing={10}>
+            <CardHeader
+              avatar={
+                <Avatar
+                  sx={{ bgcolor: red[600] }}
+                  aria-label="recipe"
+                  src={postDetails?.user?.profilePhoto}
+                ></Avatar>
+              }
+              action={
+                <IconButton aria-label="settings">
+                  <MoreVertIcon />
+                </IconButton>
+              }
+              title=""
+              subheader={`${postDetails?.user?.firstName} ${postDetails?.user?.lastName}`}
+            />
+            <CardContent>
+              <Typography
+                variant="h4"
+                color="text.secondary"
+                paddingBottom="0.5 rem"
+              >
+                {postDetails?.title}
               </Typography>
-            </Box>
-            <IconButton sx={{ ml: "auto" }} aria-label="Comment"></IconButton>{" "}
-            {isCreatedBy ? (
-              <p>
-                <Link to={`/update-post/${postDetails?._id}`}>
-                  <IconButton aria-label="update">
-                    <CreateIcon color="secondary" />
-                  </IconButton>
-                </Link>
+              <Typography variant="body2" color="text.secondary">
+                {postDetails?.description}
+              </Typography>
+            </CardContent>
+            <CardMedia
+              component="img"
+              image={`${postDetails?.image}`}
+              alt="Paella dish"
+            />
 
-                <Button
-                  onClick={() => dispatch(deletePostAction(postDetails?._id))}
-                  startIcon={<DeleteIcon />}
-                  color="secondary"
-                ></Button>
-              </p>
-            ) : null}
-          </CardActions>
-        </Grid>
+            <CardActions>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              ></Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  ml: "1rem",
+                }}
+              >
+                <VisibilityIcon fontSize="small" color="primary" />
+                <Typography sx={{ pr: "8px" }}>
+                  {postDetails?.numViews}
+                </Typography>
+              </Box>
+              <IconButton sx={{ ml: "auto" }} aria-label="Comment"></IconButton>{" "}
+              {isCreatedBy ? (
+                <p>
+                  <Link to={`/update-post/${postDetails?._id}`}>
+                    <IconButton aria-label="update">
+                      <CreateIcon color="secondary" />
+                    </IconButton>
+                  </Link>
 
-        <Box display="flex" justifyContent="center" alignItems="center">
-          {userAuth && <AddComment postForumId={id} />}
-          <CommentsList comments={postDetails?.comments} />
-        </Box>
-      </Card>
+                  <Button
+                    onClick={() => dispatch(deletePostAction(postDetails?._id))}
+                    startIcon={<DeleteIcon />}
+                    color="secondary"
+                  ></Button>
+                </p>
+              ) : null}
+            </CardActions>
+          </Grid>
+
+          <Box display="flex" justifyContent="center" alignItems="center">
+            {userAuth && <AddComment postForumId={id} />}
+          </Box>
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <CommentsList comments={postDetails?.comments} />
+          </Box>
+        </Card>
+      </Box>
     </Box>
   );
 };
