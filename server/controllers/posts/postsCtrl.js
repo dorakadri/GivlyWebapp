@@ -33,6 +33,8 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
     }
   });
 
+  
+
   const removefromwishlist = expressAsyncHandler(async (req, res) => {
     try {
       const { userId, productId } = req.params;

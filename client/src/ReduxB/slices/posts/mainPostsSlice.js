@@ -39,12 +39,31 @@ export const fetchPostsAction = createAsyncThunk(
 export const addtowishlistAction = createAsyncThunk(
   "posts/towishlist",
   async ({id, _id}, { rejectWithValue, getState, dispatch }) => {
-  console.log(id +"idmte3 post"+ _id)
+
     try {
    
       const { data } = await axios.post(
         `http://localhost:5000/api/posts/${id}/wishlist`,
         {_id},
+      );
+      console.log(data)
+      return data;
+   
+    } catch (error) {
+      if (!error?.response) throw error;
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const getpostbyid = createAsyncThunk(
+  "getbyid",
+  async (id, { rejectWithValue, getState, dispatch }) => {
+
+    try {
+   
+      const { data } = await axios.get(
+        `http://localhost:5000/api/posts/${id}`,
       );
       console.log(data)
       return data;
@@ -86,6 +105,21 @@ const mainPostsSlice = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(addtowishlistAction.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    //getpostbyid
+    builder.addCase(getpostbyid.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getpostbyid.fulfilled, (state, action) => {
+      state.onepost = action?.payload;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(getpostbyid.rejected, (state, action) => {
       state.loading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;

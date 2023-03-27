@@ -9,15 +9,10 @@ import styled from '@emotion/styled';
 import { Box } from '@mui/system';
 import { Grid, Paper } from '@mui/material';
 import AccountVerifed from '../Navigation/Alerts/AccountVerifed';
+import { ProfileUserV2 } from './Profilepagecomponents/ProfileUserV2';
 
 
 
-const Item = styled(Paper)(() => ({
- 
-  padding: "1rem",
-  textAlign: 'center',
-  color: 'black',
-}));
 export default function ProfilePage() {
 
   const store = useSelector((state) => state?.users) 
@@ -30,22 +25,31 @@ export default function ProfilePage() {
   [store.userAuth._id,dispatch]
   )
 const { profile } = store 
-console.log(profile);
+
  
   
   return (
-    <Box  sx={{ mx:"2rem" }}>
-    <Grid container spacing={2} sx={{ mt:"2rem" }} >
+    <>
+    <Box sx={{width:"100%",
+    maxHeight:"219px",
+    overflow:"hidden",
+    position:"relative"}}  >
+             
+            <img style={{width:"100%"}}  alt="cover" src="https://lh3.googleusercontent.com/BbD96u55FGod7SlkIfbNArPXvNOUiySJkRAOMGGvCJTp2ew0SYPQ28nq9U6FjayriZ9MpYpLTYM4GZtTjszTzGVpkObvKbsZALApoMWcaiPetTQLAK59ZYtvkSg7"/>
+            
+            </Box>
 
+    <Grid  container spacing={3} sx={{  pl:"39px",pr:"39px",pt:"26px",pb:"26px"}} >
  
-  <Grid item xs={4}>
-    <ProfileCrad data={profile}/>
+ 
+  <Grid item xs={3}>
+    <ProfileUserV2 data={profile}/>
         </Grid>
         <Grid item xs={8}>
-          <Item>  <TabProfile/></Item>
+         <TabProfile />
         </Grid>
       </Grid>
-    </Box>
-
+  
+    </>
   )
 }

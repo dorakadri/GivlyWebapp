@@ -1,11 +1,6 @@
 import {
-  ChatBubbleOutlineOutlined,
-  ChatBubbleRounded,
   DarkModeOutlined,
-  HomeMaxOutlined,
-  HomeOutlined,
-  HomeRounded,
-  LightModeOutlined,
+
   Search,
 } from "@mui/icons-material";
 import {
@@ -66,7 +61,7 @@ export default function Finalnavbar(data) {
           <DarkModeOutlined sx={{ fontSize: "25px" }} />
         </IconButton>
         <FlexBetween sx={{ gap: "8px" }}>
-          <IconButton>
+          <IconButton onClick={() => navigate(`./home`)}>
             <FiHome />
           </IconButton>
           <IconButton>

@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardMedia,
   IconButton,
+  Paper,
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
@@ -13,12 +14,19 @@ import React, { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import StarIcon from "@mui/icons-material/Star";
 import CloseIcon from "@mui/icons-material/Close";
+import InfoIcon from '@mui/icons-material/Info';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useDispatch, useSelector } from "react-redux";
 import { addtowishlistAction } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
+import { Box } from "@mui/system";
 
 export default function Cardpost(props) {
   const [post, setPost] = useState(props.data);
+  const [info, setInfo] = useState(false);
 
+  const displayinfo=()=>{
+     setInfo(!info);
+  }
   const handleWishlist = () => {
     props.onButtonClick("right");
  
@@ -36,55 +44,77 @@ export default function Cardpost(props) {
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 500,
+        width:400,
+        minHeight: 500,
+        height:650,
         userSelect: "none",
-        borderRadius: 5,
+    backgroundColor:"transparent",
         overflow: "hidden",
         borderColor: "transparent",
         px: "0.6rem",
-        position:"relative"
+        position:"relative",
+        backgroundImage: `url(${post.postPicture})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+    
       }}
     >
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe"   src={post?.userPicture}/>
-
-        }
-        title={
-          <Typography>
-            {post.firstName} {post.lastName}{" "}
-          </Typography>
-        }
-        subheader={post.createdAt}
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image={post.postPicture}
-        alt={post.postPicture}
-        sx={{ pointerEvents: "none", borderRadius: "0.5rem" }}
-      />
-      <CardContent sx={{ pointerEvents: "none" }}>
+  
+     <Box  sx={{ width:"100%",   position: "absolute", bottom:0,left:0 ,    backgroundImage: "linear-gradient(to top, #000000, transparent)",}}>
+      <CardContent  sx={{ pointerEvents: "none"  }} 
+      
+      >
+          <Box sx={{ display: "flex", alignItems: "center", flex: 1,justifyContent:"space-between"}}>
         <Typography
-          sx={{ pointerEvents: "none" }}
+          sx={{ pointerEvents: "none" ,color:"white",fontWeight:"bold" }}
           gutterBottom
           variant="h5"
+
           component="div"
         >
+       
+
           {post.title}  
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+         <IconButton  sx={{ color: "white",pointerEvents: "auto" }} onClick={displayinfo} >
+         <InfoIcon  />
+         </IconButton>
+        </Box>
+        <Typography variant="body2" color="white">
           {post.description}
         </Typography>
+       {info&& <Box sx={{ display: "flex", alignItems: "center" ,justifyContent:"space-between",mt:"1rem"}}>
+
+  <Box  sx={{ display: "flex", alignItems: "center" }}>
+  <Avatar sx={{ mr: 1 }} src={post.userPicture} />
+    <Typography sx={{ color: "white", fontWeight: "bold" }}>
+      {post.firstName} {post.lastName}
+    </Typography>
+    </Box>
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <LocationOnIcon sx={{ color: "white", mr: 0.5 }} />
+      <Typography sx={{ color: "white" }}>
+        25km
+      </Typography>
+    </Box>
+
+</Box>}
+     
       </CardContent>
+ 
       <CardActions
         disableSpacing
-        sx={{ justifyContent: "space-around", mb: "1rem" }}
+        sx={{    
+     
+        justifyContent: "space-around", 
+        mb: "1rem" }}
       >
         <IconButton
           aria-label="pass"
           size="large"
           id="pass"
+          sx={{ border:" 1px solid red"}}
        
           onClick={handlePass}
         >
@@ -109,10 +139,14 @@ export default function Cardpost(props) {
           id="wishlist"
           className="lala"
           onClick={handleWishlist}
+          sx={{ border:" 1px solid #0288d1"}}
         >
           <StarIcon color="info" />
         </IconButton>
       </CardActions>
+      </Box>
+  
+    
     </Card>
   );
 }
