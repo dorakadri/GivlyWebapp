@@ -44,12 +44,12 @@ export default function AddDeliverer() {
       console.log(v)
     myService.Add(v)
     .then((response) => {
-      console.log(response)
+      navigate("/admin/delivererlist")
     })
     .catch((error) => {
       console.log(error)
     });
-    navigate("/admin/delivererlist")
+  
     },
 
     validationSchema: validationSchema,

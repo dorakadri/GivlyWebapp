@@ -1,4 +1,5 @@
-import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Button, IconButton, InputAdornment, LinearProgress, TextField, Typography, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
@@ -6,13 +7,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { passwordResetAction } from "../../../../ReduxB/slices/users/usersSlices";
+import { calculatePasswordStrength } from "../../../shared/calculatePasswordStrength";
 import imagebg from "../LoginAndRegister/hd.jpg";
 const formSchema = Yup.object({
-  password: Yup.string().required("Password is required"),
+  password: Yup.string()
+  .required("Type is required")
+  .required("Password is required")
+  .min(8, "Password must be at least 8 characters long")
+  .max(20, "Password must be at most 20 characters long")
+  .test("has-uppercase", "Add at least one uppercase letter", (password) => {
+    return /[A-Z]/.test(password);
+  })
+  .test("has-lowercase", "Add at least one lowercase letter", (password) => {
+    return /[a-z]/.test(password);
+  })
+  .test("has-number", "Add at least one number", (password) => {
+    return /\d/.test(password);
+  })
+  .test(
+    "has-special-char",
+    "Add at least one special character",
+    (password) => {
+      return /[!@#$%^&*()_+}{"':;?/>.<,]/.test(password);
+    }
+  ),
 });
 export default function ResetPassword() {
   const token =  useParams();
   const navigate=useNavigate();
+  const [showPassword, setShowPassword] = React.useState(false);
+
   const isnonMobile = useMediaQuery("(min-width :600px)");
   const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
   const dispatch = useDispatch();
@@ -41,6 +65,17 @@ export default function ResetPassword() {
       if (passwordReset)  navigate("/login") ;
     }, 5000);
   }, [passwordReset]);
+  const progress = calculatePasswordStrength(formik.values.password);
+
+  let progressBarColor;
+
+  if (progress < 33) {
+    progressBarColor = "error";
+  } else if (progress < 66) {
+    progressBarColor = "warning";
+  } else {
+    progressBarColor = "success";
+  }
 
   return (
   
@@ -90,20 +125,52 @@ export default function ResetPassword() {
         sx={{ "&>div": { gridColumn: isnonMobile ? undefined : "span 4" } }}
       >
         
-      <TextField
-          sx={{ gridColumn: "span 4",pb:"1rem" }}
-                type="password"
-                autoComplete="password"
-                value={formik.values.password}
-                onChange={formik.handleChange("password")}
-                onBlur={formik.handleBlur("password")}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Enter new Password"
-              />
+        <TextField
+          sx={{ gridColumn: "span 4" }}
+          fullWidth
+          id="password"
+          type={showPassword ? "text" : "password"}
+          label="password"
+          placeholder="Enter your password "
+          variant="outlined"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={
+            formik.touched.password &&
+            formik.errors.password && (
+              <span>
+                <span style={{ marginRight: "10px" }}>
+                  {formik.errors.password}
+                </span>
+                <LinearProgress
+                  variant="determinate"
+                  value={progress}
+                  color={progressBarColor}
+                />
+              </span>
+            )
+          }
+          name="password"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
               </Box>
       {loading ? (
           <Button
-            sx={{  width: "100%",   p: "1rem",  mt:"0",
+            sx={{  width: "100%",   p: "1rem",  mt:"1rem",
             mb:"2rem", }}
             variant="contained"
             size="large"
@@ -123,8 +190,8 @@ export default function ResetPassword() {
               border: "none",
               fontWeight: " bold",
               cursor: "pointer",
-              mt:"0",
-              mb:"2rem",
+          
+              mt:"1rem",
               p: "1rem",
               textAlign: "center",
 

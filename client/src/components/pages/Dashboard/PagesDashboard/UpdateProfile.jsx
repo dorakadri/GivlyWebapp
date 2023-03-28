@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import * as Yup from "yup";
-import { updateUserAction, userProfileAction } from '../../ReduxB/slices/users/usersSlices';
+import { updateUserAction, userProfileAction } from '../../../../ReduxB/slices/users/usersSlices';
 import Typography from '@mui/material/Typography'
-import { Avatar, Badge, Button, IconButton, TextField, Tooltip } from '@mui/material';
+import { Avatar, Badge, Button, IconButton, TextField, Tooltip, useMediaQuery } from '@mui/material';
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { Box } from '@mui/system';
 const formSchema = Yup.object({
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string().required("Last Name is required"),
@@ -17,6 +18,8 @@ const formSchema = Yup.object({
   
 export default function UpdateProfile() {
   const [image, setImage] = useState(null);
+  const isnonMobile = useMediaQuery("(min-width :600px)");
+  const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
 
     const dispatch = useDispatch();
     const id =useParams();
@@ -84,13 +87,69 @@ console.log(profile)
         }
       };
   return (
-<div>
-{serverErr || appErr ? (
-          <Typography className="text-red-300 text-center">
-            {serverErr} {appErr}
-          </Typography>
-        ) : null}
+    <Box display="flex" justifyContent="center" alignContent="center">
+  <Box
+        p="1rem"
+        mt="1rem"
+        borderRadius="1.5rem"
+        width={isNonMobileScreen ? "30%" : "80%"}
+        textAlign="center"
+        sx={{
+          backgroundColor: "rgba(255, 255, 255, 0.15)",
+          backdropFilter: "blur(5px)",
+          borderRadius: "10px",
+          boxShadow:
+            "0px 8px 10px rgba(0, 0, 0, 0.14), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 4px 5px rgba(0, 0, 0, 0.2)",
+        }}
+      >
+        <Typography
+          variant="h4"
+          style={{ fontWeight: "bold", marginBottom: "2rem" }}
+        >
+          Account settings !
+        </Typography>
  <form  onSubmit={formik.handleSubmit}>
+ <Badge
+  sx={{ mb: "2rem" }}
+  overlap="circular"
+  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+  badgeContent={
+    <Tooltip title="Upload Picture">
+      <IconButton component="label">
+        <input hidden type="file" onChange={handleImageChange} />
+        <CameraAltIcon sx={{ color: "#3aaca2" }} />
+      </IconButton>
+    </Tooltip>
+  }
+>
+  <Avatar
+    alt="Profile pic"
+    src={image ? URL.createObjectURL(image) : formik.values.profilePhoto}
+    sx={{
+      width: "8rem",
+      height: "8rem",
+      borderRadius: "100%",
+      alignSelf: "center",
+    }}
+  />
+</Badge>
+ <Box
+            display="grid"
+            gap="30px"
+            gridTemplateColumns="repeat(4,minmax(0,1fr))"
+            sx={{ "&>div": { gridColumn: isnonMobile ? undefined : "span 4" } }}
+          >
+            {appErr || serverErr ? (
+              <Typography
+                Typography
+                variant="h6"
+                color="error"
+                align="center"
+                sx={{ mt: 2, gridColumn: "span 4" }}
+              >
+                {serverErr} {appErr}{" "}
+              </Typography>
+            ) : null}  
  <TextField
           fullWidth
           sx={{ gridColumn: "span 2" }}
@@ -116,8 +175,9 @@ console.log(profile)
           error={formik.touched.lastName && Boolean(formik.errors.lastName)}
           helperText={formik.touched.lastName && formik.errors.lastName}
           name="lastName"
-        />   <TextField
-        sx={{ gridColumn: "span 2" }}
+        />  
+         <TextField
+        sx={{ gridColumn: "span 4" }}
         fullWidth
         id="outlined-basic"
         label="email"
@@ -132,6 +192,7 @@ console.log(profile)
       />
                
                <TextField
+               sx={{ gridColumn: "span 4" }}
           id="filled-multiline-flexible"
           label="Multiline"
           onChange={formik.handleChange}
@@ -139,34 +200,20 @@ console.log(profile)
           multiline
           maxRows={4}
           name="bio"
-          variant="filled"
+          variant="outlined"
         />
 
-<Badge
-  sx={{ mb: "2rem" }}
-  overlap="circular"
-  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-  badgeContent={
-    <Tooltip title="Upload Picture">
-      <IconButton component="label">
-        <input hidden type="file" onChange={handleImageChange} />
-        <CameraAltIcon sx={{ color: "#3aaca2" }} />
-      </IconButton>
-    </Tooltip>
-  }
->
-  <Avatar
-    alt="Profile pic"
-    src={image ? URL.createObjectURL(image) : formik.values.profilePhoto}
-    sx={{
-      width: "8rem",
-      height: "8rem",
-      borderRadius: "100%",
-      alignSelf: "center",
-    }}
-  />
-</Badge>
 
+<Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                gridColumn: "span 4",
+                alignItems: "center",
+                m: "1rem auto",
+              }}
+            >
    <Button
           sx={{
             mt: "2rem",
@@ -178,9 +225,14 @@ console.log(profile)
           size="large"
           type="submit"
         >
-          Sign Up
-        </Button>
-                 </form>
-</div>
+          Save changes
+          </Button>
+            </Box>
+          </Box>
+      
+        </form>
+      </Box>
+      </Box>
+  
   )
 }

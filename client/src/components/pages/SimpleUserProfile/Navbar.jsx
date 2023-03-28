@@ -53,6 +53,7 @@ export default function Navbar(data) {
   console.log(data);
 
   function handelLogout() {
+
     dispatch(logoutAction());
     navigate("/");
   }

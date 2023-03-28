@@ -38,9 +38,7 @@ userRoutes.post("/login", loginUserCtrl);
 // profile
 userRoutes.get("/profile/:id", authMiddleware, userProfileCtrl);
 userRoutes.put("/", authMiddleware, updateUserCtrl);
-// profile
-userRoutes.get("/profile/:id", authMiddleware, userProfileCtrl);
-userRoutes.put("/", authMiddleware, updateUserCtrl);
+
 // Password reset
 userRoutes.post("/forget-password-token", forgetPasswordToken);
 userRoutes.put("/reset-password", passwordResetCtrl);
