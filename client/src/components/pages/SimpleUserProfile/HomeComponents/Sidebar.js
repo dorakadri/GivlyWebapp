@@ -8,35 +8,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
-const drawerWidth =290;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  indicator: {
-    position: "absolute",
-    width: 5,
-    height: 60,
-    backgroundColor: theme.palette.primary.main,
-    top: 0,
-    left: 0,
-    borderRadius: "0px 30px 30px 0px",
-  },
-}));
-
 const Sidebar = () => {
     const store = useSelector((state) => state?.users);
 const navigate=useNavigate();

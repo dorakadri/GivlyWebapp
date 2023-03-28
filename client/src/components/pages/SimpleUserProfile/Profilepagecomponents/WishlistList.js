@@ -51,8 +51,8 @@ export default function WishlistList() {
           <Grid key={i} item xs={12} md={4} xl={4} style={{padding:"1rem  1rem"}}>
             <Card sx={{pl:0, pt:0}} variant="outlined">
               <CardHeader
-                avatar={<Avatar alt="logo" src={el.userPicture} />}
-                title={`${el.firstName} ${el.lastName}`}
+                avatar={<Avatar alt="logo" src={el.userId.profilePhoto} />}
+                title={`${el.userId.firstName} ${el.userId.lastName}`}
               />
               <CardMedia
                 component="img"

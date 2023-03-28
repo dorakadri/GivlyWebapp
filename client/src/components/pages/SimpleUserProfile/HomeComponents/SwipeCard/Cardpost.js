@@ -23,14 +23,14 @@ import { Box } from "@mui/system";
 export default function Cardpost(props) {
   const [post, setPost] = useState(props.data);
   const [info, setInfo] = useState(false);
-
+console.log(post)
   const displayinfo=()=>{
      setInfo(!info);
   }
   const handleWishlist = () => {
     props.onButtonClick("right");
  
-   // dispatch(addtowishlistAction(store.userAuth._id,id));
+
   };
 
   const handlePass = () => {
@@ -87,9 +87,11 @@ export default function Cardpost(props) {
        {info&& <Box sx={{ display: "flex", alignItems: "center" ,justifyContent:"space-between",mt:"1rem"}}>
 
   <Box  sx={{ display: "flex", alignItems: "center" }}>
-  <Avatar sx={{ mr: 1 }} src={post.userPicture} />
+  <Avatar   sx={{ mr: 1 }}src={post.userId?.profilePhoto
+} />
+
     <Typography sx={{ color: "white", fontWeight: "bold" }}>
-      {post.firstName} {post.lastName}
+      {post.userId.firstName} {post.userId.lastName}
     </Typography>
     </Box>
     <Box sx={{ display: "flex", alignItems: "center" }}>

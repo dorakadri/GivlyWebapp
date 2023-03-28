@@ -5,7 +5,9 @@ const{
     fetchAllPost,
     addtowishlist,
     removefromwishlist,
-    fetchbyid
+    fetchbyid,
+    addMatch,
+    getUserMatches
 }= require("../../controllers/posts/postsCtrl");
 const { GiftImgResize } = require("../../middlewares/uploads/profilePhotoUpload");
 
@@ -21,7 +23,9 @@ postRoutes.get("/:id",fetchbyid);
 
 postRoutes.post("/:id/wishlist",addtowishlist);
 postRoutes.delete("/:userId/wishlist/:productId",removefromwishlist);
-
+//addmatch
+postRoutes.post('/matches', addMatch);
+postRoutes.get('/getmatches/:id',getUserMatches);
 
 module.exports = postRoutes;
 

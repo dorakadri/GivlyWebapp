@@ -74,6 +74,44 @@ export const getpostbyid = createAsyncThunk(
     }
   }
 );
+export const addmatches = createAsyncThunk(
+  "addmatch",
+  async (match, { rejectWithValue, getState, dispatch }) => {
+
+    try {
+   
+      const { data } = await axios.post(
+        `http://localhost:5000/api/posts/matches`,
+        match
+      );
+      console.log(data)
+      dispatch(getmatchesuser());
+      return data;
+   
+    } catch (error) {
+      if (!error?.response) throw error;
+      return rejectWithValue(error);
+    }
+  }
+);
+export const getmatchesuser = createAsyncThunk(
+  "getmatchesuser",
+  async (_, { rejectWithValue, getState, dispatch }) => {
+    const { userAuth } = getState().users;
+   
+
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5000/api/posts/getmatches/${userAuth._id}`
+      );
+    
+      return data;
+    } catch (error) {
+      if (!error?.response) throw error;
+      return rejectWithValue(error);
+    }
+  }
+);
 
 const mainPostsSlice = createSlice({
   name: "mainpost",
@@ -99,7 +137,7 @@ const mainPostsSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(addtowishlistAction.fulfilled, (state, action) => {
-      state.Towishlist = action?.payload;
+      state.Towishlist = action?.payload?.message;
       state.loading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
@@ -120,6 +158,38 @@ const mainPostsSlice = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(getpostbyid.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    //updatematches
+    builder.addCase(addmatches.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(addmatches.fulfilled, (state, action) => {
+      state.matches = action?.payload;
+    
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(addmatches.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    //getfriendmatches
+    builder.addCase(getmatchesuser.pending, (state, action) => {
+      state.loading = true;
+    });
+    
+    builder.addCase(getmatchesuser.fulfilled, (state, action) => {
+      state.friendsmatch = action?.payload;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(getmatchesuser.rejected, (state, action) => {
       state.loading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;

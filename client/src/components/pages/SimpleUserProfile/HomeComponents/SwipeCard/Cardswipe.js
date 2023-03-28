@@ -3,7 +3,8 @@ import { makeStyles } from "@mui/styles";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TinderCard from "react-tinder-card";
-import { addtowishlistAction, fetchPostsAction } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
+
+import { addmatches, addtowishlistAction, fetchPostsAction } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
 import Cardpost from "./Cardpost";
 
 
@@ -24,7 +25,7 @@ useEffect(() => {
 
   dispatch(fetchPostsAction());
   
-}, [dispatch])
+}, [])
 
 const { postLists, loading, appErr, serverErr } = useSelector(
   (state) => state.mainpost
@@ -43,6 +44,18 @@ useEffect(() => {
 
 
     }
+    if (direction === "down") {
+      console.log(thepost)
+      const data = {
+        "userId": store.userAuth._id,
+        "postId": thepost._id,
+        "ownerId":thepost.userId.id
+      };
+     dispatch(addmatches(data)).then((result) => {
+       console.log( result);
+     });
+ 
+     }
    
     setTimeout(() => {
       setPosts(Posts.filter((post) => post._id !== thepost._id));

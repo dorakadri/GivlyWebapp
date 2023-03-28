@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const Match = require("./Matches");
 //create schema
 const userSchema = new mongoose.Schema(
   {
@@ -63,18 +64,17 @@ const userSchema = new mongoose.Schema(
     },
 
     location: String,
-    matches: [
-      {
-        userId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-        productId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Post",
-        },
-      },
-    ],
+    matches: {
+      userId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      
+      }],
+      productId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      }],
+    },
     matchesAsOwner: [
       {
         userId: {
@@ -87,6 +87,10 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    Taken: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post'
+    }],
     wishlist: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Post'

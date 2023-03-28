@@ -3,14 +3,12 @@ const expressAsyncHandler = require("express-async-handler");
 const validateMongodbId = require("../../utils/validateMongodbID");
 const express = require("express");
 const User = require('../../model/user/User');
+const Match = require('../../model/user/Matches');
 const createPost = expressAsyncHandler(async (req, res) => {
   try {
     const post = await Post.create({
       userId: req?.body?.userId,
-      firstName: req?.body?.firstName,
-      lastName: req?.body?.lastName,
       location: req?.body?.location,
-      userPicture: req?.body?.userPicture,
       description: req?.body?.description,
       postPicture: req?.body?.postPicture,
       createdAt: req?.body?.createdAt,
@@ -25,7 +23,7 @@ const createPost = expressAsyncHandler(async (req, res) => {
 
 const fetchAllPost = expressAsyncHandler(async (req, res) => {
     try {
-      const post= await Post.find({});
+      const post= await Post.find({}).populate('userId', 'firstName lastName profilePhoto');
   
       res.json(post);
     } catch (error) {
@@ -81,13 +79,82 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
   validateMongodbId(id);
 
   try {
-    const post = await Post.findById(id);
+    const post = await Post.findById(id).populate("userId", "firstName lastName profilePhoto");;
     console.log( post);
     if ( post) {
       res.json( post);
     } else {
       res.status(404).json({ message: " post not found" });
     }
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+//updateusermatches 
+const addMatch = expressAsyncHandler(async (req, res) => {
+  const { userId, postId, ownerId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      res.status(404).json({ message: `User with id ${userId} not found` });
+ 
+    }
+
+    const userIds = user.matches.userId;
+    const productIds = user.matches.productId;
+
+    if (userIds.includes(ownerId) && productIds.includes(postId)) {
+      res.json({ message: "Match already exists" });
+       return
+    }
+    if (!userIds.includes(ownerId)) {
+      user.matches.userId.push(ownerId);
+    }
+
+    if (!productIds.includes(postId)) {
+      user.matches.productId.push(postId);
+    }
+
+    await user.save();
+
+    res.json({ message: "Match added successfully" });
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+
+
+
+
+
+
+//getownerposts
+const getUserMatches = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(id)
+
+    if (!user) {
+      res.status(404).json({ message: `User with id ${id} not found` });
+      return;
+    }
+
+    const userIds = user.matches.userId;
+    const users = await User.find({ _id: { $in: userIds } }, 'firstName lastName profilePhoto');
+    
+    const matchedUsers = users.map(u => ({ 
+      id: u._id, 
+      firstName: u.firstName, 
+      lastName: u.lastName,
+      profilePhoto: u.profilePhoto 
+    }));
+
+    res.status(200).json(matchedUsers);
   } catch (error) {
     res.json(error);
   }
@@ -102,5 +169,7 @@ module.exports = {
     fetchAllPost,
     addtowishlist,
     removefromwishlist,
-    fetchbyid
+    fetchbyid,
+    addMatch,
+    getUserMatches
   };
