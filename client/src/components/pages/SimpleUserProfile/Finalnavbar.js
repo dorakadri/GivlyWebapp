@@ -25,7 +25,7 @@ import logo from "../../../assets/images/logogivly.png";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutAction } from "../../../ReduxB/slices/users/usersSlices";
-import { setMode } from "../Dashboard/state";
+
 
 export default function Finalnavbar(data) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -58,22 +58,22 @@ export default function Finalnavbar(data) {
           </FlexBetween>
         </FlexBetween>
         <IconButton>
-          <DarkModeOutlined sx={{ fontSize: "25px" }} />
+          <DarkModeOutlined sx={{ fontSize: "25px",color:"#9fa1a2" }} />
         </IconButton>
         <FlexBetween sx={{ gap: "8px" }}>
-          <IconButton onClick={() => navigate(`./home`)}>
-            <FiHome />
+          <IconButton onClick={() => navigate(`./home`)} >
+            <FiHome  color="#9fa1a2" />
           </IconButton>
           <IconButton>
-            <FaForumbee />
+            <FaForumbee  color="#9fa1a2" />
           </IconButton>
           <IconButton>
-            <FiMessageSquare />
+            <FiMessageSquare  color="#9fa1a2" />
           </IconButton>
 
-          <FlexBetween>
+          <Box>
             <IconButton onClick={handleClick}>
-              <Avatar src={data?.profileurl} />
+              <Avatar src={data?.profileurl}  color="#9fa1a2"  />
             </IconButton>
             <Menu
               anchorEl={anchorEl}
@@ -84,7 +84,7 @@ export default function Finalnavbar(data) {
               <MenuItem onClick={() => navigate(`./profile`)}>Profile</MenuItem>
               <MenuItem onClick={handelLogout}>Log Out</MenuItem>
             </Menu>
-          </FlexBetween>
+          </Box>
         </FlexBetween>
       </Toolbar>
     </AppBar>

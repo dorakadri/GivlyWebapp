@@ -36,6 +36,12 @@ const navigate=useNavigate();
         <ListSubheader component="div" id="nested-list-subheader">
         Your shortcuts
         </ListSubheader>
+        <ListItem button  onClick={()=>navigate("/user/Addpost")}>
+            <ListItemIcon>
+            <HomeOutlined />
+            </ListItemIcon>
+            <ListItemText primary="Add post" />
+          </ListItem>
           <ListItem button>
             <ListItemIcon>
             <HomeOutlined />
@@ -58,7 +64,7 @@ const navigate=useNavigate();
           <ListSubheader component="div" id="nested-list-subheader">
           Food Related features
         </ListSubheader>
-          <ListItem button>
+          <ListItem button >
             <ListItemIcon>
             <HomeOutlined />
             </ListItemIcon>
