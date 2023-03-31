@@ -95,6 +95,10 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Post'
     }],
+    Ownposts: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post'
+    }],
     Rankpoints: Number,
   },
   {

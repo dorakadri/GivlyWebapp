@@ -30,18 +30,20 @@ import { logoutAction } from "../../../ReduxB/slices/users/usersSlices";
 export default function Finalnavbar(data) {
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
-  const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
-
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-  console.log(data);
   function handelLogout() {
     dispatch(logoutAction());
     navigate("/");
   }
   return (
+    <>
     <AppBar sx={{ position: "static", background: "none", boxShadow: "none" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <FlexBetween>
@@ -88,5 +90,6 @@ export default function Finalnavbar(data) {
         </FlexBetween>
       </Toolbar>
     </AppBar>
+    </>
   );
 }

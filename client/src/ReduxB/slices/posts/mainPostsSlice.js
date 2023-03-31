@@ -5,12 +5,14 @@ import axios from "axios";
 export const addPostAction = createAsyncThunk(
   "posts/",
   async (post, { rejectWithValue, getState, dispatch }) => {
+    const { userAuth } = getState().users;
+    console.log(post)
     try {
       const config = {
         headers: { "Content-Type": "application/json" },
       };
       const { data } = await axios.post(
-        "http://localhost:5000/api/posts/",
+        `http://localhost:5000/api/posts/${userAuth._id}`,
         post,
         config
       );
@@ -27,8 +29,9 @@ export const addPostAction = createAsyncThunk(
 export const fetchPostsAction = createAsyncThunk(
   "posts/list",
   async (_, { rejectWithValue, getState, dispatch }) => {
+    const { userAuth } = getState().users;
     try {
-      const { data } = await axios.get(" http://localhost:5000/api/posts");
+      const { data } = await axios.get(`http://localhost:5000/api/posts/getall/${userAuth._id}`);
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -77,11 +80,11 @@ export const getpostbyid = createAsyncThunk(
 export const addmatches = createAsyncThunk(
   "addmatch",
   async (match, { rejectWithValue, getState, dispatch }) => {
-
+  
     try {
-   
+      console.log(match)
       const { data } = await axios.post(
-        `http://localhost:5000/api/posts/matches`,
+        `http://localhost:5000/api/posts/add/matches`,
         match
       );
       console.log(data)

@@ -14,8 +14,8 @@ const { GiftImgResize } = require("../../middlewares/uploads/profilePhotoUpload"
 const postRoutes = express.Router();
 
 
-postRoutes.post("/",GiftImgResize,createPost);
-postRoutes.get("/",  fetchAllPost);
+postRoutes.post("/:id",createPost);
+postRoutes.get("/getall/:id",  fetchAllPost);
 postRoutes.get("/:id",fetchbyid);
 
 
@@ -24,7 +24,7 @@ postRoutes.get("/:id",fetchbyid);
 postRoutes.post("/:id/wishlist",addtowishlist);
 postRoutes.delete("/:userId/wishlist/:productId",removefromwishlist);
 //addmatch
-postRoutes.post('/matches', addMatch);
+postRoutes.post('/add/matches', addMatch);
 postRoutes.get('/getmatches/:id',getUserMatches);
 
 module.exports = postRoutes;

@@ -5,16 +5,19 @@ const express = require("express");
 const User = require('../../model/user/User');
 const Match = require('../../model/user/Matches');
 const createPost = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  console.log("ff")
   try {
     const post = await Post.create({
-      userId: req?.body?.userId,
+      userId: id,
       location: req?.body?.location,
       description: req?.body?.description,
-      postPicture: req?.body?.postPicture,
+      postPicture: req?.body?.postpicture,
       createdAt: req?.body?.createdAt,
       title: req?.body?.title,
       type: req?.body?.type,
     });
+    await User.findByIdAndUpdate(id, { $push: { Ownposts: post._id } });
     res.json(post);
   } catch (error) {
     res.json(error);
@@ -22,14 +25,23 @@ const createPost = expressAsyncHandler(async (req, res) => {
 });
 
 const fetchAllPost = expressAsyncHandler(async (req, res) => {
-    try {
-      const post= await Post.find({}).populate('userId', 'firstName lastName profilePhoto');
-  
-      res.json(post);
-    } catch (error) {
-      res.json(error);
-    }
-  });
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(id);
+
+    const posts = await Post.find({
+      $and: [
+        { _id: { $nin: [...user.Ownposts, ...user.wishlist] } },
+        { _id: { $nin: user.matches.productId } }
+      ]
+    }).populate('userId', 'firstName lastName profilePhoto');
+
+    res.json(posts);
+  } catch (error) {
+    res.json(error);
+  }
+});
 
   
 
@@ -96,8 +108,9 @@ const addMatch = expressAsyncHandler(async (req, res) => {
   const { userId, postId, ownerId } = req.body;
 
   try {
-    const user = await User.findById(userId);
 
+    const user = await User.findById(userId);
+console.log(user)
     if (!user) {
       res.status(404).json({ message: `User with id ${userId} not found` });
  
@@ -111,10 +124,12 @@ const addMatch = expressAsyncHandler(async (req, res) => {
        return
     }
     if (!userIds.includes(ownerId)) {
+      console.log("lala")
       user.matches.userId.push(ownerId);
     }
 
     if (!productIds.includes(postId)) {
+      console.log("lolo")
       user.matches.productId.push(postId);
     }
 

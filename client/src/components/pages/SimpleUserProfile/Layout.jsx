@@ -3,11 +3,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { userProfileAction } from "../../../ReduxB/slices/users/usersSlices";
-import Sidebar from "../Dashboard/componentsDashboard/Sidebar";
 import AccountVerificationAlertWarning from "../Navigation/Alerts/AccountVerificationAlertWarning";
 import AccountVerificationSuccessAlert from "../Navigation/Alerts/AccountVerificationSuccessAlert";
 import Finalnavbar from "./Finalnavbar";
-import Navbar from "./Navbar";
 export default function Layout() {
   const store = useSelector((state) => state?.users);
   console.log(store.userAuth._id);
@@ -25,7 +23,6 @@ export default function Layout() {
     <Box display={"flex"}>
 
       <Box flexGrow={1}>
-        {/* <Navbar profileurl={profile?.profilePhoto} />  */}
         <Finalnavbar profileurl={profile?.profilePhoto}/>
 
         {userAuth && !userAuth.isAccountVerified && (

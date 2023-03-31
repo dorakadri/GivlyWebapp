@@ -5,6 +5,7 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
+  Fab,
   IconButton,
   Paper,
   Typography,
@@ -14,8 +15,8 @@ import React, { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import StarIcon from "@mui/icons-material/Star";
 import CloseIcon from "@mui/icons-material/Close";
-import InfoIcon from '@mui/icons-material/Info';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import InfoIcon from "@mui/icons-material/Info";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useDispatch, useSelector } from "react-redux";
 import { addtowishlistAction } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
 import { Box } from "@mui/system";
@@ -23,14 +24,12 @@ import { Box } from "@mui/system";
 export default function Cardpost(props) {
   const [post, setPost] = useState(props.data);
   const [info, setInfo] = useState(false);
-console.log(post)
-  const displayinfo=()=>{
-     setInfo(!info);
-  }
+  console.log(post);
+  const displayinfo = () => {
+    setInfo(!info);
+  };
   const handleWishlist = () => {
     props.onButtonClick("right");
- 
-
   };
 
   const handlePass = () => {
@@ -45,110 +44,120 @@ console.log(post)
     <Card
       sx={{
         maxWidth: 500,
-        width:400,
+        width: 400,
         minHeight: 500,
-        height:650,
+        height: 650,
         userSelect: "none",
-    backgroundColor:"transparent",
+        backgroundColor: "transparent",
         overflow: "hidden",
         borderColor: "transparent",
         px: "0.6rem",
-        position:"relative",
+        position: "relative",
         backgroundImage: `url(${post.postPicture})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-    
       }}
     >
-  
-     <Box  sx={{ width:"100%",   position: "absolute", bottom:0,left:0 ,    backgroundImage: "linear-gradient(to top, #000000, transparent)",}}>
-      <CardContent  sx={{ pointerEvents: "none"  }} 
-      
+      <Box
+        sx={{
+          width: "100%",
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          backgroundImage: "linear-gradient(to top, #000000, transparent)",
+        }}
       >
-          <Box sx={{ display: "flex", alignItems: "center", flex: 1,justifyContent:"space-between"}}>
-        <Typography
-          sx={{ pointerEvents: "none" ,color:"white",fontWeight:"bold" }}
-          gutterBottom
-          variant="h5"
+        <CardContent sx={{ pointerEvents: "none" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flex: 1,
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography
+              sx={{ pointerEvents: "none", color: "white", fontWeight: "bold" }}
+              gutterBottom
+              variant="h5"
+              component="div"
+            >
+              {post.title}
+            </Typography>
+            <IconButton
+              sx={{ color: "white", pointerEvents: "auto" }}
+              onClick={displayinfo}
+            >
+              <InfoIcon />
+            </IconButton>
+          </Box>
+          <Typography variant="body2" color="white">
+            {post.description}
+          </Typography>
+          {info && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                mt: "1rem",
+              }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Avatar sx={{ mr: 1 }} src={post.userId?.profilePhoto} />
 
-          component="div"
-        >
-       
+                <Typography sx={{ color: "white", fontWeight: "bold" }}>
+                  {post.userId.firstName} {post.userId.lastName}
+                </Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <LocationOnIcon sx={{ color: "white", mr: 0.5 }} />
+                <Typography sx={{ color: "white" }}>25km</Typography>
+              </Box>
+            </Box>
+          )}
+        </CardContent>
 
-          {post.title}  
-        </Typography>
-         <IconButton  sx={{ color: "white",pointerEvents: "auto" }} onClick={displayinfo} >
-         <InfoIcon  />
-         </IconButton>
-        </Box>
-        <Typography variant="body2" color="white">
-          {post.description}
-        </Typography>
-       {info&& <Box sx={{ display: "flex", alignItems: "center" ,justifyContent:"space-between",mt:"1rem"}}>
-
-  <Box  sx={{ display: "flex", alignItems: "center" }}>
-  <Avatar   sx={{ mr: 1 }}src={post.userId?.profilePhoto
-} />
-
-    <Typography sx={{ color: "white", fontWeight: "bold" }}>
-      {post.userId.firstName} {post.userId.lastName}
-    </Typography>
-    </Box>
-    <Box sx={{ display: "flex", alignItems: "center" }}>
-      <LocationOnIcon sx={{ color: "white", mr: 0.5 }} />
-      <Typography sx={{ color: "white" }}>
-        25km
-      </Typography>
-    </Box>
-
-</Box>}
-     
-      </CardContent>
- 
-      <CardActions
-        disableSpacing
-        sx={{    
-     
-        justifyContent: "space-around", 
-        mb: "1rem" }}
-      >
-        <IconButton
-          aria-label="pass"
-          size="large"
-          id="pass"
-          sx={{ border:" 1px solid red"}}
-       
-          onClick={handlePass}
-        >
-          <CloseIcon color="error" />
-        </IconButton>
-        <IconButton
-          id="take"
-          aria-label="take"
+        <CardActions
+          disableSpacing
           sx={{
-            padding: "1rem",
-            background: " linear-gradient(to right, #67b26f, #4ca2cd)",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            justifyContent: "space-around",
+            mb: "1rem",
           }}
-          className="lalaa"
-          onClick={handleTake}
         >
-          <FavoriteIcon sx={{ color: "#fff" }} />
-        </IconButton>
-        <IconButton
-          aria-label="wishlist"
-          size="large"
-          id="wishlist"
-          className="lala"
-          onClick={handleWishlist}
-          sx={{ border:" 1px solid #0288d1"}}
-        >
-          <StarIcon color="info" />
-        </IconButton>
-      </CardActions>
+          <IconButton
+            aria-label="pass"
+            size="large"
+            id="pass"
+            sx={{ border: " 1px solid red" }}
+            onClick={handlePass}
+          >
+            <CloseIcon color="error" />
+          </IconButton>
+
+          <Fab
+            aria-label="like"
+            sx={{
+              background: " linear-gradient(to right, #67b26f, #4ca2cd)",
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            }}
+            id="take"
+            onClick={handleTake}
+          >
+            <FavoriteIcon sx={{ color: "white" }} />
+          </Fab>
+          <IconButton
+            aria-label="wishlist"
+            size="large"
+            id="wishlist"
+            className="lala"
+            onClick={handleWishlist}
+            sx={{ border: " 1px solid #0288d1" }}
+          >
+            <StarIcon color="info" />
+          </IconButton>
+        </CardActions>
       </Box>
-  
-    
     </Card>
   );
 }

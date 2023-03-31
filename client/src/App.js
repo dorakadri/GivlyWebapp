@@ -6,8 +6,8 @@ import Dashboard from "../src/components/pages/Dashboard/Dashboard";
 import { useSelector } from "react-redux";
 import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/LoginDesign";
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
-import { useEffect, useState } from "react";
-import SimpleUserProfile from "./components/pages/SimpleUserProfile/SimpleUserProfile";
+import { lazy, useEffect, useState } from "react";
+
 import AssociationUserProfile from "./components/pages/AssociationUserProfile/AssociationUserProfile"
 import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
 import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
@@ -15,11 +15,13 @@ import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/Re
 import NotFound from "./components/common/NotFound";
 import axios from "axios";
 import Rolegoogle from "./components/pages/UserInterface/LoginAndRegister/Rolegoogle";
+const SimpleUserProfile = lazy(() => import("./components/pages/SimpleUserProfile/SimpleUserProfile"));
 function App() {
   const [user, setUser] = useState(null);
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
   const Role = userAuth?.role;
+ 
   const getUser = async () => {
 		try {
 			const url = 'http://localhost:5000/auth/login/success';
