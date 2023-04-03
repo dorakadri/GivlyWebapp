@@ -1,70 +1,67 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+
+
 import {
-  DashboardRounded,
-  ExpandLess,
-  ExpandMore,
+  
+
   HomeOutlined,
-  StarBorder,
-  TocRounded,
+
 } from "@mui/icons-material";
 import SettingsAccessibilityOutlinedIcon from "@mui/icons-material/SettingsAccessibilityOutlined";
 import {
   Avatar,
   Box,
-  Collapse,
-  Divider,
-  ListItemAvatar,
+
   ListItemButton,
-  ListSubheader,
+ 
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { border, borderRadius, width } from "@mui/system";
+
 import { motion } from "framer-motion";
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import DinnerDiningOutlinedIcon from '@mui/icons-material/DinnerDiningOutlined';
+import PostAddRoundedIcon from '@mui/icons-material/PostAddRounded';
+import ExtensionOutlinedIcon from '@mui/icons-material/ExtensionOutlined';
+import {GiWaterRecycling} from 'react-icons/gi';
 const Options = [
   {
-    text: "your short cut ",
+    text: "your Shortcut ",
     icon: null,
+  },
+  {
+    text: "Home",
+    icon: <HomeOutlined />,
+  },
+  {
+    text: "Add Post",
+    icon: <PostAddRoundedIcon />,
   },
 
   {
-    text: "home",
-    icon: <HomeOutlined />,
-  },
-  {
-    text: "diygeneration",
-    icon: <HomeOutlined />,
-  },
-  {
-    text: "your shortcut ",
+    text: " Object Related features ",
     icon: null,
   },
   {
-    text: "Users List",
-    icon: <SettingsAccessibilityOutlinedIcon />,
+    text: "Diy Generation",
+    icon: <ExtensionOutlinedIcon />,
   },
+  
   {
-    text: "Deliverer Management",
-    icon: <SettingsAccessibilityOutlinedIcon />,
-  },
-  {
-    text: "your shortcut ",
+    text: " Food Related features ",
     icon: null,
   },
   {
-    text: "Deliverer List ",
-    icon: <SettingsAccessibilityOutlinedIcon />,
+    text: "Composting",
+    icon: <GiWaterRecycling  size={22}/>,
   },
   {
-    text: "Add Deliverer ",
-    icon: <SettingsAccessibilityOutlinedIcon />,
+    text: "Recipe generation",
+    icon: <DinnerDiningOutlinedIcon />,
   },
+  
 ];
 const Sidebar = () => {
   const store = useSelector((state) => state?.users);
@@ -72,7 +69,7 @@ const Sidebar = () => {
   console.log(store.profile);
   const [open, setOpen] = useState(true);
   const [active, setActive] = useState("");
-  const [isActive, setIsActive] = useState(false);
+ 
   const handleToggle = () => {
     setOpen(!open);
   };
@@ -132,12 +129,9 @@ const Sidebar = () => {
       animate={`${open}`}
       variants={sideCountainerVariant}
       style={{
-        backgroundColor: `grey`,
+     
         color: "black",
-        height: "100vh",
-        position: "sticky",
-        top: 0,
-        left: 0,
+    
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
@@ -154,13 +148,13 @@ const Sidebar = () => {
           alignItems: "start",
           flexDirection: "column",
           padding: "15px",
-          margin: "10px",
+         
           display: "flex",
           backgroundColor: "#ffffff4d",
-          boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
+         // boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
           backdropFilter: "blur( 3.5px )",
           WebkitBackdropFilter: "blur( 3.5px )",
-          borderRadius: "10px",
+          borderRadius: "0 10px 10px 0",
           border: "1px solid rgba( 255, 255, 255, 0.18 )",
         }}
       >
@@ -195,7 +189,7 @@ const Sidebar = () => {
         <Box
   
        
-          style={{ display: "flex", flexDirection: "column", width: "100%" }}
+          style={{ display: "flex", flexDirection: "column", width: "100%",gap:"1rem" }}
         >
           {Options.map(({ text, icon } ,i ) => {
             if (!icon) {
@@ -214,10 +208,9 @@ const Sidebar = () => {
             : text.toLowerCase();
 
             return (
-              <Box key={text}
-                sx={{ display: "flex",flexDirection: "column", width: "100%" }}
-              >
+              <div   key={text}>
                 <ListItemButton
+               
                    onClick={() => {
                     console.log(lcText);
                     navigate(`./${lcText}`);
@@ -226,18 +219,17 @@ const Sidebar = () => {
                   
                   sx={{
                     display: "flex",
-                    padding: "6px 10px 6px 10px",
+                    padding: open? "6px 6px 6px 6px":"12px",
                     alignItems: "center",
                     borderRadius: "10px",
-                    mb:"1rem",
-
-                    transition: "background-color 0s ease-in-out",
+              
+                    transition: "all 0.2s ease-in-out",
                     "&:hover": {
                       backgroundColor: "#ffffff4d",
-                      boxShadow: "0 10px 32px 0 rgba( 31, 38, 135, 0.37 )",
+                  
                       backdropFilter: "blur( 5.5px )",
                       WebkitBackdropFilter: "blur( 5.5px )",
-                      border: "1px solid rgba( 255, 255, 255, 0.18 )",
+               
                       cursor: "pointer",
                     },
                     "&.active": {
@@ -252,10 +244,10 @@ const Sidebar = () => {
                   className={active.includes(lcText) ? "active" : ""}
 
                 >
-                  <Box  sx={{ marginRight: "0.5rem", marginTop: "6px" }}>{icon}</Box>
-                  <motion.span variants={subheading}>{text}</motion.span>
+                  <div  style={{  margin : open? "4px":"auto" ,display:"flex" }}>{icon}</div>
+                  <motion.span style={{marginLeft:"1rem"}} variants={subheading}>{text}</motion.span>
                 </ListItemButton>
-              </Box>
+              </div>
             );
           })}
         </Box>

@@ -26,6 +26,7 @@ import {
   import styled from "@emotion/styled";
   import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/system";
   export const ProfileUserV2 = ({ data }) => {
    
     const [showMore, setShowMore] = useState(false);
@@ -57,9 +58,9 @@ import { useNavigate } from "react-router-dom";
    
      
     
-      <Paper
+      <Box
         sx={{ p:0, position: "relative", top: "2rem",border:"white" }}
-        variant="outlined"
+        variant="elevation"
       >
            <Stack  gap={3} >
           <Typography variant="subtitle1" sx={{fontSize: "22px"}} > {data?.firstName} {data?.lastName}</Typography>
@@ -135,7 +136,7 @@ import { useNavigate } from "react-router-dom";
         </Stack>
   
      
-      </Paper>
+      </Box>
       </Container>
     );
   };

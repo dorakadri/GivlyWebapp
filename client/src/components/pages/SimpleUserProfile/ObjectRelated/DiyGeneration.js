@@ -26,7 +26,8 @@ function handleclick() {
   const { diylist, loading, appErr, serverErr } = diys;
   console.log(diylist);
   return (
-    <Box>
+    <Box p={"3rem"} >
+      <Box display={"flex"} pb={"1rem"} justifyContent={"center"}>
     <TextField
       id="diy"
       label="diy"
@@ -34,7 +35,7 @@ function handleclick() {
       
     />
     <Button onClick={handleclick}>generate</Button>
-
+    </Box>
 <Grid container spacing={2}>
       {diylist && diylist.map((d,i) => (
         <Grid item xs={12} sm={6} md={3} lg={3} key={i}>

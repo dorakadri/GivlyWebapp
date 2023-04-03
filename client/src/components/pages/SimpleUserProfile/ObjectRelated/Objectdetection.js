@@ -13,6 +13,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
+import UploadIcon from '@mui/icons-material/Upload';
 import { addPostAction } from "../../../../ReduxB/slices/posts/mainPostsSlice";
 const validationSchema = yup.object({
   title: yup.string().required("title is required"),
@@ -114,7 +115,7 @@ export default function Objectdetection() {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Box sx={{ display: "flex" }}>
+
         {isModelLoading ? (
           <Box
             display="flex"
@@ -125,8 +126,8 @@ export default function Objectdetection() {
             <CircularProgress />
           </Box>
         ) : (
-          <div>
-            <Button component="label">
+          <Box  display={"flex"} flexDirection={"column"} gap={"1rem"}  >
+            <Button component="label" variant="outlined" startIcon={<UploadIcon />}>
               <input
                 type="file"
                 accept="image/*"
@@ -165,7 +166,7 @@ export default function Objectdetection() {
               )}
             </div>
             {imageURL && (
-              <Button className="button" onClick={identify}>
+              <Button  onClick={identify} variant="outlined">
                 Identify Image
               </Button>
             )}
@@ -183,9 +184,13 @@ export default function Objectdetection() {
               onBlur={formik.handleBlur}
               error={formik.touched.title && Boolean(formik.errors.title)}
               helperText={formik.touched.title && formik.errors.title}
+              
+             
             />
             <TextField
+                 fullWidth
               id="description"
+              
               label=" description"
               placeholder="old wooden table "
               value={formik.values.description}
@@ -198,10 +203,11 @@ export default function Objectdetection() {
               }
               helperText={formik.touched.description && formik.errors.description}
             />
-           </div>
+                <Button type="submit" variant="outlined">Post</Button>
+           </Box>
         )}
-      <Button type="submit">Post</Button>
-      </Box>
+  
+  
     </form>
   );
 }

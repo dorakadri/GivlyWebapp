@@ -1,10 +1,12 @@
 import React from 'react'
 import Objectdetection from '../objectRelated/Objectdetection'
+import { Box } from '@mui/material'
+
 
 export default function AddPost() {
   return (
-    <div>
+    <Box  sx={{margin:"auto"}}>
       <Objectdetection/>
-    </div>
+    </Box>
   )
 }

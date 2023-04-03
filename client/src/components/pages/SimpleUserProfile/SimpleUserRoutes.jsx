@@ -48,10 +48,11 @@ const theme = useMemo(() => createTheme(themeSettingsall(mode)), [mode]);
           <Route path="/" element={<LayoutSidebar />}>
             <Route path="home" element={<Homepage />} />
             <Route path="diygeneration" element={<DiyGeneration />} />
+            <Route path="Addpost" element={<AddPost/>} />
           </Route>
           <Route path="profile/update/:id" element={<SimpleUserProfileEdit />} />
           <Route path="profile" element={<ProfilePage />} />
-          <Route path="Addpost" element={<AddPost/>} />
+    
         </Route>
       </Routes>
 

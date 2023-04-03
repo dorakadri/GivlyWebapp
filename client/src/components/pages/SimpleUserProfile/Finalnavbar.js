@@ -49,7 +49,11 @@ export default function Finalnavbar(data) {
   }
   return (
   
-    <AppBar sx={{ position: "static", background: "none", boxShadow: "none"  }}>
+    <AppBar sx={{ position: "static", background: "none", boxShadow: "none" ,  backgroundColor: "#ffffff4d",
+
+    backdropFilter: "blur( 3.5px )",
+    border: "1px solid rgba( 255, 255, 255, 0.18 )",
+    WebkitBackdropFilter: "blur( 3.5px )", }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <FlexBetween>
           <img src={logo} alt="Logo" style={{ width: "50px" }} />
@@ -90,14 +94,15 @@ export default function Finalnavbar(data) {
             </IconButton>
             </Tooltip>
             <Menu
+                       disableScrollLock={true}
                id="menu-appbar"
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem   key="profile" onClick={() => navigate(`./profile`)}>      <Typography textAlign="center">Profile</Typography></MenuItem>
-              <MenuItem  key="logout" onClick={handelLogout}><Typography textAlign="center">Logout</Typography></MenuItem>
+              <MenuItem    onClick={() => navigate(`./profile`)}>      <Typography textAlign="center">Profile</Typography></MenuItem>
+              <MenuItem   onClick={handelLogout}><Typography textAlign="center">Logout</Typography></MenuItem>
             </Menu>
           </Box> 
         </FlexBetween>
