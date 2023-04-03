@@ -13,7 +13,7 @@ export default function LayoutSidebar() {
         <Sidebar />
      
       <Box flex={1}>
-        <Homepage />
+        <Outlet />
       </Box>
     </Box>
   );

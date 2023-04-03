@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import {
@@ -21,7 +21,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { border, borderRadius, width } from "@mui/system";
 import { motion } from "framer-motion";
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
@@ -34,11 +34,11 @@ const Options = [
   },
 
   {
-    text: "Dashboard",
+    text: "home",
     icon: <HomeOutlined />,
   },
   {
-    text: "Users",
+    text: "diygeneration",
     icon: <HomeOutlined />,
   },
   {
@@ -71,10 +71,17 @@ const Sidebar = () => {
   const navigate = useNavigate();
   console.log(store.profile);
   const [open, setOpen] = useState(true);
-
+  const [active, setActive] = useState("");
+  const [isActive, setIsActive] = useState(false);
   const handleToggle = () => {
     setOpen(!open);
   };
+  const { pathname } = useLocation();
+
+
+  useEffect(() => {
+    setActive(pathname.substring(1));
+  }, [pathname]);
   const sideCountainerVariant = {
     true: {
       width: "15rem",
@@ -182,6 +189,7 @@ const Sidebar = () => {
             alt="your photo"
             src={store.profile?.profilePhoto}
           />
+         
         </motion.div>
      
         <Box
@@ -201,36 +209,52 @@ const Sidebar = () => {
                 </Typography>
               );
             }
+            const lcText = text.includes(" ")
+            ? text.toLowerCase().replace(/\s+/g, "")
+            : text.toLowerCase();
 
             return (
-              <Box key={i}
-                sx={{ display: "flex", flexDirection: "column", width: "100%" }}
+              <Box key={text}
+                sx={{ display: "flex",flexDirection: "column", width: "100%" }}
               >
-                <motion.div
-                      whileHover={{
-                        backgroundColor: '#ffffff4d',
-                        boxShadow: "0 10px 32px 0 rgba( 31, 38, 135, 0.37 )",
-                        backdropFilter: "blur( 5.5px )",
-                        WebkitBackdropFilter: "blur( 5.5px )",
-                        border: "1px solid rgba( 255, 255, 255, 0.18 )",
-                        cursor:"pointer",
-                       
-                     
-                    }}
-                    transition={{
-                      type:'none',duration:0
-                    }}
-                  style={{
+                <ListItemButton
+                   onClick={() => {
+                    console.log(lcText);
+                    navigate(`./${lcText}`);
+                    setActive(lcText);
+                  }}
+                  
+                  sx={{
                     display: "flex",
                     padding: "6px 10px 6px 10px",
                     alignItems: "center",
-                   
-                    borderRadius:"10px"
+                    borderRadius: "10px",
+                    mb:"1rem",
+
+                    transition: "background-color 0s ease-in-out",
+                    "&:hover": {
+                      backgroundColor: "#ffffff4d",
+                      boxShadow: "0 10px 32px 0 rgba( 31, 38, 135, 0.37 )",
+                      backdropFilter: "blur( 5.5px )",
+                      WebkitBackdropFilter: "blur( 5.5px )",
+                      border: "1px solid rgba( 255, 255, 255, 0.18 )",
+                      cursor: "pointer",
+                    },
+                    "&.active": {
+                      backgroundColor: "#ffffff4d",
+                      boxShadow: "0 10px 32px 0 rgba( 31, 38, 135, 0.37 )",
+                      backdropFilter: "blur( 5.5px )",
+                      WebkitBackdropFilter: "blur( 5.5px )",
+                      border: "1px solid rgba( 255, 255, 255, 0.18 )",
+                    },
                   }}
+
+                  className={active.includes(lcText) ? "active" : ""}
+
                 >
-                  <Box   sx={{ marginRight: "0.5rem", marginTop: "6px" }}>{icon}</Box>
+                  <Box  sx={{ marginRight: "0.5rem", marginTop: "6px" }}>{icon}</Box>
                   <motion.span variants={subheading}>{text}</motion.span>
-                </motion.div>
+                </ListItemButton>
               </Box>
             );
           })}
