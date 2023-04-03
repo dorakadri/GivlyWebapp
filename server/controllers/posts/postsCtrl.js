@@ -6,7 +6,6 @@ const User = require('../../model/user/User');
 const Match = require('../../model/user/Matches');
 const createPost = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
-  console.log("ff")
   try {
     const post = await Post.create({
       userId: id,
@@ -91,8 +90,8 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
   validateMongodbId(id);
 
   try {
-    const post = await Post.findById(id).populate("userId", "firstName lastName profilePhoto");;
-    console.log( post);
+    const post = await Post.findById(id).populate("userId", "firstName lastName profilePhoto");
+
     if ( post) {
       res.json( post);
     } else {
@@ -136,6 +135,39 @@ console.log(user)
     await user.save();
 
     res.json({ message: "Match added successfully" });
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+//get users post 
+const fetchuserposts = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(id);
+
+    if (!user) {
+      res.status(404).json({ message: `User with id ${id} not found` });
+      return;
+    }
+
+
+    const posts = await Post.find({
+      _id: { $in: user.Ownposts }
+    }).populate("userId", "firstName lastName profilePhoto");;
+
+ 
+    const validPostIds = posts.map(post => post._id.toString());
+    const invalidIds = user.Ownposts.filter(id => !validPostIds.includes(id.toString()));
+
+
+    if (invalidIds.length > 0) {
+      user.Ownposts = user.Ownposts.filter(id => !invalidIds.includes(id.toString()));
+      await user.save();
+    }
+
+    res.json(posts);
   } catch (error) {
     res.json(error);
   }
@@ -186,5 +218,6 @@ module.exports = {
     removefromwishlist,
     fetchbyid,
     addMatch,
-    getUserMatches
+    getUserMatches,
+    fetchuserposts
   };

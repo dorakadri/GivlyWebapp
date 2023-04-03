@@ -1,5 +1,5 @@
-import { Typography, useMediaQuery } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Typography, useMediaQuery } from "@mui/material";
+
 import React from "react";
 import Loginform from "./Loginform";
 import imagebg from "./hd.jpg";

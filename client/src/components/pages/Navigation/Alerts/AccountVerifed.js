@@ -1,5 +1,5 @@
-import { Button, Typography, useMediaQuery } from '@mui/material'
-import { Box } from '@mui/system';
+import { Box, Button, Typography, useMediaQuery } from '@mui/material'
+
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom'

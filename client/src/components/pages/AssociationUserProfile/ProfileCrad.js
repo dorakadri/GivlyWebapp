@@ -149,7 +149,7 @@ sx= {{
             type="submit"
             sx={{
               backgroundColor: "#06A696",
-              color: " white",
+              color: " #06A696",
               border: "none",
               fontWeight: " bold",
               cursor: "pointer",
@@ -158,7 +158,7 @@ sx= {{
               p: "1rem",
               textAlign: "center",
            
-              "&:hover": { color: "white", backgroundColor: "#06A696" },
+              "&:hover": { color: "#06A696", backgroundColor: "#06A696" },
             }}
    
             onClick={() => navigate(`./update/${ data?._id}`)}

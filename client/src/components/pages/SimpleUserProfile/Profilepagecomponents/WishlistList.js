@@ -1,5 +1,5 @@
-import { Avatar, Button, Card, CardContent, CardHeader, CardMedia, Divider, Grid, Typography } from '@mui/material';
-import { Stack } from '@mui/system';
+import { Avatar, Button, Card, CardContent, CardHeader, CardMedia, Divider, Grid, Stack, Typography } from '@mui/material';
+
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getpostbyid } from '../../../../ReduxB/slices/posts/mainPostsSlice';

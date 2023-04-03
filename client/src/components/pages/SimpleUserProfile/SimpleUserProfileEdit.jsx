@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import {
   Avatar,
   Badge,
+  Box,
   Button,
   IconButton,
   TextField,
@@ -18,7 +19,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { Box } from "@mui/system";
+
 const formSchema = Yup.object({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),

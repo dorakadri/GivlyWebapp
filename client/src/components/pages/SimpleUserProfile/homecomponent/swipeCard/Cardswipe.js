@@ -45,8 +45,8 @@ useEffect(() => {
 
     }
     if (direction === "down") {
-      console.log(thepost)
-      console.log("giii")
+  
+
       const data = {
         "userId": store.userAuth._id,
         "postId": thepost._id,

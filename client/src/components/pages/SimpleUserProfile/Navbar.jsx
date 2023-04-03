@@ -46,7 +46,7 @@ const UserBox = styled(Box)(({ theme }) => ({
     display: "none",
   },
 }));
-export default function Navbar(data) {
+export default function Navbare(data) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();

@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as mobilenet from "@tensorflow-models/mobilenet";
 import {
+  Box,
   Button,
   Chip,
   CircularProgress,
   IconButton,
   TextField,
 } from "@mui/material";
-import { Box } from "@mui/system";
+
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import * as yup from "yup";
 import { useFormik } from "formik";

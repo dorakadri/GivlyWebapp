@@ -1,4 +1,4 @@
-import { Box } from "@mui/system";
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
@@ -6,6 +6,8 @@ import { userProfileAction } from "../../../ReduxB/slices/users/usersSlices";
 import AccountVerificationAlertWarning from "../Navigation/Alerts/AccountVerificationAlertWarning";
 import AccountVerificationSuccessAlert from "../Navigation/Alerts/AccountVerificationSuccessAlert";
 import Finalnavbar from "./Finalnavbar";
+
+import { Box } from "@mui/material";
 export default function Layout() {
   const store = useSelector((state) => state?.users);
   console.log(store.userAuth._id);
@@ -23,8 +25,8 @@ export default function Layout() {
     <Box display={"flex"}>
 
       <Box flexGrow={1}>
-        <Finalnavbar profileurl={profile?.profilePhoto}/>
-
+    <Finalnavbar profileurl={profile?.profilePhoto}/>
+     
         {userAuth && !userAuth.isAccountVerified && (
           <AccountVerificationAlertWarning />
         )}

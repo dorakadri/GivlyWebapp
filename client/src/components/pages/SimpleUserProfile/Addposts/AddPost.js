@@ -1,5 +1,5 @@
 import React from 'react'
-import Objectdetection from '../ObjectRelated/Objectdetection'
+import Objectdetection from '../objectRelated/Objectdetection'
 
 export default function AddPost() {
   return (

@@ -2,26 +2,35 @@ import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-route
 import LandingPage from "./components/pages/UserInterface/landingcomponent/LandingPage";
 
 import Dashboard from "../src/components/pages/Dashboard/Dashboard";
-
 import { useSelector } from "react-redux";
 import LoginDesign from "./components/pages/UserInterface/LoginAndRegister/LoginDesign";
 import Signup from "./components/pages/UserInterface/LoginAndRegister/Signup";
-import { lazy, useEffect, useState } from "react";
-
+import { lazy, useEffect, useMemo, useState } from "react";
 import AssociationUserProfile from "./components/pages/AssociationUserProfile/AssociationUserProfile"
 import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
 import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
 import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
 import NotFound from "./components/common/NotFound";
+import SimpleUserProfile from "./components/pages/SimpleUserProfile/SimpleUserProfile"
 import axios from "axios";
 import Rolegoogle from "./components/pages/UserInterface/LoginAndRegister/Rolegoogle";
-const SimpleUserProfile = lazy(() => import("./components/pages/SimpleUserProfile/SimpleUserProfile"));
+
+import { themeSettingsall } from "./theme/index";
+import {
+
+  createTheme,
+  CssBaseline,
+  ThemeProvider,
+} from "@mui/material";
+
+
 function App() {
   const [user, setUser] = useState(null);
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
   const Role = userAuth?.role;
- 
+  const mode = useSelector((state) => state.globaltheme.mode);
+  const theme = useMemo(() => createTheme(themeSettingsall(mode)), [mode]);
   const getUser = async () => {
 		try {
 			const url = 'http://localhost:5000/auth/login/success';
@@ -39,7 +48,8 @@ function App() {
 	}, []);
   
   return (
-    <BrowserRouter>
+    
+  
       <Routes>
       <Route exact path="*" element={<NotFound/>} />
         <Route exact path="/" element={<LandingPage />} />
@@ -97,7 +107,9 @@ function App() {
           />
         )}
       </Routes>
-    </BrowserRouter>
+
+   
+     
   );
 }
 

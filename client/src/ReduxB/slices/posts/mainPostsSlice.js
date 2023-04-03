@@ -39,6 +39,19 @@ export const fetchPostsAction = createAsyncThunk(
     }
   }
 );
+export const fetchuserPostsAction = createAsyncThunk(
+  "postsuser/list",
+  async (_, { rejectWithValue, getState, dispatch }) => {
+    const { userAuth } = getState().users;
+    try {
+      const { data } = await axios.get(`http://localhost:5000/api/posts/userposts/${userAuth._id}`);
+      return data;
+    } catch (error) {
+      if (!error?.response) throw error;
+      return rejectWithValue(error);
+    }
+  }
+);
 export const addtowishlistAction = createAsyncThunk(
   "posts/towishlist",
   async ({id, _id}, { rejectWithValue, getState, dispatch }) => {
@@ -115,6 +128,7 @@ export const getmatchesuser = createAsyncThunk(
     }
   }
 );
+
 
 const mainPostsSlice = createSlice({
   name: "mainpost",
@@ -193,6 +207,22 @@ const mainPostsSlice = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(getmatchesuser.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    //getuserspost fetchuserPostsAction
+    builder.addCase(fetchuserPostsAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    
+    builder.addCase(fetchuserPostsAction.fulfilled, (state, action) => {
+      state.usersposts = action?.payload;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(fetchuserPostsAction.rejected, (state, action) => {
       state.loading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
