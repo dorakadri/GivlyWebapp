@@ -20,6 +20,13 @@ const postForumSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    // other fields
+    isViewed: { type: Boolean, default: false },
+
+    viewedBy: {
+      type: [mongoose.Schema.Types.ObjectId],
+      default: [],
+    },
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,

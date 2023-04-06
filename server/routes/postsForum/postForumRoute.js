@@ -27,7 +27,7 @@ postForumRoute.post(
 postForumRoute.put("/likes", authMiddleware,toggleAddLikeToPostForumCtrl);
 postForumRoute.put("/dislikes", authMiddleware,toggleAddDislikeToPostForumCtrl);
 postForumRoute.get("/",fetchPostsForumCtrl);
-postForumRoute.get("/:id",fetchPostForumCtrl);
+postForumRoute.get("/:id", authMiddleware,fetchPostForumCtrl);
 postForumRoute.put("/:id", authMiddleware,updatePostForumCtrl);
 postForumRoute.delete("/:id", authMiddleware,deletePostForumCtrl);
 module.exports = postForumRoute;

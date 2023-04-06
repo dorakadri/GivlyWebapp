@@ -84,27 +84,42 @@ const fetchPostsForumCtrl = expressAsyncHandler(async (req, res) => {
 //------------------------------
 //Fetch a single post
 //------------------------------
-
-
 const fetchPostForumCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongodbId(id);
   try {
-    
     const postForum = await PostForum.findById(id)
       .populate("user")
       .populate("disLikes")
       .populate("likes")
       .populate("comments");
 
-    //update number of views
-    await PostForum.findByIdAndUpdate(
-      id,
-      {
-        $inc: { numViews: 1 },
-      },
-      { new: true }
-    );
+    console.log("postForum.viewedBy:", postForum.viewedBy);
+
+    let { viewedBy, numViews } = postForum;
+
+    console.log("Before update:");
+    console.log("viewedBy:", viewedBy);
+    console.log("numViews:", numViews);
+
+    const userId = req?.user?.id;
+console.log("userId:", userId);
+    // Check if the current user has already viewed the post
+    const viewedByCurrentUser = viewedBy.includes(userId);
+
+    // If the current user has not viewed the post yet, update the post's viewedBy field
+    if (!viewedByCurrentUser) {
+      viewedBy.push(userId);
+      numViews++;
+      postForum.viewedBy = viewedBy;
+      postForum.numViews = numViews;
+      await postForum.save();
+
+      console.log("After update:");
+      console.log("viewedBy:", postForum.viewedBy);
+      console.log("numViews:", postForum.numViews);
+    }
+
     res.json(postForum);
   } catch (error) {
     res.json(error);

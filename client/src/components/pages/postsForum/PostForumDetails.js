@@ -25,7 +25,10 @@ import { fetchPostsAction,} from "../../../ReduxB/slices/postsForum/postForumSli
 import Navbar from "../SimpleUserProfile/Navbar";
 import DateFormatter from "../../../utils/DateFormatter";
 export default function PostForumDetails(props) {
+
+
   const { id } = useParams();
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //select post details from store

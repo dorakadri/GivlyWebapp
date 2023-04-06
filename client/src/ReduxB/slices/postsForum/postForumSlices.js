@@ -118,9 +118,18 @@ export const fetchPostsAction = createAsyncThunk(
 export const fetchPostDetailsAction = createAsyncThunk(
   "post/detail",
   async (postForumId, { rejectWithValue, getState, dispatch }) => {
+    //get user token
+    const user = getState()?.users;
+    const { userAuth } = user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth?.token}`,
+      },
+    };
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/posts/${postForumId}`
+        `http://localhost:5000/api/posts/${postForumId}`,
+        config
       );
       return data;
     } catch (error) {

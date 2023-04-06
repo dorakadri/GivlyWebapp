@@ -31,7 +31,8 @@ const PostsForumList = () => {
   const postForum = useSelector(state => state?.postForum);
   const { postLists, likes, dislikes } = postForum;
 
-
+  const user = useSelector((state) => state?.users);
+  const { userAuth } = user;
 
   //dispatch
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const PostsForumList = () => {
   return (
     <Box spacing={10}>
       <Box flexGrow={4}>
-        <Navbar profileurl={postForum?.user?.profilePhoto} />
+        <Navbar profileurl={user.userAuth.profilePhoto} />
       </Box>
       <Box display="flex" justifyContent="center" spacing={10}>
         <Card sx={{ maxWidth: 500 }} spacing={10}>
