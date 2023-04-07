@@ -17,116 +17,163 @@ import PostsForumList from "./components/pages/postsForum/PostsForumList";
 import PostForumDetails from "./components/pages/postsForum/PostForumDetails";
 import UpdatePostForum from "./components/pages/postsForum/UpdatePostForum";
 import NotFound from "./components/common/NotFound";
+import Chat from "./Chat/Chat";
+import { AppContext, socket } from "./context/appContext";
 import axios from "axios";
 import Rolegoogle from "./components/pages/UserInterface/LoginAndRegister/Rolegoogle";
+
+
 function App() {
   const [user, setUser] = useState(null);
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
   const Role = userAuth?.role;
+  // chat
+  const [rooms, setRooms] = useState([]);
+  const [currentRoom, setCurrentRoom] = useState([]);
+  const [members, setMembers] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [privateMemberMsg, setPrivateMemberMsg] = useState({});
+  const [newMessages, setNewMessages] = useState({});
+
   const getUser = async () => {
-		try {
-			const url = 'http://localhost:5000/auth/login/success';
-			const { data } = await axios.get(url, { withCredentials: true });
-			setUser(data.user._json);
-			console.log(user);
-			console.log(data.user._json);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+    try {
+      const url = "http://localhost:5000/auth/login/success";
+      const { data } = await axios.get(url, { withCredentials: true });
+      setUser(data.user._json);
+      console.log(user);
+      console.log(data.user._json);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-	useEffect(() => {
-		getUser();
-	}, []);
-  
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="*" element={<NotFound />} />
-        <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/register" element={<Signup />} />
-        <Route exact path="/forum" element={<PostsForumList />} />
-        <Route exact path="/posts/:id" element={<PostForumDetails />} />
-      
+    <AppContext.Provider
+      value={{
+        socket,
+        currentRoom,
+        setCurrentRoom,
+        members,
+        setMembers,
+        messages,
+        setMessages,
+        privateMemberMsg,
+        setPrivateMemberMsg,
+        rooms,
+        setRooms,
+        newMessages,
+        setNewMessages,
+      }}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="*" element={<NotFound />} />
+          <Route exact path="/" element={<LandingPage />} />
+          <Route exact path="/register" element={<Signup />} />
+          <Route exact path="/forum" element={<PostsForumList />} />
+          <Route exact path="/posts/:id" element={<PostForumDetails />} />
 
-        <Route
-          exact
-          path="/register/Role"
-          element={<Rolegoogle usergoogle={user} />}
-        />
+          <Route
+            exact
+            path="/register/Role"
+            element={<Rolegoogle usergoogle={user} />}
+          />
 
-        <Route exact path="/login" element={<LoginDesign />} />
+          <Route exact path="/login" element={<LoginDesign />} />
 
-        <Route
-          exact
-          path="/user/*"
-          element={
-            <SimpleUserElement Role={Role}>
-              <SimpleUserProfile />
-            </SimpleUserElement>
-          }
-        />
-        <Route
-          exact
-          path="/admin/*"
-          element={
-            <AdminElement Role={Role}>
-              <Dashboard />
-            </AdminElement>
-          }
-        />
-        <Route
-          exact
-          path="/association/*"
-          element={
-            <AssoElement Role={Role}>
-              <AssociationUserProfile />
-            </AssoElement>
-          }
-        />
-        <Route
-          exact
-          path="/association/createpost"
-          element={
-            <AssoElement Role={Role}>
-              <CreatePostForum />
-            </AssoElement>
-          }
-        />
-        <Route
-          exact
-          path="/update-post/:id"
-          element={
-            <AssoElement Role={Role}>
-              <UpdatePostForum />
-            </AssoElement>
-          }
-        />
-        <Route
-          path="/verify-account/:token"
-          element={userAuth ? <AccountVerifed /> : <Navigate to="/login" />}
-        />
+          <Route
+            exact
+            path="/user/*"
+            element={
+              <SimpleUserElement Role={Role}>
+                <SimpleUserProfile />
+              </SimpleUserElement>
+            }
+          />
+          <Route
+            exact
+            path="/user/chat"
+            element={
+              <SimpleUserElement Role={Role}>
+                <Chat />
+              </SimpleUserElement>
+            }
+          />
+          <Route
+            exact
+            path="/admin/*"
+            element={
+              <AdminElement Role={Role}>
+                <Dashboard />
+              </AdminElement>
+            }
+          />
+          <Route
+            exact
+            path="/association/*"
+            element={
+              <AssoElement Role={Role}>
+                <AssociationUserProfile />
+              </AssoElement>
+            }
+          />
+          <Route
+            exact
+            path="/association/createpost"
+            element={
+              <AssoElement Role={Role}>
+                <CreatePostForum />
+              </AssoElement>
+            }
+          />
+          <Route
+            exact
+            path="/update-post/:id"
+            element={
+              <AssoElement Role={Role}>
+                <UpdatePostForum />
+              </AssoElement>
+            }
+          />
+          <Route
+            exact
+            path="/association/chat"
+            element={
+              <AssoElement Role={Role}>
+                <Chat />
+              </AssoElement>
+            }
+          />
+          <Route
+            path="/verify-account/:token"
+            element={userAuth ? <AccountVerifed /> : <Navigate to="/login" />}
+          />
 
-        <Route
-          exact
-          path="/password-reset-token"
-          element={<ResetPasswordForm />}
-        />
-        <Route
-          exact
-          path="/reset-password/:token"
-          element={<ResetPassword />}
-        />
-        {userAuth && (
+          <Route
+            exact
+            path="/password-reset-token"
+            element={<ResetPasswordForm />}
+          />
           <Route
             exact
             path="/reset-password/:token"
             element={<ResetPassword />}
           />
-        )}
-      </Routes>
-    </BrowserRouter>
+          {userAuth && (
+            <Route
+              exact
+              path="/reset-password/:token"
+              element={<ResetPassword />}
+            />
+          )}
+        </Routes>
+      </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 

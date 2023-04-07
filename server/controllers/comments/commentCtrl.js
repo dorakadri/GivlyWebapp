@@ -26,7 +26,7 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   const user = req.user;
   //2.Get the postForum Id
   const { postForumId, description } = req.body;
-  console.log(description);
+ 
   try {
     const comment = await Comment.create({
       postForum: postForumId,

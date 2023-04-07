@@ -94,16 +94,14 @@ const fetchPostForumCtrl = expressAsyncHandler(async (req, res) => {
       .populate("likes")
       .populate("comments");
 
-    console.log("postForum.viewedBy:", postForum.viewedBy);
+  
 
     let { viewedBy, numViews } = postForum;
 
-    console.log("Before update:");
-    console.log("viewedBy:", viewedBy);
-    console.log("numViews:", numViews);
+   
 
     const userId = req?.user?.id;
-console.log("userId:", userId);
+
     // Check if the current user has already viewed the post
     const viewedByCurrentUser = viewedBy.includes(userId);
 
@@ -115,9 +113,7 @@ console.log("userId:", userId);
       postForum.numViews = numViews;
       await postForum.save();
 
-      console.log("After update:");
-      console.log("viewedBy:", postForum.viewedBy);
-      console.log("numViews:", postForum.numViews);
+
     }
 
     res.json(postForum);
@@ -130,7 +126,7 @@ console.log("userId:", userId);
 // Update post
 //------------------------------
 
-const updatePostForumCtrl = expressAsyncHandler(async (req, res) => {
+const updatePostForumCtrl =expressAsyncHandler(async (req, res) => {
   console.log(req.user);
   const { id } = req.params;
   validateMongodbId(id);

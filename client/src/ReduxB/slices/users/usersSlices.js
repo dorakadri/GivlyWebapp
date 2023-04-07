@@ -102,13 +102,27 @@ export const unbanUserAction = createAsyncThunk(
     }
   }
 );
+
 export const logoutAction = createAsyncThunk(
   "/user/logout",
   async (payload, { rejectWithValue, getState, dispatch }) => {
+    const user = getState()?.users;
+    const { userAuth } = user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth?.token}`,
+      },
+    };
     try {
+      // Call the backend API to update the user's status to "offline"
+      await axios.put(
+        "http://localhost:5000/api/users/status",
 
-    
-      window.open(`http://localhost:5000/auth/logout`, "_self");
+        { status: "offline" },
+        config
+      );
+
+      // Remove the user from localStorage
       localStorage.removeItem("userInfo");
     } catch (error) {
       if (!error?.response) {
@@ -118,7 +132,6 @@ export const logoutAction = createAsyncThunk(
     }
   }
 );
-
 export const passwordResetTokenAction = createAsyncThunk(
   "password/token",
   async (email, { rejectWithValue, getState, dispatch }) => {
@@ -189,9 +202,9 @@ export const updateUserAction = createAsyncThunk(
           bio: userData?.bio,
           email: userData?.email,
           profilePhoto: userData?.profilePhoto,
-          associationName:userData?.associationName,
-          associationAdress:userData?.associationAdress,
-          associationPhone:userData?.associationPhone,
+          associationName: userData?.associationName,
+          associationAdress: userData?.associationAdress,
+          associationPhone: userData?.associationPhone,
         },
         config
       );
@@ -242,19 +255,20 @@ const usersSlices = createSlice({
   name: "users",
   initialState: {
     userAuth: userLoginFromStorage,
+    newMessages: {},
   },
-      reducers: {
-        addNotifications: (state, { payload }) => {
-            if (state.newMessages[payload]) {
-                state.newMessages[payload] = state.newMessages[payload] + 1;
-            } else {
-                state.newMessages[payload] = 1;
-            }
-        },
-        resetNotifications: (state, { payload }) => {
-            delete state.newMessages[payload];
-        },
+  reducers: {
+    addNotifications: (state, { payload }) => {
+      if (state.newMessages[payload]) {
+        state.newMessages[payload] = state.newMessages[payload] + 1;
+      } else {
+        state.newMessages[payload] = 1;
+      }
     },
+    resetNotifications: (state, { payload }) => {
+      delete state.newMessages[payload];
+    },
+  },
 
   extraReducers: (builder) => {
     //register
@@ -427,5 +441,196 @@ const usersSlices = createSlice({
     });
   },
 });
+const userslist = createSlice({
+  name: "users",
+  initialState: null,
+  reducers: {
+    addNotifications: (state, { payload }) => {
+      if (state.newMessages[payload]) {
+        state.newMessages[payload] = state.newMessages[payload] + 1;
+      } else {
+        state.newMessages[payload] = 1;
+      }
+    },
+    resetNotifications: (state, { payload }) => {
+      delete state.newMessages[payload];
+    },
+    resetNotifications: (state, { payload }) => {
+      delete state.newMessages[payload];
+    },
+  },
 
+  extraReducers: (builder) => {
+    //register
+    builder.addCase(registerUserAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(registerUserAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.registered = action?.payload;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(registerUserAction.rejected, (state, action) => {
+      console.log(action.payload);
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+
+    //login slice
+    builder.addCase(loginUserAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(loginUserAction.fulfilled, (state, action) => {
+      state.userAuth = action?.payload;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(loginUserAction.rejected, (state, action) => {
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+      state.loading = false;
+    });
+    //Block user
+    builder.addCase(banUserAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(banUserAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.block = action?.payload;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(banUserAction.rejected, (state, action) => {
+      console.log(action.payload);
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    //unBlock user
+    builder.addCase(unbanUserAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(unbanUserAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.unblock = action?.payload;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(unbanUserAction.rejected, (state, action) => {
+      console.log(action.payload);
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    //logout
+    builder.addCase(logoutAction.pending, (state, action) => {
+      state.loading = false;
+      console.log(state);
+    });
+    builder.addCase(logoutAction.fulfilled, (state, action) => {
+      console.log(state);
+      state.userAuth = undefined;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+      console.log(state);
+    });
+    builder.addCase(logoutAction.rejected, (state, action) => {
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+      state.loading = false;
+      console.log(state);
+    });
+
+    //Profile
+    builder.addCase(userProfileAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(userProfileAction.fulfilled, (state, action) => {
+      state.profile = action?.payload;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(userProfileAction.rejected, (state, action) => {
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+      state.loading = false;
+    });
+
+    //update
+    builder.addCase(updateUserAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(resetUserAction, (state, action) => {
+      state.isUpdated = true;
+    });
+    builder.addCase(updateUserAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userUpdated = action?.payload;
+      state.isUpdated = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(updateUserAction.rejected, (state, action) => {
+      console.log(action.payload);
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+
+    //PAssword Reset Token
+    builder.addCase(passwordResetTokenAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(passwordResetTokenAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.passwordToken = action?.payload;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(passwordResetTokenAction.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+
+    //Password reset
+    builder.addCase(passwordResetAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(passwordResetAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.passwordReset = action?.payload;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(passwordResetAction.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+  },
+});
+export const { addNotifications, resetNotifications } = usersSlices.actions;
 export default usersSlices.reducer;
+export const userslistt = userslist.reducer;

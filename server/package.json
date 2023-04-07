@@ -31,6 +31,7 @@
     "nodemon": "^2.0.9",
     "passport": "0.5",
     "passport-google-oauth20": "^2.0.0",
-    "sharp": "^0.28.3"
+    "sharp": "^0.28.3",
+    "socket.io": "^4.6.1"
   }
 }
