@@ -5,7 +5,7 @@ import { userProfileAction } from "../../../ReduxB/slices/users/usersSlices";
 import AccountVerificationAlertWarning from "../Navigation/Alerts/AccountVerificationAlertWarning";
 import AccountVerificationSuccessAlert from "../Navigation/Alerts/AccountVerificationSuccessAlert";
 import Finalnavbar from "./Finalnavbar";
-import img from "./mm.jpg";
+
 
 import { Box } from "@mui/material";
 import styled from "@emotion/styled";
@@ -20,24 +20,7 @@ export default function Layout() {
   useEffect(() => {
     dispatch(userProfileAction(userAuth._id));
   }, [userAuth._id, dispatch]);
-  const BlurredContainer = styled(Box)(({ theme }) => ({
-    position: 'relative',
-    overflow: 'hidden',
-    width: '100%',
-    height: '100%',
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      background: `url('https://e1.pxfuel.com/desktop-wallpaper/135/606/desktop-wallpaper-huawei-nova-8-pro-bubble-circle-white-background-purple-blue-stock-aesthetic-abstract-circle.jpg')`,
-      backgroundSize: 'cover',
-      filter: 'blur(10px)',
-      zIndex: -1,
-    },
-  }));
+ 
   return (
     <Box
       display={"flex"}
