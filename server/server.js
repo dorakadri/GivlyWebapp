@@ -13,6 +13,7 @@ const giftsRoutes = require("./routes/gifts/giftsRoute");
 
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
+const deliveryRoutes = require("./routes/deliveries/delivery");
 
 const app = express();
 //DB
@@ -46,7 +47,8 @@ app.use("/api/users", userRoutes);
 
 //DeliveryMen route
 app.use("/api/DeliveryMen", deliveryMensRoutes);
-
+//Delivery route
+app.use("/api/Delivery", deliveryRoutes);
 //gift route
 app.use("/api/gift", giftsRoutes);
 

@@ -16,6 +16,9 @@ import NotFound from "./components/common/NotFound";
 import axios from "axios";
 import Rolegoogle from "./components/pages/UserInterface/LoginAndRegister/Rolegoogle";
 import { Localisation } from "./components/pages/Localisation";
+
+
+
 function App() {
   const [user, setUser] = useState(null);
   const state = useSelector((state) => state?.users);
@@ -45,6 +48,8 @@ function App() {
         <Route exact path="/register" element={<Signup  />} />
         <Route exact path="/register/Role" element={< Rolegoogle usergoogle={user} />} />
         <Route exact path="/localisation" element={<Localisation />} />
+
+      
 
         <Route exact path="/login" element={<LoginDesign />} />
         <Route
