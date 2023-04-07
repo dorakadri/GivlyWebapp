@@ -22,6 +22,38 @@ const createPost = expressAsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
+//update post 
+const updatePost = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+ console.log(req.body)
+  try {
+    const post = await Post.findByIdAndUpdate(
+      id,
+    {
+      ...req.body,
+    },
+    {
+      new: true,
+    }
+    );
+    
+    res.json(post);
+  } catch (error) {
+    res.json(error);
+  }
+});
+const deletePost = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+ console.log(id)
+  try {
+    const post = await Post.findOneAndRemove({ _id: id });
+   
+    res.json(post);
+  
+  } catch (error) {
+    res.json(error);
+  }
+});
 
 const fetchAllPost = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -109,33 +141,63 @@ const addMatch = expressAsyncHandler(async (req, res) => {
   try {
 
     const user = await User.findById(userId);
-console.log(user)
+    const owner = await User.findById(ownerId);
+
     if (!user) {
+      console.log( "///////////////////////////////// ")
       res.status(404).json({ message: `User with id ${userId} not found` });
+ 
+    }
+    if (!owner) {
+      console.log( "///////////////////////////////// ")
+      res.status(404).json({ message: `User with id ${ownerId} not found` });
  
     }
 
     const userIds = user.matches.userId;
     const productIds = user.matches.productId;
 
+   const ownerIds = owner.matchesAsOwner.userId;
+   const ownerproductIds = owner.matchesAsOwner.productId;
+
     if (userIds.includes(ownerId) && productIds.includes(postId)) {
       res.json({ message: "Match already exists" });
        return
     }
     if (!userIds.includes(ownerId)) {
-      console.log("lala")
+      console.log( "///////////////////////////////// ")
       user.matches.userId.push(ownerId);
     }
 
     if (!productIds.includes(postId)) {
-      console.log("lolo")
+      console.log( "///////////////////////////////// ")
       user.matches.productId.push(postId);
     }
+    ////////////////
+   if (ownerIds.includes(userId) && ownerproductIds.includes(postId)) {
+      res.json({ message: "Match already exists" });
+       return
+    }
+    if (!ownerIds.includes(userId)) {
+    
+      owner.matchesAsOwner.userId.push(userId);
+    }
 
-    await user.save();
+    if (!ownerproductIds.includes(postId)) {
+   
+      owner.matchesAsOwner.productId.push(postId);
+    }
+
+
+    ///////////////////
+   await owner.save();
+   await user.save();
+
+   console.log('Match added successfully');
 
     res.json({ message: "Match added successfully" });
   } catch (error) {
+    console.log(error)
     res.json(error);
   }
 });
@@ -190,9 +252,11 @@ const getUserMatches = expressAsyncHandler(async (req, res) => {
       res.status(404).json({ message: `User with id ${id} not found` });
       return;
     }
-
     const userIds = user.matches.userId;
-    const users = await User.find({ _id: { $in: userIds } }, 'firstName lastName profilePhoto');
+    const userIdsAsOwner = user.matchesAsOwner.userId;
+    const allUserIds = [...userIds, ...userIdsAsOwner];
+    const uniqueUserIds = [...new Set(allUserIds)];
+    const users = await User.find({ _id: { $in: uniqueUserIds } }, 'firstName lastName profilePhoto');
     
     const matchedUsers = users.map(u => ({ 
       id: u._id, 
@@ -200,7 +264,7 @@ const getUserMatches = expressAsyncHandler(async (req, res) => {
       lastName: u.lastName,
       profilePhoto: u.profilePhoto 
     }));
-
+  
     res.status(200).json(matchedUsers);
   } catch (error) {
     res.json(error);
@@ -219,5 +283,8 @@ module.exports = {
     fetchbyid,
     addMatch,
     getUserMatches,
-    fetchuserposts
+    fetchuserposts,
+    updatePost ,
+    deletePost,
+
   };

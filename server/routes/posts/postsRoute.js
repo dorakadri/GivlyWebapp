@@ -8,7 +8,10 @@ const{
     fetchbyid,
     addMatch,
     getUserMatches,
-    fetchuserposts
+    fetchuserposts,
+    updatePost,
+    deletePost,
+ 
 }= require("../../controllers/posts/postsCtrl");
 const { GiftImgResize } = require("../../middlewares/uploads/profilePhotoUpload");
 
@@ -19,7 +22,8 @@ postRoutes.post("/:id",createPost);
 postRoutes.get("/getall/:id",  fetchAllPost);
 postRoutes.get("/:id",fetchbyid);
 postRoutes.get("/userposts/:id",fetchuserposts);
-
+postRoutes.put("/:id", updatePost);
+postRoutes.delete("/deletepost/:id",  deletePost);
 
 
 //wishlist operation//
@@ -27,8 +31,9 @@ postRoutes.get("/userposts/:id",fetchuserposts);
 postRoutes.post("/:id/wishlist",addtowishlist);
 postRoutes.delete("/:userId/wishlist/:productId",removefromwishlist);
 //addmatch
-postRoutes.post('/add/matches', addMatch);
+postRoutes.post('/post/add/matches', addMatch);
 postRoutes.get('/getmatches/:id',getUserMatches);
+
 
 module.exports = postRoutes;
 

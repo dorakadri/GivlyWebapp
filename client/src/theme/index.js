@@ -31,7 +31,7 @@ export const themeSettingsall = (mode) => {
           : {
             primary: {
                 main: '#2dbcaa',
-                contrastText:'#757575',
+                contrastText:'#fff',
               },
               secondary: {
            main: '#329c9c',
@@ -83,41 +83,59 @@ export const themeSettingsall = (mode) => {
       },
       
    
-      typography: {
-        fontFamily: ["Montserrat", "sans-serif"].join(","),
-        fontSize: 12,
+      typography:{
+        fontFamily: [
+          'Montserrat', 
+          'sans-serif'
+        ].join(','),
+        body1: {
+          fontSize: 18,
+          fontWeight: 500,
+          lineHeight: 0.95,
+        },h5: {
+          fontSize: 11,
+          fontWeight: 500,
         
-        h1: {
-          fontFamily: ["Montserrat", "sans-serif"].join(","),
-          fontSize: 40,
-     
-        },
-        h2: {
-          fontFamily: ["Montserrat", "sans-serif"].join(","),
-          fontSize: 32,
-      
-        },
-        h3: {
-          fontFamily: ["Montserrat", "sans-serif"].join(","),
-          fontSize: 40,
-      
-        },
-        h4: {
-          fontFamily: ["Montserrat", "sans-serif"].join(","),
-          fontSize: 20,
-          fontWeight: 700
           
-        },
-        h5: {
-          fontFamily: ["Montserrat", "sans-serif"].join(","),
-          fontSize: 16,
-       
+          
         },
         h6: {
-          fontFamily: ["Montserrat", "sans-serif"].join(","),
-          fontSize: 14,
+          fontSize: 16,
+
+        },
+        overline: {
+          fontSize: "0.9rem",
+
+        },
+        caption: {
+          fontWeight: 500,
+          lineHeight: "18px",
+          fontSize: 15,
+        },h3: {
+          fontSize: 22,
+          fontWeight: 500,
+  
+        },subtitle1:{
+          fontWeight: 400,
+          fontSize: 16,
+  
+        },subtitle2:{
+          fontWeight: 300,
+          fontSize: "13px",
+  
+        },
+        h4:{
+          fontWeight: 600,
+          fontSize: "20px",
+    
           
         },
+        text: {
+          primary: "#000000",
+  
+          
+        }
+      
       },
       
     };

@@ -77,9 +77,9 @@ export default function Cardpost(props) {
             }}
           >
             <Typography
-              sx={{ pointerEvents: "none", color: "white", fontWeight: "bold" }}
+              sx={{ pointerEvents: "none", color: "white" }}
               gutterBottom
-              variant="h5"
+              variant="h3"
               component="div"
             >
               {post.title}
@@ -106,7 +106,7 @@ export default function Cardpost(props) {
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Avatar sx={{ mr: 1 }} src={post.userId?.profilePhoto} />
 
-                <Typography sx={{ color: "white", fontWeight: "bold" }}>
+                <Typography sx={{ color: "white" }}>
                   {post.userId.firstName} {post.userId.lastName}
                 </Typography>
               </Box>

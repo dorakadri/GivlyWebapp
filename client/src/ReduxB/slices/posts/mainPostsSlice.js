@@ -6,7 +6,7 @@ export const addPostAction = createAsyncThunk(
   "posts/",
   async (post, { rejectWithValue, getState, dispatch }) => {
     const { userAuth } = getState().users;
-    console.log(post)
+    console.log(post);
     try {
       const config = {
         headers: { "Content-Type": "application/json" },
@@ -16,6 +16,8 @@ export const addPostAction = createAsyncThunk(
         post,
         config
       );
+ 
+      await dispatch(fetchPostsAction());
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -25,6 +27,74 @@ export const addPostAction = createAsyncThunk(
     }
   }
 );
+
+export const deletePostAction = createAsyncThunk(
+  "posts/delete",
+  async (id, { rejectWithValue, getState, dispatch }) => {
+  
+    try {
+      
+      const { data } = await axios.delete(
+        `http://localhost:5000/api/posts/deletepost/${id}`,
+  
+      );
+      dispatch(fetchuserPostsAction());
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+export const deletewishlistAction = createAsyncThunk(
+  "posts/deletewishlist",
+  async (id, { rejectWithValue, getState, dispatch }) => {
+    const { userAuth } = getState().users;
+    try {
+      
+      const { data } = await axios.delete(
+        `http://localhost:5000/api/posts/${userAuth._id}/wishlist/${id}`,
+  
+      );
+      dispatch(fetchuserPostsAction());
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+export const updatePostAction = createAsyncThunk(
+  "posts/update",
+  async ({id,post}, { rejectWithValue, getState, dispatch }) => {
+  console.log(post)
+  console.log(id)
+    try {
+      
+      const { data } = await axios.put(
+        `http://localhost:5000/api/posts/${id}`,
+        post  
+      );
+      dispatch(fetchuserPostsAction());
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+
+
+
+
 
 export const fetchPostsAction = createAsyncThunk(
   "posts/list",
@@ -97,7 +167,7 @@ export const addmatches = createAsyncThunk(
     try {
       console.log(match)
       const { data } = await axios.post(
-        `http://localhost:5000/api/posts/add/matches`,
+        `http://localhost:5000/api/posts/post/add/matches`,
         match
       );
       console.log(data)
@@ -223,6 +293,51 @@ const mainPostsSlice = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(fetchuserPostsAction.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    //addpost
+    builder.addCase(addPostAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(addPostAction.fulfilled, (state, action) => {
+      state.post = action?.payload;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(addPostAction.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    //update
+    builder.addCase(updatePostAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updatePostAction.fulfilled, (state, action) => {
+      state.postuptated = action?.payload;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(updatePostAction.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    //removefromwishlist
+    builder.addCase(deletewishlistAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(deletewishlistAction.fulfilled, (state, action) => {
+      state.wishlistremoved = action?.payload;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(deletewishlistAction.rejected, (state, action) => {
       state.loading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;

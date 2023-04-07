@@ -12,43 +12,74 @@ import {
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UploadIcon from '@mui/icons-material/Upload';
-import { addPostAction } from "../../../../ReduxB/slices/posts/mainPostsSlice";
+import { addPostAction, updatePostAction } from "../../../../ReduxB/slices/posts/mainPostsSlice";
+import { useNavigate } from "react-router-dom";
 const validationSchema = yup.object({
   title: yup.string().required("title is required"),
   description: yup.string().required(" description is required"),
 });
-export default function Objectdetection() {
+export default function Objectdetection(props) {
   const [isModelLoading, setIsModelLoading] = useState(false);
   const [model, setModel] = useState(null);
   const [imageURL, setImageURL] = useState(null);
   const [imagecloud, setImagecloud] = useState(null);
   const [results, setResults] = useState([]);
   const dispatch = useDispatch();
+  const navigate=useNavigate();
   const imageRef = useRef();
+  
   const [selectedValue, setSelectedValue] = useState("");
-  const initialValues = {
-    title: selectedValue || "",
-    description: "",
-    postpicture: "",
-    location: "tunisia",
-    isTaken: false,
-    type: "object",
-  };
+  const store = useSelector((state) => state?.mainpost);
+  
+  const {  loading, serverErr, appErr } = store;
+
+  
+  
+  const initialValues = props.data
+    ? {
+      title:  selectedValue || props.data.title || '',
+      description: props.data.description || '',
+      postpicture: props.data.postPicture || '',
+      location: props.data.location || '',
+      isTaken: props.data.isTaken ,
+      type:props.data.type || '',
+      }
+    : {
+      title: selectedValue || "",
+      description: "",
+      postpicture: "",
+      location: "tunisia",
+      isTaken: false,
+      type: "object",
+      };
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValues,
     onSubmit: async (values) => {
-      console.log(values);
-       const url = await uploadImageToCloudinary(imagecloud);
-
+      let url = null;
+      if(imagecloud){
+       url = await uploadImageToCloudinary(imagecloud);
+      }
+      else {
+        url=props.data.postPicture
+      }
+    
+      console.log(url)
       const v = {
         ...values,
         postpicture: url,
       };
-      console.log(v);
-      dispatch(addPostAction(v));
+if(props.update){
+
+ dispatch(updatePostAction( {id : props.data._id , post:v} )).then(props.close)
+}else{
+  dispatch(addPostAction(v)).then(navigate('/user/home'))
+}
+  
+    
     },
     validationSchema: validationSchema,
   });
@@ -110,22 +141,13 @@ export default function Objectdetection() {
   };
 
   useEffect(() => {
+
     loadModel();
   }, []);
 
   return (
     <form onSubmit={formik.handleSubmit}>
 
-        {isModelLoading ? (
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            height="69vh"
-          >
-            <CircularProgress />
-          </Box>
-        ) : (
           <Box  display={"flex"} flexDirection={"column"} gap={"1rem"}  >
             <Button component="label" variant="outlined" startIcon={<UploadIcon />}>
               <input
@@ -141,9 +163,9 @@ export default function Objectdetection() {
 
             <div>
               <div>
-                {imageURL && (
+                {(imageURL || props?.data?.postPicture) && (
                   <img
-                    src={imageURL}
+                    src={imageURL || props?.data?.postPicture}
                     alt="Upload Preview"
                     crossOrigin="anonymous"
                     ref={imageRef}
@@ -165,11 +187,13 @@ export default function Objectdetection() {
                 </Box>
               )}
             </div>
-            {imageURL && (
-              <Button  onClick={identify} variant="outlined">
-                Identify Image
-              </Button>
-            )}
+            
+{imageURL && (
+  <Button onClick={identify} disabled={isModelLoading} variant="outlined">
+    Identify Image
+  </Button>
+)}
+          
          
            
             <TextField
@@ -203,9 +227,42 @@ export default function Objectdetection() {
               }
               helperText={formik.touched.description && formik.errors.description}
             />
-                <Button type="submit" variant="outlined">Post</Button>
-           </Box>
+        
+               
+                {loading ? (
+          <Button
+            sx={{ width: "100%", p: "1rem", mt: "0", mb: "2rem" }}
+            variant="contained"
+            size="large"
+            color="error"
+            disabled
+          >
+            Loading....
+          </Button>
+        ) : (
+          <Button
+            fullWidth
+            type="submit" variant="outlined"
+            sx={{
+              backgroundColor: "#06A696",
+              color: " white",
+              border: "none",
+              fontWeight: " bold",
+              cursor: "pointer",
+              mt: "0",
+              mb: "2rem",
+              p: "1rem",
+              textAlign: "center",
+
+              "&:hover": { color: "white", backgroundColor: "#06A696" },
+            }}
+          >
+        {props.update ? "save changes" : "Post"}
+          </Button>
+  
         )}
+           </Box>
+
   
   
     </form>

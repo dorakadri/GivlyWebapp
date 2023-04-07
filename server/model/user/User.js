@@ -75,18 +75,18 @@ const userSchema = new mongoose.Schema(
         ref: "Post",
       }],
     },
-    matchesAsOwner: [
-      {
-        userId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-        productId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Post",
-        },
-      },
-    ],
+    matchesAsOwner: {
+      userId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      
+      }],
+      productId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      }],
+    },
+
     Taken: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Post'

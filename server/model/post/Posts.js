@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('../user/User');
 
 const postSchema = new mongoose.Schema({
 
@@ -48,6 +49,32 @@ const postSchema = new mongoose.Schema({
     },
     timestamps: true,
   });
+
+  postSchema.post("findOneAndRemove", async function (doc) {
+    try {
+      const id = doc._id;
+      console.log(id)
+      await User.updateMany(
+        { 
+          $or: [
+            { "matches.productId": id },
+            { wishlist: id }
+          ]
+        },
+        {
+          $pull: {
+            "matches.productId": id,
+           
+            Taken: id,
+            wishlist: id
+          }
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  });
+  
 
 const Post = mongoose.model('Post', postSchema);
 

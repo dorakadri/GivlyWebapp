@@ -2,7 +2,7 @@ import { Avatar, Button, Card, CardContent, CardHeader, CardMedia, Divider, Grid
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getpostbyid } from '../../../../ReduxB/slices/posts/mainPostsSlice';
+import { deletewishlistAction, getpostbyid } from '../../../../ReduxB/slices/posts/mainPostsSlice';
 
 export default function WishlistList() {
   const store = useSelector((state) => state?.users) 
@@ -23,6 +23,7 @@ export default function WishlistList() {
   
   const { onepost } = useSelector((state) => state?.mainpost);
   useEffect(() => {
+
     if (onepost && !posts.some(post => post._id === onepost._id)) {
       setPosts(prevPosts => {
         const newPosts = [...prevPosts];
@@ -30,11 +31,15 @@ export default function WishlistList() {
         return newPosts;
       });
     }
-  }, [onepost, posts]);
+  }, [onepost]);
 
   
-  
-  
+ 
+  function handleremove(params) {
+
+    dispatch(deletewishlistAction(params));
+    setPosts(prevPosts => prevPosts.filter(post => post._id !== params));
+  }
   
   
   
@@ -62,6 +67,9 @@ export default function WishlistList() {
               />
               <CardContent>
                 <Stack justifyContent={"flex-end"}>
+                <Typography variant="h3" sx={{mb:"1rem"}}>
+                    {el.title}
+                  </Typography>
                   <Typography variant="body2" sx={{mb:"1rem"}}>
                     {el.description}
                   </Typography>
@@ -70,8 +78,11 @@ export default function WishlistList() {
                       {el.location}
                     </Typography>
                   </Stack>
-                  <Button disabled={el.isTaken}>
+                  <Button disabled={el.isTaken} sx={{mb:"1rem"}} variant='contained' >
   {el.isTaken ? "TAKEN" : "TAKE IT"}
+</Button>
+<Button variant='outlined' color='error' onClick={ ()=> handleremove(el._id)}  >
+  remove
 </Button>
                 </Stack>
               </CardContent>

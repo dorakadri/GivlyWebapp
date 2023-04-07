@@ -45,7 +45,7 @@ useEffect(() => {
 
     }
     if (direction === "down") {
-  
+  console.log("brabi ikhdem")
 
       const data = {
         "userId": store.userAuth._id,
@@ -73,7 +73,13 @@ useEffect(() => {
   const classes = useStyles();
   return (
     <Box  sx={{overflow:"hidden"}} >
-      <Box sx={{ display: "flex", justifyContent: "center" ,mt:"10vh"}}>
+      <Box sx={{ display: "flex", justifyContent: "center" , mt: {
+    xs: "1vh",
+    sm: "3vh",
+    md: "5vh",
+    lg: "7vh",
+    xl: "10vh"
+  }}}>
         {Posts?.map((p) => (
           <TinderCard
             ref={cardRef}

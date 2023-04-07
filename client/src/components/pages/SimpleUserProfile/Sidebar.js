@@ -7,7 +7,7 @@ import {
   HomeOutlined,
 
 } from "@mui/icons-material";
-import SettingsAccessibilityOutlinedIcon from "@mui/icons-material/SettingsAccessibilityOutlined";
+
 import {
   Avatar,
   Box,
@@ -66,7 +66,7 @@ const Options = [
 const Sidebar = () => {
   const store = useSelector((state) => state?.users);
   const navigate = useNavigate();
-  console.log(store.profile);
+
   const [open, setOpen] = useState(true);
   const [active, setActive] = useState("");
  
@@ -74,7 +74,9 @@ const Sidebar = () => {
     setOpen(!open);
   };
   const { pathname } = useLocation();
-
+  useEffect(() => {
+    console.log(store.profile);
+  }, [store]);
 
   useEffect(() => {
     setActive(pathname.substring(1));
@@ -197,7 +199,7 @@ const Sidebar = () => {
                 <Typography
                 key={i}
                   sx={{ display: open ? "" : "none" }}
-                  variant="overline"
+                  variant="body2"
                 >
                   {text}
                 </Typography>
@@ -245,7 +247,7 @@ const Sidebar = () => {
 
                 >
                   <div  style={{  margin : open? "4px":"auto" ,display:"flex" }}>{icon}</div>
-                  <motion.span style={{marginLeft:"1rem"}} variants={subheading}>{text}</motion.span>
+                  <Typography variant="caption" sx={{marginLeft:"1rem",    display: open ?   "block" :"none", }} >{text}</Typography>
                 </ListItemButton>
               </div>
             );
