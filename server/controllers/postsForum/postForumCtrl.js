@@ -168,88 +168,15 @@ const deletePostForumCtrl = expressAsyncHandler(async (req, res) => {
 //------------------------------
 
 const toggleAddLikeToPostForumCtrl = expressAsyncHandler(async (req, res) => {
-  //1.Find the post to be liked
-  const { postForumId } = req.body;
-  const postForum = await PostForum.findById(postForumId);
-  //2. Find the login user
-  const loginUserId = req?.user?._id;
-  //3. Find is this user has liked this post?
-  const isLiked = postForum?.isLiked;
-  //4.Chech if this user has dislikes this post
-  const alreadyDisliked = postForum?.disLikes?.find(
-    (userId) => userId?.toString() === loginUserId?.toString()
-  );
-  //5.remove the user from dislikes array if exists
-  if (alreadyDisliked) {
-    const postForum = await PostForum.findByIdAndUpdate(
-      postForumId,
-      {
-        $pull: { disLikes: loginUserId },
-        isDisLiked: false,
-      },
-      { new: true }
-    );
-    res.json(postForum);
-  }
-  //Toggle
-  //Remove the user if he has liked the post
-  if (isLiked) {
-    const postForum = await PostForum.findByIdAndUpdate(
-      postForumId,
-      {
-        $pull: { likes: loginUserId },
-        isLiked: false,
-      },
-      { new: true }
-    );
-    res.json(postForum);
-  } else {
-    //add to likes
-    const postForum = await PostForum.findByIdAndUpdate(
-      postForumId,
-      {
-        $push: { likes: loginUserId },
-        isLiked: true,
-      },
-      { new: true }
-    );
-    res.json(postForum);
-  }
-});
-
-//------------------------------
-//disLikes
-//------------------------------
-
-const toggleAddDislikeToPostForumCtrl = expressAsyncHandler(
-  async (req, res) => {
-    //1.Find the post to be disLiked
+  try {
     const { postForumId } = req.body;
     const postForum = await PostForum.findById(postForumId);
-    //2.Find the login user
     const loginUserId = req?.user?._id;
-    //3.Check if this user has already disLikes
-    const isDisLiked = postForum?.isDisLiked;
-    //4. Check if already like this post
-    const alreadyLiked = postForum?.likes?.find(
-      (userId) => userId.toString() === loginUserId?.toString()
-    );
-    //Remove this user from likes array if it exists
-    if (alreadyLiked) {
-      const postForum = await PostForum.findOneAndUpdate(
-        postForumId,
-        {
-          $pull: { likes: loginUserId },
-          isLiked: false,
-        },
-        { new: true }
-      );
-      res.json(postForum);
-    }
-    //Toggling
-    //Remove this user from dislikes if already disliked
-    if (isDisLiked) {
-      const postForum = await PostForum.findByIdAndUpdate(
+    const isLiked = postForum?.likes?.includes(loginUserId);
+    const alreadyDisliked = postForum?.disLikes?.includes(loginUserId);
+
+    if (alreadyDisliked) {
+      await PostForum.findByIdAndUpdate(
         postForumId,
         {
           $pull: { disLikes: loginUserId },
@@ -257,20 +184,88 @@ const toggleAddDislikeToPostForumCtrl = expressAsyncHandler(
         },
         { new: true }
       );
-      res.json(postForum);
-    } else {
-      const postForum = await PostForum.findByIdAndUpdate(
+    }
+
+    if (isLiked) {
+      await PostForum.findByIdAndUpdate(
         postForumId,
         {
-          $push: { disLikes: loginUserId },
-          isDisLiked: true,
+          $pull: { likes: loginUserId },
+          isLiked: false,
         },
         { new: true }
       );
-      res.json(postForum);
+    } else {
+      await PostForum.findByIdAndUpdate(
+        postForumId,
+        {
+          $push: { likes: loginUserId },
+          isLiked: true,
+        },
+        { new: true }
+      );
+    }
+
+    const updatedPostForum = await PostForum.findById(postForumId);
+    res.json(updatedPostForum);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+//------------------------------
+//disLikes
+//------------------------------
+const toggleAddDislikeToPostForumCtrl = expressAsyncHandler(
+  async (req, res) => {
+    try {
+      const { postForumId } = req.body;
+      const postForum = await PostForum.findById(postForumId);
+      const loginUserId = req?.user?._id;
+      const isDisliked = postForum?.disLikes?.includes(loginUserId);
+      const alreadyLiked = postForum?.likes?.includes(loginUserId);
+
+      if (alreadyLiked) {
+        await PostForum.findByIdAndUpdate(
+          postForumId,
+          {
+            $pull: { likes: loginUserId },
+            isLiked: false,
+          },
+          { new: true }
+        );
+      }
+
+      if (isDisliked) {
+        await PostForum.findByIdAndUpdate(
+          postForumId,
+          {
+            $pull: { disLikes: loginUserId },
+            isDisLiked: false,
+          },
+          { new: true }
+        );
+      } else {
+        await PostForum.findByIdAndUpdate(
+          postForumId,
+          {
+            $push: { disLikes: loginUserId },
+            isDisLiked: true,
+          },
+          { new: true }
+        );
+      }
+
+      const updatedPostForum = await PostForum.findById(postForumId);
+      res.json(updatedPostForum);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
     }
   }
 );
+
 
 
 module.exports = {

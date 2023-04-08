@@ -28,7 +28,8 @@ import FlexBetween from "../../common/FlexBetween";
 import logo from "../../../assets/images/logogivly.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import { setMode } from "../../../ReduxB/slices/Themeglobal";
 import { logoutAction } from "../../../ReduxB/slices/users/usersSlices";
 
@@ -91,9 +92,9 @@ setcount(count);
         </FlexBetween>
         <IconButton onClick={() => dispatch(setMode())}>
           {theme.palette.mode === "dark" ? (
-            <DarkModeOutlined sx={{ fontSize: "25px" }} />
+            <FastfoodIcon sx={{ fontSize: "25px" }} color="primary"   />
           ) : (
-            <LightModeOutlined sx={{ fontSize: "25px" }} />
+            <EmojiObjectsIcon  sx={{ fontSize: "25px" }} color="primary" />
           )}
         </IconButton>
         <FlexBetween sx={{ gap: "8px" }}>

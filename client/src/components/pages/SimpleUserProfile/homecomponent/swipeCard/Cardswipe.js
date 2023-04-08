@@ -36,11 +36,12 @@ const { postLists, loading, appErr, serverErr } = useSelector(
 useEffect(() => {
   console.log(theme.mode)
   if(theme.mode === 'light'){
-   const objectposts= postLists?.filter((e)=> e.type ==='food')
+    const objectposts= postLists?.filter((e)=> e.type ==='object')
    setPosts(objectposts);
   }
   if(theme.mode === 'dark'){
-    const objectposts= postLists?.filter((e)=> e.type ==='object')
+    const objectposts= postLists?.filter((e)=> e.type ==='food')
+ 
     setPosts(objectposts);
   }
 

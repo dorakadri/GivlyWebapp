@@ -25,7 +25,10 @@ export default function Layout() {
   return (
     <Box 
       display={"flex"}
-    
+      sx={{ 
+     backgroundColor:"#f6f8fe",
+     
+      }}
     >
    
       <Box flexGrow={1}  >

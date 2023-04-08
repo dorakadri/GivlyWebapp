@@ -138,7 +138,8 @@ const Sidebar = () => {
         position:"sticky",
         top:0,
         color: "black",
-    
+        marginTop:"2rem",
+        height: "90%",
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
@@ -155,14 +156,15 @@ const Sidebar = () => {
           alignItems: "start",
           flexDirection: "column",
           padding: "15px",
+       
          
           display: "flex",
-          backgroundColor: "#ffffff4d",
-         // boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
-          backdropFilter: "blur( 3.5px )",
-          WebkitBackdropFilter: "blur( 3.5px )",
-          borderRadius: "0 10px 10px 0",
-          border: "1px solid rgba( 255, 255, 255, 0.18 )",
+                  backgroundColor: "rgba(255, 255, 255, 54.3)",
+          // boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
+           backdropFilter: "blur( 3.5px )",
+           WebkitBackdropFilter: "blur( 3.5px )",
+           borderRadius: "10px 10px 10px 10px",
+           border: "1px solid rgba( 255, 255, 255, 0.18 )",
         }}
       >
         <Box

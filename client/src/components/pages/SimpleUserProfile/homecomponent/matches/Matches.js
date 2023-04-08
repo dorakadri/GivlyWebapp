@@ -67,10 +67,20 @@ setMatches(friendsmatch);
   return (
    
       <Card
-        sx={{ pl: 0, pt: "1rem", borderColor: "transparent" ,backgroundColor:"transparent" }}
+        sx={{ 
+          backgroundColor: "rgba(255, 255, 255, 54.3)",
+          // boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
+           backdropFilter: "blur( 3.5px )",
+           WebkitBackdropFilter: "blur( 3.5px )",
+           borderRadius: "10px 10px 10px 10px",
+           border: "1px solid rgba( 255, 255, 255, 0.18 )",
+          
+          pl: 0, pt: "1rem" , borderColor: "transparent" 
+       ,height: "800px" }}
         variant="outlined"
+        
       >
-        <CardContent sx={{ pl: "2rem", pr: 0 }}>
+        <CardContent sx={{ pl: "2rem", pr: "2rem" }}>
           <Typography sx={{ pb: "1rem" }} variant="h4">
             Matches
           </Typography>

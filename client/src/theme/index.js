@@ -30,7 +30,7 @@ export const themeSettingsall = (mode) => {
             }
           : {
             primary: {
-                main: '#2dbcaa',
+                main: '#01a28f',
                 contrastText:'#fff',
               },
               secondary: {

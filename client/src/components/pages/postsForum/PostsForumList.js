@@ -8,7 +8,7 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
+//import { red } from "@mui/material/colors";
 import { Link} from "react-router-dom";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useEffect } from "react";
@@ -55,7 +55,7 @@ const PostsForumList = () => {
                 <CardHeader
                   avatar={
                     <Avatar
-                      sx={{ bgcolor: red[600] }}
+              
                       aria-label="recipe"
                       src={postForum?.user?.profilePhoto}
                     ></Avatar>
@@ -96,13 +96,12 @@ const PostsForumList = () => {
                     <IconButton aria-label="Like" onClick={() =>
                           {
                             dispatch(toggleAddLikesToPost(postForum?._id))
-                            setIsLiked(etat => !etat);
-                            setIsdisLiked(false);
+                       
                   
                         }
                         }>
                       <ThumbUpIcon
-                       color={isLiked ?  "grey" : "info"   }
+                       color= "primary" 
                        
                       />
                     </IconButton>
@@ -122,13 +121,12 @@ const PostsForumList = () => {
                      onClick={() =>
                          { 
                           dispatch(toggleAddDisLikesToPost(postForum?._id))
-                          setIsdisLiked(etat => !etat);
-                          setIsLiked(false);
+                  
                      
                         }
                         }>
                       <ThumbDownIcon
-                       color={isdisLiked ? "secondary" :"grey"  }
+                       color= "grey"
                     
                       />
                     </IconButton>
@@ -147,7 +145,8 @@ const PostsForumList = () => {
                     }}
                   >
                          <IconButton aria-label="disLike">
-                    <VisibilityIcon fontSize="small" color="primary" /></IconButton>
+                    <VisibilityIcon fontSize="small" color="primary" />
+                    </IconButton>
                     <Typography color="text.secondary" sx={{ pr: "8px" }}>
                       {postForum?.numViews}
                     </Typography>

@@ -11,11 +11,11 @@ import { Suspense, lazy, useMemo } from "react";
 
 import { themeSettingsall } from "../../../theme";
 import { useSelector } from "react-redux";
-import PostsForumList from "../postsForum/PostsForumList";
+
 import PostForumDetails from "../postsForum/PostForumDetails";
 import Chat from "../../../Chat/Chat";
-import Split from "./Addposts/Split";
-
+const PostsForumList  = lazy(() => import("../postsForum/PostsForumList"));
+const Split  = lazy(() => import("./Addposts/Split"));
 const AddPost = lazy(() => import("./Addposts/AddPost"));
 const Layout = lazy(() => import("./Layout"));
 const LayoutSidebar = lazy(() => import("./LayoutSidebar"));
@@ -50,7 +50,7 @@ function SimpleUserRoutes() {
               <Route path="home" element={<Homepage />} />
               <Route path="diygeneration" element={<DiyGeneration />} />
               <Route path="Addpost" element={<Split />} />
-              <Route exact path="forum" element={<PostsForumList />} />
+              <Route  path="forum" element={<PostsForumList />} />
             </Route>
             <Route
               path="profile/update/:id"
