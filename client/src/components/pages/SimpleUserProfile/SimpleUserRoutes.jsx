@@ -21,7 +21,7 @@ const LayoutSidebar = lazy(() => import("./LayoutSidebar"));
 const Homepage = lazy(() => import("./homecomponent/Homepage"));
 const ProfilePage = lazy(() => import("./ProfilePage"));
 const SimpleUserProfileEdit = lazy(() => import("./SimpleUserProfileEdit"));
-const DiyGeneration = lazy(() => import("./objectRelated/DiyGeneration"));
+const DiyGeneration = lazy(() => import("../Objectrelated/DiyGeneration"));
 
 function SimpleUserRoutes() {
   const mode = useSelector((state) => state.globaltheme.mode);

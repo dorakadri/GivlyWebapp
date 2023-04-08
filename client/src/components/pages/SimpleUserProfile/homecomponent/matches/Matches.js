@@ -21,6 +21,7 @@ export default function Matches() {
 
   const [matches, setMatches] = useState([]);
   const dispatch = useDispatch();
+
   const navigate =useNavigate();
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
@@ -104,6 +105,7 @@ setMatches(friendsmatch);
                   overlap="circular"
                   anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                   variant="dot"
+
                 >
                   <Avatar alt="ownerphoto" src={el?.profilePhoto
 } />

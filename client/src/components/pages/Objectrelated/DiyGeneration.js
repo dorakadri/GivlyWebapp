@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField'
 import { Button, Card, CardContent, CardActions, Typography, CardActionArea, CardMedia, Grid, Box } from '@mui/material';
 
-import { diyGenerationAction } from '../../../../ReduxB/slices/IA/diySlice';
+import { diyGenerationAction } from '../../../ReduxB/slices/IA/diySlice';
 
 export default function DiyGeneration() {
 const [object,setObject] =useState();

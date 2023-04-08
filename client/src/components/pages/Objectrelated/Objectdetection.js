@@ -14,7 +14,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import UploadIcon from '@mui/icons-material/Upload';
-import { addPostAction, updatePostAction } from "../../../../ReduxB/slices/posts/mainPostsSlice";
+import { addPostAction, updatePostAction } from "../../../ReduxB/slices/posts/mainPostsSlice";
 import { useNavigate } from "react-router-dom";
 const validationSchema = yup.object({
   title: yup.string().required("title is required"),

@@ -10,13 +10,8 @@ import AssociationUserProfile from "./components/pages/AssociationUserProfile/As
 import AccountVerifed from "./components/pages/Navigation/Alerts/AccountVerifed";
 import ResetPasswordForm from "./components/pages/UserInterface/Passwordmanagment/ResetPasswordForm";
 import ResetPassword from "./components/pages/UserInterface/Passwordmanagment/ResetPassword";
-import CreatePostForum from "./components/pages/postsForum/CreatePostForum";
-import PostsForumList from "./components/pages/postsForum/PostsForumList";
-import PostForumDetails from "./components/pages/postsForum/PostForumDetails";
-import UpdatePostForum from "./components/pages/postsForum/UpdatePostForum";
 import NotFound from "./components/common/NotFound";
 import SimpleUserProfile from "./components/pages/SimpleUserProfile/SimpleUserProfile"
-import Chat from "./Chat/Chat";
 import { AppContext, socket } from "./context/appContext";
 import axios from "axios";
 import Rolegoogle from "./components/pages/UserInterface/LoginAndRegister/Rolegoogle";

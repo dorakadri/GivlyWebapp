@@ -1,5 +1,5 @@
 import React from 'react'
-import Objectdetection from '../objectRelated/Objectdetection'
+import Objectdetection from '../../Objectrelated/Objectdetection'
 import { Box } from '@mui/material'
 
 

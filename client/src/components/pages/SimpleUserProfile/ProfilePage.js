@@ -7,7 +7,7 @@ import { userProfileAction } from "../../../ReduxB/slices/users/usersSlices";
 
 import { Box, Grid, Paper } from "@mui/material";
 
-import { ProfileUserV2 } from "./profilepagecomponents/ProfileUserV2";
+import { ProfileUserV2 } from "./Profilepagecomponents/ProfileUserV2";
 
 export default function ProfilePage() {
   const store = useSelector((state) => state?.users);

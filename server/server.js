@@ -62,7 +62,7 @@ app.use("/api/DeliveryMen", deliveryMensRoutes);
 
 //gift route
 app.use("/api/gift", giftsRoutes);
-app.use("/api/posts", postRoutes);
+app.use("/api/mainposts", postRoutes);
 app.use("/api/diy", diyRoutes);//chat
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {

@@ -10,8 +10,8 @@ import SwipeRightOutlinedIcon from "@mui/icons-material/SwipeRightOutlined";
 import StarBorderPurple500OutlinedIcon from "@mui/icons-material/StarBorderPurple500Outlined";
 import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import styled from "@emotion/styled";
-import WishlistList from "./profilepagecomponents/WishlistList";
-import PostsList from "./profilepagecomponents/PostsList";
+import WishlistList from "./Profilepagecomponents/WishlistList";
+import PostsList from "./Profilepagecomponents/PostsList";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 

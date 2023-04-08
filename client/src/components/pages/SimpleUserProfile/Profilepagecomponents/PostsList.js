@@ -27,7 +27,7 @@ import {
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { Delete, Edit } from "@mui/icons-material";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import Objectdetection from '../objectRelated/Objectdetection'
+import Objectdetection from '../../Objectrelated/Objectdetection'
 import { Box } from "@mui/system";
 export default function PostsList() {
   const dispatch = useDispatch();
