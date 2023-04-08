@@ -18,6 +18,7 @@ export default function Cardswipe() {
 
   const [lastDirection, setLastDirection] = useState();
   const store = useSelector((state) => state?.users);
+  const theme = useSelector((state) => state?.globaltheme);
   const [Posts, setPosts] = useState();
   const dispatch = useDispatch();
 
@@ -33,8 +34,17 @@ const { postLists, loading, appErr, serverErr } = useSelector(
 
 
 useEffect(() => {
-  setPosts(postLists);
-}, [postLists]);
+  console.log(theme.mode)
+  if(theme.mode === 'light'){
+   const objectposts= postLists?.filter((e)=> e.type ==='food')
+   setPosts(objectposts);
+  }
+  if(theme.mode === 'dark'){
+    const objectposts= postLists?.filter((e)=> e.type ==='object')
+    setPosts(objectposts);
+  }
+
+}, [postLists,theme.mode]);
 
   const swiped = async (direction, thepost) => {
     setLastDirection(direction);

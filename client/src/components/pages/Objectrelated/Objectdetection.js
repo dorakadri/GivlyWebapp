@@ -35,7 +35,7 @@ export default function Objectdetection(props) {
   
   const {  loading, serverErr, appErr } = store;
 
-
+console.log(props)
   
   const initialValues = props.data
     ? {
@@ -52,7 +52,7 @@ export default function Objectdetection(props) {
       postpicture: "",
       location: "tunisia",
       isTaken: false,
-      type: "object",
+      type: props.type || "",
       };
 
   const formik = useFormik({
@@ -67,7 +67,7 @@ export default function Objectdetection(props) {
         url=props.data.postPicture
       }
     
-      console.log(url)
+   
       const v = {
         ...values,
         postpicture: url,
@@ -76,6 +76,7 @@ if(props.update){
 
  dispatch(updatePostAction( {id : props.data._id , post:v} )).then(props.close)
 }else{
+  console.log(v)
   dispatch(addPostAction(v)).then(navigate('/user/home'))
 }
   

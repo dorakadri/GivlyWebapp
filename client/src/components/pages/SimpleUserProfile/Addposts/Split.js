@@ -124,7 +124,7 @@ export default function Split() {
             </Typography>
           </Image>
         </ImageButton>}
-        { display && <AddPost  />}
+        { display && <AddPost type={'object'}  />}
 
      { !displayfood &&  <ImageButton
         onClick={()=>{
@@ -157,7 +157,7 @@ export default function Split() {
             </Typography>
           </Image>
         </ImageButton>}
-        { displayfood && <AddPost  />}
+        { displayfood && <AddPost type={'food'} />}
  
     </Box>
   );
