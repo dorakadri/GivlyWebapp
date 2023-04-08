@@ -23,7 +23,7 @@ import { Box,} from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { useDispatch, useSelector } from "react-redux";
-import Navbar from "../SimpleUserProfile/Navbar";
+
 import DateFormatter from "../../../utils/DateFormatter";
 const PostsForumList = () => {
 
@@ -43,15 +43,13 @@ const PostsForumList = () => {
 
   return (
     <Box spacing={10}>
-      <Box flexGrow={4}>
-        <Navbar profileurl={user.userAuth.profilePhoto} />
-      </Box>
+     
       <Box display="flex" justifyContent="center" spacing={10}>
         <Card sx={{ maxWidth: 500 }} spacing={10}>
           {postLists?.map((postForum) => (
             <Box key={postForum?.id} mb={2}>
               {" "}
-              {/* Add margin to create space */}
+         
               <Card spacing={10}>
                 <CardHeader
                   avatar={
@@ -134,7 +132,7 @@ const PostsForumList = () => {
                   </Box>
                   <IconButton sx={{ ml: "auto" }} aria-label="Comment">
                     <Link
-                      to={`/posts/${postForum?._id}`}
+                      to={`./posts/${postForum?._id}`}
                       className="text-indigo-500 hover:underline"
                     >
                       <Typography variant="body2" color="text.secondary">

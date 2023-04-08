@@ -39,6 +39,10 @@ const Options = [
     text: "Add Post",
     icon: <PostAddRoundedIcon />,
   },
+  {
+    text: "Forum",
+    icon: <PostAddRoundedIcon />,
+  },
 
   {
     text: " Object Related features ",

@@ -69,18 +69,21 @@ export default function Navbar(data) {
           <InputBase placeholder="Search Givly" />
         </Search>
         <Icons>
-          <Link to={"/association/createpost"}>
+          <Link to={"./createpost"}>
             <Badge >
               <ForumIcon />
             </Badge>
           </Link>
-
+          <Link to={"./chat"}>
           <Badge badgeContent={4} color="error">
             <Mail />
           </Badge>
+          </Link>
+          <Link to={"./forum"}>
           <Badge badgeContent={2} color="error">
             <Notifications />
           </Badge>
+          </Link>
           <Avatar
             sx={{ width: 30, height: 30 }}
             src={data?.profileurl}

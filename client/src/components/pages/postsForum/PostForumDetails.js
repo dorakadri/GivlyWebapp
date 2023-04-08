@@ -22,7 +22,7 @@ import { Grid } from "@material-ui/core";
 import CreateIcon from "@mui/icons-material/Create";
 import { useParams } from "react-router-dom";
 import { fetchPostsAction,} from "../../../ReduxB/slices/postsForum/postForumSlices";
-import Navbar from "../SimpleUserProfile/Navbar";
+
 import DateFormatter from "../../../utils/DateFormatter";
 export default function PostForumDetails(props) {
 
@@ -64,9 +64,7 @@ export default function PostForumDetails(props) {
   if (isDeleted) return navigate("/forum");
   return (
     <Box>
-      <Box flexGrow={4}>
-        <Navbar profileurl={postForum?.user?.profilePhoto} />
-      </Box>
+    
 
       <Box display="flex" justifyContent="center">
         <Card sx={{ maxWidth: 700 }}>

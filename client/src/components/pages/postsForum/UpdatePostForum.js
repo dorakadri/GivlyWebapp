@@ -12,9 +12,10 @@ import {
   fetchPostDetailsAction,
   updatePostAction,
 } from "../../../ReduxB/slices/postsForum/postForumSlices";
-import { green } from "@material-ui/core/colors";
-import Navbar from "../SimpleUserProfile/Navbar";
+
+
 import { Box } from "@mui/material";
+import Navbar from "../AssociationUserProfile/Navbar";
 const useStyles = makeStyles((theme) => ({
   form: {
     display: "flex",
@@ -86,7 +87,7 @@ export default function UpdatePostForum(props) {
     validationSchema: formSchema,
   });
   const classes = useStyles();
-  //redirect
+
   if (isUpdated) return navigate("/forum");
 
   return (

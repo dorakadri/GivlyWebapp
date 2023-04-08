@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Grid } from "@mui/material";
-import Sidebar from "../components/Sidebar";
-import MessageForm from "../components/MessageForm";
+import Sidebar from "../components/shared/Sidebar";
+import MessageForm from "../components/shared/MessageForm";
 
 function Chat() {
   return (

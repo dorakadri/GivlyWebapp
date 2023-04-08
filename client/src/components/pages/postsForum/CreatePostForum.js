@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { DropzoneArea } from "material-ui-dropzone";
 import { Box } from "@mui/material";
 
-import Navbar from "../SimpleUserProfile/Navbar";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,14 +77,12 @@ export default function CreatePost() {
   });
   const classes = useStyles();
   //redirect
-  if (isCreated) return navigate("/forum");
+  if (isCreated) return navigate("../forum");
 
 
   return (
     <Box>
-      <Box>
-        <Navbar profileurl={postForum?.user?.profilePhoto} />
-      </Box>
+     
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <form onSubmit={formik.handleSubmit} className={classes.form}>
           <TextField

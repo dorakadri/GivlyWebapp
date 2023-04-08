@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 //import { Button, Col, Form, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { AppContext } from "../context/appContext";
+import { AppContext } from "../../context/appContext";
 //import "./MessageForm.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
@@ -12,6 +12,8 @@ function MessageForm() {
   const [message, setMessage] = useState("");
 
   const user = useSelector((state) => state.users);
+  const userINFOO=user.profile ;
+  
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   const { socket, currentRoom, setMessages, messages, privateMemberMsg } =
@@ -59,7 +61,7 @@ function MessageForm() {
       today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
     const time = today.getHours() + ":" + minutes;
     const roomId = currentRoom;
-    socket.emit("message-room", roomId, message, userInfo, time, todayDate);
+    socket.emit("message-room", roomId, message, userINFOO, time, todayDate);
     setMessage("");
   }
   // design
@@ -148,6 +150,7 @@ function MessageForm() {
               {" "}
               <div> Your conversation with {privateMemberMsg.firstName}</div>
               <img
+              alt="urphoto"
                 src={privateMemberMsg.profilePhoto}
                 className={classes.conversationProfilePic}
               />
@@ -168,7 +171,7 @@ function MessageForm() {
                 ({ content, time, from: sender }, msgIdx) => (
                   <div
                     className={
-                      sender?.email === userInfo?.email
+                      sender?.email === userINFOO?.email
                         ? message
                         : classes.incomingMessage
                     }
@@ -180,13 +183,13 @@ function MessageForm() {
                         alignItems="center"
                         sx={{ marginBottom: theme.spacing(3) }}
                       >
-                        {sender._id == userInfo?._id ? (
-                          <Avatar src={userInfo?.profilePhoto} />
+                        {sender._id === userINFOO?._id ? (
+                          <Avatar src={userINFOO?.profilePhoto} />
                         ) : (
                           <Avatar src={sender?.profilePhoto} />
                         )}
                         <p className={classes.messageSender}>
-                          {sender._id == userInfo?._id
+                          {sender._id === userINFOO?._id
                             ? "You"
                             : sender.firstName}
                         </p>

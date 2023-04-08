@@ -15,6 +15,7 @@ import PostsForumList from "./components/pages/postsForum/PostsForumList";
 import PostForumDetails from "./components/pages/postsForum/PostForumDetails";
 import UpdatePostForum from "./components/pages/postsForum/UpdatePostForum";
 import NotFound from "./components/common/NotFound";
+import SimpleUserProfile from "./components/pages/SimpleUserProfile/SimpleUserProfile"
 import Chat from "./Chat/Chat";
 import { AppContext, socket } from "./context/appContext";
 import axios from "axios";
@@ -78,14 +79,11 @@ function App() {
         setNewMessages,
       }}
     >
-      <BrowserRouter>
+
         <Routes>
           <Route exact path="*" element={<NotFound />} />
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/register" element={<Signup />} />
-          <Route exact path="/forum" element={<PostsForumList />} />
-          <Route exact path="/posts/:id" element={<PostForumDetails />} />
-
           <Route
             exact
             path="/register/Role"
@@ -103,15 +101,7 @@ function App() {
               </SimpleUserElement>
             }
           />
-          <Route
-            exact
-            path="/user/chat"
-            element={
-              <SimpleUserElement Role={Role}>
-                <Chat />
-              </SimpleUserElement>
-            }
-          />
+       
           <Route
             exact
             path="/admin/*"
@@ -130,33 +120,8 @@ function App() {
               </AssoElement>
             }
           />
-          <Route
-            exact
-            path="/association/createpost"
-            element={
-              <AssoElement Role={Role}>
-                <CreatePostForum />
-              </AssoElement>
-            }
-          />
-          <Route
-            exact
-            path="/update-post/:id"
-            element={
-              <AssoElement Role={Role}>
-                <UpdatePostForum />
-              </AssoElement>
-            }
-          />
-          <Route
-            exact
-            path="/association/chat"
-            element={
-              <AssoElement Role={Role}>
-                <Chat />
-              </AssoElement>
-            }
-          />
+     
+          
           <Route
             path="/verify-account/:token"
             element={userAuth ? <AccountVerifed /> : <Navigate to="/login" />}
@@ -180,7 +145,7 @@ function App() {
             />
           )}
         </Routes>
-      </BrowserRouter>
+    
     </AppContext.Provider>
   );
 }

@@ -6,6 +6,7 @@ import {
 import {
   AppBar,
   Avatar,
+  Badge,
   Box,
   Button,
   IconButton,
@@ -18,20 +19,29 @@ import {
   useTheme,
 } from "@mui/material";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FiHome, FiMessageSquare } from "react-icons/fi";
 import { FaForumbee } from "react-icons/fa";
 
 import FlexBetween from "../../common/FlexBetween";
 import logo from "../../../assets/images/logogivly.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutAction } from "../../../ReduxB/slices/users/usersSlices";
 import { setMode } from "../../../ReduxB/slices/Themeglobal";
 
 export default function Finalnavbar(data) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const messages =useSelector((state)=> state.users.newMessages);
+const [count,setcount]=useState(0);
+
+  useEffect(() => {
+  
+    const count = Object.values(messages).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+setcount(count);
+  }, [messages])
+  
   const theme = useTheme();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -84,11 +94,13 @@ export default function Finalnavbar(data) {
           <IconButton component={Link} to="/user/home">
             <FiHome color="#9fa1a2" />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => navigate(`./forum`)}  >
             <FaForumbee color="#9fa1a2" />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => navigate(`./chat`)}  >
+          <Badge badgeContent={count} color="success">
             <FiMessageSquare color="#9fa1a2" />
+            </Badge>
           </IconButton>
 
           <Box sx={{ flexGrow: 0 }}>

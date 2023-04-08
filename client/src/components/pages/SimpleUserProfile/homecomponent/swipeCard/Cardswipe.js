@@ -45,7 +45,7 @@ useEffect(() => {
 
     }
     if (direction === "down") {
-  console.log("brabi ikhdem")
+
 
       const data = {
         "userId": store.userAuth._id,

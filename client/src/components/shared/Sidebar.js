@@ -12,11 +12,11 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 import { useDispatch, useSelector } from "react-redux";
-import { AppContext } from "../context/appContext";
+import { AppContext } from "../../context/appContext";
 import {
   addNotifications,
   resetNotifications,
-} from "../ReduxB/slices/users/usersSlices";
+} from "../../ReduxB/slices/users/usersSlices";
 function Sidebar() {
   const user = useSelector((state) => state.users);
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));

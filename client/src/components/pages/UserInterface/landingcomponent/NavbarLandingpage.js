@@ -1,7 +1,7 @@
 
 
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -102,11 +102,7 @@ function NavbarLandingpage() {
           </MenuItem>
         </Menu>
       </Box>
-      <Link to={`/forum`}>
-        <MenuItem>
-          <Typography textAlign="center">Forum </Typography>
-        </MenuItem>
-      </Link>
+  
 
       <Typography
         variant="h5"

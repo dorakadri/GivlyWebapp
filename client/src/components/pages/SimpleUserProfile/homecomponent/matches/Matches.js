@@ -16,10 +16,12 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import { getmatchesuser } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
+import { useNavigate } from "react-router";
 export default function Matches() {
 
   const [matches, setMatches] = useState([]);
   const dispatch = useDispatch();
+  const navigate =useNavigate();
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
@@ -108,7 +110,7 @@ setMatches(friendsmatch);
                 </StyledBadge>
               }
               action={
-                <IconButton>
+                <IconButton onClick={()=>navigate("../chat")}  >
                   <ChatBubbleOutlineIcon color="disabled" />
                 </IconButton>
               }
