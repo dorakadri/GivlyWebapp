@@ -28,8 +28,9 @@ import FlexBetween from "../../common/FlexBetween";
 import logo from "../../../assets/images/logogivly.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logoutAction } from "../../../ReduxB/slices/users/usersSlices";
+
 import { setMode } from "../../../ReduxB/slices/Themeglobal";
+import { logoutAction } from "../../../ReduxB/slices/users/usersSlices";
 
 export default function Finalnavbar(data) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -59,15 +60,20 @@ setcount(count);
   return (
     <AppBar
       sx={{
-        position: "static",
+        position: "sticky",
+        top:0,
+       zIndex:999999,
         background: "none",
         boxShadow: "none",
-        backgroundColor: "#ffffff4d",
+      backgroundColor: "#ffffff4d",
 
-        backdropFilter: "blur( 3.5px )",
-        border: "1px solid rgba( 255, 255, 255, 0.18 )",
-        WebkitBackdropFilter: "blur( 3.5px )",
+      // backdropFilter: "blur( 3.5px )",
+      //  border: "1px solid rgba( 255, 255, 255, 0.18 )",
+    // WebkitBackdropFilter: "blur( 3.5px )",
+  
       }}
+      elevation={0}
+  
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <FlexBetween>

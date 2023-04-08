@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import PostsForumList from "../postsForum/PostsForumList";
 import PostForumDetails from "../postsForum/PostForumDetails";
 import Chat from "../../../Chat/Chat";
+import Split from "./Addposts/Split";
 
 const AddPost = lazy(() => import("./Addposts/AddPost"));
 const Layout = lazy(() => import("./Layout"));
@@ -48,7 +49,7 @@ function SimpleUserRoutes() {
             <Route path="/" element={<LayoutSidebar />}>
               <Route path="home" element={<Homepage />} />
               <Route path="diygeneration" element={<DiyGeneration />} />
-              <Route path="Addpost" element={<AddPost />} />
+              <Route path="Addpost" element={<Split />} />
               <Route exact path="forum" element={<PostsForumList />} />
             </Route>
             <Route

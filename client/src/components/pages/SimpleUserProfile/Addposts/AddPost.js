@@ -3,10 +3,10 @@ import Objectdetection from '../../Objectrelated/Objectdetection'
 import { Box } from '@mui/material'
 
 
-export default function AddPost() {
+export default function AddPost( ) {
   return (
     <Box  sx={{margin:"auto"}}>
-      <Objectdetection/>
+      <Objectdetection  />
     </Box>
   )
 }

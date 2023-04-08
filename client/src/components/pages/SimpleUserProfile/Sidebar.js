@@ -127,7 +127,7 @@ const Sidebar = () => {
 
   }
   return (
-    <motion.div
+    <motion.div 
     data-open={open}
 
     
@@ -135,7 +135,8 @@ const Sidebar = () => {
       animate={`${open}`}
       variants={sideCountainerVariant}
       style={{
-     
+        position:"sticky",
+        top:0,
         color: "black",
     
         display: "flex",
@@ -149,7 +150,7 @@ const Sidebar = () => {
         variants={sidebarVariants}
         style={{
           width: "14rem",
-          height: "90%",
+          height: "100%",
           justifyContent: "start",
           alignItems: "start",
           flexDirection: "column",

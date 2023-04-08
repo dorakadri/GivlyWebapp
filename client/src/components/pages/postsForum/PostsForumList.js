@@ -19,12 +19,13 @@ import {
   toggleAddLikesToPost,
   toggleAddDisLikesToPost,
 } from "../../../ReduxB/slices/postsForum/postForumSlices";
-import { Box,} from "@mui/material";
+import { Box, Button,} from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { useDispatch, useSelector } from "react-redux";
 
 import DateFormatter from "../../../utils/DateFormatter";
+import { Stack } from "@mui/system";
 const PostsForumList = () => {
 
 
@@ -33,7 +34,8 @@ const PostsForumList = () => {
 
   const user = useSelector((state) => state?.users);
   const { userAuth } = user;
-
+  const [isdisLiked, setIsdisLiked] = React.useState(false);
+  const [isLiked, setIsLiked] = React.useState(false);
   //dispatch
   const dispatch = useDispatch();
   //fetch post
@@ -42,15 +44,14 @@ const PostsForumList = () => {
   }, [dispatch, likes, dislikes]);
 
   return (
-    <Box spacing={10}>
-     
-      <Box display="flex" justifyContent="center" spacing={10}>
-        <Card sx={{ maxWidth: 500 }} spacing={10}>
+
+    <Box  sx={{margin:"auto" ,pt:"39px"}}>
+        
+       
+ 
           {postLists?.map((postForum) => (
-            <Box key={postForum?.id} mb={2}>
-              {" "}
-         
-              <Card spacing={10}>
+       
+              <Card  spacing={10} key={postForum?.id} sx={{mb:"2rem",maxwidth:"700px"}} >
                 <CardHeader
                   avatar={
                     <Avatar
@@ -81,34 +82,54 @@ const PostsForumList = () => {
                   image={`${postForum?.image}`}
                   alt="Paella dish"
                 />
-                <CardActions>
-                  <Box
-                    sx={{
+                <CardActions    sx={{
+                      
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                    }}
-                  >
-                    <IconButton aria-label="Like">
-                      <ThumbUpIcon
-                        color="primary"
-                        onClick={() =>
-                          dispatch(toggleAddLikesToPost(postForum?._id))
+                    }}>
+                    <Box   sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}>
+                    <IconButton aria-label="Like" onClick={() =>
+                          {
+                            dispatch(toggleAddLikesToPost(postForum?._id))
+                            setIsLiked(etat => !etat);
+                            setIsdisLiked(false);
+                  
                         }
+                        }>
+                      <ThumbUpIcon
+                       color={isLiked ?  "grey" : "info"   }
+                       
                       />
                     </IconButton>
+                 
 
                     <Typography color="text.secondary">
                       {" "}
                       {postForum?.likes?.length}
                     </Typography>
-
-                    <IconButton aria-label="disLike">
-                      <ThumbDownIcon
-                        color="secondary"
-                        onClick={() =>
+                    </Box>
+                    <Box   sx={{
+                      display: "flex",
+                  
+                      alignItems: "center",
+                    }}>
+                    <IconButton aria-label="disLike"    
+                     onClick={() =>
+                         { 
                           dispatch(toggleAddDisLikesToPost(postForum?._id))
+                          setIsdisLiked(etat => !etat);
+                          setIsLiked(false);
+                     
                         }
+                        }>
+                      <ThumbDownIcon
+                       color={isdisLiked ? "secondary" :"grey"  }
+                    
                       />
                     </IconButton>
 
@@ -116,38 +137,38 @@ const PostsForumList = () => {
                       {" "}
                       {postForum?.disLikes?.length}{" "}
                     </Typography>
-                  </Box>
+                    </Box>
                   <Box
                     sx={{
                       display: "flex",
-                      justifyContent: "space-between",
+                
                       alignItems: "center",
-                      ml: "1rem",
+                  
                     }}
                   >
-                    <VisibilityIcon fontSize="small" color="primary" />
+                         <IconButton aria-label="disLike">
+                    <VisibilityIcon fontSize="small" color="primary" /></IconButton>
                     <Typography color="text.secondary" sx={{ pr: "8px" }}>
                       {postForum?.numViews}
                     </Typography>
                   </Box>
-                  <IconButton sx={{ ml: "auto" }} aria-label="Comment">
+                  <Button sx={{ ml: "auto" }} aria-label="Comment">
                     <Link
                       to={`./posts/${postForum?._id}`}
                       className="text-indigo-500 hover:underline"
                     >
                       <Typography variant="body2" color="text.secondary">
                         {" "}
-                        Read More..
+                       Comments
                       </Typography>
                     </Link>
-                  </IconButton>{" "}
+                  </Button>{" "}
                 </CardActions>
               </Card>
-            </Box>
+         
           ))}
-        </Card>
+
       </Box>
-    </Box>
   );
 };
 export default PostsForumList;

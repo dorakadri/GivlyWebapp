@@ -35,7 +35,7 @@ export default function Objectdetection(props) {
   
   const {  loading, serverErr, appErr } = store;
 
-  
+
   
   const initialValues = props.data
     ? {
@@ -142,7 +142,9 @@ if(props.update){
 
   useEffect(() => {
 
-    loadModel();
+  loadModel();
+
+  
   }, []);
 
   return (
@@ -173,7 +175,7 @@ if(props.update){
                   />
                 )}
               </div>
-              {results.length > 0 && (
+              {results.length > 0 &&  (
                 <Box sx={{ display: "flex" }}>
                   {results.map((result, index) => (
                     <Box key={index}>
@@ -188,7 +190,7 @@ if(props.update){
               )}
             </div>
             
-{imageURL && (
+{imageURL &&  (
   <Button onClick={identify} disabled={isModelLoading} variant="outlined">
     Identify Image
   </Button>

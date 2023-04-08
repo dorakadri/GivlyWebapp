@@ -8,7 +8,8 @@ import Finalnavbar from "./Finalnavbar";
 
 
 import { Box } from "@mui/material";
-import styled from "@emotion/styled";
+import Sidebar from "./Sidebar";
+
 export default function Layout() {
   const store = useSelector((state) => state?.users);
   console.log(store.userAuth._id);
@@ -22,28 +23,12 @@ export default function Layout() {
   }, [userAuth._id, dispatch]);
  
   return (
-    <Box
+    <Box 
       display={"flex"}
     
     >
-      <Box flexGrow={1} sx={{
-        position: 'relative',
-       // overflow: 'hidden',
-
-        height: '100vh',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100vh',
-          background: `url('https://img.freepik.com/free-vector/winter-blue-pink-gradient-background-vector_53876-117276.jpg?w=2000')`,
-          backgroundSize: 'cover',
-          filter: 'blur(10px)',
-          zIndex: -1,
-        },
-      }} >
+   
+      <Box flexGrow={1}  >
         <Finalnavbar profileurl={profile?.profilePhoto} />
 
         {userAuth && !userAuth.isAccountVerified && (
