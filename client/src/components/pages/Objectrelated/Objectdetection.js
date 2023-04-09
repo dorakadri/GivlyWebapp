@@ -245,9 +245,9 @@ if(props.update){
         ) : (
           <Button
             fullWidth
-            type="submit" variant="outlined"
+            type="submit" variant="contained"
             sx={{
-              backgroundColor: "#06A696",
+              backgroundColor: "primary",
               color: " white",
               border: "none",
               fontWeight: " bold",
@@ -257,7 +257,7 @@ if(props.update){
               p: "1rem",
               textAlign: "center",
 
-              "&:hover": { color: "white", backgroundColor: "#06A696" },
+              "&:hover": { color: "white", backgroundColor: "secondary" },
             }}
           >
         {props.update ? "save changes" : "Post"}

@@ -4,10 +4,12 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createpostAction } from "../../../ReduxB/slices/postsForum/postForumSlices";
-import { Container, Typography, TextField, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+
+
 import { DropzoneArea } from "material-ui-dropzone";
-import { Box } from "@mui/material";
+import { Box, Button, Container, TextField, Typography} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
 
 
 
@@ -18,27 +20,30 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    margin: theme.spacing(3),
+    margin: "2rem",
+ gap:"1rem"
   },
   textField: {
-    margin: theme.spacing(1),
+    margin: "2rem",
+    
     width: "100%",
   },
   dropzone: {
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.text.primary,
+
+    color: '#06A696',
     textAlign: "center",
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    borderRadius: theme.shape.borderRadius,
-    border: `1px dashed ${theme.palette.text.secondary}`,
+    paddingTop: "1rem",
+    paddingBottom: "1rem",
+    borderRadius: "20px",
+    border: `1px dashed grey`,
     cursor: "pointer",
   },
   button: {
-    margin: theme.spacing(3, 0),
-    padding: theme.spacing(1, 3),
+    margin:"1rem",
+    padding:"1rem",
 
-    backgroundColor :'#06A696',
+
+    backgroundColor: "#06A696",
   },
 }));
 
@@ -71,13 +76,13 @@ export default function CreatePost() {
         description: values?.description,
         image: values?.image,
       };
-      dispatch(createpostAction(data));
+      dispatch(createpostAction(data)).then(navigate("../forum"));
     },
     validationSchema: formSchema,
   });
   const classes = useStyles();
   //redirect
-  if (isCreated) return navigate("../forum");
+  //if (isCreated) return navigate("../forum");
 
 
   return (
@@ -111,7 +116,7 @@ export default function CreatePost() {
             }
             helperText={formik.touched.description && formik.errors.description}
             multiline
-            rows={5}
+     
           />
           <Container
             className={classes.dropzone}
@@ -144,13 +149,14 @@ export default function CreatePost() {
             ) : null}
           </Container>
           <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            size="large"
+               type="submit"
+               variant="contained"
+               color="primary"
+               size="large"
             className={classes.button}
             disabled={loading || serverErr}
-            backgroundColor="#06A696"
+   
+            
           >
             {loading ? "Loading please wait..." : "Create"}
           </Button>

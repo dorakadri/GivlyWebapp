@@ -118,7 +118,7 @@ export default function TabProfile() {
           />
         </StyledTabs>
       </Box>
-      <TabPanel value={value} index={0}>
+      <TabPanel  value={value} index={0}>
         <PostsList />
       </TabPanel>
       <TabPanel value={value} index={1}>

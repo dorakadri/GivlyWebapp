@@ -1,8 +1,11 @@
-import { Box, Button, IconButton, Link, Typography } from "@material-ui/core";
-import { Delete as DeleteIcon, Edit as EditIcon } from "@material-ui/icons";
+
 import Moment from "react-moment";
 import { deleteCommentAction } from "../../../ReduxB/slices/comments/commentSlices";
 import { useDispatch, useSelector } from "react-redux";
+import { Avatar, Box, Button, IconButton, Paper, Stack, Typography } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from "react-router-dom";
+
 
 export default function CommentsList({ comments }) {
   const user = useSelector((state) => state?.users);
@@ -17,9 +20,9 @@ export default function CommentsList({ comments }) {
       <Box
         display="flex"
         flexDirection="column"
-        alignItems="center"
+
         mt={5}
-        maxWidth={400}
+   
       >
         <Typography variant="subtitle1" color="textSecondary">
           {comments?.length} Comments
@@ -29,8 +32,8 @@ export default function CommentsList({ comments }) {
             No comments
           </Typography>
         ) : (
-          comments?.map((comment) => (
-            <Box
+          comments?.slice().reverse().map((comment) => (
+           /*  <Box
               key={comment?._id}
               py={4}
               display="flex"
@@ -69,7 +72,7 @@ export default function CommentsList({ comments }) {
               <Typography variant="body2" color="textSecondary">
                 {comment?.description}
               </Typography>
-              {/* Check if is the same user created this comment */}
+  
               {isLoginuser === comment?.user?._id ? (
                 <Box display="flex" alignItems="center" mt={1}>
                  
@@ -81,11 +84,59 @@ export default function CommentsList({ comments }) {
                     Delete
                   </Button>
                 </Box>
-              ) : null}
-            </Box>
+              ) : null}     </Box> */
+         
+             <Box sx={{ display: 'flex', mt: 2 }}>
+             <Avatar sx={{ mr: 2 }}     src={comment?.user?.profilePhoto} alt={comment?.user?.firstName} />
+             <Stack>
+              <Stack direction={"row"}>    
+             <Paper
+               sx={{
+                 maxWidth: '100%',
+                 py: '0.5rem',
+                 px: '1rem',
+                 borderRadius: '1rem',
+                 backgroundColor: '#f0f2f5',
+                 wordBreak: 'break-word'
+               }}
+               elevation={0}
+             >
+              <Typography sx={{fontWeight: "bold" ,pb:"0.5rem"}}>      {comment?.user?.firstName} {comment?.user?.lastName}</Typography>
+               <Typography>   {comment?.description}</Typography>
+             </Paper>
+             {isLoginuser === comment?.user?._id ? (
+             
+                 
+             <IconButton
+               onClick={() => dispatch(deleteCommentAction(comment?._id))}
+              size="small"
+               color="secondary"
+             >
+              <DeleteIcon fontSize="small"   />
+             </IconButton>
+   
+         ) : null}
+         </Stack>
+             <Typography
+                  variant="subtitle2"
+                  color="textSecondary"
+                  ml="1rem"
+            
+                >
+                  <Moment fromNow ago>
+                    {comment?.createdAt}
+                  </Moment>
+                </Typography>
+                </Stack>
+         
+              </Box>
+       
+    
           ))
         )}
       </Box>
+     
     </div>
+   
   );
 }

@@ -126,7 +126,7 @@ export default function ProfileCrad({data}) {
 
         }
         >
-           < PhoneIcon/>
+     
         <Typography variant='body2' color='text.secondary'>
             {data?.bio}
         </Typography>
@@ -149,7 +149,7 @@ sx= {{
             type="submit"
             sx={{
               backgroundColor: "#06A696",
-              color: " #06A696",
+              color: " #fff",
               border: "none",
               fontWeight: " bold",
               cursor: "pointer",

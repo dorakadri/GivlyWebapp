@@ -9,23 +9,28 @@ import PostForumDetails from "../postsForum/PostForumDetails";
 import CreatePostForum from "../postsForum/CreatePostForum";
 import UpdatePostForum from "../postsForum/UpdatePostForum";
 import Chat from "../../../Chat/Chat";
+import { Avatar, Box, Button, Card } from "@mui/material";
+import { Stack } from "@mui/system";
+import Home from "./Home";
 function AssociationUserRoutes() {
   return (
     <div>
       <Routes>
-        <Route element={<Layout />}>
+        <Route path="/"  element={<Layout />}>
       
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="profile" element={<ProfilePage />} />
           <Route
             path="profile/update/:id"
             element={<AssociationUserProfileEdit />}
           />
-          <Route path="/forum" element={<PostsForumList />} />
-          <Route exact path="/posts/:id" element={<PostForumDetails />} /> 
-          <Route exact path="/createpost" element={<CreatePostForum />} />
+          <Route exact path="forum" element={
+           <Home/>
+          } />
+          <Route  path="posts/:id" element={<PostForumDetails />} /> 
+          <Route  path="createpost" element={<CreatePostForum />} />
           <Route
-            exact
-            path="/update-post/:id"
+       
+            path="update-post/:id"
             element={
             
                 <UpdatePostForum />
@@ -36,7 +41,7 @@ function AssociationUserRoutes() {
           
           <Route
             exact
-            path="/chat"
+            path="chat"
             element={
              
                 <Chat />

@@ -4,35 +4,13 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createCommentAction } from "../../../ReduxB/slices/comments/commentSlices";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+
+
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Container, Typography } from "@material-ui/core";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  form: {
-    display: "flex",
-    maxWidth: "sm",
-    margin: "auto",
-    marginTop: "1rem",
-  },
-  textField: {
-    margin: theme.spacing(1),
-    width: "100%",
-  },
-  button: {
-    margin: theme.spacing(1),
-    minWidth: "6rem",
-  },
-  loadingButton: {
-    minWidth: "6rem",
-  },
-}));
+
+import { Box, Button, Card, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+
 
 //Form schema
 const formSchema = Yup.object({
@@ -40,7 +18,7 @@ const formSchema = Yup.object({
 });
 
 const AddComment = ({ postForumId }) => {
-  const classes = useStyles();
+ 
 
   //dispatch
   const dispatch = useDispatch();
@@ -65,9 +43,9 @@ const AddComment = ({ postForumId }) => {
   });
 
   return (
-    <div className={classes.root}>
+    <Box  >
       {/* Err msg */}
-      <Container className="text-red-500">
+      <Box>
         {appErr || serverErr ? (
           <Typography
             variant="h6"
@@ -78,11 +56,20 @@ const AddComment = ({ postForumId }) => {
             {serverErr} {appErr}{" "}
           </Typography>
         ) : null}
-      </Container>
-      <form onSubmit={formik.handleSubmit} className={classes.form}>
+      </Box>
+      <form onSubmit={formik.handleSubmit} >
         <TextField
-          className={classes.textField}
-          variant="outlined"
+         sx={{
+        
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "20px", // add border radius to the outer container of the input element
+            borderColor: "#ccc",
+            backgroundColor: "#f5f5f5" // set border color
+          },
+        }}
+          multiline
+          fullWidth
+     
           id="description"
           name="description"
           label="Add New Comment"
@@ -93,10 +80,25 @@ const AddComment = ({ postForumId }) => {
             formik.touched.description && Boolean(formik.errors.description)
           }
           helperText={formik.touched.description && formik.errors.description}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  size="small"
+            
+                >
+              <SendIcon fontSize="small" />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
-        {loading ? (
+    {/*     {loading ? (
           <Button
-            className={`${classes.loadingButton}`}
+     
             variant="contained"
             color="default"
             disabled={serverErr}
@@ -107,16 +109,16 @@ const AddComment = ({ postForumId }) => {
         ) : (
           <Button
             disabled={serverErr}
-            className={`${classes.button}`}
+  
             type="submit"
             variant="contained"
             color="primary"
           >
             Submit
           </Button>
-        )}
+        )} */}
       </form>
-    </div>
+    </Box>
   );
 };
 

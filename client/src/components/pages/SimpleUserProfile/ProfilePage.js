@@ -20,7 +20,7 @@ export default function ProfilePage() {
   const { profile } = store;
 
   return (
-    <>
+    <Box height={"100%"}>
       <Box
         sx={{
           width: "100%",
@@ -39,8 +39,10 @@ export default function ProfilePage() {
       <Grid
         container
         spacing={3}
-        sx={{ pl: "39px", pr: "39px", pt: "26px", pb: "26px" }}
+     
+       sx={{ pl: "39px", pr: "39px", pt: "26px", pb: "26px" }}
       >
+        
         <Grid item xs={3}>
           <ProfileUserV2 data={profile} />
         </Grid>
@@ -48,6 +50,6 @@ export default function ProfilePage() {
           <TabProfile />
         </Grid>
       </Grid>
-    </>
+    </Box>
   );
 }

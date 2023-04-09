@@ -63,7 +63,7 @@ setcount(count);
       sx={{
         position: "sticky",
         top:0,
-       zIndex:999999,
+      
         background: "none",
         boxShadow: "none",
       backgroundColor: "#ffffff4d",

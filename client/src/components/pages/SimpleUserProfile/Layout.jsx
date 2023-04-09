@@ -26,7 +26,8 @@ export default function Layout() {
     <Box 
       display={"flex"}
       sx={{ 
-     backgroundColor:"#f6f8fe",
+     backgroundColor:"#f0f2f5",
+
      
       }}
     >

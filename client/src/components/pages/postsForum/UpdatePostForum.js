@@ -72,8 +72,8 @@ export default function UpdatePostForum(props) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      title: postDetails?.title,
-      description: postDetails?.description,
+      title: postDetails?.title  || "",
+      description: postDetails?.description  || "",
       
     },
     onSubmit: (values) => {
@@ -92,9 +92,7 @@ export default function UpdatePostForum(props) {
 
   return (
     <Box>
-      <Box>
-        <Navbar profileurl={postUpdate?.user?.profilePhoto} />
-      </Box>
+    
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <form onSubmit={formik.handleSubmit} className={classes.form}>
           <TextField
@@ -148,7 +146,7 @@ export default function UpdatePostForum(props) {
             size="large"
             className={classes.button}
             disabled={loading || serverErr}
-            backgroundColor="#06A696"
+          
           >
             {loading ? "Loading please wait..." : "update"}
           </Button>

@@ -14,7 +14,7 @@ export const themeSettingsall = (mode) => {
                 main: '#c95d3d',
               },
               background: {
-                default: '#fafafa',
+                default: '#f0f2f5',
                 paper: '#fff',
               },
               text: {
@@ -39,7 +39,7 @@ export const themeSettingsall = (mode) => {
               
               },
               background: {
-                default: '#fafafa',
+                default: '#f0f2f5',
                 paper: '#fff',
               },
             

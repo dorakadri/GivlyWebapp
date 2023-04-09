@@ -28,3 +28,18 @@ html,body,
 
   
 }
+
+
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #4c474d;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
