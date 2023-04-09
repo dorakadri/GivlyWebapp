@@ -89,9 +89,9 @@ function Sidebar() {
       setCurrentRoom("general");
       getRooms();
       socket.emit("join-room", "general");
-      socket.emit("new-user");
+      socket.emit("new-user",user?.userAuth._id);
     }
-  }, []);
+  }, [user]);
 
   socket.off("new-user").on("new-user", (payload) => {
     setMembers(payload);

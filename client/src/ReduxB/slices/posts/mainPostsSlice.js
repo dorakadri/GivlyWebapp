@@ -109,6 +109,19 @@ export const fetchPostsAction = createAsyncThunk(
     }
   }
 );
+export const fetchPostsMatchedAction = createAsyncThunk(
+  "postsMAtched/list",
+  async (_, { rejectWithValue, getState, dispatch }) => {
+    const { userAuth } = getState().users;
+    try {
+      const { data } = await axios.get(`http://localhost:5000/api/mainposts/Matchuser/${userAuth._id}`);
+      return data;
+    } catch (error) {
+      if (!error?.response) throw error;
+      return rejectWithValue(error);
+    }
+  }
+);
 export const fetchuserPostsAction = createAsyncThunk(
   "postsuser/list",
   async (_, { rejectWithValue, getState, dispatch }) => {
@@ -195,6 +208,26 @@ export const getmatchesuser = createAsyncThunk(
     } catch (error) {
       if (!error?.response) throw error;
       return rejectWithValue(error);
+    }
+  }
+);
+export const deleteMatchAction = createAsyncThunk(
+  "posts/deletewishlist",
+  async (id, { rejectWithValue, getState, dispatch }) => {
+    const { userAuth } = getState().users;
+    try {
+      
+      const { data } = await axios.delete(
+        `http://localhost:5000/api/mainposts/${userAuth._id}/matches/${id}`,
+  
+      );
+      dispatch(fetchPostsMatchedAction());
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
     }
   }
 );
@@ -293,6 +326,22 @@ const mainPostsSlice = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(fetchuserPostsAction.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+     //getuserspost fetchuserMAtchPostsAction
+     builder.addCase(fetchPostsMatchedAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    
+    builder.addCase(fetchPostsMatchedAction.fulfilled, (state, action) => {
+      state.usersmatchposts = action?.payload;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(fetchPostsMatchedAction.rejected, (state, action) => {
       state.loading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;

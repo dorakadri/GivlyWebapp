@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    deleteMatchAction,
   deletePostAction,
-  fetchuserPostsAction,
+  fetchPostsMatchedAction,
+
 } from "../../../../ReduxB/slices/posts/mainPostsSlice";
 import {
   Avatar,
@@ -12,38 +14,25 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Divider,
+
   Grid,
-  IconButton,
-  TextField,
+
   Typography,
 } from "@mui/material";
 
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { Delete, Edit } from "@mui/icons-material";
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import Objectdetection from '../../Objectrelated/Objectdetection'
-import { Box } from "@mui/system";
-export default function PostsList() {
+
+export default function MatchedList() {
   const dispatch = useDispatch();
-  const [editingPost, setEditingPost] = useState(null);
-  const [open, setOpen] = React.useState(false);
 
-  
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   useEffect(() => {
-    dispatch(fetchuserPostsAction());
+    dispatch(fetchPostsMatchedAction());
   }, [dispatch]);
 
-  const { usersposts, isLoading, error } = useSelector(
+  const { usersmatchposts, isLoading, error } = useSelector(
     (state) => state?.mainpost
   );
 
@@ -55,22 +44,16 @@ export default function PostsList() {
     return <div>Error loading user posts</div>;
   }
 
-const clickMe = (id) => {
-  dispatch(deletePostAction(id));
- 
-};
+  const clickMe = (id) => {
+    dispatch(deleteMatchAction(id));
+  };
 
 
-const handleEditClick = (post) => {
- 
-  setEditingPost(post);
-  setOpen(true);
-};
 
   return (
     <div>
       <Grid container>
-        {usersposts?.map((post, i) => (
+        {usersmatchposts?.map((post, i) => (
           <Grid
             key={post?._id}
             item
@@ -122,35 +105,22 @@ const handleEditClick = (post) => {
                   color="error"
                   startIcon={<Delete />}
                 >
-                  Delete
+                  Remove
                 </Button>
 
-                <Button sx={{ mt: 1 }} variant="contained" disabled ={post.isTaken ? true :false} startIcon={<Edit /> }          onClick={() => handleEditClick(post)}>
-                  Edit
+                <Button
+                  sx={{ mt: 1 }}
+                  variant="contained"
+                  disabled={post.isTaken ? true : false}
+                //  onClick={() => handleEditClick(post)}
+                >
+                  Ship
                 </Button>
               </CardActions>
             </Card>
           </Grid>
         ))}
       </Grid>
-      {editingPost && <Dialog open={open} onClose={handleClose}>
-      <Box sx={{display: "flex", justifyContent: "center",pr:"1rem",pl:"3rem" ,alignItems: "center"}}>
- 
-    <DialogTitle sx={{flex: 1, textAlign: "center" }}>Edit Post</DialogTitle>
-
-
-    <IconButton onClick={handleClose}>
-      <CloseOutlinedIcon/>
-    </IconButton>
-
-</Box>
-   
-        <Divider/>
-        <DialogContent>
-         <Objectdetection data={editingPost} update={true} close={handleClose} />
-        </DialogContent>
-  
-      </Dialog>}
     </div>
   );
 }

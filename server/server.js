@@ -95,9 +95,20 @@ function sortRoomMessagesByDate(messages) {
 // socket connection
 
 io.on("connection", (socket) => {
-  socket.on("new-user", async () => {
-    const members = await User.find();
-    io.emit("new-user", members);
+  socket.on("new-user", async (userid) => {
+    const user = await User.findById(userid)
+    if (!user) {
+      socket.emit("error", { message: `User with id ${userid} not found` });
+      return;
+    }
+    const userIds = user.matches.userId;
+    const userIdsAsOwner = user.matchesAsOwner.userId;
+    const allUserIds = [...userIds, ...userIdsAsOwner,userid];
+    const uniqueUserIds = [...new Set(allUserIds)];
+    const members = await User.find({ _id: { $in: uniqueUserIds } });
+    console.log(userid);
+    //const members = await User.find();
+    socket.emit("new-user", members);
   });
 
   socket.on("join-room", async (newRoom, previousRoom) => {

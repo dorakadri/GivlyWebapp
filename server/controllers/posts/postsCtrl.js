@@ -93,6 +93,23 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
     }
   });
+  const removefromMAtch = expressAsyncHandler(async (req, res) => {
+    try {
+      const { userId, productId } = req.params;
+   
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { $pull: { "matches.productId": productId } },
+        { new: true }
+      );
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      return res.json(user.matches.productId);
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
 
   //Wishlist operations//
 
@@ -217,7 +234,7 @@ const fetchuserposts = expressAsyncHandler(async (req, res) => {
 
     const posts = await Post.find({
       _id: { $in: user.Ownposts }
-    }).populate("userId", "firstName lastName profilePhoto");;
+    }).populate("userId", "firstName lastName profilePhoto");
 
  
     const validPostIds = posts.map(post => post._id.toString());
@@ -256,7 +273,7 @@ const getUserMatches = expressAsyncHandler(async (req, res) => {
     const userIdsAsOwner = user.matchesAsOwner.userId;
     const allUserIds = [...userIds, ...userIdsAsOwner];
     const uniqueUserIds = [...new Set(allUserIds)];
-    const users = await User.find({ _id: { $in: uniqueUserIds } }, 'firstName lastName profilePhoto');
+    const users = await User.find({ _id: { $in: uniqueUserIds } });
     
     const matchedUsers = users.map(u => ({ 
       id: u._id, 
@@ -271,7 +288,33 @@ const getUserMatches = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//getpostswanted
+const getUserMatchespost = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
 
+  try {
+    const user = await User.findById(id)
+
+    if (!user) {
+      res.status(404).json({ message: `User with id ${id} not found` });
+      return;
+    }
+    const postIds = user.matches.productId;
+
+   const   posts = await Post.find({ _id: { $in: postIds } }).populate("userId", "firstName lastName profilePhoto");;
+      const validPostIds = posts.map(post => post._id.toString());
+      const invalidIds = user.matches.productId.filter(id => !validPostIds.includes(id.toString()));
+  
+  
+      if (invalidIds.length > 0) {
+        user.matches.productId = user.matches.productId.filter(id => !invalidIds.includes(id.toString()));
+        await user.save();
+      }
+    res.status(200).json(posts);
+  } catch (error) {
+    res.json(error);
+  }
+});
 
   
 
@@ -286,5 +329,7 @@ module.exports = {
     fetchuserposts,
     updatePost ,
     deletePost,
+    getUserMatchespost,
+    removefromMAtch
 
   };

@@ -12,6 +12,7 @@ import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlin
 import styled from "@emotion/styled";
 import WishlistList from "./Profilepagecomponents/WishlistList";
 import PostsList from "./Profilepagecomponents/PostsList";
+import MatchedList from "./Profilepagecomponents/MatchedList";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -92,7 +93,7 @@ export default function TabProfile() {
             iconPosition="start"
           />
           <StyledTab
-            label="Taken"
+            label="Matched"
             {...a11yProps(2)}
             icon={<SwipeRightOutlinedIcon />}
             iconPosition="start"
@@ -122,7 +123,7 @@ export default function TabProfile() {
         <PostsList />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Taken
+        <MatchedList/>
       </TabPanel>
       <TabPanel value={value} index={2}>
         Gifts
@@ -131,7 +132,7 @@ export default function TabProfile() {
         <WishlistList />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        Delivery
+      Taken
       </TabPanel>
     </Box>
   );
