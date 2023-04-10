@@ -1,10 +1,11 @@
 import styled from '@emotion/styled'
 
-import { Box } from '@mui/system'
+
 import React, { lazy, Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import imagebg from "./images/green3.jpg"
 import NavbarLandingpage from './NavbarLandingpage'
+import { Box } from '@mui/material'
 
 
 const StyledBox = styled(Box)({

@@ -35,17 +35,14 @@ function NavbarLandingpage() {
       sx={{
         background: "none",
         boxShadow: "none",
-        pt:"1rem",
-        position:"sticky",
-      
-              }}
-    >   
- { !isSmallScreen && <img
-  src={logo}
-  alt="Logo"
-  style={{ width: "50px" , }}/> }  
+        pt: "1rem",
+        position: "sticky",
+      }}
+    >
+      {!isSmallScreen && (
+        <img src={logo} alt="Logo" style={{ width: "50px" }} />
+      )}
 
- 
       <Typography
         variant="h6"
         noWrap
@@ -56,17 +53,15 @@ function NavbarLandingpage() {
           display: { xs: "none", md: "flex" },
           fontFamily: "monospace",
           fontWeight: 500,
-        
+
           color: "inherit",
-          textDecoration: "none"
+          textDecoration: "none",
         }}
       >
-       Givly
+        Givly
       </Typography>
-    
 
-      <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } ,
-    }}>
+      <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -77,25 +72,26 @@ function NavbarLandingpage() {
         >
           <MenuIcon />
         </IconButton>
+
         <Menu
           id="menu-appbar"
           anchorEl={anchorElNav}
           anchorOrigin={{
             vertical: "bottom",
-            horizontal: "left"
+            horizontal: "left",
           }}
           keepMounted
           transformOrigin={{
             vertical: "top",
-            horizontal: "left"
+            horizontal: "left",
           }}
           open={Boolean(anchorElNav)}
           onClose={handleCloseNavMenu}
           sx={{
-            display: { xs: "block", md: "none" }
+            display: { xs: "block", md: "none" },
           }}
         >
-          <MenuItem   >
+          <MenuItem>
             <Typography textAlign="center">About Us</Typography>
           </MenuItem>
           <MenuItem>
@@ -106,7 +102,8 @@ function NavbarLandingpage() {
           </MenuItem>
         </Menu>
       </Box>
-      
+  
+
       <Typography
         variant="h5"
         noWrap
@@ -120,12 +117,20 @@ function NavbarLandingpage() {
           fontWeight: 700,
           letterSpacing: ".3rem",
           color: "inherit",
-          textDecoration: "none"
+          textDecoration: "none",
         }}
       >
         Givly
       </Typography>
-      <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } ,gap:2,pl:"1rem",justifyContent:"flex-end" }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: { xs: "none", md: "flex" },
+          gap: 2,
+          pl: "1rem",
+          justifyContent: "flex-end",
+        }}
+      >
         <Button sx={{ my: 2, color: "white", display: "block" }}>
           About Us
         </Button>
@@ -136,8 +141,6 @@ function NavbarLandingpage() {
           Contact Us
         </Button>
       </Box>
-
-   
     </Toolbar>
   );
 }

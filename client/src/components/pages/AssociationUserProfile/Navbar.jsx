@@ -1,9 +1,11 @@
-import { Mail, Notifications, Pets } from "@mui/icons-material";
+import { Home, Mail, Notifications, Pets, PlusOneRounded } from "@mui/icons-material";
+import ForumIcon from "@mui/icons-material/Forum";
 import {
   AppBar,
   Avatar,
   Badge,
   Box,
+  IconButton,
   InputBase,
   Menu,
   MenuItem,
@@ -17,6 +19,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutAction } from "../../../ReduxB/slices/users/usersSlices";
 import { useDispatch } from "react-redux";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
@@ -63,17 +66,18 @@ export default function Navbar(data) {
         <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
           Givly
         </Typography>
-        <Pets sx={{ display: { xs: "block", sm: "none" } }} />
-        <Search>
-          <InputBase placeholder="Search Givly" />
-        </Search>
+  
         <Icons>
-          <Badge badgeContent={4} color="error">
-            <Mail />
-          </Badge>
-          <Badge badgeContent={2} color="error">
-            <Notifications />
-          </Badge>
+        <IconButton component={Link} to="./forum">
+            <Home  color="white"/>
+          </IconButton>
+          <IconButton component={Link} to="./createpost">
+            <AddBoxIcon  />
+          </IconButton>
+          <IconButton component={Link} to="./chat">
+            <Mail color="white" />
+          </IconButton>
+     
           <Avatar
             sx={{ width: 30, height: 30 }}
             src={data?.profileurl}
@@ -103,7 +107,7 @@ export default function Navbar(data) {
         }}
       >
         <MenuItem onClick={() => navigate(`./profile`)}>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
+     
         <MenuItem onClick={handelLogout}>Logout</MenuItem>
       </Menu>
     </AppBar>

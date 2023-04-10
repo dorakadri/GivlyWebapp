@@ -8,7 +8,7 @@ import SimpleUserRoutes from './SimpleUserRoutes';
 
 function SimpleUserProfile() {
   return (
- 
+  
       <SimpleUserRoutes />
 
   );

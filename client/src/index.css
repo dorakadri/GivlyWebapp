@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Rubik:wght@400;500;700&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 
 html,body,
 #root,
@@ -16,7 +17,7 @@ html,body,
 .app{
   height: 100%;
   width:100%;
-  font-family: "Rubik",sans-serif ;
+  font-family: 'Montserrat', sans-serif;
   margin: 0;
 
 }
@@ -26,4 +27,19 @@ html,body,
   font-family: "Roboto",sans-serif;
 
   
+}
+
+
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #4c474d;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
 }
