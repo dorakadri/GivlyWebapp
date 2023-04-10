@@ -7,7 +7,7 @@ const express = require("express");
 const DeliveryMen = require("../../model/deliveryMen/DeliveryMen");
 const Post = require("../../model/post/Posts");
 const router = express.Router();
-
+const User =require("../../model/user/User")
 
 function getRandomDate() {
   const start = new Date();
@@ -133,7 +133,20 @@ res.json(deliveries);
   res.json(error);
 }
 });
-
+const updateuserlocationCtrl = expressAsyncHandler(async (req, res) => {
+  const {locationUser} = req.body;
+  const { id } = req.params;
+  validateMongodbId(id);
+  try {
+    const user = await User.findById(id);
+    user.location=locationUser
+    user.save();
+    res.json(user);
+  } catch (error) {
+    console.log(error)
+    res.json(error);
+  }
+});
 
 
 module.exports = {
@@ -143,4 +156,5 @@ module.exports = {
   deleteDeliveryCtrl,
 
   getByIdCtrl,
+  updateuserlocationCtrl
 };

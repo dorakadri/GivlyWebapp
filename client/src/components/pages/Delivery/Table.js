@@ -59,21 +59,13 @@ setData(selector );
     console.log(selector);
 
     function Tracking(e){
-        navigate(`/delevery/${e._id}`)
-       console.log(e)
+        navigate(`../detaildelivery/${e._id}`)
+
        
     }
 
 
-   function AddDelevery(){
-
-    let post="6430be7b8f6022094ca779a7"
-    let locationOwner="36.8245413, 10.179704"
-    let locationUser="36.8245413, 10.179704"
-    const data={post,locationOwner,locationUser}
-    dispatch(deliveryAction(data))
-
-   }
+ 
     const columns =
         [ {
             field: 'Post', headerName: 'Post', width: 400, flex: 1, headerClassName: 'super-app-theme--header', renderCell: (params) => {
@@ -206,9 +198,7 @@ setData(selector );
 
     return (
         <div style={{ height: 800, width: "100%" }}>
-<Button onClick={AddDelevery}>
-    AddDeleviry
-</Button>
+
            {selector && <StyledDataGrid columns={columns} rows={rows}
                 fit-content
                 pageSize={9}

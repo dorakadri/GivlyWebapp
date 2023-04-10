@@ -16,6 +16,7 @@ export default function Leftside() {
         <Typography variant="h4" sx={{  
         color:" #9CA0AC",
         fontWeight:"bold",
+      
         }} >
           DELIVERIES
         </Typography>

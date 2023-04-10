@@ -14,6 +14,8 @@ import { useSelector } from "react-redux";
 
 
 import Chat from "../../../Chat/Chat";
+import Delivery from "../Delivery/Delivery";
+import DetailsDelivery from "../Delivery/DetailsDelivery";
 
 
 
@@ -54,7 +56,11 @@ function SimpleUserRoutes() {
               <Route path="diygeneration" element={<DiyGeneration />} />
               <Route path="Addpost" element={<Split />} />
               <Route path="forum" element={<PostsForumList />} />
+              <Route path="delivery" element={<Delivery/>} />
+              <Route path="detaildelivery/:id" element={<DetailsDelivery/>} />
+      
             </Route>
+      
             <Route
               path="profile/update/:id"
               element={<SimpleUserProfileEdit />}
@@ -64,6 +70,7 @@ function SimpleUserRoutes() {
             {/* <Route  path="/forum/posts/:id" element={<PostForumDetails />} /> */}
             <Route  path="chat" element={<Chat />} />
           </Route>
+      
         </Routes>
       </Suspense>
     </ThemeProvider>

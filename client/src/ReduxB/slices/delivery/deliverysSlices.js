@@ -1,7 +1,6 @@
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
-import state from "../../../components/pages/Dashboard/state";
 
 
 
@@ -30,6 +29,30 @@ console.log(data)
       return rejectWithValue(error?.response?.data);
     }
   })
+  export const updateuserlocation = createAsyncThunk(
+    "location",
+    async (location, { rejectWithValue, getState, dispatch }) => {
+  
+  const { userAuth } = getState().users;
+
+     console.log(location)
+      try {
+        const config = {
+          headers: { "Content-Type": "application/json" },
+        };
+        const { data } = await axios.put(
+          `http://localhost:5000/api/Delivery/updatelocation/${userAuth._id}`,
+          location,
+          config
+        );
+        return data ;
+      } catch (error) {
+        if (!error?.response) {
+          throw error;
+        }
+        return rejectWithValue(error?.response?.data);
+      }
+    })
 
   export const deliverygetAction = createAsyncThunk(
     "deliveryget",

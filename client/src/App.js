@@ -39,7 +39,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [privateMemberMsg, setPrivateMemberMsg] = useState({});
   const [newMessages, setNewMessages] = useState({});
-
+  
   const getUser = async () => {
     try {
       const url = "http://localhost:5000/auth/login/success";

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Leftside from './Leftside';
 export default function Delivery() {
   return (
-   <Box  >
+   <Box width={"100%"}  >
 
     <Leftside/>
     

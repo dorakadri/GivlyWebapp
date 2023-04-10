@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from '@mui/material'
+import { Box, Button, Grid, Paper } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Maps from './Maps'
 import Track from './Track'
@@ -22,17 +22,20 @@ console.log(detail)
   
   return (
 
-<Box sx={{ width: '100%' }}>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
-      <Maps/>
-        </Grid>
+<Paper sx={{ width: '100%',p:"1rem",m:"2rem" }}>
+  
+       <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+       <Grid item xs={6} >
+     
+        <Maps />
+    
+    </Grid>
         <Grid item xs={6}>
         <Track  />
         </Grid>
         
-      </Grid>
-    </Box>
+      </Grid> 
+    </Paper>
     
 
 

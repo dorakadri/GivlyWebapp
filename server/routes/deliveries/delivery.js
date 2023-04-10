@@ -4,7 +4,7 @@ const {
     fetchAllDeliveryCtrl,
     deleteDeliveryCtrl,
     getByIdCtrl,
-  
+    updateuserlocationCtrl
    
 
 } = require("../../controllers/deliveries/deliveryCtrl");
@@ -15,7 +15,7 @@ const deliveryRoutes = express.Router();
 deliveryRoutes.post("/", createDeliveryCtrl);
 
 deliveryRoutes.get("/:userId", fetchAllDeliveryCtrl);
-
+deliveryRoutes.put("/updatelocation/:userId",    updateuserlocationCtrl);
 deliveryRoutes.get("/delevery/:id",getByIdCtrl);
 deliveryRoutes.delete("/:id",  deleteDeliveryCtrl);
 

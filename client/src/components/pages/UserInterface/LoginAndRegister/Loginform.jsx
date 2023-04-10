@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import * as yup from "yup";
 import { Field, Form, Formik, useFormik } from "formik";
 import {
@@ -21,15 +21,43 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 // chat 
 import { AppContext } from "../../../../context/appContext";
+import { updateuserlocation } from "../../../../ReduxB/slices/delivery/deliverysSlices";
 const validationSchema = yup.object({
   email: yup.string().email("invalid email").required("email is required"),
   password: yup.string().required(" password is required"),
 });
 export default function Loginform() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const [location, setLocation] = useState(null);
   const isnonMobile = useMediaQuery("(min-width :600px)");
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+  
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+       
+          
+        },
+        (error) => {
+          console.log(error);
+        },
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+      );
+
+    } else {
+      console.log('Geolocation is not supported by this browser.');
+    }
+
+  }, []);
+
+
   const initialValues = {
     email: "",
     password: "",
@@ -39,7 +67,10 @@ const { socket } = useContext(AppContext);
     initialValues: initialValues,
     onSubmit: (values) => {
         socket.emit("new-user");
-      dispatch(loginUserAction(values));
+      dispatch(loginUserAction(values)).then((res)=> {
+        dispatch(updateuserlocation(location))
+    
+      });
       console.log(values);
     },
     validationSchema: validationSchema,

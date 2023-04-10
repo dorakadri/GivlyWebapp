@@ -22,6 +22,7 @@ import {
 
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { Delete, Edit } from "@mui/icons-material";
+import { deliveryAction } from "../../../../ReduxB/slices/delivery/deliverysSlices";
 
 export default function MatchedList() {
   const dispatch = useDispatch();
@@ -47,7 +48,15 @@ export default function MatchedList() {
   const clickMe = (id) => {
     dispatch(deleteMatchAction(id));
   };
+  function AddDelevery(e){
+ console.log(e)
+    let post=e._id
+    let locationOwner="36.8245413, 10.179704"
+    let locationUser="36.8245413, 10.179704"
+    const data={post,locationOwner,locationUser}
+    dispatch(deliveryAction(data))
 
+   }
 
 
   return (
@@ -112,7 +121,7 @@ export default function MatchedList() {
                   sx={{ mt: 1 }}
                   variant="contained"
                   disabled={post.isTaken ? true : false}
-                //  onClick={() => handleEditClick(post)}
+                  onClick={() => AddDelevery(post)}
                 >
                   Ship
                 </Button>
