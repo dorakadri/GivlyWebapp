@@ -19,7 +19,17 @@ import { Localisation } from "./components/pages/Localisation";
 
 
 
+import "./App.css";
+import Delivery from "./components/pages/Delivery/Delivery";
+import Maps from "./components/pages/Delivery/Maps";
+import Rightside from "./components/pages/Delivery/Rightside";
+import DetailsDelivery from "./components/pages/Delivery/DetailsDelivery";
+
+
 function App() {
+  ///maps
+
+
   const [user, setUser] = useState(null);
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
@@ -38,6 +48,7 @@ function App() {
 
 	useEffect(() => {
 		getUser();
+    
 	}, []);
   
   return (
@@ -48,8 +59,12 @@ function App() {
         <Route exact path="/register" element={<Signup  />} />
         <Route exact path="/register/Role" element={< Rolegoogle usergoogle={user} />} />
         <Route exact path="/localisation" element={<Localisation />} />
+        <Route exact path="/maps" element={<Maps/>}/>
+        <Route exact path="/delevery" element={<Delivery/>}/>
+        <Route exact path="/delevery/:id" element={<DetailsDelivery/>}/>
 
       
+
 
         <Route exact path="/login" element={<LoginDesign />} />
         <Route
@@ -103,6 +118,10 @@ function App() {
         )}
       </Routes>
     </BrowserRouter>
+
+
+  
+
   );
 }
 
@@ -141,4 +160,6 @@ function AssoElement({ children, Role }) {
 
   return Role === "Association" ? <>{children}</> : null;
 }
+
+
 export default App;

@@ -1,27 +1,51 @@
 const mongoose = require("mongoose");
+const Post =require("../post/Posts") ;
+const User = require('../user/User');
+const DeliveryMen = require('../deliveryMen/DeliveryMen');
 
 //create schema
 const DeliverySchema = new mongoose.Schema(
   {
-    name: {
-      required: [true, " name is required"],
-      type: String,
-    },
-    adress: {
-        required: [true, " adress is required"],
+  
+    locationOwner: {
+        required: [true, " location is required"],
         type: String,
-      },   
+      },  
+      locationUser: {
+        required: [true, " location is required"],
+        type: String,
+      },  
     state: {
         type: String,
         enum: ["New", "Transit", "Delivered"],
         required: true,
       },
+      date: {
+        
+        type: Date,
+        default: Date.now
+      },
+      dateLivraison:{
+        type: Date,
+      },
+      
 
-    phone: {
-      required: [true, "phone is required"],
-      type: Number,
+    post: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post",
+      
     },
-  
+    
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      
+    },
+    deliveryMen: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "DeliveryMen",
+      
+    },
 
   })
 
