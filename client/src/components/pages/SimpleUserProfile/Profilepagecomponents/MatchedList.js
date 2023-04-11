@@ -51,9 +51,11 @@ export default function MatchedList() {
   function AddDelevery(e){
  console.log(e)
     let post=e._id
-    let locationOwner="36.8245413, 10.179704"
-    let locationUser="36.8245413, 10.179704"
-    const data={post,locationOwner,locationUser}
+
+  let locationOwner=e.userId.location
+   // let locationUser="36.8245413, 10.179704"
+    const data={post,locationOwner}
+    console.log(data)
     dispatch(deliveryAction(data))
 
    }

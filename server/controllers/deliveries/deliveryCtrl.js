@@ -26,7 +26,7 @@ const createDeliveryCtrl = expressAsyncHandler(async (req, res) => {
   try {
     const deliveryId = await DeliveryMen.findOne({isAvailable:true},{_id:1})
 
-    console.log(deliveryId);
+   
     if (deliveryId){
       const delivery = await Delivery.create({
         locationOwner,
@@ -134,12 +134,13 @@ res.json(deliveries);
 }
 });
 const updateuserlocationCtrl = expressAsyncHandler(async (req, res) => {
-  const {locationUser} = req.body;
-  const { id } = req.params;
-  validateMongodbId(id);
+  const {location} = req.body;
+  const {userId } = req.params;
+console.log(userId)
   try {
-    const user = await User.findById(id);
-    user.location=locationUser
+    const user = await User.findOne({ _id: userId });
+    console.log(user)
+   user.location = location;
     user.save();
     res.json(user);
   } catch (error) {

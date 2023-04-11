@@ -7,15 +7,16 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { Suspense, lazy, useMemo } from "react";
+import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 
 import { themeSettingsall } from "../../../theme";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 import Chat from "../../../Chat/Chat";
 import Delivery from "../Delivery/Delivery";
 import DetailsDelivery from "../Delivery/DetailsDelivery";
+import { updateuserlocation } from "../../../ReduxB/slices/delivery/deliverysSlices";
 
 
 
@@ -32,6 +33,11 @@ const DiyGeneration = lazy(() => import("../Objectrelated/DiyGeneration"));
 function SimpleUserRoutes() {
   const mode = useSelector((state) => state.globaltheme.mode);
   const theme = useMemo(() => createTheme(themeSettingsall(mode)), [mode]);
+ 
+  const store = useSelector((state) => state?.users);
+  console.log(store);
+
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

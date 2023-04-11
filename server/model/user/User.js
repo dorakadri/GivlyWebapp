@@ -70,7 +70,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "offline",
     },
-    location: String,
+    location: {
+      latitude: { type: Number },
+      longitude: { type: Number },
+    },
     matches: {
       userId: [{
         type: mongoose.Schema.Types.ObjectId,

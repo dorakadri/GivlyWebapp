@@ -28,34 +28,11 @@ const validationSchema = yup.object({
 });
 export default function Loginform() {
   const [showPassword, setShowPassword] = useState(false);
-  const [location, setLocation] = useState(null);
+
   const isnonMobile = useMediaQuery("(min-width :600px)");
   const dispatch = useDispatch();
 
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-  
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-       
-          
-        },
-        (error) => {
-          console.log(error);
-        },
-        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-      );
-
-    } else {
-      console.log('Geolocation is not supported by this browser.');
-    }
-
-  }, []);
 
 
   const initialValues = {
@@ -67,11 +44,8 @@ const { socket } = useContext(AppContext);
     initialValues: initialValues,
     onSubmit: (values) => {
         socket.emit("new-user");
-      dispatch(loginUserAction(values)).then((res)=> {
-        dispatch(updateuserlocation(location))
-    
-      });
-      console.log(values);
+      dispatch(loginUserAction(values))
+
     },
     validationSchema: validationSchema,
   });
@@ -79,6 +53,7 @@ const { socket } = useContext(AppContext);
   console.log(store);
   const { userAuth, loading, serverErr, appErr } = store;
 
+  
   if (userAuth) {
     if (userAuth?.role === "Admin") {
       return <Navigate to="/admin/dashboard" />;

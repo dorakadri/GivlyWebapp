@@ -8,13 +8,19 @@ const DeliverySchema = new mongoose.Schema(
   {
   
     locationOwner: {
-        required: [true, " location is required"],
-        type: String,
-      },  
-      locationUser: {
-        required: [true, " location is required"],
-        type: String,
-      },  
+      required: [true, "location is required"],
+      type: {
+        latitude: { type: Number },
+        longitude: { type: Number },
+      },
+    },
+    locationUser: {
+      required: [true, "location is required"],
+      type: {
+        latitude: { type: Number },
+        longitude: { type: Number },
+      },
+    }, 
     state: {
         type: String,
         enum: ["New", "Transit", "Delivered"],

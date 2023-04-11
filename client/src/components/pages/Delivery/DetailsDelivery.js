@@ -7,18 +7,7 @@ import { useParams } from 'react-router-dom'
 import { deliverygetOneAction } from '../../../ReduxB/slices/delivery/deliverysSlices'
 
 export default function DetailsDelivery() {
- 
-const dispatch =useDispatch()
-const params=useParams()
 
-  useEffect(() => {
- 
-    dispatch(deliverygetOneAction(params.id))
-
-  },[params.id,dispatch])
-  
-  const detail = useSelector((state)=>state?.delivery?.getOne)
-console.log(detail)
   
   return (
 

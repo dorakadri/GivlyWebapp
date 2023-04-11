@@ -1,26 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import L from "leaflet";
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import { useMap } from "react-leaflet";
-const LeafletMaps= () => {
-    const map = useMap();
-    let DefaultIcon = L.icon({
-      iconUrl: "/marche.gif",
-      iconSize: [90, 90],
-    });
-    useEffect(() => {
-      var marker1 = L.marker([35.6760577,10.0582828], { icon: DefaultIcon }).addTo(
-        map
-      );
-     start()
-   
-      function start () {
-        L.marker([36.7134288,10.1744474]).addTo(map);
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { deliverygetOneAction } from "../../../ReduxB/slices/delivery/deliverysSlices";
+
+const LeafletMaps = () => {
+  const dispatch = useDispatch();
+  const params = useParams();
+
+  useEffect(() => {
+    dispatch(deliverygetOneAction(params.id));
+  }, [params.id, dispatch]);
+
+  const detail = useSelector((state) => state?.delivery?.getOne);
+  console.log(detail);
+
+  const map = useMap();
+  let DefaultIcon = L.icon({
+    iconUrl: "/marche.gif",
+    iconSize: [90, 90],
+  });
+
+  useEffect(() => {
+    if (detail) {
+      var marker1 = L.marker(
+        [detail?.locationOwner.latitude, detail?.locationOwner.longitude],
+        { icon: DefaultIcon }
+      ).addTo(map);
+      start();
+
+      function start() {
+        L.marker([
+          detail?.locationUser.latitude,
+          detail?.locationUser.longitude,
+        ]).addTo(map);
         L.Routing.control({
           waypoints: [
-            L.latLng(35.6760577,10.0582828),
-            L.latLng(36.7134288,10.1744474),
+            L.latLng(
+              detail?.locationOwner.latitude,
+              detail?.locationOwner.longitude
+            ),
+            L.latLng(
+              detail?.locationUser.latitude,
+              detail?.locationUser.longitude
+            ),
           ],
           lineOptions: {
             styles: [
@@ -46,9 +72,11 @@ const LeafletMaps= () => {
             });
           })
           .addTo(map);
-      };
-    }, []);
-    return null;
-  };
+      }
+    }
+  }, [detail, map, DefaultIcon]);
 
-export default LeafletMaps
+  return null;
+};
+
+export default LeafletMaps;

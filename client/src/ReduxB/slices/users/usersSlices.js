@@ -41,6 +41,19 @@ export const loginUserAction = createAsyncThunk(
         config
       );
       localStorage.setItem("userInfo", JSON.stringify(data));
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          };
+          dispatch(updateuserlocation(location)); 
+        },
+        (error) => {
+          console.log(error);
+        },
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+      );
       return data;
     } catch (error) {
       if (!error) {
@@ -50,6 +63,31 @@ export const loginUserAction = createAsyncThunk(
     }
   }
 );
+export const updateuserlocation = createAsyncThunk(
+  "location",
+  async (location, { rejectWithValue, getState, dispatch }) => {
+
+const { userAuth } = getState().users;
+
+   console.log( userAuth)
+
+    try {
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+      const { data } = await axios.put(
+        `http://localhost:5000/api/Delivery/updatelocation/${userAuth._id}`,
+        { location: location },
+        config
+      );
+      return data ;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  })
 //logout action
 //Block User
 export const banUserAction = createAsyncThunk(
@@ -275,6 +313,26 @@ const usersSlices = createSlice({
   },
 
   extraReducers: (builder) => {
+    //update location
+    builder.addCase(updateuserlocation.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(updateuserlocation.fulfilled, (state, action) => {
+      state.loading = false;
+      state.updatedloc = action?.payload;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+
+
+    });
+    builder.addCase(updateuserlocation.rejected, (state, action) => {
+
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
     //register
     builder.addCase(registerUserAction.pending, (state, action) => {
       state.loading = true;
@@ -455,9 +513,6 @@ const userslist = createSlice({
       } else {
         state.newMessages[payload] = 1;
       }
-    },
-    resetNotifications: (state, { payload }) => {
-      delete state.newMessages[payload];
     },
     resetNotifications: (state, { payload }) => {
       delete state.newMessages[payload];

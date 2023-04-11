@@ -9,7 +9,9 @@ export const deliveryAction = createAsyncThunk(
   async (delivery, { rejectWithValue, getState, dispatch }) => {
 
 const { userAuth } = getState().users;
-const data= {...delivery,user:userAuth._id}
+const { profile} = getState().users;
+console.log(profile.location)
+const data= {...delivery,user:userAuth._id,locationUser:profile.location}
 console.log(data)
 
     try {
@@ -21,7 +23,7 @@ console.log(data)
         data,
         config
       );
-      return data1;
+      return data1; 
     } catch (error) {
       if (!error?.response) {
         throw error;
@@ -29,30 +31,7 @@ console.log(data)
       return rejectWithValue(error?.response?.data);
     }
   })
-  export const updateuserlocation = createAsyncThunk(
-    "location",
-    async (location, { rejectWithValue, getState, dispatch }) => {
   
-  const { userAuth } = getState().users;
-
-     console.log(location)
-      try {
-        const config = {
-          headers: { "Content-Type": "application/json" },
-        };
-        const { data } = await axios.put(
-          `http://localhost:5000/api/Delivery/updatelocation/${userAuth._id}`,
-          location,
-          config
-        );
-        return data ;
-      } catch (error) {
-        if (!error?.response) {
-          throw error;
-        }
-        return rejectWithValue(error?.response?.data);
-      }
-    })
 
   export const deliverygetAction = createAsyncThunk(
     "deliveryget",
