@@ -8,6 +8,7 @@ import {
   Typography,
   Grid,
   Avatar,
+  ListItemButton,
 } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -18,12 +19,14 @@ import {
   resetNotifications,
 } from "../../ReduxB/slices/users/usersSlices";
 import styled from "@emotion/styled";
+import { useTheme } from "@mui/styles";
 function Sidebar() {
+  const theme = useTheme();
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
       color: "#44b700",
-   
+
       "&::after": {
         position: "absolute",
         top: 0,
@@ -47,7 +50,7 @@ function Sidebar() {
       },
     },
   }));
- 
+
   const user = useSelector((state) => state.users);
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   console.log(user);
@@ -89,9 +92,9 @@ function Sidebar() {
       setCurrentRoom("general");
       getRooms();
       socket.emit("join-room", "general");
-      socket.emit("new-user",user?.userAuth._id);
+      socket.emit("new-user", user?.userAuth._id);
     }
-  }, [user]);
+  }, []);
 
   socket.off("new-user").on("new-user", (payload) => {
     setMembers(payload);
@@ -159,17 +162,16 @@ function Sidebar() {
   }
   return (
     <>
+     
       <Typography variant="h5" noWrap style={{ color: "orange" }} gutterBottom>
-        <br></br>
-        Available Rooms
+        Available rooms 
       </Typography>
       <List>
         {rooms?.map((room, idx) => (
-          <ListItem
+          <ListItemButton
             key={idx}
             onClick={() => joinRoom(room)}
-            button
-            selected={room === currentRoom}
+            selected={room == currentRoom}
             sx={{
               cursor: "pointer",
               display: "flex",
@@ -178,11 +180,9 @@ function Sidebar() {
           >
             <ListItemText primary={room} />
             {currentRoom !== room && (
-              <Badge color="primary" badgeContent={user?.newMessages[room]}>
-                &nbsp;
-              </Badge>
+              <Badge color="primary" badgeContent={user?.newMessages[room]} />
             )}
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
       <Typography variant="h5" noWrap style={{ color: "orange" }} gutterBottom>
@@ -190,41 +190,36 @@ function Sidebar() {
       </Typography>
       <List>
         {members?.map((member) => (
-          <ListItem
+          <ListItemButton
             key={member._id}
-            button
             disabled={member._id === user?.userAuth._id}
             onClick={() => handlePrivateMemberMsg(member)}
             selected={privateMemberMsg?._id === member?._id}
             sx={{ cursor: "pointer" }}
           >
-           
             <div className={classes.memberStatus}>
-           
               {member.status === "online" ? (
-               <StyledBadge
-               overlap="circular"
-               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-               variant="dot"
-
-             >
-           <Avatar
-             src={member.profilePhoto}
-             className={classes.memberStatusImg}
-           />
-             </StyledBadge>
+                <StyledBadge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  variant="dot"
+                >
+                  <Avatar
+                    src={member.profilePhoto}
+                    className={classes.memberStatusImg}
+                  />
+                </StyledBadge>
               ) : (
                 <StyledBadge
-                overlap="circular"
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                variant="standard"
- 
-              >
-            <Avatar
-              src={member.profilePhoto}
-              className={classes.memberStatusImg}
-            />
-              </StyledBadge>
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  variant="standard"
+                >
+                  <Avatar
+                    src={member.profilePhoto}
+                    className={classes.memberStatusImg}
+                  />
+                </StyledBadge>
               )}
             </div>
             <ListItemText
@@ -244,7 +239,7 @@ function Sidebar() {
               }
               sx={{ marginLeft: "auto" }}
             />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
     </>
