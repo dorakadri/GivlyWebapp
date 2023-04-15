@@ -70,7 +70,7 @@ console.log(props)
    
       const v = {
         ...values,
-        postpicture: url,
+        postPicture: url,
       };
 if(props.update){
 

@@ -46,7 +46,9 @@ export default function PostsList() {
   const { usersposts, isLoading, error } = useSelector(
     (state) => state?.mainpost
   );
-
+  console.log("/////////////")
+console.log(usersposts)
+console.log("/////////////")
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -95,7 +97,7 @@ const handleEditClick = (post) => {
               <CardMedia
                 component="img"
                 height="194"
-                image={post.postPicture}
+                src={post.postPicture}
                 alt="Paella dish"
               />
 
