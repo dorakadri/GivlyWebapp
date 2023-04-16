@@ -22,6 +22,7 @@ const postForumRoute = require("./routes/postsForum/postForumRoute");
 const commentRoutes = require("./routes/comments/commentRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
+const { getUserMatches, getUserMatchestest } = require("./controllers/posts/postsCtrl");
 
 const app = express();
 //DB
@@ -110,6 +111,14 @@ io.on("connection", (socket) => {
     //const members = await User.find();
     socket.emit("new-user", members);
   });
+
+  socket.on("match", async () => {
+    console.log("Match event received on server!");
+    io.emit("msg");
+  });
+
+
+
 
   socket.on("join-room", async (newRoom, previousRoom) => {
     socket.join(newRoom);

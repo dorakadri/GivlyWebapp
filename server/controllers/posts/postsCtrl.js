@@ -25,7 +25,7 @@ const createPost = expressAsyncHandler(async (req, res) => {
 //update post 
 const updatePost = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
- console.log(req.body)
+ console.log(req.body.postpicture)
   try {
     const post = await Post.findByIdAndUpdate(
       id,
@@ -287,6 +287,34 @@ const getUserMatches = expressAsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
+const getUserMatchestest = expressAsyncHandler(async (id) => {
+
+
+  try {
+    const user = await User.findById(id)
+
+    if (!user) {
+      res.status(404).json({ message: `User with id ${id} not found` });
+      return;
+    }
+    const userIds = user.matches.userId;
+    const userIdsAsOwner = user.matchesAsOwner.userId;
+    const allUserIds = [...userIds, ...userIdsAsOwner];
+    const uniqueUserIds = [...new Set(allUserIds)];
+    const users = await User.find({ _id: { $in: uniqueUserIds } });
+    
+    const matchedUsers = users.map(u => ({ 
+      id: u._id, 
+      firstName: u.firstName, 
+      lastName: u.lastName,
+      profilePhoto: u.profilePhoto 
+    }));
+  
+   return matchedUsers
+  } catch (error) {
+  console.log("error")
+  }
+});
 
 //getpostswanted
 const getUserMatchespost = expressAsyncHandler(async (req, res) => {
@@ -330,6 +358,7 @@ module.exports = {
     updatePost ,
     deletePost,
     getUserMatchespost,
-    removefromMAtch
+    removefromMAtch,
+    getUserMatchestest
 
   };
