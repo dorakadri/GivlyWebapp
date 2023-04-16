@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Chat from "../../../Chat/Chat";
 import Delivery from "../Delivery/Delivery";
 import DetailsDelivery from "../Delivery/DetailsDelivery";
+
 import { updateuserlocation } from "../../../ReduxB/slices/delivery/deliverysSlices";
 
 
@@ -56,6 +57,7 @@ function SimpleUserRoutes() {
         }
       >
         <Routes>
+        
           <Route element={<Layout />}>
             <Route path="/" element={<LayoutSidebar />}>
               <Route path="home" element={<Homepage />} />
@@ -64,6 +66,8 @@ function SimpleUserRoutes() {
               <Route path="forum" element={<PostsForumList />} />
               <Route path="delivery" element={<Delivery/>} />
               <Route path="detaildelivery/:id" element={<DetailsDelivery/>} />
+              
+
       
             </Route>
       
