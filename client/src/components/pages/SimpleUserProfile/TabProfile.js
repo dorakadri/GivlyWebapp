@@ -112,7 +112,7 @@ export default function TabProfile() {
             iconPosition="start"
           />
           <StyledTab
-            label="Delivery"
+            label="taken"
             {...a11yProps(4)}
             icon={<DeliveryDiningOutlinedIcon />}
             iconPosition="start"

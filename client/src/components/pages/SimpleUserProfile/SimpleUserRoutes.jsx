@@ -15,8 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Chat from "../../../Chat/Chat";
 import NotFound from "../../common/NotFound";
-
-
+import Delivery from "../Delivery/Delivery";
+import DetailsDelivery from "../Delivery/DetailsDelivery";
 
 const PostsForumList  = lazy(() => import("../postsForum/PostsForumList"));
 const Split  = lazy(() => import("./Addposts/Split"));

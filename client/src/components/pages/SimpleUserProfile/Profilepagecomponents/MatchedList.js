@@ -23,10 +23,11 @@ import {
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { Delete, Edit } from "@mui/icons-material";
 import { deliveryAction } from "../../../../ReduxB/slices/delivery/deliverysSlices";
+import { useNavigate } from "react-router-dom";
 
 export default function MatchedList() {
   const dispatch = useDispatch();
-
+const navigate=useNavigate();
 
 
   useEffect(() => {
@@ -56,7 +57,9 @@ export default function MatchedList() {
    // let locationUser="36.8245413, 10.179704"
     const data={post,locationOwner}
     console.log(data)
-    dispatch(deliveryAction(data))
+    dispatch(deliveryAction(data)).then((response) => {
+      navigate("/user/delivery");
+    })
 
    }
 
@@ -123,7 +126,7 @@ export default function MatchedList() {
                   sx={{ mt: 1 }}
                   variant="contained"
                   disabled={post.isTaken ? true : false}
-                  onClick={() => AddDelevery(post)}
+                  onClick={() => AddDelevery(post) }
                 >
                   Ship
                 </Button>
