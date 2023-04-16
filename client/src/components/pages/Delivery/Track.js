@@ -32,7 +32,7 @@ export default function Track() {
 
   return (
 
-    <Card sx={{height:"100vh"}} >
+    <Card sx={{height:"100vh" , pt:"5rem"}} >
         <Box
         sx={{
           display: "flex",
@@ -96,7 +96,7 @@ export default function Track() {
     
       <Rightside date={detail.getOne?.dateLivraison.substring(0, 10)}/>
       </Box>
-      <Stepper activeStep={step} alternativeLabel sx={{pt:"6rem"}} >
+      <Stepper activeStep={step} alternativeLabel sx={{mt:"11rem"}} >
           {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
