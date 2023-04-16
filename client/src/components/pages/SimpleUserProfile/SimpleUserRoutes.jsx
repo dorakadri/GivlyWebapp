@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 
 
 import Chat from "../../../Chat/Chat";
+import NotFound from "../../common/NotFound";
 
 
 
@@ -63,6 +64,7 @@ function SimpleUserRoutes() {
          
             {/* <Route  path="/forum/posts/:id" element={<PostForumDetails />} /> */}
             <Route  path="chat" element={<Chat />} />
+            <Route  path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </Suspense>

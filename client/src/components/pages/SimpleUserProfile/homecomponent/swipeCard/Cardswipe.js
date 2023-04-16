@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TinderCard from "react-tinder-card";
 
@@ -10,6 +10,7 @@ import {
   fetchPostsAction,
 } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
 import Cardpost from "./Cardpost";
+import { AppContext } from "../../../../../context/appContext";
 
 const useStyles = makeStyles({
   swipe: {
@@ -22,6 +23,8 @@ export default function Cardswipe() {
   const theme = useSelector((state) => state?.globaltheme);
   const [Posts, setPosts] = useState();
   const dispatch = useDispatch();
+  const { socket } =
+useContext(AppContext);
 
   useEffect(() => {
     dispatch(fetchPostsAction());
@@ -60,6 +63,7 @@ export default function Cardswipe() {
       };
       dispatch(addmatches(data)).then((result) => {
         console.log(result);
+        socket.emit('match');
       });
     }
 
