@@ -63,12 +63,11 @@ export default function PostForumDetails(props) {
   const isCreatedBy = postDetails?.user?._id === userAuth?._id;
   console.log(isCreatedBy);
   //redirect
-  if (isDeleted) return navigate("/forum");
+  
+  if (isDeleted) props.close();
   return (
    
     
-
-
         <Card variant="outlined">
       
             <CardHeader

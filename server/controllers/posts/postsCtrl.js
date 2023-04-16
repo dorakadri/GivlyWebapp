@@ -11,7 +11,7 @@ const createPost = expressAsyncHandler(async (req, res) => {
       userId: id,
       location: req?.body?.location,
       description: req?.body?.description,
-      postPicture: req?.body?.postpicture,
+      postPicture: req?.body?.postPicture,
       createdAt: req?.body?.createdAt,
       title: req?.body?.title,
       type: req?.body?.type,

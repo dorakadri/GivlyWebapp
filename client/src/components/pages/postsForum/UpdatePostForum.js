@@ -72,14 +72,15 @@ export default function UpdatePostForum(props) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      title: postDetails?.title  || "",
-      description: postDetails?.description  || "",
-      
+      title: postDetails?.title || "",
+      description: postDetails?.description || "",
+      image: postDetails?.image || "",
     },
     onSubmit: (values) => {
       const data = {
         title: values.title,
         description: values.description,
+        image: values.image,
         id,
       };
       dispatch(updatePostAction(data));
@@ -88,11 +89,10 @@ export default function UpdatePostForum(props) {
   });
   const classes = useStyles();
 
-  if (isUpdated) return navigate("/forum");
+  if (isUpdated) return navigate("../forum");
 
   return (
     <Box>
-    
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <form onSubmit={formik.handleSubmit} className={classes.form}>
           <TextField
@@ -121,9 +121,20 @@ export default function UpdatePostForum(props) {
             }
             helperText={formik.touched.description && formik.errors.description}
             multiline
-        
           />
-        
+          <Container
+            className={classes.dropzone}
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            <DropzoneArea
+              acceptedFiles={["image/jpeg", "image/png"]}
+              dropzoneText={"Drag and drop an image here or click"}
+              error={formik.touched.image && Boolean(formik.errors.image)}
+              onChange={(files) => {
+                formik.setFieldValue("image", files[0]);
+              }}
+            />
+          </Container>
           {/* Err msg */}
           <Container className="text-red-500">
             {formik?.touched?.image && formik.errors?.image}
@@ -146,7 +157,6 @@ export default function UpdatePostForum(props) {
             size="large"
             className={classes.button}
             disabled={loading || serverErr}
-          
           >
             {loading ? "Loading please wait..." : "update"}
           </Button>
