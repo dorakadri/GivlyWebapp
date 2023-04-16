@@ -45,8 +45,10 @@ export default function Layout() {
             {serverErr} {appErr}
           </h2>
         ) : null}
-        <Outlet />
+         <Outlet />
       </Box>
+   
     </Box>
+    
   );
 }

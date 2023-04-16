@@ -7,10 +7,10 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { Suspense, lazy, useMemo } from "react";
+import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 
 import { themeSettingsall } from "../../../theme";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 import Chat from "../../../Chat/Chat";
@@ -31,6 +31,11 @@ const DiyGeneration = lazy(() => import("../Objectrelated/DiyGeneration"));
 function SimpleUserRoutes() {
   const mode = useSelector((state) => state.globaltheme.mode);
   const theme = useMemo(() => createTheme(themeSettingsall(mode)), [mode]);
+ 
+  const store = useSelector((state) => state?.users);
+  console.log(store);
+
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -49,13 +54,20 @@ function SimpleUserRoutes() {
         }
       >
         <Routes>
+        
           <Route element={<Layout />}>
             <Route path="/" element={<LayoutSidebar />}>
               <Route path="home" element={<Homepage />} />
               <Route path="diygeneration" element={<DiyGeneration />} />
               <Route path="Addpost" element={<Split />} />
               <Route path="forum" element={<PostsForumList />} />
+              <Route path="delivery" element={<Delivery/>} />
+              <Route path="detaildelivery/:id" element={<DetailsDelivery/>} />
+              
+
+      
             </Route>
+      
             <Route
               path="profile/update/:id"
               element={<SimpleUserProfileEdit />}
@@ -66,6 +78,7 @@ function SimpleUserRoutes() {
             <Route  path="chat" element={<Chat />} />
             <Route  path="*" element={<NotFound />} />
           </Route>
+      
         </Routes>
       </Suspense>
     </ThemeProvider>
