@@ -46,18 +46,16 @@ class Youtube extends Component {
         }
 
         return (
-            <div>
+          
 
                 <div style={{
                     backgroundImage: "url('https://rethinkwastenl.ca/wp-content/uploads/2022/01/5437-MMSB-ReThink_Web-Banners_Food-Waste_Desktop-copy-scaled.jpg')",
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     minHeight: '100vh',
-                   /* display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: 20,
-                    opacity: 0.9*/
+              width:"100%",
+       
+
 
                 }}>
                 <h1>How to make homemade compost from your food waste</h1>
@@ -80,7 +78,7 @@ class Youtube extends Component {
                     ))}
                 </div>
             </div>
-            </div>
+      
         );
     }
 }

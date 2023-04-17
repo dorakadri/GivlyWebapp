@@ -1,10 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-<<<<<<< HEAD
-import Navbar from "../AssociationUserProfile/Navbar";
-=======
 
->>>>>>> c732ca1c6c8308580dc14d039f74937ec1b3448b
+import Navbar from "../AssociationUserProfile/Navbar";
+
+
 import ProfilePage from "../AssociationUserProfile/ProfilePage";
 import AssociationUserProfileEdit from "../AssociationUserProfile/AssociationUserProfileEdit";
 import Layout from "./Layout";

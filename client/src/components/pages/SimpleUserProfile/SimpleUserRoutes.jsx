@@ -11,8 +11,8 @@ import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 
 import { themeSettingsall } from "../../../theme";
 import { useDispatch, useSelector } from "react-redux";
-
-
+import Recipe from "../Food/Recipe"
+import Composting from "../Food/Composting"
 import Chat from "../../../Chat/Chat";
 import NotFound from "../../common/NotFound";
 import Delivery from "../Delivery/Delivery";
@@ -63,8 +63,9 @@ function SimpleUserRoutes() {
               <Route path="forum" element={<PostsForumList />} />
               <Route path="delivery" element={<Delivery/>} />
               <Route path="detaildelivery/:id" element={<DetailsDelivery/>} />
-              
-
+              <Route path="composting" element={<Composting/>} />
+              <Route path="recipegeneration" element={<Recipe/>} />
+            
       
             </Route>
       
