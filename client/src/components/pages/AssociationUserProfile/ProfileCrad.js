@@ -117,6 +117,20 @@ export default function ProfileCrad({data}) {
             {data?.associationPhone}
         </Typography>
 </Box>
+<Box  sx= {{
+            display:"flex",
+            justifyContent:"left",
+            alignItems:"center",
+            gap:1
+        }
+
+        }
+        >
+     
+        <Typography variant='body2' color='text.secondary'>
+            {data?.bio}
+        </Typography>
+</Box>
 <Box
 sx= {{
     display:"flex",
@@ -135,7 +149,7 @@ sx= {{
             type="submit"
             sx={{
               backgroundColor: "#06A696",
-              color: " white",
+              color: " #fff",
               border: "none",
               fontWeight: " bold",
               cursor: "pointer",
@@ -144,7 +158,7 @@ sx= {{
               p: "1rem",
               textAlign: "center",
            
-              "&:hover": { color: "white", backgroundColor: "#06A696" },
+              "&:hover": { color: "#06A696", backgroundColor: "#06A696" },
             }}
    
             onClick={() => navigate(`./update/${ data?._id}`)}

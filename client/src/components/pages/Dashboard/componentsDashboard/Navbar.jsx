@@ -9,6 +9,7 @@ import {
 } from "@mui/icons-material";
 import FlexBetween from "../../../common/FlexBetween";
 import { useDispatch, useSelector } from "react-redux";
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 
 import { useNavigate } from "react-router-dom";
 
@@ -77,7 +78,7 @@ export default function Navbar({ sidebaropen, setSidebarOpen }) {
         <FlexBetween gap="1.5rem">
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
-              <DarkModeOutlined sx={{ fontSize: "25px" }} />
+              <DarkModeOutlined sx={{ fontSize: "25px"  }} color="primary" />
             ) : (
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}

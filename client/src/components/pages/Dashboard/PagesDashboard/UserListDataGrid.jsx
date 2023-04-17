@@ -86,9 +86,10 @@ export default function UserListDataGrid() {
       rows={users}
       columns={columns}
       pageSize={7}
-      rowsPerPageOptions={[5]}
+      rowsPerPageOptions={[7]}
       disableSelectionOnClick 
       rowHeight={80}
+   
     
     />
     </Box>

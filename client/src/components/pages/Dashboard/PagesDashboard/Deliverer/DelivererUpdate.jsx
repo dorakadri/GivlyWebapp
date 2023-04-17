@@ -17,7 +17,7 @@ import {
 import { MuiTelInput } from "mui-tel-input";
 
 
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import myService from "../../servicedash/Service";
 import PagesHeaders from "../../componentsDashboard/PagesHeaders";
 const validationSchema = yup.object({
@@ -30,12 +30,12 @@ export default function DelivererUpdate() {
   const [phone, setphone] = useState("+216");
   const [data, setData] = useState({});
   const { id } = useParams();
-
+  const navigate=useNavigate();
   useEffect(() => {
     myService.GetDelivererId(id).then((response) => {
   
      setData(response.data)
-     //setphone(response.data.phone)
+     setphone(`+216 ${response.data.phone}`)
       console.log(response)
     });
   }, []);
@@ -60,12 +60,12 @@ export default function DelivererUpdate() {
     myService.UpdateDeliverer(id,v)
    
     .then((response) => {
-      console.log(response)
-      console.log("alla")
+      navigate("/admin/delivererlist")
     })
     .catch((error) => {
       console.log(error)
     });
+  
     },
     validationSchema: validationSchema,
   });

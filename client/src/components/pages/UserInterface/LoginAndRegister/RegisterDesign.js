@@ -31,6 +31,7 @@ import { registerUserAction } from "../../../../ReduxB/slices/users/usersSlices"
 import { Navigate } from "react-router-dom";
 import { Stack } from "@mui/system";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { calculatePasswordStrength } from "../../../shared/calculatePasswordStrength";
 
 const validationSchema = yup.object({
   firstName: yup.string().required("Name is required"),
@@ -65,6 +66,12 @@ const validationSchema = yup.object({
   associationPhone: yup.string(),
 });
 export default function RegisterDesign() {
+  const googleAuth = () => {
+		window.open(
+			'http://localhost:5000/auth/google/callback',
+			"_self"
+		);
+	};
   const [verified, setVerified] = useState(false);
   const [image, setImage] = useState(null);
   const [showPassword, setShowPassword] = React.useState(false);
@@ -73,9 +80,10 @@ export default function RegisterDesign() {
   const [phone, setPhone] = React.useState("+216");
   const dispatch = useDispatch();
   const isnonMobile = useMediaQuery("(min-width :600px)");
+
   const initialValues = {
-    firstName: "",
-    lastName: "",
+    firstName:   "",
+    lastName:  "",
     email: "",
     password: "",
     bio: "",
@@ -85,6 +93,7 @@ export default function RegisterDesign() {
     associationPhone: "",
   };
   const formik = useFormik({
+    enableReinitialize:true,
     initialValues: initialValues,
     onSubmit: async (values) => {
       console.log(values);
@@ -147,25 +156,7 @@ export default function RegisterDesign() {
     formik.handleChange(event);
     setPhone(event);
   };
-  const calculatePasswordStrength = (password) => {
-    let strength = 0;
-    if (password.length >= 8 && password.length <= 20) {
-      strength += 20;
-    }
-    if (password.match(/[a-z]/)) {
-      strength += 20;
-    }
-    if (password.match(/[A-Z]/)) {
-      strength += 20;
-    }
-    if (password.match(/\d/)) {
-      strength += 20;
-    }
-    if (password.match(/[!@#$%^&*()_+}{"':;?/>.<,]/)) {
-      strength += 20;
-    }
-    return strength;
-  };
+
 
   const progress = calculatePasswordStrength(formik.values.password);
 
@@ -196,7 +187,7 @@ export default function RegisterDesign() {
       >
         <Avatar
           alt="Profile pic"
-          src={image ? URL.createObjectURL(image) : undefined}
+          src={ image ? URL.createObjectURL(image) : undefined}
           sx={{
             width: "8rem",
             height: "8rem",
@@ -204,6 +195,7 @@ export default function RegisterDesign() {
             alignSelf: "center",
           }}
         />
+     
       </Badge>
       <Box
         display="grid"
@@ -427,6 +419,7 @@ export default function RegisterDesign() {
         )}
         <Button
           disabled={!verified}
+          onClick={googleAuth}
           sx={{ mt: "1rem", width: "100%" }}
           variant="contained"
           size="large"

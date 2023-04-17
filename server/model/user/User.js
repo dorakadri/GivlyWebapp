@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const Match = require("./Matches");
 //create schema
 const userSchema = new mongoose.Schema(
   {
@@ -61,32 +62,53 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    newMessages: {
+      type: Object,
+      default: {},
+    },
+    status: {
+      type: String,
+      default: "offline",
+    },
+    location: {
+      latitude: { type: Number },
+      longitude: { type: Number },
+    },
+    matches: {
+      userId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      
+      }],
+      productId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      }],
+    },
+    matchesAsOwner: {
+      userId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      
+      }],
+      productId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      }],
+    },
 
-    location: String,
-    matches: [
-      {
-        userId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-        productId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Post",
-        },
-      },
-    ],
-    matchesAsOwner: [
-      {
-        userId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-        productId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Post",
-        },
-      },
-    ],
+    Taken: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post'
+    }],
+    wishlist: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post'
+    }],
+    Ownposts: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post'
+    }],
     Rankpoints: Number,
   },
   {

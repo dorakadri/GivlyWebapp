@@ -12,6 +12,7 @@ const {
   accountVerificationCtrl,
   forgetPasswordToken,
   passwordResetCtrl,
+  updateUserstatus,
 } = require("../../controllers/users/usersCtrl");
 const {
   authMiddleware,
@@ -38,9 +39,7 @@ userRoutes.post("/login", loginUserCtrl);
 // profile
 userRoutes.get("/profile/:id", authMiddleware, userProfileCtrl);
 userRoutes.put("/", authMiddleware, updateUserCtrl);
-// profile
-userRoutes.get("/profile/:id", authMiddleware, userProfileCtrl);
-userRoutes.put("/", authMiddleware, updateUserCtrl);
+userRoutes.put("/status", authMiddleware, updateUserstatus);
 // Password reset
 userRoutes.post("/forget-password-token", forgetPasswordToken);
 userRoutes.put("/reset-password", passwordResetCtrl);

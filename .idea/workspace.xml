@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8e1b0519-9d51-40f6-944b-4d7c333d8008" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/client/public/marche.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/public/marker-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/Chat/Chat.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/ReduxB/slices/IA/diySlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/ReduxB/slices/Themeglobal/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/ReduxB/slices/comments/commentSlices.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/ReduxB/slices/delivery/deliverysSlices.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/ReduxB/slices/posts/mainPostsSlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/ReduxB/slices/postsForum/postForumSlices.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/common/notfound.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/AssociationUserProfile/Home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Comments/AddComment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Comments/CommentsList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Delivery/Delivery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Delivery/DetailsDelivery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Delivery/LeafletMaps.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Delivery/Leftside.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Delivery/ListDetails.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Delivery/Maps.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Delivery/Rightside.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Delivery/Table.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Delivery/Track.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Objectrelated/DiyGeneration.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/Objectrelated/Objectdetection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Addposts/AddPost.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Addposts/Split.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Finalnavbar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/LayoutSidebar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Profilepagecomponents/MatchedList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Profilepagecomponents/PostsList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Profilepagecomponents/ProfileUserV2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Profilepagecomponents/WishlistList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Sidebar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/homecomponent/Homepage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/homecomponent/matches/Matches.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/homecomponent/swipeCard/Cardpost.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/homecomponent/swipeCard/Cardswipe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/LoginAndRegister/Rolegoogle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/postsForum/CreatePostForum.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/postsForum/PostForumDetails.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/postsForum/PostsForumList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/pages/postsForum/UpdatePostForum.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/shared/Localisation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/shared/MessageForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/shared/Sidebar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/shared/calculatePasswordStrength.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/context/appContext.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/utils/DateFormatter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ia/Diy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/comments/commentCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/deliveries/deliveryCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/diygeneration/diyCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/diygeneration/diygeneration.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/posts/postsCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/postsForum/postForumCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/middlewares/uploads/photoUpload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/model/Message/Message.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/model/comment/Comment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/model/deliveries/Delivery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/model/post/Posts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/model/postForum/PostForum.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/model/user/Matches.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/passport.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679657027252-319151916_521360653290055_3836298849006274116_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679657031597-319151916_521360653290055_3836298849006274116_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679657108148-320045227_874083197053395_805955187834122115_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679657332563-325108267_1509267032933474_1350942599328448248_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679657650715-326684905_549000423842976_5879797652024321384_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679657652828-326684905_549000423842976_5879797652024321384_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679657673231-326684905_549000423842976_5879797652024321384_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679657837262-326684905_549000423842976_5879797652024321384_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679657839440-326684905_549000423842976_5879797652024321384_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679658075191-a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679658077681-a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679658113823-a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679658114659-a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679658115239-a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679658122248-a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679658124005-a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679670488028-320045227_874083197053395_805955187834122115_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679670554095-320045227_874083197053395_805955187834122115_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679756158018-Donated-furniture-at-Emmaus-Merseyside-1356x980.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679756354827-house-clearance-donate-to-a-good-home.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679756739081-Donated-furniture-at-Emmaus-Merseyside-1356x980.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679756940858-fe-image-new-960x790.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679757039054-house-clearance-donate-to-a-good-home.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1679757328336-house-clearance-donate-to-a-good-home.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1680681285414-a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/public/images/postsForum/user-1680864096154-a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/Objects/objectRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/comments/commentRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/deliveries/delivery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/posts/postsRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/postsForum/postForumRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/utils/banUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GivlyWebapp.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/ReduxB/slices/users/usersSlices.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/ReduxB/slices/users/usersSlices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/ReduxB/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/ReduxB/store/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/NotFound.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/NotFound.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/AssociationUserProfile/AssociationUserProfileEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/AssociationUserProfile/AssociationUserProfileEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/AssociationUserProfile/AssociationUserRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/AssociationUserProfile/AssociationUserRoutes.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/AssociationUserProfile/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/AssociationUserProfile/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/AssociationUserProfile/ProfileCrad.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/AssociationUserProfile/ProfileCrad.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Dashboard/DashboardRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/Dashboard/DashboardRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Dashboard/PagesDashboard/Deliverer/AddDeliverer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/Dashboard/PagesDashboard/Deliverer/AddDeliverer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Dashboard/PagesDashboard/Deliverer/DelivererUpdate.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/Dashboard/PagesDashboard/Deliverer/DelivererUpdate.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Dashboard/PagesDashboard/Gift/FormGift.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/Dashboard/PagesDashboard/Gift/FormGift.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Dashboard/PagesDashboard/UserList.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Dashboard/PagesDashboard/UserListDataGrid.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/Dashboard/PagesDashboard/UserListDataGrid.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Dashboard/componentsDashboard/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/Dashboard/componentsDashboard/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Dashboard/servicedash/Service.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/Dashboard/servicedash/Service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Landingpage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Navigation/Alerts/AccountVerifed.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/Navigation/Alerts/AccountVerifed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/Profilesimpleuser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Layout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/Navbar.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/ProfileCrad.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/ProfilePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/SimpleUserProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/SimpleUserProfile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/SimpleUserProfileEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/SimpleUserProfileEdit.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/SimpleUserRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/SimpleUserRoutes.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/TabProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/SimpleUserProfile/TabProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/LoginAndRegister/LoginDesign.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/LoginAndRegister/LoginDesign.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/LoginAndRegister/Loginform.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/LoginAndRegister/Loginform.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/LoginAndRegister/RegisterDesign.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/LoginAndRegister/RegisterDesign.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/LoginAndRegister/Signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/LoginAndRegister/Signup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/LoginAndRegister/carrot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/Passwordmanagment/ResetPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/Passwordmanagment/ResetPassword.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/Passwordmanagment/ResetPasswordForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/Passwordmanagment/ResetPasswordForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/landingcomponent/Aboutus.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/landingcomponent/Aboutus.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/landingcomponent/Contactus.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/landingcomponent/Contactus.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/landingcomponent/Givlyapp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/landingcomponent/Givlyapp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/landingcomponent/LandingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/landingcomponent/LandingPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UserInterface/landingcomponent/NavbarLandingpage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UserInterface/landingcomponent/NavbarLandingpage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/shared/.gitkeep" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/shared/UpdateProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/Dashboard/PagesDashboard/UpdateProfile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/theme.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/theme/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/theme/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/theme/overides/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/theme/palette/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/theme/typography/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/yassinedhasboard/AddDelivery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/yassinedhasboard/Delivery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/yassinedhasboard/Users.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.env" beforeDir="false" afterPath="$PROJECT_DIR$/server/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/config/db/dbConnect.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/config/db/dbConnect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/gift/giftCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/gift/giftCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/users/usersCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/users/usersCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/middlewares/auth/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/middlewares/auth/authMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/post/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/user/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/model/user/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/users/usersRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/users/usersRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2N1S4Lf4N81HXPsho7o5Yu0WHda" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Yassine Najar/Documents/GivlyWebapp/client/src/components/pages/Food",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yassine Najar\Documents\GivlyWebapp\client\src\components\pages\Food" />
+      <recent name="C:\Users\Yassine Najar\Documents\GivlyWebapp\client\src\components\pages\AssociationUserProfile" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8e1b0519-9d51-40f6-944b-4d7c333d8008" name="Changes" comment="" />
+      <created>1678829902479</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678829902479</updated>
+      <workItem from="1678829904242" duration="10963000" />
+      <workItem from="1681694014268" duration="268000" />
+      <workItem from="1681694317600" duration="201000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="yassine" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

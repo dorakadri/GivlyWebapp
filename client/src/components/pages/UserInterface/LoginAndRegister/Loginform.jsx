@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import * as yup from "yup";
 import { Field, Form, Formik, useFormik } from "formik";
 import {
@@ -19,7 +19,9 @@ import { loginUserAction } from "../../../../ReduxB/slices/users/usersSlices";
 import { Navigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-
+// chat 
+import { AppContext } from "../../../../context/appContext";
+import { updateuserlocation } from "../../../../ReduxB/slices/delivery/deliverysSlices";
 const validationSchema = yup.object({
   email: yup.string().email("invalid email").required("email is required"),
   password: yup.string().required(" password is required"),
@@ -29,16 +31,21 @@ export default function Loginform() {
 
   const isnonMobile = useMediaQuery("(min-width :600px)");
   const dispatch = useDispatch();
+
+
+
+
   const initialValues = {
     email: "",
     password: "",
   };
-
+const { socket } = useContext(AppContext);
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (values) => {
-      dispatch(loginUserAction(values));
-      console.log(values);
+        socket.emit("new-user");
+      dispatch(loginUserAction(values))
+
     },
     validationSchema: validationSchema,
   });
@@ -46,15 +53,16 @@ export default function Loginform() {
   console.log(store);
   const { userAuth, loading, serverErr, appErr } = store;
 
+  
   if (userAuth) {
     if (userAuth?.role === "Admin") {
       return <Navigate to="/admin/dashboard" />;
     }
     if (userAuth?.role === "SimpleUser") {
-      return <Navigate to="/user/profile" />;
+      return <Navigate to="/user/home" />;
     }
     if (userAuth?.role === "Association") {
-      return <Navigate to="/association/profile" />;
+      return <Navigate to="/association/forum" />;
     }
 
     return <Navigate to="/" />;

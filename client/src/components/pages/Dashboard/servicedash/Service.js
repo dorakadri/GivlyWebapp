@@ -6,6 +6,7 @@ const myService = {
     baseUrl: 'http://localhost:5000',
     baseurlGift: 'api/gift/',
     baseurldelivery: 'api/DeliveryMen/',
+    baseurldeliveryLiv: 'api/Delivery/',
 
     postData: ( data) => {
       return axios.post(`${myService.baseUrl}/${myService.baseurlGift}`, data);
@@ -23,7 +24,7 @@ const myService = {
     deleteGiftbyID:(id)=>{
       return axios.delete(`${myService.baseUrl}/${myService.baseurlGift}/${id}`)
     },
- ///////////////////////Delivery////////////////////
+ ///////////////////////DeliveryMen////////////////////
  GetDeliverer:()=>{
   return axios.get(`${myService.baseUrl}/${myService.baseurldelivery}/DeliveryMen`)
 },
@@ -47,7 +48,9 @@ getalluser:(token)=>{
       Authorization: `Bearer ${token}`
     }
   })
+},
+
+
 }
-  };
   
   export default myService;

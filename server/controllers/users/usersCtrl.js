@@ -46,6 +46,8 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
   const userFound = await User.findOne({ email });
 
   if (userFound && (await userFound.isPasswordMatched(password))) {
+      userFound.status = "online";
+     await userFound.save();
     if (userFound.isBanned) {
       res.status(401);
       throw new Error("you are banned ");
@@ -116,7 +118,24 @@ const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user);
 });
 
-
+//------------------------------
+//Update status for chat
+//------------------------------
+const updateUserstatus = expressAsyncHandler(async (req, res) => {
+  const { _id } = req?.user;
+  validateMongodbId(_id);
+  const user = await User.findByIdAndUpdate(
+    _id,
+    {
+      status: req?.body?.status,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.json(user);
+});
 
 const banUserCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -215,6 +234,8 @@ const forgetPasswordToken = expressAsyncHandler(async (req, res) => {
   try {
     //Create token
     const token = await user.createPasswordResetToken();
+    
+
     console.log(token);
     await user.save();
 
@@ -275,4 +296,5 @@ module.exports = {
   forgetPasswordToken,
   generateVerificationTokenCtrl,
   passwordResetCtrl,
+  updateUserstatus,
 };

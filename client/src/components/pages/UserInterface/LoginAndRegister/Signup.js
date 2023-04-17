@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 export default function Signup() {
   const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
+
   return (
     <Box
       sx={{
@@ -35,12 +36,18 @@ export default function Signup() {
         <Typography variant="body1" style={{ fontWeight: "bold", py: "1rem" }}>
           Ready to join us !
         </Typography>
-        <RegisterDesign />
+        
+        <RegisterDesign/>
+        
         <Typography py="1rem">
           Already have an account?{" "}
           <Link to="/login" style={{ textDecoration: "none" }}>
             Login
           </Link>
+        </Typography>
+        <Typography py="1rem">
+
+        location.loaded ? JSON.stringify(location) : "Location data not available yet "
         </Typography>
       </Box>
     </Box>
