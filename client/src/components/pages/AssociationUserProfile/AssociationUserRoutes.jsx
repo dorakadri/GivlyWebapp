@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Navbar from "../SimpleUserProfile/Navbar";
+import Navbar from "../AssociationUserProfile/Navbar";
 import ProfilePage from "../AssociationUserProfile/ProfilePage";
 import AssociationUserProfileEdit from "../AssociationUserProfile/AssociationUserProfileEdit";
 import Layout from "./Layout";
