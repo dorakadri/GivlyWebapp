@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -17,11 +17,13 @@ import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import { getmatchesuser } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
 import { useNavigate } from "react-router";
+import { AppContext } from "../../../../../context/appContext";
 export default function Matches() {
 
   const [matches, setMatches] = useState([]);
   const dispatch = useDispatch();
-
+ const { socket } =
+    useContext(AppContext);
   const navigate =useNavigate();
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
@@ -53,8 +55,14 @@ export default function Matches() {
   }));
  
   useEffect(() => {
-    dispatch(getmatchesuser())
- }, []);
+    dispatch(getmatchesuser());
+    socket.on("msg", () => {
+      dispatch(getmatchesuser());
+    });
+    return () => {
+      socket.off("msg");
+    };
+  }, [dispatch, socket]);
  const store = useSelector((state) => state?.mainpost) 
  const { friendsmatch } = store 
 

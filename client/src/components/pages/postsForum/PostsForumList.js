@@ -49,7 +49,10 @@ const PostsForumList = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const handleClosedelete = () => {
+    setOpen(false);
+    dispatch(fetchPostsAction("" ));
+  };
   const handleDetail = (id) => {
     setEditingPost(id);
     setOpen(true);
@@ -175,7 +178,7 @@ const PostsForumList = () => {
         </Card>
       ))}
       {editingPost && (
-        <Dialog open={open} onClose={handleClose} fullWidth  >
+        <Dialog open={open} onClose={handleClose} fullWidth>
           <Box
             sx={{
               display: "flex",
@@ -186,7 +189,7 @@ const PostsForumList = () => {
             }}
           >
             <DialogTitle sx={{ flex: 1, textAlign: "center" }}>
-            Post
+              Post
             </DialogTitle>
 
             <IconButton onClick={handleClose}>
@@ -195,8 +198,8 @@ const PostsForumList = () => {
           </Box>
 
           <Divider />
-          <DialogContent   sx={{p:0}} >
-            < PostForumDetails data={editingPost} />
+          <DialogContent sx={{ p: 0 }}>
+            <PostForumDetails data={editingPost} close={handleClosedelete} />
           </DialogContent>
         </Dialog>
       )}

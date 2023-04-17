@@ -23,6 +23,7 @@ const commentRoutes = require("./routes/comments/commentRoute");
 const AssoRoutes=require("./routes/Asso/AssoRoutes")
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
+const deliveryRoutes = require("./routes/deliveries/delivery");
 
 const app = express();
 //DB
@@ -65,7 +66,8 @@ app.use("/api/posts", postForumRoute);
 app.use("/api/comments", commentRoutes);
 //DeliveryMen route
 app.use("/api/DeliveryMen", deliveryMensRoutes);
-
+//Delivery route
+app.use("/api/Delivery", deliveryRoutes);
 //gift route
 app.use("/api/gift", giftsRoutes);
 app.use("/api/mainposts", postRoutes);
@@ -117,6 +119,14 @@ io.on("connection", (socket) => {
     //const members = await User.find();
     socket.emit("new-user", members);
   });
+
+  socket.on("match", async () => {
+    console.log("Match event received on server!");
+    io.emit("msg");
+  });
+
+
+
 
   socket.on("join-room", async (newRoom, previousRoom) => {
     socket.join(newRoom);

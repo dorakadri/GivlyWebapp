@@ -11,7 +11,7 @@ const createPost = expressAsyncHandler(async (req, res) => {
       userId: id,
       location: req?.body?.location,
       description: req?.body?.description,
-      postPicture: req?.body?.postpicture,
+      postPicture: req?.body?.postPicture,
       createdAt: req?.body?.createdAt,
       title: req?.body?.title,
       type: req?.body?.type,
@@ -25,7 +25,7 @@ const createPost = expressAsyncHandler(async (req, res) => {
 //update post 
 const updatePost = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
- console.log(req.body)
+ console.log(req.body.postpicture)
   try {
     const post = await Post.findByIdAndUpdate(
       id,
@@ -66,7 +66,7 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
         { _id: { $nin: [...user.Ownposts, ...user.wishlist] } },
         { _id: { $nin: user.matches.productId } }
       ]
-    }).populate('userId', 'firstName lastName profilePhoto');
+    }).populate('userId', 'firstName lastName profilePhoto location');
 
     res.json(posts);
   } catch (error) {
@@ -139,7 +139,7 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
   validateMongodbId(id);
 
   try {
-    const post = await Post.findById(id).populate("userId", "firstName lastName profilePhoto");
+    const post = await Post.findById(id).populate("userId", "firstName lastName profilePhoto location");
 
     if ( post) {
       res.json( post);
@@ -234,7 +234,7 @@ const fetchuserposts = expressAsyncHandler(async (req, res) => {
 
     const posts = await Post.find({
       _id: { $in: user.Ownposts }
-    }).populate("userId", "firstName lastName profilePhoto");
+    }).populate("userId", "firstName lastName profilePhoto location  ");
 
  
     const validPostIds = posts.map(post => post._id.toString());
@@ -287,6 +287,34 @@ const getUserMatches = expressAsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
+const getUserMatchestest = expressAsyncHandler(async (id) => {
+
+
+  try {
+    const user = await User.findById(id)
+
+    if (!user) {
+      res.status(404).json({ message: `User with id ${id} not found` });
+      return;
+    }
+    const userIds = user.matches.userId;
+    const userIdsAsOwner = user.matchesAsOwner.userId;
+    const allUserIds = [...userIds, ...userIdsAsOwner];
+    const uniqueUserIds = [...new Set(allUserIds)];
+    const users = await User.find({ _id: { $in: uniqueUserIds } });
+    
+    const matchedUsers = users.map(u => ({ 
+      id: u._id, 
+      firstName: u.firstName, 
+      lastName: u.lastName,
+      profilePhoto: u.profilePhoto 
+    }));
+  
+   return matchedUsers
+  } catch (error) {
+  console.log("error")
+  }
+});
 
 //getpostswanted
 const getUserMatchespost = expressAsyncHandler(async (req, res) => {
@@ -301,7 +329,7 @@ const getUserMatchespost = expressAsyncHandler(async (req, res) => {
     }
     const postIds = user.matches.productId;
 
-   const   posts = await Post.find({ _id: { $in: postIds } }).populate("userId", "firstName lastName profilePhoto");;
+   const   posts = await Post.find({ _id: { $in: postIds } }).populate("userId", "firstName lastName profilePhoto location");;
       const validPostIds = posts.map(post => post._id.toString());
       const invalidIds = user.matches.productId.filter(id => !validPostIds.includes(id.toString()));
   
@@ -330,6 +358,7 @@ module.exports = {
     updatePost ,
     deletePost,
     getUserMatchespost,
-    removefromMAtch
+    removefromMAtch,
+    getUserMatchestest
 
   };
