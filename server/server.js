@@ -20,17 +20,13 @@ const postRoutes=require("./routes/posts/postsRoute")
 const diyRoutes=require("./routes/Objects/objectRoute")
 const postForumRoute = require("./routes/postsForum/postForumRoute");
 const commentRoutes = require("./routes/comments/commentRoute");
+const AssoRoutes=require("./routes/Asso/AssoRoutes")
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
 
 const app = express();
 //DB
 
-
-const axios = require('axios')
-const cheerio = require('cheerio')
-app.use(cors())
-const url = 'https://jamaity.org/associations'
 
 
 
@@ -74,6 +70,7 @@ app.use("/api/DeliveryMen", deliveryMensRoutes);
 app.use("/api/gift", giftsRoutes);
 app.use("/api/mainposts", postRoutes);
 app.use("/api/diy", diyRoutes);//chat
+app.use("/api/asso", AssoRoutes);
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
@@ -154,203 +151,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 
-app.get('/', function (req, res) {
-  res.json('This is my webscraper')
-})
-const articles = []
-
-app.get('/results', (req, res) => {
-  const filteredData = articles.filter(obj => obj.title.trim() !== '' &&  obj.imgSrc.trim() !== '');
-  res.json(filteredData)
-
-})
-axios(url)
-.then(response => {
-  const html = response.data
-  const $ = cheerio.load(html)
-
-
-
-  // $('.h4', html).each(function () { //<-- cannot be a function expression
-  //     const title = $(this).text()
-  //     const url = $(this).find('a').attr('href')
-  //     articles.push({
-  //         title,
-  //         url,
-  //     })
-  // })
-  $('div.panel').each(function () {
-      const href = $(this).find('a.text-left').attr('href');
-      const title = $(this).find('a.text-left').text();
-      const imgSrc = $(this).find('img').attr('src');
-      articles.push({
-          href, title, imgSrc
-      })
-  });
-
-}).catch(err => console.log(err))
-const secondUrl = 'https://jamaity.org/associations/page/2';
-axios(secondUrl).then(result => {
-      const html = result.data;
-      const $ = cheerio.load(html);
-
-      // Scrape the information from the second page using Cheerio
-      $('div.panel').each(function () {
-          const href = $(this).find('a.text-left').attr('href');
-          const title = $(this).find('a.text-left').text();
-          const imgSrc = $(this).find('img').attr('src');
-          articles.push({
-              title,
-              href, 
-              imgSrc
-          });
-      });
-  })
-
-const ThirdUrl = 'https://jamaity.org/associations/page/3';
-axios(ThirdUrl).then(result => {
-      const html = result.data;
-      const $ = cheerio.load(html);
-
-      // Scrape the information from the second page using Cheerio
-      $('div.panel').each(function () {
-          const href = $(this).find('a.text-left').attr('href');
-          const title = $(this).find('a.text-left').text();
-          const imgSrc = $(this).find('img').attr('src');
-          articles.push({
-              title,
-              href, 
-              imgSrc
-          });
-      });
-  })
-
-
-  const FourthUrl = 'https://jamaity.org/associations/page/4';
-axios(FourthUrl).then(result => {
-      const html = result.data;
-      const $ = cheerio.load(html);
-
-      // Scrape the information from the second page using Cheerio
-      $('div.panel').each(function () {
-          const href = $(this).find('a.text-left').attr('href');
-          const title = $(this).find('a.text-left').text();
-          const imgSrc = $(this).find('img').attr('src');
-          articles.push({
-              title,
-              href, 
-              imgSrc
-          });
-      });
-  })
-
-
-const FifthUrl = 'https://jamaity.org/associations/page/5';
-axios(FifthUrl).then(result => {
-      const html = result.data;
-      const $ = cheerio.load(html);
-
-      // Scrape the information from the second page using Cheerio
-      $('div.panel').each(function () {
-          const href = $(this).find('a.text-left').attr('href');
-          const title = $(this).find('a.text-left').text();
-          const imgSrc = $(this).find('img').attr('src');
-          articles.push({
-              title,
-              href, 
-              imgSrc
-          });
-      });
-  })
-  const SixthUrl = 'https://jamaity.org/associations/page/6';
-  axios(SixthUrl).then(result => {
-          const html = result.data;
-          const $ = cheerio.load(html);
-  
-          // Scrape the information from the second page using Cheerio
-          $('div.panel').each(function () {
-              const href = $(this).find('a.text-left').attr('href');
-              const title = $(this).find('a.text-left').text();
-              const imgSrc = $(this).find('img').attr('src');
-              articles.push({
-                  title,
-                  href, 
-                  imgSrc
-              });
-          });
-      })
-
-      const Sevenurl = 'https://jamaity.org/associations/page/7';
-      axios(Sevenurl).then(result => {
-              const html = result.data;
-              const $ = cheerio.load(html);
-      
-              // Scrape the information from the second page using Cheerio
-              $('div.panel').each(function () {
-                  const href = $(this).find('a.text-left').attr('href');
-                  const title = $(this).find('a.text-left').text();
-                  const imgSrc = $(this).find('img').attr('src');
-                  articles.push({
-                      title,
-                      href, 
-                      imgSrc
-                  });
-              });
-          })
-  
-          const Eighturl = 'https://jamaity.org/associations/page/8';
-      axios(Eighturl).then(result => {
-              const html = result.data;
-              const $ = cheerio.load(html);
-      
-              // Scrape the information from the second page using Cheerio
-              $('div.panel').each(function () {
-                  const href = $(this).find('a.text-left').attr('href');
-                  const title = $(this).find('a.text-left').text();
-                  const imgSrc = $(this).find('img').attr('src');
-                  articles.push({
-                      title,
-                      href, 
-                      imgSrc
-                  });
-              });
-          })
-          const Nineurl = 'https://jamaity.org/associations/page/9';
-          axios(Nineurl).then(result => {
-                  const html = result.data;
-                  const $ = cheerio.load(html);
-          
-                  // Scrape the information from the second page using Cheerio
-                  $('div.panel').each(function () {
-                      const href = $(this).find('a.text-left').attr('href');
-                      const title = $(this).find('a.text-left').text();
-                      const imgSrc = $(this).find('img').attr('src');
-                      articles.push({
-                          title,
-                          href, 
-                          imgSrc
-                      });
-                  });
-              })
-
-              const Tenurl = 'https://jamaity.org/associations/page/10';
-              axios(Tenurl).then(result => {
-                      const html = result.data;
-                      const $ = cheerio.load(html);
-              
-                      // Scrape the information from the second page using Cheerio
-                      $('div.panel').each(function () {
-                          const href = $(this).find('a.text-left').attr('href');
-                          const title = $(this).find('a.text-left').text();
-                          const imgSrc = $(this).find('img').attr('src');
-                          articles.push({
-                              title,
-                              href, 
-                              imgSrc
-                          });
-                      });
-                  })
 
 //server
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 server.listen(PORT, console.log(`Server is running ${PORT}`));

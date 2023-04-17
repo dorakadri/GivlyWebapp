@@ -25,6 +25,7 @@ import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 import DinnerDiningOutlinedIcon from '@mui/icons-material/DinnerDiningOutlined';
 import PostAddRoundedIcon from '@mui/icons-material/PostAddRounded';
 import ExtensionOutlinedIcon from '@mui/icons-material/ExtensionOutlined';
+import PeopleIcon from '@mui/icons-material/People';
 import {GiWaterRecycling} from 'react-icons/gi';
 const Options = [
   {
@@ -51,6 +52,14 @@ const Options = [
   {
     text: "Diy Generation",
     icon: <ExtensionOutlinedIcon />,
+  },
+  {
+    text: " Recommandations ",
+    icon: null,
+  },
+  {
+    text: "Association",
+    icon: <PeopleIcon  />,
   },
   
   {

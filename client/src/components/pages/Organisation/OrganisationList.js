@@ -9,6 +9,9 @@ import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import TextField from '@mui/material/TextField';
+import FlexBetween from '../../common/FlexBetween';
+import { InputBase } from '@mui/material';
+import { Search } from '@mui/icons-material';
 
 function OrganisationList() {
   const [articles, setArticles] = useState([]);
@@ -21,7 +24,7 @@ function OrganisationList() {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/results`)
+    axios.get(`http://localhost:5000/api/asso/results`)
       .then(response => {
         setArticles(response.data);
       })
@@ -79,8 +82,10 @@ function OrganisationList() {
   return (
     <div style = {{
       marginTop:'50px',
-    }} ref={scrollRef} >
+      margin: '0 auto'
 
+    }} ref={scrollRef} >
+{/* 
 <TextField
   id="outlined-basic"
   label="Search Organizations"
@@ -88,16 +93,35 @@ function OrganisationList() {
   value={searchText}
   onChange={handleSearchInputChange}
   style={{ marginBottom: "10px" }}
-/>
+/> */}
 
+          <FlexBetween
+            backgroundColor="#ece9e6"
+            borderRadius="20px"
+            gap="3rem"
+            p="0.1rem 1.5rem"
+            mb="3rem"
+            mt="2rem"
+          >
+            <InputBase placeholder="Search Organizations"  id="outlined-basic"
+  label="Search Organizations"
+  variant="outlined"
+  value={searchText}
+  onChange={handleSearchInputChange} />
+
+            <Search sx={{ color: "#b9b7b4" }} />
+          </FlexBetween>
+  
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: "1fr 1fr 1fr",
+        gridTemplateColumns: " 2fr 2fr 2fr ",
         alignItems: 'center',
         justifyItems: 'center',
+        justifyContent:"center",
         gap: "50px",
-        gridGap: '20px',
+        gridGap: '50px',
+    
 
 
       }}>
@@ -148,7 +172,7 @@ function OrganisationList() {
         ))}
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginBottom: '20px' }}>
         {pageNumbers.map((number) => (
           <Button sx={{
             margin: '0 5px',
