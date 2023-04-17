@@ -13,6 +13,7 @@ import styled from "@emotion/styled";
 import WishlistList from "./Profilepagecomponents/WishlistList";
 import PostsList from "./Profilepagecomponents/PostsList";
 import MatchedList from "./Profilepagecomponents/MatchedList";
+import AssistantOutlinedIcon from '@mui/icons-material/AssistantOutlined';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -114,7 +115,7 @@ export default function TabProfile() {
           <StyledTab
             label="taken"
             {...a11yProps(4)}
-            icon={<DeliveryDiningOutlinedIcon />}
+            icon={<AssistantOutlinedIcon />}
             iconPosition="start"
           />
         </StyledTabs>

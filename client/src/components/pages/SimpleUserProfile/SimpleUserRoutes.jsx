@@ -17,7 +17,8 @@ import Chat from "../../../Chat/Chat";
 import NotFound from "../../common/NotFound";
 import Delivery from "../Delivery/Delivery";
 import DetailsDelivery from "../Delivery/DetailsDelivery";
-
+import Recipe from "../Food/Recipe"
+import Composting from "../Food/Composting"
 const PostsForumList  = lazy(() => import("../postsForum/PostsForumList"));
 const Split  = lazy(() => import("./Addposts/Split"));
 const AddPost = lazy(() => import("./Addposts/AddPost"));
@@ -63,7 +64,8 @@ function SimpleUserRoutes() {
               <Route path="forum" element={<PostsForumList />} />
               <Route path="delivery" element={<Delivery/>} />
               <Route path="detaildelivery/:id" element={<DetailsDelivery/>} />
-              
+              <Route path="composting" element={<Composting/>} />
+              <Route path="recipegeneration" element={<Recipe/>} />
 
       
             </Route>
@@ -84,5 +86,6 @@ function SimpleUserRoutes() {
     </ThemeProvider>
   );
 }
+
 
 export default SimpleUserRoutes;

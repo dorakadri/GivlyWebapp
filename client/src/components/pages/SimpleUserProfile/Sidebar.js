@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { FaForumbee } from "react-icons/fa";
 import { motion } from "framer-motion";
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
@@ -27,6 +27,7 @@ import PostAddRoundedIcon from '@mui/icons-material/PostAddRounded';
 import ExtensionOutlinedIcon from '@mui/icons-material/ExtensionOutlined';
 import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import {GiWaterRecycling} from 'react-icons/gi';
+
 const Options = [
   {
     text: "your Shortcut ",
@@ -42,7 +43,7 @@ const Options = [
   },
   {
     text: "Forum",
-    icon: <PostAddRoundedIcon />,
+    icon: <FaForumbee  />,
   },
   {
     text: "Delivery",
