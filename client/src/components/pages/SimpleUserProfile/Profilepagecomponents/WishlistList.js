@@ -78,9 +78,7 @@ export default function WishlistList() {
                       {el.location}
                     </Typography>
                   </Stack>
-                  <Button disabled={el.isTaken} sx={{mb:"1rem"}} variant='contained' >
-  {el.isTaken ? "TAKEN" : "TAKE IT"}
-</Button>
+
 <Button variant='outlined' color='error' onClick={ ()=> handleremove(el._id)}  >
   remove
 </Button>

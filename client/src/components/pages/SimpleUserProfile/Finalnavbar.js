@@ -28,22 +28,24 @@ import FlexBetween from "../../common/FlexBetween";
 import logo from "../../../assets/images/logogivly.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import FastfoodIcon from '@mui/icons-material/Fastfood';
-import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
+import FastfoodIcon from "@mui/icons-material/Fastfood";
+import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 import { setMode } from "../../../ReduxB/slices/Themeglobal";
 import { logoutAction } from "../../../ReduxB/slices/users/usersSlices";
 
 export default function Finalnavbar(data) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const messages =useSelector((state)=> state.users.newMessages);
-const [count,setcount]=useState(0);
+  const messages = useSelector((state) => state.users.newMessages);
+  const [count, setcount] = useState(0);
 
   useEffect(() => {
-  
-    const count = Object.values(messages).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-setcount(count);
-  }, [messages])
-  
+    const count = Object.values(messages).reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+    setcount(count);
+  }, [messages]);
+
   const theme = useTheme();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -62,19 +64,17 @@ setcount(count);
     <AppBar
       sx={{
         position: "sticky",
-        top:0,
-      
-        background: "none",
-        boxShadow: "none",
-      backgroundColor: "#ffffff4d",
+        top: 0,
 
-      // backdropFilter: "blur( 3.5px )",
-      //  border: "1px solid rgba( 255, 255, 255, 0.18 )",
-    // WebkitBackdropFilter: "blur( 3.5px )",
-  
+        background: "#fff",
+        boxShadow: "none",
+        backgroundColor: "#fff",
+
+        // backdropFilter: "blur( 3.5px )",
+        //  border: "1px solid rgba( 255, 255, 255, 0.18 )",
+        // WebkitBackdropFilter: "blur( 3.5px )",
       }}
       elevation={0}
-  
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <FlexBetween>
@@ -92,21 +92,21 @@ setcount(count);
         </FlexBetween>
         <IconButton onClick={() => dispatch(setMode())}>
           {theme.palette.mode === "dark" ? (
-            <FastfoodIcon sx={{ fontSize: "25px" }} color="primary"   />
+            <FastfoodIcon sx={{ fontSize: "25px" }} color="primary" />
           ) : (
-            <EmojiObjectsIcon  sx={{ fontSize: "25px" }} color="primary" />
+            <EmojiObjectsIcon sx={{ fontSize: "25px" }} color="primary" />
           )}
         </IconButton>
         <FlexBetween sx={{ gap: "8px" }}>
           <IconButton component={Link} to="/user/home">
             <FiHome color="#9fa1a2" />
           </IconButton>
-          <IconButton onClick={() => navigate(`./forum`)}  >
+          <IconButton onClick={() => navigate(`./forum`)}>
             <FaForumbee color="#9fa1a2" />
           </IconButton>
-          <IconButton onClick={() => navigate(`./chat`)}  >
-          <Badge badgeContent={count} color="success">
-            <FiMessageSquare color="#9fa1a2" />
+          <IconButton onClick={() => navigate(`./chat`)}>
+            <Badge badgeContent={count} color="success">
+              <FiMessageSquare color="#9fa1a2" />
             </Badge>
           </IconButton>
 
@@ -166,11 +166,9 @@ setcount(count);
             >
               <MenuItem onClick={() => navigate(`./profile`)}>
                 {" "}
-               Profile
+                Profile
               </MenuItem>
-              <MenuItem onClick={handelLogout}>
-              Logout
-              </MenuItem>
+              <MenuItem onClick={handelLogout}>Logout</MenuItem>
             </Menu>
           </Box>
         </FlexBetween>
