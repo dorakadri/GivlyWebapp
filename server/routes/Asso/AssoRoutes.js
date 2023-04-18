@@ -14,6 +14,7 @@ AssoRoutes.get('/', function (req, res) {
 
   AssoRoutes.get('/results', (req, res) => {
     const filteredData = articles.filter(obj => obj.title.trim() !== '' &&  obj.imgSrc.trim() !== '');
+
     res.json(filteredData)
   
   })
