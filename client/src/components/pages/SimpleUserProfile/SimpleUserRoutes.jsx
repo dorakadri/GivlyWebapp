@@ -19,6 +19,8 @@ import Delivery from "../Delivery/Delivery";
 import DetailsDelivery from "../Delivery/DetailsDelivery";
 import Recipe from "../Food/Recipe"
 import Composting from "../Food/Composting"
+import OrganisationList from "../Organisation/OrganisationList";
+
 const PostsForumList  = lazy(() => import("../postsForum/PostsForumList"));
 const Split  = lazy(() => import("./Addposts/Split"));
 const AddPost = lazy(() => import("./Addposts/AddPost"));
@@ -68,6 +70,8 @@ function SimpleUserRoutes() {
               <Route path="recipegeneration" element={<Recipe/>} />
 
       
+              <Route path="association" element={<OrganisationList />} />
+        
             </Route>
       
             <Route
