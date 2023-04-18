@@ -7,6 +7,8 @@ import {
 
 } from "../../../../ReduxB/slices/posts/mainPostsSlice";
 import {
+  Alert,
+  AlertTitle,
   Avatar,
   Button,
   Card,
@@ -28,14 +30,18 @@ import { useNavigate } from "react-router-dom";
 export default function MatchedList() {
   const dispatch = useDispatch();
 const navigate=useNavigate();
-
+const [alert,setAlert]=useState(false);
 
   useEffect(() => {
     dispatch(fetchPostsMatchedAction());
   }, [dispatch]);
 
-  const { usersmatchposts, isLoading, error } = useSelector(
+  const { usersmatchposts, isLoading, error} = useSelector(
     (state) => state?.mainpost
+  );
+
+  const { serverErr,appErr } = useSelector(
+    (state) => state?.delivery
   );
 
   if (isLoading) {
@@ -58,14 +64,25 @@ const navigate=useNavigate();
     const data={post,locationOwner}
     console.log(data)
     dispatch(deliveryAction(data)).then((response) => {
-      navigate("/user/delivery");
-    })
+      if (response.type === "delivery/rejected") {
+        setAlert(true);
+     
+      } else if (response.type === "delivery/fulfilled") {
+        navigate("/user/delivery");
+      }
+    }).catch((error) => {
+      setAlert(true);
+    });
 
    }
 
 
   return (
     <div>
+       { alert  && <Alert severity="info">
+        <AlertTitle>Info</AlertTitle>
+        Sorry, there are no available deliverymen at the moment  — <strong> please try again later!</strong>
+      </Alert>}
       <Grid container>
         {usersmatchposts?.map((post, i) => (
           <Grid

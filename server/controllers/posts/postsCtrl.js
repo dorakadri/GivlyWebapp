@@ -96,17 +96,40 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
   const removefromMAtch = expressAsyncHandler(async (req, res) => {
     try {
       const { userId, productId } = req.params;
-   
+      const product = await Post.findById(productId)
+      if (!product) {
+        return res.status(404).json({ error: "ost not found" });
+      }
+      console.log(product)
       const user = await User.findByIdAndUpdate(
         userId,
-        { $pull: { "matches.productId": productId } },
+        {
+          $pull: {
+            "matches.productId": productId,
+       
+          }
+        },
+        { new: true }
+      );
+      const owner = await User.findByIdAndUpdate(
+        product.userId,
+        {
+          $pull: {
+            "matchesAsOwner.productId": productId,
+        
+          }
+        },
         { new: true }
       );
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
+      if (!owner) {
+        return res.status(404).json({ error: "owner not found" });
+      }
       return res.json(user.matches.productId);
     } catch (error) {
+      console.log(error)
       res.status(500).json({ error: "Internal Server Error" });
     }
   });
@@ -159,7 +182,11 @@ const addMatch = expressAsyncHandler(async (req, res) => {
 
     const user = await User.findById(userId);
     const owner = await User.findById(ownerId);
-
+    if (userId === ownerId) {
+      console.log( "///////////////////////////////// ")
+      res.status(404).json({ message: `user is the same` });
+ 
+    }
     if (!user) {
       console.log( "///////////////////////////////// ")
       res.status(404).json({ message: `User with id ${userId} not found` });
