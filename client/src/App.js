@@ -23,6 +23,7 @@ import {
   CssBaseline,
   ThemeProvider,
 } from "@mui/material";
+import QrCode from "./components/pages/Delivery/QrCode";
 
 
 function App() {
@@ -76,6 +77,8 @@ function App() {
     >
 
         <Routes>
+        <Route exact path="QrCode" element={<QrCode />} />
+        
           <Route exact path="*" element={<NotFound />} />
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/register" element={<Signup />} />
