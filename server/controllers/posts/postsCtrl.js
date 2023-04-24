@@ -11,7 +11,7 @@ const createPost = expressAsyncHandler(async (req, res) => {
       userId: id,
       location: req?.body?.location,
       description: req?.body?.description,
-      postPicture: req?.body?.postpicture,
+      postPicture: req?.body?.postPicture,
       createdAt: req?.body?.createdAt,
       title: req?.body?.title,
       type: req?.body?.type,
@@ -25,7 +25,7 @@ const createPost = expressAsyncHandler(async (req, res) => {
 //update post 
 const updatePost = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
- console.log(req.body)
+ console.log(req.body.postpicture)
   try {
     const post = await Post.findByIdAndUpdate(
       id,
@@ -96,17 +96,40 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
   const removefromMAtch = expressAsyncHandler(async (req, res) => {
     try {
       const { userId, productId } = req.params;
-   
+      const product = await Post.findById(productId)
+      if (!product) {
+        return res.status(404).json({ error: "ost not found" });
+      }
+      console.log(product)
       const user = await User.findByIdAndUpdate(
         userId,
-        { $pull: { "matches.productId": productId } },
+        {
+          $pull: {
+            "matches.productId": productId,
+       
+          }
+        },
+        { new: true }
+      );
+      const owner = await User.findByIdAndUpdate(
+        product.userId,
+        {
+          $pull: {
+            "matchesAsOwner.productId": productId,
+        
+          }
+        },
         { new: true }
       );
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
+      if (!owner) {
+        return res.status(404).json({ error: "owner not found" });
+      }
       return res.json(user.matches.productId);
     } catch (error) {
+      console.log(error)
       res.status(500).json({ error: "Internal Server Error" });
     }
   });
@@ -159,7 +182,11 @@ const addMatch = expressAsyncHandler(async (req, res) => {
 
     const user = await User.findById(userId);
     const owner = await User.findById(ownerId);
-
+    if (userId === ownerId) {
+      console.log( "///////////////////////////////// ")
+      res.status(404).json({ message: `user is the same` });
+ 
+    }
     if (!user) {
       console.log( "///////////////////////////////// ")
       res.status(404).json({ message: `User with id ${userId} not found` });
@@ -287,6 +314,34 @@ const getUserMatches = expressAsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
+const getUserMatchestest = expressAsyncHandler(async (id) => {
+
+
+  try {
+    const user = await User.findById(id)
+
+    if (!user) {
+      res.status(404).json({ message: `User with id ${id} not found` });
+      return;
+    }
+    const userIds = user.matches.userId;
+    const userIdsAsOwner = user.matchesAsOwner.userId;
+    const allUserIds = [...userIds, ...userIdsAsOwner];
+    const uniqueUserIds = [...new Set(allUserIds)];
+    const users = await User.find({ _id: { $in: uniqueUserIds } });
+    
+    const matchedUsers = users.map(u => ({ 
+      id: u._id, 
+      firstName: u.firstName, 
+      lastName: u.lastName,
+      profilePhoto: u.profilePhoto 
+    }));
+  
+   return matchedUsers
+  } catch (error) {
+  console.log("error")
+  }
+});
 
 //getpostswanted
 const getUserMatchespost = expressAsyncHandler(async (req, res) => {
@@ -330,6 +385,7 @@ module.exports = {
     updatePost ,
     deletePost,
     getUserMatchespost,
-    removefromMAtch
+    removefromMAtch,
+    getUserMatchestest
 
   };

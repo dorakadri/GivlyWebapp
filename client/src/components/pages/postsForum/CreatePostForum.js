@@ -76,13 +76,13 @@ export default function CreatePost() {
         description: values?.description,
         image: values?.image,
       };
-      dispatch(createpostAction(data)).then(navigate("../forum"));
+      dispatch(createpostAction(data));
     },
     validationSchema: formSchema,
   });
   const classes = useStyles();
   //redirect
-  //if (isCreated) return navigate("../forum");
+  if (isCreated) return navigate("../forum");
 
 
   return (

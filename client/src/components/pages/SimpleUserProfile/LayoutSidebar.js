@@ -10,16 +10,12 @@ import { height } from "@mui/system";
 export default function LayoutSidebar() {
   const theme = useTheme();
   return (
-    <Box display={"flex"  }  >
-      
-      <Box sx={{height: "calc(100vh - 66px)"}}  >
-    <Sidebar />
-    </Box>
-      
-        <Outlet />
-    
-   
-     
+    <Box display={"flex"}>
+      <Box>
+        <Sidebar />
+      </Box>
+
+      <Outlet />
     </Box>
   );
 }

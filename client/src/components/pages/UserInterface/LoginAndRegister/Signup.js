@@ -45,10 +45,7 @@ export default function Signup() {
             Login
           </Link>
         </Typography>
-        <Typography py="1rem">
-
-        location.loaded ? JSON.stringify(location) : "Location data not available yet "
-        </Typography>
+ 
       </Box>
     </Box>
   );

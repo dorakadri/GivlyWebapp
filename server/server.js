@@ -20,12 +20,18 @@ const postRoutes=require("./routes/posts/postsRoute")
 const diyRoutes=require("./routes/Objects/objectRoute")
 const postForumRoute = require("./routes/postsForum/postForumRoute");
 const commentRoutes = require("./routes/comments/commentRoute");
+const AssoRoutes=require("./routes/Asso/AssoRoutes")
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
 const deliveryRoutes = require("./routes/deliveries/delivery");
 
 const app = express();
 //DB
+
+
+
+
+
 app.use(express.urlencoded({ extended: true }));
 dbConnect();
 app.use(
@@ -66,6 +72,7 @@ app.use("/api/Delivery", deliveryRoutes);
 app.use("/api/gift", giftsRoutes);
 app.use("/api/mainposts", postRoutes);
 app.use("/api/diy", diyRoutes);//chat
+app.use("/api/asso", AssoRoutes);
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
@@ -113,6 +120,14 @@ io.on("connection", (socket) => {
     socket.emit("new-user", members);
   });
 
+  socket.on("match", async () => {
+    console.log("Match event received on server!");
+    io.emit("msg");
+  });
+
+
+
+
   socket.on("join-room", async (newRoom, previousRoom) => {
     socket.join(newRoom);
     socket.leave(previousRoom);
@@ -144,6 +159,8 @@ app.get("/rooms", (req, res) => {
 //err handler
 app.use(notFound);
 app.use(errorHandler);
+
+
 
 //server
 const PORT = process.env.PORT || 5000;

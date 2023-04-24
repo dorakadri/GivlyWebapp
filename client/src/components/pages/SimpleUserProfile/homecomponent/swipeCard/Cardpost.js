@@ -20,11 +20,14 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useDispatch, useSelector } from "react-redux";
 import { addtowishlistAction } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
 import { Box } from "@mui/system";
+import { calculateDistance } from "../../../../shared/Distance";
 
 export default function Cardpost(props) {
   const [post, setPost] = useState(props.data);
   const [info, setInfo] = useState(false);
-  console.log(post);
+  const user=useSelector((state)=>state?.users.profile)
+  console.log(user
+    );
   const displayinfo = () => {
     setInfo(!info);
   };
@@ -112,7 +115,8 @@ export default function Cardpost(props) {
               </Box>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <LocationOnIcon sx={{ color: "white", mr: 0.5 }} />
-                <Typography sx={{ color: "white" }}>25km</Typography>
+                <Typography sx={{ color: "white" }}>{calculateDistance(post.userId.location.latitude
+, post.userId.location.longitude, user?.location.latitude, user?.location.longitude)} km </Typography>
               </Box>
             </Box>
           )}
