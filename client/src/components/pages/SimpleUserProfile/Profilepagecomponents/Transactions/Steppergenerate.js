@@ -13,11 +13,11 @@ import Scanqrcode from './Scanqrcode';
 
 
 export default function Steppergenerate(props) {
-  const [matchdata, setMatchdata] = React.useState([]);
+  const [matchdata, setMatchdata] = React.useState();
   const steps = [
     { label: 'Select your match', component: <Friendslist match={setMatchdata}/> },
     { label: 'generate qr code for your match to scan ', component: <Qrgeneration data={matchdata} post={props.post}/> },
-    { label: 'Scan the qr code ', component: <Scanqrcode/> }
+    // { label: 'Scan the qr code ', component: <Scanqrcode/> }
   ];
   const [activeStep, setActiveStep] = React.useState(0);
   

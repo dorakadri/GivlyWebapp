@@ -5,18 +5,29 @@ import React, { useRef, useState } from "react";
 import QrReader from "react-qr-reader";
 
 
-export default function Scanqrcode() {
+export default function Scanqrcode(props) {
 
   const [scanResultWebCam, setScanResultWebCam] =  useState('');
 
   const [scanResultFile, setScanResultFile] = useState('');
   const qrRef = useRef(null);
+  console.log(props.data)
   const handleErrorFile = (error) => {
     console.log(error);
   }
   const handleScanFile = (result) => {
-      if (result) {
-          setScanResultFile(result);
+   
+      if (result){
+        const result1 = result
+        .split('_')
+    .reduce((acc, curr) => {
+      const [key, value] = curr.split('-');
+      acc[key] = value;
+      return acc;
+    }, {});
+
+        setScanResultFile(result);
+  
       }
   }
   const onScanFile = () => {
@@ -27,9 +38,22 @@ export default function Scanqrcode() {
     console.log(error);
   }
   const handleScanWebCam = (result) => {
+ 
+
+
     if (result){
+      const result1 = result
+      .split('_')
+  .reduce((acc, curr) => {
+    const [key, value] = curr.split('-');
+    acc[key] = value;
+    return acc;
+  }, {});
+      console.log(result); 
         setScanResultWebCam(result);
+        console.log(result1); 
     }
+  
    }
 
   return (

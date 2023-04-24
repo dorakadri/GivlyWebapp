@@ -27,7 +27,7 @@ useEffect(()=>{
 
     const handleListItemClick = (event, index,m) => {
    
-        props.match(m)
+        props.match(...m)
       setSelectedIndex(index);
     };
   return (

@@ -10,7 +10,10 @@ export default function Qrgeneration(props) {
     const [url2, seturl2] = useState("");
 
     const generate = () => {
-      seturl2("dinnzahj")
+      const toGenerate = "Owner-" + props.post.userId.id + "_Taker-" + props.data.id + "_Post-" + props.post._id;
+
+    console.log( props.post._id )
+      seturl2( toGenerate)
       };
   return (
     <Box  display={"flex"} justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={"2rem"} >
