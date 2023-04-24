@@ -21,9 +21,9 @@ export default function DetailsDelivery() {
             </Grid>
         <Grid item xs={6}>
             <Track/>
-            <Grid>
+          {/*   <Grid>
               <ListDetails/>
-            </Grid>
+            </Grid> */}
         </Grid>
         
         
