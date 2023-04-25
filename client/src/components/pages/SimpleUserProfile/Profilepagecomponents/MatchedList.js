@@ -112,7 +112,7 @@ const [postdata, setPostdata] = React.useState();
             key={post?._id}
             item
             xs={12}
-            md={4}
+            md={6}
             xl={4}
             style={{ padding: "1rem  1rem" }}
           >
