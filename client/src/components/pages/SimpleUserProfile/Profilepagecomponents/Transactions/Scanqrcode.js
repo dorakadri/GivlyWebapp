@@ -18,7 +18,7 @@ export default function Scanqrcode(props) {
 
   const [scanResultFile, setScanResultFile] = useState("");
   const qrRef = useRef(null);
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
   const state = useSelector((state) => state?.users);
   const { userAuth } = state;
   const handleErrorFile = (error) => {
@@ -33,12 +33,15 @@ export default function Scanqrcode(props) {
       }, {});
 
       setScanResultFile(result);
-      if(result1.Taker === userAuth._id && result1.Post === props.data._id && result1.Owner === props.data.userId.id
-        ){
-        dispatch(updateafterscan(result1))
+      if (
+        result1.Taker === userAuth._id &&
+        result1.Post === props.data._id &&
+        result1.Owner === props.data.userId.id
+      ) {
+        dispatch(updateafterscan(result1));
+        console.log(result1);
       }
-      console.log("nope")
-   
+      console.log("nope");
     }
   };
   const onScanFile = () => {
@@ -57,15 +60,16 @@ export default function Scanqrcode(props) {
       }, {});
 
       setScanResultWebCam(result);
-      if(result1.Taker === userAuth._id && result1.Post === props.data._id && result1.Owner === props.data.userId.id
-        ){
-        dispatch(updateafterscan(result1))
-        console.log("dfo")
-      }else{
-        console.log("nope")
+      if (
+        result1.Taker === userAuth._id &&
+        result1.Post === props.data._id &&
+        result1.Owner === props.data.userId.id
+      ) {
+        dispatch(updateafterscan(result1));
+        console.log("dfo");
+      } else {
+        console.log("nope");
       }
-     
-   
     }
   };
 
