@@ -30,13 +30,13 @@ function OrganisationList() {
 
   const scrollRef = useRef(null);
 
-
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/asso/results`)
-      .then(response => {
+    axios
+      .get(`http://localhost:5000/api/asso/results`)
+      .then((response) => {
         setArticles(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
@@ -44,11 +44,10 @@ function OrganisationList() {
   
 
 
-   // Logic for displaying current articles
-   const filteredArticles = articles.filter((article) =>
-   article.title.toLowerCase().includes(searchText.toLowerCase())
- );
- 
+  // Logic for displaying current articles
+  const filteredArticles = articles.filter((article) =>
+    article.title.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   // Logic for displaying current articles
   const indexOfLastArticle = currentPage * articlesPerPage;
@@ -67,26 +66,31 @@ function OrganisationList() {
     indexOfLastArticle
   );
 
+
   // Logic for displaying page numbers
   const pageNumbers = [];
   const totalPages = Math.ceil(articles.length / articlesPerPage);
   const displayRange = 2; // Number of pages to display before/after current page
 
   for (let i = 1; i <= totalPages; i++) {
-    if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= displayRange) {
+    if (
+      i === 1 ||
+      i === totalPages ||
+      Math.abs(i - currentPage) <= displayRange
+    ) {
       pageNumbers.push(i);
-    } else if (pageNumbers[pageNumbers.length - 1] !== '...') {
-      pageNumbers.push('...');
+    } else if (pageNumbers[pageNumbers.length - 1] !== "...") {
+      pageNumbers.push("...");
     }
   }
 
   // Function to handle page click
   const handlePageClick = (event, pageNumber) => {
     setCurrentPage(pageNumber);
-    scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    scrollRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleCardHover = index => {
+  const handleCardHover = (index) => {
     setHoveredCard(index);
   };
 
@@ -100,12 +104,14 @@ function OrganisationList() {
   };
 
   return (
-    <div style = {{
-      marginTop:'50px',
-      margin: '0 auto'
-
-    }} ref={scrollRef} >
-{/* 
+    <div
+      style={{
+        marginTop: "50px",
+        margin: "0 auto",
+      }}
+      ref={scrollRef}
+    >
+      {/* 
 <TextField
   id="outlined-basic"
   label="Search Organizations"
@@ -172,66 +178,93 @@ function OrganisationList() {
 
       }}>
         {currentArticles.map((article, index) => (
-          <Card key={index} sx={{
-            width: '100%',
-            maxWidth: 300,
-            position: 'relative',
-            justifyContent: 'center', 
-            boxShadow: '0px 5px 20px rgba(0, 0, 0, 0.2)',
-            cursor: 'pointer',
-            transition: 'transform 0.3s ease-out',
-            transform: index === hoveredCard ? 'scale(1.2)' : 'scale(1)',
-            filter: hoveredCard !== null && index !== hoveredCard ? 'blur(4px)' : 'none',
-  border: '1px solid #ccc',
-
-  
-          }}
+          <Card
+            key={index}
+            sx={{
+              width: "100%",
+              maxWidth: 300,
+              position: "relative",
+              justifyContent: "center",
+              boxShadow: "0px 5px 20px rgba(0, 0, 0, 0.2)",
+              cursor: "pointer",
+              transition: "transform 0.3s ease-out",
+              transform: index === hoveredCard ? "scale(1.2)" : "scale(1)",
+              filter:
+                hoveredCard !== null && index !== hoveredCard
+                  ? "blur(4px)"
+                  : "none",
+              border: "1px solid #ccc",
+            }}
             onMouseEnter={() => handleCardHover(index)}
             onMouseLeave={handleCardLeave}
           >
             <CardMedia
               component="img"
               alt="association Logo"
+              alt="association Logo"
               height="200"
               maxHeight="200"
               image={article.imgSrc}
-              sx={{objectFit: 'contain',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',}}
+              sx={{
+                objectFit: "contain",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             />
-            <CardContent sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Tooltip title={article.title} placement="top-start">
-              <Typography  variant="subtitle1" sx={{ maxWidth: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}gutterBottom  component="div" >
-              <ColorizeOutlinedIcon sx={{ mr: 1 }} />
-                {article.title}
-              </Typography>
+            <CardContent sx={{ display: "flex", justifyContent: "center" }}>
+              <Tooltip title={article.title} placement="top-start">
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    maxWidth: "100%",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  gutterBottom
+                  component="div"
+                >
+                  <ColorizeOutlinedIcon sx={{ mr: 1 }} />
+                  {article.title}
+                </Typography>
               </Tooltip>
-
             </CardContent>
-            <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+            <CardActions sx={{ display: "flex", justifyContent: "center" }}>
               <a href={article.href}>
-                <Button variant="contained" color="success" size="small">Learn More</Button>
+                <Button variant="contained" color="success" size="small">
+                  Learn More
+                </Button>
               </a>
             </CardActions>
           </Card>
         ))}
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginBottom: '20px' }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "20px",
+          marginBottom: "20px",
+        }}
+      >
         {pageNumbers.map((number) => (
-          <Button sx={{
-            margin: '0 5px',
-            padding: '10px',
-          }} key={number} variant={number === currentPage ? 'contained' : 'outlined'}  onClick={(event) => handlePageClick(event, number)}>
+          <Button
+            sx={{
+              margin: "0 5px",
+              padding: "10px",
+            }}
+            key={number}
+            variant={number === currentPage ? "contained" : "outlined"}
+            onClick={(event) => handlePageClick(event, number)}
+          >
             {number}
           </Button>
         ))}
       </div>
-      
     </div>
   );
 }
 
-export default OrganisationList ;
-
+export default OrganisationList;

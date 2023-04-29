@@ -1,30 +1,28 @@
 const express = require("express");
-const axios = require('axios')
-const cheerio = require('cheerio')
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 const url = 'https://jamaity.org/associations/?region=tunisie&theme=agriculture'
 const AssoRoutes = express.Router();
 
-AssoRoutes.get('/', function (req, res) {
-    res.json('This is my webscraper')
-  })
+AssoRoutes.get("/", function (req, res) {
+  res.json("This is my webscraper");
+});
 
+const articles = [];
 
-  const articles = []
+AssoRoutes.get("/results", (req, res) => {
+  const filteredData = articles.filter(
+    (obj) => obj.title.trim() !== "" && obj.imgSrc.trim() !== ""
+  );
 
-  AssoRoutes.get('/results', (req, res) => {
-    const filteredData = articles.filter(obj => obj.title.trim() !== '' &&  obj.imgSrc.trim() !== '');
+  res.json(filteredData);
+});
+axios(url)
+  .then((response) => {
+    const html = response.data;
+    const $ = cheerio.load(html);
 
-    res.json(filteredData)
-  
-  })
-  axios(url)
-  .then(response => {
-    const html = response.data
-    const $ = cheerio.load(html)
-  
-  
-  
     // $('.h4', html).each(function () { //<-- cannot be a function expression
     //     const title = $(this).text()
     //     const url = $(this).find('a').attr('href')
