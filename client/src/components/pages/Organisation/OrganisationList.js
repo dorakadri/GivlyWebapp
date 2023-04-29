@@ -201,7 +201,6 @@ function OrganisationList() {
             <CardMedia
               component="img"
               alt="association Logo"
-              alt="association Logo"
               height="200"
               maxHeight="200"
               image={article.imgSrc}
