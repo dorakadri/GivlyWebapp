@@ -10,8 +10,11 @@ import Tooltip from '@mui/material/Tooltip';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import TextField from '@mui/material/TextField';
 import FlexBetween from '../../common/FlexBetween';
-import { InputBase } from '@mui/material';
+import { FormControl, InputBase, InputLabel, MenuItem,Select, Stack } from '@mui/material';
 import { Search } from '@mui/icons-material';
+import { Box } from '@mui/system';
+
+
 
 function OrganisationList() {
   const [articles, setArticles] = useState([]);
@@ -19,6 +22,11 @@ function OrganisationList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesPerPage, setArticlesPerPage] = useState(9);
   const [searchText, setSearchText] = useState("");
+  const [theme, setTheme] = React.useState('All');
+
+  const handleChange = (event) => {
+    setTheme(event.target.value);
+  };
 
   const scrollRef = useRef(null);
 
@@ -33,6 +41,8 @@ function OrganisationList() {
       });
   }, []);
 
+  
+
 
    // Logic for displaying current articles
    const filteredArticles = articles.filter((article) =>
@@ -43,10 +53,20 @@ function OrganisationList() {
   // Logic for displaying current articles
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-  const currentArticles = filteredArticles.slice(
+  const filtredByThemeArticals=filteredArticles.filter((a)=>{
+    if(theme==='All'){
+      return filteredArticles
+    }
+    else{
+      return a.theme===theme;
+    }
+    });
+  console.log(filtredByThemeArticals.length/9)
+  const currentArticles = filtredByThemeArticals.slice(
     indexOfFirstArticle,
     indexOfLastArticle
   );
+
   // Logic for displaying page numbers
   const pageNumbers = [];
   const totalPages = Math.ceil(articles.length / articlesPerPage);
@@ -94,24 +114,50 @@ function OrganisationList() {
   onChange={handleSearchInputChange}
   style={{ marginBottom: "10px" }}
 /> */}
+<FlexBetween>
+  <Stack direction="row" alignItems="center">
+    <InputBase
+      placeholder="Search Organizations"
+      id="outlined-basic"
+      label="Search Organizations"
+      variant="outlined"
+      value={searchText}
+      sx={{ m: 1, minWidth: 120 ,maxHeight:'38px'}}
+      onChange={handleSearchInputChange}
+    />
+    <Search sx={{ color: "#b9b7b4" }} />
+  </Stack>
+  <Box flexGrow={1} />
+  <FormControl sx={{ m: 1, minWidth: 120 ,maxHeight:'38px'}} size="small">
+    <InputLabel id="demo-select-small-label">Theme</InputLabel>
+    <Select
+      labelId="demo-select-small-label"
+      id="demo-select-small"
+      value={theme}
+      label="Theme"
+      onChange={handleChange}
+    >
+      <MenuItem value="All">
+        <em>All</em>
+      </MenuItem>
+      <MenuItem value={'agriculture'}>Agriculture</MenuItem>
+      <MenuItem value={'aide-handicapes'}>Aide-handicapes</MenuItem>
+      <MenuItem value={'aide-humanitaire'}>Aide-humanitaire</MenuItem>
+      <MenuItem value={'artisanat'}>Artisanat</MenuItem>
+      <MenuItem value={'arts-culture'}>Arts-culture</MenuItem>
+      <MenuItem value={'association-pro'}>Association-pro</MenuItem>
+      <MenuItem value={'cinema'}>Cinema</MenuItem>
+      <MenuItem value={'citoyennete'}>Citoyennete</MenuItem>
+      <MenuItem value={'citoyennete-gouvernance'}>Citoyennete-gouvernance</MenuItem>
+      <MenuItem value={'droit-enfant'}>Droit-enfant</MenuItem>
 
-          <FlexBetween
-            backgroundColor="#ece9e6"
-            borderRadius="20px"
-            gap="3rem"
-            p="0.1rem 1.5rem"
-            mb="3rem"
-            mt="2rem"
-          >
-            <InputBase placeholder="Search Organizations"  id="outlined-basic"
-  label="Search Organizations"
-  variant="outlined"
-  value={searchText}
-  onChange={handleSearchInputChange} />
 
-            <Search sx={{ color: "#b9b7b4" }} />
-          </FlexBetween>
-  
+      
+
+    </Select>
+  </FormControl>
+</FlexBetween>
+
 
       <div style={{
         display: 'grid',
@@ -145,7 +191,7 @@ function OrganisationList() {
           >
             <CardMedia
               component="img"
-              alt="green iguana"
+              alt="association Logo"
               height="200"
               maxHeight="200"
               image={article.imgSrc}

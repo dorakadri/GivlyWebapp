@@ -2,7 +2,7 @@ const express = require("express");
 const axios = require('axios')
 const cheerio = require('cheerio')
 
-const url = 'https://jamaity.org/associations'
+const url = 'https://jamaity.org/associations/?region=tunisie&theme=agriculture'
 const AssoRoutes = express.Router();
 
 AssoRoutes.get('/', function (req, res) {
@@ -37,13 +37,14 @@ AssoRoutes.get('/', function (req, res) {
         const href = $(this).find('a.text-left').attr('href');
         const title = $(this).find('a.text-left').text();
         const imgSrc = $(this).find('img').attr('src');
+        const theme= 'agriculture'
         articles.push({
-            href, title, imgSrc
+            href, title, imgSrc,theme
         })
     });
   
   }).catch(err => console.log(err))
-  const secondUrl = 'https://jamaity.org/associations/page/2';
+  const secondUrl = 'https://jamaity.org/associations/?region=tunisie&theme=aide-handicapes';
   axios(secondUrl).then(result => {
         const html = result.data;
         const $ = cheerio.load(html);
@@ -53,34 +54,34 @@ AssoRoutes.get('/', function (req, res) {
             const href = $(this).find('a.text-left').attr('href');
             const title = $(this).find('a.text-left').text();
             const imgSrc = $(this).find('img').attr('src');
+            const theme= 'aide-handicapes'
             articles.push({
-                title,
-                href, 
-                imgSrc
-            });
+                href, title, imgSrc,theme
+            })
         });
     })
   
-  const ThirdUrl = 'https://jamaity.org/associations/page/3';
+  const ThirdUrl = 'https://jamaity.org/associations/?region=tunisie&theme=aide-humanitaire';
   axios(ThirdUrl).then(result => {
         const html = result.data;
         const $ = cheerio.load(html);
+
+        
   
         // Scrape the information from the second page using Cheerio
         $('div.panel').each(function () {
             const href = $(this).find('a.text-left').attr('href');
             const title = $(this).find('a.text-left').text();
             const imgSrc = $(this).find('img').attr('src');
-            articles.push({
-                title,
-                href, 
-                imgSrc
-            });
+            const theme= 'aide-humanitaire'
+        articles.push({
+            href, title, imgSrc,theme
+        })
         });
     })
   
   
-    const FourthUrl = 'https://jamaity.org/associations/page/4';
+    const FourthUrl = 'https://jamaity.org/associations/?region=tunisie&theme=artisanat';
   axios(FourthUrl).then(result => {
         const html = result.data;
         const $ = cheerio.load(html);
@@ -90,16 +91,15 @@ AssoRoutes.get('/', function (req, res) {
             const href = $(this).find('a.text-left').attr('href');
             const title = $(this).find('a.text-left').text();
             const imgSrc = $(this).find('img').attr('src');
+            const theme= 'artisanat'
             articles.push({
-                title,
-                href, 
-                imgSrc
+                href, title, imgSrc,theme
+            })
             });
-        });
     })
   
   
-  const FifthUrl = 'https://jamaity.org/associations/page/5';
+  const FifthUrl = 'https://jamaity.org/associations/?region=tunisie&theme=artisanat';
   axios(FifthUrl).then(result => {
         const html = result.data;
         const $ = cheerio.load(html);
@@ -109,14 +109,13 @@ AssoRoutes.get('/', function (req, res) {
             const href = $(this).find('a.text-left').attr('href');
             const title = $(this).find('a.text-left').text();
             const imgSrc = $(this).find('img').attr('src');
+            const theme='artisanat'
             articles.push({
-                title,
-                href, 
-                imgSrc
-            });
+                href, title, imgSrc,theme
+            })
         });
     })
-    const SixthUrl = 'https://jamaity.org/associations/page/6';
+    const SixthUrl = 'https://jamaity.org/associations/?region=tunisie&theme=arts-culture';
     axios(SixthUrl).then(result => {
             const html = result.data;
             const $ = cheerio.load(html);
@@ -126,15 +125,14 @@ AssoRoutes.get('/', function (req, res) {
                 const href = $(this).find('a.text-left').attr('href');
                 const title = $(this).find('a.text-left').text();
                 const imgSrc = $(this).find('img').attr('src');
+                const theme ='arts-culture'
                 articles.push({
-                    title,
-                    href, 
-                    imgSrc
-                });
+                    href, title, imgSrc,theme
+                })
             });
         })
   
-        const Sevenurl = 'https://jamaity.org/associations/page/7';
+        const Sevenurl = 'https://jamaity.org/associations/?region=tunisie&theme=association-pro';
         axios(Sevenurl).then(result => {
                 const html = result.data;
                 const $ = cheerio.load(html);
@@ -144,15 +142,14 @@ AssoRoutes.get('/', function (req, res) {
                     const href = $(this).find('a.text-left').attr('href');
                     const title = $(this).find('a.text-left').text();
                     const imgSrc = $(this).find('img').attr('src');
+                    const theme='association-pro'
                     articles.push({
-                        title,
-                        href, 
-                        imgSrc
-                    });
+                        href, title, imgSrc,theme
+                    })
                 });
             })
     
-            const Eighturl = 'https://jamaity.org/associations/page/8';
+            const Eighturl = 'https://jamaity.org/associations/?region=tunisie&theme=cinema';
         axios(Eighturl).then(result => {
                 const html = result.data;
                 const $ = cheerio.load(html);
@@ -162,14 +159,13 @@ AssoRoutes.get('/', function (req, res) {
                     const href = $(this).find('a.text-left').attr('href');
                     const title = $(this).find('a.text-left').text();
                     const imgSrc = $(this).find('img').attr('src');
+                    const theme ='cinema'
                     articles.push({
-                        title,
-                        href, 
-                        imgSrc
-                    });
+                        href, title, imgSrc,theme
+                    })
                 });
             })
-            const Nineurl = 'https://jamaity.org/associations/page/9';
+            const Nineurl = 'https://jamaity.org/associations/?region=tunisie&theme=citoyennete';
             axios(Nineurl).then(result => {
                     const html = result.data;
                     const $ = cheerio.load(html);
@@ -179,15 +175,17 @@ AssoRoutes.get('/', function (req, res) {
                         const href = $(this).find('a.text-left').attr('href');
                         const title = $(this).find('a.text-left').text();
                         const imgSrc = $(this).find('img').attr('src');
+                        const theme ='citoyennete'
                         articles.push({
                             title,
                             href, 
-                            imgSrc
+                            imgSrc,
+                            theme
                         });
                     });
                 })
   
-                const Tenurl = 'https://jamaity.org/associations/page/10';
+                const Tenurl = 'https://jamaity.org/associations/?region=tunisie&theme=citoyennete-gouvernance';
                 axios(Tenurl).then(result => {
                         const html = result.data;
                         const $ = cheerio.load(html);
@@ -197,12 +195,28 @@ AssoRoutes.get('/', function (req, res) {
                             const href = $(this).find('a.text-left').attr('href');
                             const title = $(this).find('a.text-left').text();
                             const imgSrc = $(this).find('img').attr('src');
+                            const theme='citoyennete-gouvernance'
                             articles.push({
-                                title,
-                                href, 
-                                imgSrc
-                            });
+                                href, title, imgSrc,theme
+                            })
                         });
                     })
 
+
+                    const Tenurll = 'https://jamaity.org/associations/?region=tunisie&theme=droit-enfant';
+                    axios(Tenurll).then(result => {
+                            const html = result.data;
+                            const $ = cheerio.load(html);
+                    
+                            // Scrape the information from the second page using Cheerio
+                            $('div.panel').each(function () {
+                                const href = $(this).find('a.text-left').attr('href');
+                                const title = $(this).find('a.text-left').text();
+                                const imgSrc = $(this).find('img').attr('src');
+                                const theme='droit-enfant'
+                                articles.push({
+                                    href, title, imgSrc,theme
+                                })
+                            });
+                        })
 module.exports = AssoRoutes;
