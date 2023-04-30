@@ -63,9 +63,18 @@ export default function QrCode(props) {
         return acc;
       }, {});
 
-      setScanResultWebCam(result);
-      console.log(result1)
-     
+      setScanResultFile(result);
+      console.log(result1.Owner)
+      console.log(userAuth._id)
+   if (userAuth._id === result1.Owner) {
+    console.log(result1)
+      dispatch(updateOwnerAction(result1))
+ 
+  }else
+  if (userAuth._id === result1.Taker){
+    dispatch(updateTakenAction(result1))
+  }
+
    
     }
   };
