@@ -78,7 +78,28 @@ console.log(data)
           }
         },)
 
+////create transaction
+export const transactionAction = createAsyncThunk(
+  "transaction",
+  async (transaction, { rejectWithValue, getState, dispatch }) => {
 
+
+    try {
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+      const { data1 } = await axios.post(
+        "http://localhost:5000/api/Transaction/"+transaction,
+        config
+      );
+      return data1; 
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  },)
 
         export const deliverygetOneAction = createAsyncThunk(
           "deliverygetOne",
@@ -101,6 +122,75 @@ console.log(data)
               return rejectWithValue(error?.response?.data);
             }
           },)
+
+
+          export const deliverylivgetAction = createAsyncThunk(
+            "deliverylivget",
+            async (_, { rejectWithValue, getState, dispatch }) => {
+              const { userAuth } = getState().users;
+              try {
+                const config = {
+                  headers: { "Content-Type": "application/json" },
+                };
+                const { data } = await axios.get(
+                  "http://localhost:5000/api/Delivery",
+                  
+                  config
+                );
+                return data;
+              } catch (error) {
+                if (!error?.response) {
+                  throw error;
+                }
+                return rejectWithValue(error?.response?.data);
+              }
+            },)
+
+
+            export const updateOwnerAction = createAsyncThunk(
+              "updateOwner",
+              async (result, { rejectWithValue, getState, dispatch }) => {
+              console.log(result)
+                try {
+                  const config = {
+                    headers: { "Content-Type": "application/json" },
+                  };
+                  const { data } = await axios.post(
+                    "http://localhost:5000/api/Transaction/update/owner",
+                    result,
+                    config
+                  );
+                  return data;
+                } catch (error) {
+                  if (!error?.response) {
+                    throw error;
+                  }
+                  return rejectWithValue(error?.response?.data);
+                }
+              },)
+
+              ////////
+              export const updateTakenAction = createAsyncThunk(
+                "updateTaken",
+                async (result, { rejectWithValue, getState, dispatch }) => {
+                  const { userAuth } = getState().users;
+                  try {
+                    const config = {
+                      headers: { "Content-Type": "application/json" },
+                    };
+                    const { data } = await axios.post(
+                      "http://localhost:5000/api/Transaction/taken/update",
+                      result,
+                      config
+                    );
+                    return data;
+                  } catch (error) {
+                    if (!error?.response) {
+                      throw error;
+                    }
+                    return rejectWithValue(error?.response?.data);
+                  }
+                },)
    
 const deliverySlices = createSlice({
     name: "deliverys",
@@ -147,6 +237,24 @@ const deliverySlices = createSlice({
         state.appErr = action?.payload?.message;
         state.serverErr = action?.error?.message;
     });
+    //delivery get all for liv
+    builder.addCase(deliverylivgetAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(deliverylivgetAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.allLivdeliveries = action?.payload;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(deliverylivgetAction.rejected, (state, action) => {
+      console.log(action.payload);
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+  });
 /////delete
     builder.addCase(deliverydeleteAction.pending, (state, action) => {
         state.loading = true;
@@ -184,8 +292,69 @@ const deliverySlices = createSlice({
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
   });
+  /////transaction
+  builder.addCase(transactionAction.pending, (state, action) => {
+    state.loading = true;
+    state.appErr = undefined;
+    state.serverErr = undefined;
+  });
+  builder.addCase(transactionAction.fulfilled, (state, action) => {
+    state.loading = false;
+    state.createdtran = action?.payload;
+    state.appErr = undefined;
+    state.serverErr = undefined;
+  });
+  builder.addCase(transactionAction.rejected, (state, action) => {
+    console.log(action.payload);
+    state.loading = false;
+    state.appErr = action?.payload?.message;
+    state.serverErr = action?.error?.message;
+});
+///////////find by delivery
+  
+builder.addCase(updateOwnerAction.pending, (state, action) => {
+  state.loading = true;
+  state.appErr = undefined;
+  state.serverErr = undefined;
+});
+builder.addCase(updateOwnerAction.fulfilled, (state, action) => {
+  state.loading = false;
+  state.finded = action?.payload;
+  state.appErr = undefined;
+  state.serverErr = undefined;
+});
+builder.addCase(updateOwnerAction.rejected, (state, action) => {
+  console.log(action.payload);
+  state.loading = false;
+  state.appErr = action?.payload?.message;
+  state.serverErr = action?.error?.message;
+
+});
+
+/////////
+ 
+builder.addCase(updateTakenAction.pending, (state, action) => {
+  state.loading = true;
+  state.appErr = undefined;
+  state.serverErr = undefined;
+});
+builder.addCase(updateTakenAction.fulfilled, (state, action) => {
+  state.loading = false;
+  state.gettaken = action?.payload;
+  state.appErr = undefined;
+  state.serverErr = undefined;
+});
+builder.addCase(updateTakenAction.rejected, (state, action) => {
+  console.log(action.payload);
+  state.loading = false;
+  state.appErr = action?.payload?.message;
+  state.serverErr = action?.error?.message;
+
+});
+  
 },
 
 });
+
 
 export default deliverySlices.reducer;

@@ -24,6 +24,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import QrCode from "./components/pages/Delivery/QrCode";
+import DashbordLiv from "./components/pages/DashbordLiv";
 
 
 function App() {
@@ -118,7 +119,16 @@ function App() {
               </AssoElement>
             }
           />
-     
+            <Route
+            exact
+            path="/livreur/*"
+            element={
+              <LivreurElement Role={Role}>
+                <DashbordLiv/>
+              </LivreurElement>
+              
+            }
+     />
           
           <Route
             path="/verify-account/:token"
@@ -182,6 +192,17 @@ function AssoElement({ children, Role }) {
   }, [navigate, Role]);
 
   return Role === "Association" ? <>{children}</> : null;
+}
+function LivreurElement({ children, Role }) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Role !== "Livreur") {
+      navigate(-1);
+    }
+  }, [navigate, Role]);
+
+  return Role === "Livreur" ? <>{children}</> : null;
 }
 
 

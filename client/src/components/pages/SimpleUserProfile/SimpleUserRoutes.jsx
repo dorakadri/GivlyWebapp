@@ -20,6 +20,7 @@ import DetailsDelivery from "../Delivery/DetailsDelivery";
 import Recipe from "../Food/Recipe"
 import Composting from "../Food/Composting"
 import OrganisationList from "../Organisation/OrganisationList";
+import QrCode from "../Delivery/QrCode";
 
 const PostsForumList  = lazy(() => import("../postsForum/PostsForumList"));
 const Split  = lazy(() => import("./Addposts/Split"));
@@ -65,6 +66,8 @@ function SimpleUserRoutes() {
               <Route path="Addpost" element={<Split />} />
               <Route path="forum" element={<PostsForumList />} />
               <Route path="delivery" element={<Delivery/>} />
+              <Route path="Qrcode" element={<QrCode/>} />
+
               <Route path="detaildelivery/:id" element={<DetailsDelivery/>} />
               <Route path="composting" element={<Composting/>} />
               <Route path="recipegeneration" element={<Recipe/>} />

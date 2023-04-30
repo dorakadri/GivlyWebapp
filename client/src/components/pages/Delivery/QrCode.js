@@ -1,75 +1,113 @@
-import html2canvas from "html2canvas";
-import { QRCodeCanvas } from "qrcode.react";
-import React, { useState } from "react";
-import { AiFillCopy, AiOutlineDownload } from "react-icons/ai";
+import {
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Divider,
+  Grid,
+} from "@mui/material";
 
+import React, { useRef, useState } from "react";
 
-export default function QrCode() {
-    const [qr, setqr] = useState("");
-    const [url, seturl] = useState("");
-    const QrCodeDownload = async () => {
-      const canvas = await (
-        await html2canvas(document.getElementById("canvas"))
-      ).toDataURL();
-  
-      if (canvas) {
-        setqr(canvas);
-        const a = document.createElement("a");
-        a.download = "QrCode.png";
-        a.href = canvas;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
-    };
-  
-    const QrCodeCopy = () => {
-      navigator.clipboard.writeText(qr);
-    };
-    return (
-      <div className="container mx-auto w-[320px]">
-        <div class="mb-4">
-          <p className="text-2xl">Generate QrCode</p>
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm  mb-2">Write something</label>
-          <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="text"
-            onChange={(e) => seturl(e.target.value)}
-          />
-        </div>
-  
-        <div id="canvas" className="border p-2 relative">
-          <QRCodeCanvas
-            value={url}
-            size={300}
-            bgColor={"#ffffff"}
-            fgColor={"#0a75ad"}
-            level={"H"}
-            includeMargin={false}
-            imageSettings={{
-         
-              x: undefined,
-              y: undefined,
-              height: 40,
-              width: 40,
-              excavate: true,
-            }}
-          />
-        </div>
-        <div className="flex w-[300px] mt-4 p-4 space-x-2 items-center justify-center">
-          <button
-            onClick={() => QrCodeDownload()}
-            class="flex items-center justify-between bg-transparent hover:bg-[#0a75ad] text-[#0a75ad] font-semibold hover:text-white py-2 px-4 border border-[#0a75ad] hover:border-transparent rounded"
-          >
-            <AiOutlineDownload />
-            Download
-          </button>
-  
-        
-            
-        </div>
-      </div>
-    );
+import QrReader from "react-qr-reader";
+
+import { useDispatch, useSelector } from "react-redux";
+import { updateOwnerAction, updateTakenAction } from "../../../ReduxB/slices/delivery/deliverysSlices";
+
+export default function QrCode(props) {
+  const [scanResultWebCam, setScanResultWebCam] = useState("");
+
+  const [scanResultFile, setScanResultFile] = useState("");
+  const qrRef = useRef(null);
+  const dispatch =useDispatch();
+  const state = useSelector((state) => state?.users);
+  const { userAuth } = state;
+  const handleErrorFile = (error) => {
+    console.log(error);
+  };
+  const handleScanFile = (result) => {
+    if (result) {
+      const result1 = result.split("_").reduce((acc, curr) => {
+        const [key, value] = curr.split("-");
+        acc[key] = value;
+        return acc;
+      }, {});
+
+      setScanResultFile(result);
+      console.log(result1.Owner)
+      console.log(userAuth._id)
+   if (userAuth._id === result1.Owner) {
+    console.log(result1)
+      dispatch(updateOwnerAction(result1))
+ 
+  }else
+  if (userAuth._id === result1.Taker){
+    dispatch(updateTakenAction(result1))
+  }
+
+   
+    }
+  };
+  const onScanFile = () => {
+    qrRef.current.openImageDialog();
+  };
+
+  const handleErrorWebCam = (error) => {
+    console.log(error);
+  };
+  const handleScanWebCam = (result) => {
+    if (result) {
+      const result1 = result.split("_").reduce((acc, curr) => {
+        const [key, value] = curr.split("-");
+        acc[key] = value;
+        return acc;
+      }, {});
+
+      setScanResultWebCam(result);
+      console.log(result1)
+     
+   
+    }
+  };
+
+  return (
+    <Container sx={{ mt: "2rem" }}>
+      <Card>
+        <CardContent>
+          <Grid container spacing={2}>
+            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+              <Button
+                mt="2rem"
+                mb="2rem"
+                variant="contained"
+                color="secondary"
+                onClick={onScanFile}
+              >
+                Scan Qr Code
+              </Button>
+              <QrReader
+                ref={qrRef}
+                delay={300}
+                style={{ width: "100%" }}
+                onError={handleErrorFile}
+                onScan={handleScanFile}
+                legacyMode
+              />
+              <h3>Scanned Code: {scanResultFile}</h3>
+            </Grid>
+
+            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ mt: "2rem" }}>
+              <QrReader
+                delay={300}
+                style={{ width: "100%" }}
+                onError={handleErrorWebCam}
+                onScan={handleScanWebCam}
+              />
+              <h3>Scanned Code: {scanResultWebCam}</h3>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </Container>
+  );
 }

@@ -64,6 +64,9 @@ const { socket } = useContext(AppContext);
     if (userAuth?.role === "Association") {
       return <Navigate to="/association/forum" />;
     }
+    if (userAuth?.role === "Livreur") {
+      return <Navigate to="/livreur/homeLiv" />;
+    }
 
     return <Navigate to="/" />;
   }

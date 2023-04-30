@@ -7,10 +7,11 @@ import {
     useGridSelector,
 } from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
-import { Avatar, Button, Chip, Pagination, PaginationItem, styled, Typography } from '@mui/material';
-import { Box, Stack } from '@mui/system';
+import { Avatar, Box, Button, Chip, Dialog, DialogContent, DialogTitle, Divider, IconButton, Pagination, PaginationItem, Stack, styled, Typography } from '@mui/material';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useDispatch, useSelector } from 'react-redux';
-import { deliveryAction, deliverygetAction, deliverygetOneAction, getDetail } from '../../../ReduxB/slices/delivery/deliverysSlices';
+import {  deliverylivgetAction } from '../../ReduxB/slices/delivery/deliverysSlices';
+import Qrgeneratisarra from './Delivery/Qrgeneratisarra';
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     border: 0,
 
@@ -45,22 +46,32 @@ export default function Table() {
    
 
 
-    const selector = useSelector((state) => state?.delivery.alldeliveries)
+    const selector = useSelector((state) => state?.delivery.allLivdeliveries)
     const dispatch = useDispatch();
      const navigate=useNavigate();
 const [dataa,setData]=React.useState({})
 
+
+const [open1, setOpen1] = React.useState(false);
+const [postdata, setPostdata] = React.useState();
+const handleClose1 = () => {
+    setOpen1(false);
+  };
     React.useEffect(() => {
-        dispatch(deliverygetAction())
+        dispatch(deliverylivgetAction())
 setData(selector );
 
     }, [])
 
     console.log(selector);
 
-    function Tracking(e){
-        navigate(`../detaildelivery/${e._id}`)
+   function Tracking(e){
+    setPostdata(e)
 
+    console.log(e)
+    setOpen1(true);
+       // navigate(`../detaildelivery/${e._id}`)
+    console.log("livraison")
        
     }
 
@@ -161,20 +172,26 @@ setData(selector );
                 );
             }
         },
-
         {
-            field: 'Track', headerName: 'Track', width: 400, flex: 1, 
-            headerClassName: 'super-app-theme--header',
-             renderCell: (params) => {
+            field: 'QrCode', headerName: 'QrCode', width: 400, flex: 1,
+             headerClassName: 'super-app-theme--header', renderCell: (params) => {
                 return (
-                    <Button onClick={()=>Tracking(params.value)}>
-                         View details </Button>
+
+
+
+                        <button onClick={()=>Tracking(params.value)}> generateQrCode</button>
+              
                 );
             }
-        }
+        },
+
+
+     
         ];
 
 
+
+    
         const rows = selector?.map((data) => {
             return {
                 id:data._id,
@@ -189,7 +206,7 @@ setData(selector );
                 Date: data.date.substring(0, 10),
                 DeliveryDate:data.dateLivraison.substring(0, 10),
                 Status: data.state,
-                Track:data
+                QrCode:data
               
             };
         })
@@ -221,7 +238,24 @@ setData(selector );
                 }} />}
 
 
+<Dialog open={open1} onClose={handleClose1}  fullWidth={true}    maxWidth={false} >
+      <Box sx={{display: "flex", justifyContent: "center",pr:"1rem",pl:"3rem" ,alignItems: "center"}}>
+ 
+    <DialogTitle sx={{flex: 1, textAlign: "center" }}>qr code </DialogTitle>
 
+
+    <IconButton onClick={handleClose1}>
+      <CloseOutlinedIcon/>
+    </IconButton>
+
+</Box>
+   
+        <Divider/>
+        <DialogContent  sx={{height: "800px" }}>
+        <Qrgeneratisarra data={postdata}  />
+        </DialogContent>
+  
+      </Dialog>
 
 
         </div>
