@@ -63,7 +63,7 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
 
     const posts = await Post.find({
       $and: [
-        { _id: { $nin: [...user.Ownposts, ...user.wishlist] } },
+        { _id: { $nin: [...user.Ownposts, ...user.wishlist, ...user.Taken] } },
         { _id: { $nin: user.matches.productId } }
       ]
     }).populate('userId', 'firstName lastName profilePhoto location');
