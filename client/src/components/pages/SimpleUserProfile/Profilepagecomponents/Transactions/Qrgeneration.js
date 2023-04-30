@@ -1,10 +1,10 @@
 
 import { Box, Button, Typography } from "@mui/material";
-import html2canvas from "html2canvas";
+
 import { QRCodeCanvas } from "qrcode.react";
-import React, { useRef, useState } from "react";
-import { AiFillCopy, AiOutlineDownload } from "react-icons/ai";
-import QrReader from "react-qr-reader";
+import React, {  useState } from "react";
+import {  AiOutlineDownload } from "react-icons/ai";
+
 
 export default function Qrgeneration(props) {
     const [url2, seturl2] = useState("");
