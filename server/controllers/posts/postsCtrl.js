@@ -356,7 +356,7 @@ const getUserMatchespost = expressAsyncHandler(async (req, res) => {
     }
     const postIds = user.matches.productId;
 
-   const   posts = await Post.find({ _id: { $in: postIds } }).populate("userId", "firstName lastName profilePhoto location");;
+   const   posts = await Post.find({ _id: { $in: postIds } }).populate("userId", "firstName lastName profilePhoto location");
       const validPostIds = posts.map(post => post._id.toString());
       const invalidIds = user.matches.productId.filter(id => !validPostIds.includes(id.toString()));
   
@@ -370,7 +370,50 @@ const getUserMatchespost = expressAsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
+//gettaken 
+const gettaken = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
 
+  try {
+    const user = await User.findById(id)
+
+    if (!user) {
+      res.status(404).json({ message: `User with id ${id} not found` });
+      return;
+    }
+    const postIds = user.Taken;
+
+   const   posts = await Post.find({ _id: { $in: postIds } }).populate("userId", "firstName lastName profilePhoto location");
+    
+    res.status(200).json(posts);
+  } catch (error) {
+    res.json(error);
+  }
+});
+/////update after scan 
+const updateafterscan = expressAsyncHandler(async (req, res) => {
+
+
+  try {
+   
+console.log(req.body)
+const taker = await User.findById(req.body.Taker)
+const owner = await User.findById(req.body.Owner)
+
+await Post.updateOne({_id:req.body.Post},{isTaken:true})
+
+if (!taker.Taken.includes(req.body.Post)) {
+  
+  taker.Taken.push(req.body.Post);
+}
+
+taker.matches.productId.pull(req.body.Post);
+await taker.save();
+    res.status(200)
+  } catch (error) {
+    res.json(error);
+  }
+});
   
 
 module.exports = {
@@ -386,6 +429,8 @@ module.exports = {
     deletePost,
     getUserMatchespost,
     removefromMAtch,
-    getUserMatchestest
+    getUserMatchestest,
+    updateafterscan,
+    gettaken
 
   };
