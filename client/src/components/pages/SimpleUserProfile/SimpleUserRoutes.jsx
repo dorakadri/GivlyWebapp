@@ -70,8 +70,6 @@ function SimpleUserRoutes() {
               <Route path="detaildelivery/:id" element={<DetailsDelivery/>} />
               <Route path="composting" element={<Composting/>} />
               <Route path="recipegeneration" element={<Recipe/>} />
-
-      
               <Route path="association" element={<OrganisationList />} />
         
             </Route>
