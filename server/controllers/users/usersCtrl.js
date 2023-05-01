@@ -29,6 +29,7 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
       associationPhone: req?.body.associationPhone,
       // profilePhoto: imgUploaded?.url,
       profilePhoto: req?.body.profilePhoto,
+      Rankpoints: 0,
     });
     res.json(user);
     //fs.unlinkSync(localPath);
