@@ -28,7 +28,7 @@ import ExtensionOutlinedIcon from '@mui/icons-material/ExtensionOutlined';
 import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import PeopleIcon from '@mui/icons-material/People';
 import {GiWaterRecycling} from 'react-icons/gi';
-
+import QrCodeIcon from '@mui/icons-material/QrCode';
 const Options = [
   {
     text: "your Shortcut ",
@@ -49,6 +49,10 @@ const Options = [
   {
     text: "Delivery",
     icon: <DeliveryDiningOutlinedIcon />,
+  },
+  {
+    text: "QrCode",
+    icon: <QrCodeIcon />,
   },
 
   {

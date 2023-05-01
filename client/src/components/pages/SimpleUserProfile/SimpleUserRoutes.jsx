@@ -20,6 +20,9 @@ import DetailsDelivery from "../Delivery/DetailsDelivery";
 import Recipe from "../Food/Recipe"
 import Composting from "../Food/Composting"
 import OrganisationList from "../Organisation/OrganisationList";
+import QrCode from "../Delivery/QrCode";
+
+
 
 const PostsForumList  = lazy(() => import("../postsForum/PostsForumList"));
 const Split  = lazy(() => import("./Addposts/Split"));
@@ -65,11 +68,11 @@ function SimpleUserRoutes() {
               <Route path="Addpost" element={<Split />} />
               <Route path="forum" element={<PostsForumList />} />
               <Route path="delivery" element={<Delivery/>} />
+              <Route path="Qrcode" element={<QrCode/>} />
+
               <Route path="detaildelivery/:id" element={<DetailsDelivery/>} />
               <Route path="composting" element={<Composting/>} />
               <Route path="recipegeneration" element={<Recipe/>} />
-
-      
               <Route path="association" element={<OrganisationList />} />
         
             </Route>
@@ -78,11 +81,13 @@ function SimpleUserRoutes() {
               path="profile/update/:id"
               element={<SimpleUserProfileEdit />}
             />
+        
             <Route path="profile" element={<ProfilePage />} />
          
             {/* <Route  path="/forum/posts/:id" element={<PostForumDetails />} /> */}
             <Route  path="chat" element={<Chat />} />
             <Route  path="*" element={<NotFound />} />
+            Fooddetection
           </Route>
       
         </Routes>

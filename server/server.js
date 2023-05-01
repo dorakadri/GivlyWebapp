@@ -24,6 +24,7 @@ const AssoRoutes=require("./routes/Asso/AssoRoutes")
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
 const deliveryRoutes = require("./routes/deliveries/delivery");
+const transactionRoutes = require("./routes/transaction/transactionRoutes");
 
 const app = express();
 //DB
@@ -68,6 +69,9 @@ app.use("/api/comments", commentRoutes);
 app.use("/api/DeliveryMen", deliveryMensRoutes);
 //Delivery route
 app.use("/api/Delivery", deliveryRoutes);
+
+
+app.use("/api/Transaction", transactionRoutes);
 //gift route
 app.use("/api/gift", giftsRoutes);
 app.use("/api/mainposts", postRoutes);

@@ -26,7 +26,7 @@ export default function Track() {
     } else if (detail.getOne?.state === "Transit") {
       setStep(1);
     } else if (detail.getOne?.state === "Delivered") {
-      setStep(2);
+      setStep(3);
     }
   }, [detail]);
 

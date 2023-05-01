@@ -95,6 +95,29 @@ const fetchAllDeliveryCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+  //--getallliv -------
+  
+  const fetchAlldeliveryLivCtrl = expressAsyncHandler(async (req, res) => {
+    try {
+      const deliveries = await Delivery.find({})
+      .populate('post')
+      .populate({
+        path: 'post',
+        populate: {
+          path: 'userId',
+          select: 'firstName lastName profilePhoto'
+        }
+      })
+      .populate('user',"firstName lastName profilePhoto")
+      .populate("deliveryMen","firstName phone")
+      ;
+  
+    console.log("aaaa");
+      res.json(deliveries);
+    } catch (error) {
+      res.json(error);
+    }
+  });
 //--delete---
 
 const deleteDeliveryCtrl = expressAsyncHandler(async (req, res) => {
@@ -111,7 +134,8 @@ const deleteDeliveryCtrl = expressAsyncHandler(async (req, res) => {
 const getByIdCtrl =expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongodbId(id);
-  try { const deliveries = await Delivery.findById(id)
+  try {
+     const deliveries = await Delivery.findById(id)
   .populate('post')
   .populate({
     path: 'post',
@@ -157,5 +181,7 @@ module.exports = {
   deleteDeliveryCtrl,
 
   getByIdCtrl,
-  updateuserlocationCtrl
+  updateuserlocationCtrl,
+  fetchAlldeliveryLivCtrl,
+ 
 };
