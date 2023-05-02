@@ -5,6 +5,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const cloudinaryUploadImg = require("../../utils/cloudinary");
+const User = require("../../model/user/User");
 //---Create--
 
 const createGiftCtrl = expressAsyncHandler(async (req, res) => {
@@ -94,10 +95,31 @@ const fetchById = expressAsyncHandler(async (req, res) => {
   }
 });
 
+const fetchgiftbyuserid = expressAsyncHandler(async (req, res) => {
+  const {id} = req.params;
+ 
+  try {
+   const user = await User.findById(id).populate("Giftowned","giftPhoto name company")
+   ;
+   const gift = user.Giftowned
+   console.log(user);
+
+    res.json(gift)  } 
+   catch (error) {
+    res.json(error);
+  }
+});
+
+
+
+
 module.exports = {
   createGiftCtrl,
   fetchAllGiftCtrl,
   deleteGiftCtrl,
   updateGiftCtrl,
   fetchById,
+  fetchgiftbyuserid,
+
+
 };

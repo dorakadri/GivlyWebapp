@@ -113,7 +113,11 @@ const userSchema = new mongoose.Schema(
     Rankpoints : {
       type:Number,
       default:0,
-    }
+    },
+    Giftowned: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Gift'
+    }]
   },
   {
     toJSON: {

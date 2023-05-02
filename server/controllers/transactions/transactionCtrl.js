@@ -6,6 +6,7 @@ const router = express.Router();
 const Delivery= require("../../model/deliveries/Delivery");
 const User = require("../../model/user/User");
 const Post = require("../../model/post/Posts");
+const giveGift = require("../gift/giftOwned");
 
 
 //---Create--
@@ -90,6 +91,7 @@ res.json(transactions);
        
       
         const taker = await User.findById(req.body.Taker)
+        const owner = await User.findById(req.body.Owner)
          const transactions = await Transaction.findOne({ delivery: req.body.Delivery });
 
    const delivery=await Delivery.findById(req.body.Delivery)
@@ -97,6 +99,7 @@ res.json(transactions);
  
     transactions.taken=true
     await transactions.save()
+
   
       await Post.updateOne({_id:req.body.Post},{isTaken:true})
       
@@ -104,10 +107,15 @@ res.json(transactions);
         
         taker.Taken.push(req.body.Post);
       }
+      taker.Rankpoints = taker.Rankpoints+5; 
+      owner.Rankpoints= owner.Rankpoints+10;
       taker.matches.productId.pull(req.body.Post);
       await taker.save();
+      await owner.save();
       delivery.state = "Delivered"
       await delivery.save();
+      giveGift(req.body.Taker);
+      giveGift(req.body.Owner);
 
   }else if (transactions.owner==false) {
     transactions.taker = true

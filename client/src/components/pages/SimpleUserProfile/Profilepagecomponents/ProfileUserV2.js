@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
+  Badge,
   Button,
   CardContent,
   Container,
@@ -12,35 +13,43 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import styled from "@emotion/styled";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 
+
 export const ProfileUserV2 = ({ data }) => {
-  const [showMore, setShowMore] = useState(false);
+  const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
 
-  const SmallIcon = styled(IconButton)(({ theme }) => ({
-    backgroundColor: "#EDEDED",
-    marginTop: "-22px",
-    "&:hover": {
-      backgroundColor: "#EDEDED",
-    },
-  }));
+  useEffect(() => {
+    setProgress((data?.Rankpoints / MAX_RANK_POINTS) * 1000); // Update the progress based on rankPoints
+  }, [data?.Rankpoints]);
 
-  const [progress, setProgress] = useState(0);
+  const MAX_RANK_POINTS = 100000;
 
-  const handleButtonClick = () => {
-    if (progress < 100) {
-      setProgress(progress + 10);
-    }
-  };
+  let level = 0; // Default level
+const rankPoints = data?.Rankpoints;
+console.log(rankPoints);
+if (rankPoints >= 100 && rankPoints <= 2000) {
+level = 1;
+} else if (rankPoints >= 3000 && rankPoints <= 6000) {
+level = 2;
+} else if (rankPoints >= 7000 && rankPoints <= 10000) {
+level = 3;
+} else if (rankPoints == 100000) {
+level=4;
+}
 
+  const updatedHightlightdata = [
+    ...Hightlightdata.slice(0, 1), // Keep the existing elements before the level
+    { name: "Level", value: level }, // Update the level value
+    ...Hightlightdata.slice(2), // Keep the existing elements after the level
+  ];
   return (
     <Container disableGutters={true}>
+ 
       <Avatar
         alt="Profile pic"
         src={data?.profilePhoto}
@@ -52,6 +61,7 @@ export const ProfileUserV2 = ({ data }) => {
           alignSelf: "center",
         }}
       />
+      
 
       <Box sx={{ p: 0, position: "relative", top: "2rem", border: "white" }}>
         <Stack gap={3}>
@@ -69,7 +79,7 @@ export const ProfileUserV2 = ({ data }) => {
           </Typography>
 
           <Grid container direction="row" justifyContent="space-between" gap={1}>
-            {Hightlightdata.map((el, i) => (
+            {updatedHightlightdata.map((el, i) => (
               <Grid key={i} item xl={2} lg={2} xs={12} md={4} sm={3}>
                 <Stack spacing={2}>
                   <Typography sx={{ fontSize: "1rem", fontWeight: "600" }}>{el.value}</Typography>
@@ -78,6 +88,7 @@ export const ProfileUserV2 = ({ data }) => {
               </Grid>
             ))}
           </Grid>
+      <LinearProgress variant="determinate" value={progress} />
 
           <CardContent sx={{ p: 0 }}>
             <Typography gutterBottom sx={{ fontSize: "13", fontWeight: "600" }}>
@@ -86,6 +97,9 @@ export const ProfileUserV2 = ({ data }) => {
 
             <Typography variant="body2" sx={{ textAlign: "justify" }} color="text.primary">
               {data?.bio}
+            </Typography>
+            <Typography variant="body2" sx={{ textAlign: "justify" }} color="text.primary">
+             Level: {level}
             </Typography>
           </CardContent>
 
@@ -97,35 +111,28 @@ export const ProfileUserV2 = ({ data }) => {
           >
             Edit Profile
           </Button>
-
-          <Button variant="outlined" color="primary" onClick={handleButtonClick}>
-            Start Progress
-          </Button>
-
-          <LinearProgress variant="determinate" value={progress} />
         </Stack>
-  
-     
       </Box>
-      </Container>
-    );
-  };
-  
 
-  export const Hightlightdata=[
-   
-    {
-        name:"Level" , value:15
-    },
-    {
-        name:"Rating" , value:4.9
-    },
-    {
-        name:"Posts" , value:"2.5K"
-    },
-    {
-        name:"Taken" , value:23
-    },
-    
-    
-    ]
+
+    </Container>
+  );
+};
+
+export const Hightlightdata = [
+  {
+    name: "Rating",
+    value: 4.9,
+  },
+  {
+    name: "Posts",
+    value: "2.5K",
+  },
+  {
+    name: "Taken",
+    value: 23,
+  },
+];
+
+
+export default ProfileUserV2;

@@ -15,6 +15,7 @@ import PostsList from "./Profilepagecomponents/PostsList";
 import MatchedList from "./Profilepagecomponents/MatchedList";
 import AssistantOutlinedIcon from '@mui/icons-material/AssistantOutlined';
 import TakenList from "./Profilepagecomponents/TakenList";
+import Gifts from "./Profilepagecomponents/Gifts";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -128,7 +129,7 @@ export default function TabProfile() {
         <MatchedList/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Gifts
+        <Gifts/>
       </TabPanel>
       <TabPanel value={value} index={3}>
         <WishlistList />

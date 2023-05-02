@@ -399,7 +399,7 @@ const updateafterscan = expressAsyncHandler(async (req, res) => {
 console.log(req.body)
 const taker = await User.findById(req.body.Taker)
 const owner = await User.findById(req.body.Owner)
-
+console.log(owner)
 await Post.updateOne({_id:req.body.Post},{isTaken:true})
 
 if (!taker.Taken.includes(req.body.Post)) {
@@ -408,12 +408,20 @@ if (!taker.Taken.includes(req.body.Post)) {
 }
 
 taker.matches.productId.pull(req.body.Post);
+taker.Rankpoints = taker.Rankpoints+5; 
+owner.Rankpoints= owner.Rankpoints +10;
 await taker.save();
+await owner.save();
+
+
+
     res.status(200)
   } catch (error) {
     res.json(error);
   }
 });
+
+
   
 
 module.exports = {
