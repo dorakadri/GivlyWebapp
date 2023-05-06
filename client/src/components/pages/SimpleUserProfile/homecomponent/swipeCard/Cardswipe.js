@@ -38,11 +38,11 @@ useContext(AppContext);
     console.log(theme.mode);
 
     if (theme.mode === "light") {
-      const objectposts = postLists?.filter((e) => e.type === "object");
+      const objectposts = postLists?.filter((e) => e.type === "object"  && e.isTaken === false);
       setPosts(objectposts);
     }
     if (theme.mode === "dark") {
-      const objectposts = postLists?.filter((e) => e.type === "food");
+      const objectposts = postLists?.filter((e) => e.type === "food"  && e.isTaken === false);
 
       setPosts(objectposts);
     }
