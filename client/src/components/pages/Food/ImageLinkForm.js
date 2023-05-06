@@ -2,12 +2,12 @@ import React from 'react';
 
 const ImageLinkForm = ({ onFileChange, onSubmit }) => {
 	return (
-		<div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', marginBottom: '20px' }}>
-			<div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', marginLeft: '260px' }}>
+
+			<div style={{ display: 'flex', alignItems: 'center' }}>
 				<div>
 					<input type='file' onChange={onFileChange} style={{ display: 'none' }} id="upload-file" />
 					<label htmlFor="upload-file" style={{ border: '2px solid #ccc', borderRadius: '4px', padding: '8px 12px', cursor: 'pointer' }}>
-						Choisir un fichier
+					Choose your ingredient
 					</label>
 				</div>
 				<button
@@ -17,7 +17,7 @@ const ImageLinkForm = ({ onFileChange, onSubmit }) => {
 					Detect
 				</button>
 			</div>
-		</div>
+	
 	)
 }
 
