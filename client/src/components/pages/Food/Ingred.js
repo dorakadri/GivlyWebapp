@@ -1,9 +1,4 @@
 import React, { Component, useState } from 'react';
-
-
-
-
-
 import ImageLinkForm from './ImageLinkForm';
 import KitchenSink from './Recipe';
 import { Grid, Typography } from '@mui/material';
@@ -51,15 +46,15 @@ const Ingred = () => {
                         }]
                     })
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.outputs && data.outputs[0].data && data.outputs[0].data.concepts) {
-                        setFoods(data.outputs[0].data.concepts);
-                    }
-                })
-                .catch(err => {
-                    setError('Sorry! Please upload a valid image');
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.outputs && data.outputs[0].data && data.outputs[0].data.concepts) {
+                            setFoods(data.outputs[0].data.concepts);
+                        }
+                    })
+                    .catch(err => {
+                        setError('Sorry! Please upload a valid image');
+                    });
             }
         } else {
             fetch('https://api.clarifai.com/v2/models/aaa03c23b3724a16a56b629203edc62c/outputs', {
@@ -78,19 +73,19 @@ const Ingred = () => {
                     }]
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.outputs && data.outputs[0].data && data.outputs[0].data.concepts) {
-                    setFoods(data.outputs[0].data.concepts);
-                }
-            })
-            .catch(err => {
-                setError('Sorry! Please enter a valid url');
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.outputs && data.outputs[0].data && data.outputs[0].data.concepts) {
+                        setFoods(data.outputs[0].data.concepts);
+                    }
+                })
+                .catch(err => {
+                    setError('Sorry! Please enter a valid url');
+                });
             setInput('');
         }
     };
-    
+
     return (
         <>
 
@@ -109,19 +104,27 @@ const Ingred = () => {
                     <Grid item xs={12} style={{ marginTop: '30px' }}>
                         {visible &&
                             <>
-                                <Typography variant="h5" style={{ marginBottom: '100px' }}>
-                                    Select ingredients
-                                </Typography>
-                                <ImageLinkForm
-                                    onFileChange={onFileChange}
-                                    onChangeEvent={onChangeEvent}
-                                    onSubmit={onSubmit}
-                                    input={input}
-                                /> 
+
+                                <Grid item xs={12}>
+                                    <Typography variant="h2" align="center" sx={{color: 'white'}}>
+                                        What's in your fridge?
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12} md={6} sx={{display: 'flex', justifyContent: 'center'}}>
+                                    <ImageLinkForm
+                                        input={input}
+                                        imageUrl={imageUrl}
+                                        error={error}
+                                        onFileChange={onFileChange}
+                                        onChangeEvent={onChangeEvent}
+                                        onSubmit={onSubmit}
+                                    />
+                                </Grid>
+
                             </>
                         }
 
-                     <KitchenSink foods={foods} setVisibility={setVisibility} />
+                        <KitchenSink foods={foods} setVisibility={setVisibility} />
                     </Grid>
                 </Grid>
             </div>
@@ -129,6 +132,4 @@ const Ingred = () => {
     )
 }
 export default Ingred;
-
-
 

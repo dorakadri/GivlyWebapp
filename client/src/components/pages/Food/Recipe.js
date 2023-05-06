@@ -6,12 +6,14 @@ import {
     FormGroup,
     Button,
     Typography, Paper, CardMedia
-} from '@material-ui/core';
+} from '@mui/material';
 
-import { IconButton } from '@material-ui/core';
-import { ArrowBack } from '@material-ui/icons';
+import { IconButton } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 import { Card, CardContent, CardHeader } from "@mui/material";
 import { Favorite } from '@material-ui/icons';
+import {useSelector} from "react-redux";
+
 
 
 const ingredients1 = [
@@ -29,45 +31,15 @@ const ingredients1 = [
     { name: 'carrots', imageUrl: 'https://images.unsplash.com/photo-1633380110125-f6e685676160?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80.jpg' },
     { name: 'banana', imageUrl: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80.jpg' }
 
-    /*
-    'lettuce',
-    'spinach',
-    'chicken',
-    'beef',
-    'fish',
-    'shrimp',
-    'rice',
-    'pasta',
-    'bread',
-    'cheese',
-    'yogurt',
-    'avocado',
-    'lemon',
-    'lime',
-    'orange',
-    'apple',
-    'banana',
-    'berries',
-    'nuts',
-    'seeds',
-    'chocolate',
-    'honey',
-    'vinegar',
-    'oil',*/
-
 ];
 
 
 
 const generateRecipe = async (selectedIngredients) => {
 
+    //const apiKey = '7b3451f3f4fe4456a56e8027052142ee';
+        //const apiKey = 'effc308437ef49d1b1d6a8a3374872f7';
 
-    /*
-        const apiKey = '7b3451f3f4fe4456a56e8027052142ee';
-    */
-    /*
-        const apiKey = 'effc308437ef49d1b1d6a8a3374872f7';
-    */
     const apiKey = '16b0d3c4373e49b9ab1709c8322243b9';
     const ingredientsString = selectedIngredients.join(',');
     const url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${ingredientsString}&number=3&ranking=2&ignorePantry=true&diet=low-fat&health=vegetarian`;
@@ -106,8 +78,11 @@ const generateRecipe = async (selectedIngredients) => {
 };
 
 
-
-
+const handleSaveRecipe = (recipe,id) => {
+    const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+    savedRecipes.push({id,recipe});
+    localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+}
 
 
 
@@ -120,6 +95,10 @@ const KitchenSink = (props) => {
         setVisibility(true)
         setRecipe(null)
     }
+
+    const store = useSelector((state) => state?.users);
+
+
     useEffect(() => {
 
         const result = ingredients1.filter(item1 =>
@@ -182,7 +161,8 @@ const KitchenSink = (props) => {
                             ))}
                         </div>
                     </Grid>
-                    <Grid item xs={12}>
+
+                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Button variant="contained" color="primary" disabled={!ingredients.length} onClick={handleGenerateClick}>
                             Generate Recipe
                         </Button>
@@ -203,10 +183,10 @@ const KitchenSink = (props) => {
                             opacity: 0.9
                         }}
                     >
-                        <IconButton style={{
+                        <IconButton id='back50' style={{
                             position: 'absolute',
-                            top: '20px',
-                            left: '20px',
+                            top: '80px',
+                            left: '260px',
                             backgroundColor: 'white',
                             zIndex: 10,
                         }} onClick={handleBackClick}>
@@ -246,7 +226,10 @@ const KitchenSink = (props) => {
                                                 <img src={r.image} alt={r.title} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
                                             </div>
                                         </div>
-                                        {/*<Button variant="contained" color="primary" style={{ margin: '10px' }}>Save Recipe</Button>*/}
+                                        <Button variant="contained" color="primary" style={{ margin: '10px' }} onClick={() => handleSaveRecipe(r,store.userAuth._id)}>
+                                            <Favorite />
+                                        </Button>
+
                                     </Paper>
                                 </Grid>
 
@@ -257,20 +240,7 @@ const KitchenSink = (props) => {
                 )}
             </Grid>
         </Grid>
-
-
-    )
-
-
-        ;
-
-
-
-
-}
-
-    ;
-
-
+    );
+};
 
 export default KitchenSink;

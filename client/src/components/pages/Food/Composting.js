@@ -49,7 +49,7 @@ class Youtube extends Component {
           
 
                 <div style={{
-                    backgroundImage: "url('https://rethinkwastenl.ca/wp-content/uploads/2022/01/5437-MMSB-ReThink_Web-Banners_Food-Waste_Desktop-copy-scaled.jpg')",
+                    backgroundImage: "url('https://img.freepik.com/free-vector/white-gold-geometric-pattern-background-vector_53876-140726.jpg')",
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     minHeight: '100vh',
@@ -58,7 +58,7 @@ class Youtube extends Component {
 
 
                 }}>
-                <h1>How to make homemade compost from your food waste</h1>
+
                 <div className="video-list">
                     {videos.map((video) => (
                         <div key={video.id} className="video-item" style={{ display: 'inline-block', margin: '10px', width: '300px', height: '400px', boxShadow: '0px 0px 5px #888', overflow: 'hidden' }}>

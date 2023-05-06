@@ -9,10 +9,12 @@ import CardGiftcardOutlinedIcon from "@mui/icons-material/CardGiftcardOutlined";
 import SwipeRightOutlinedIcon from "@mui/icons-material/SwipeRightOutlined";
 import StarBorderPurple500OutlinedIcon from "@mui/icons-material/StarBorderPurple500Outlined";
 import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import styled from "@emotion/styled";
 import WishlistList from "./Profilepagecomponents/WishlistList";
 import PostsList from "./Profilepagecomponents/PostsList";
 import MatchedList from "./Profilepagecomponents/MatchedList";
+import SavedRecipes from "./Profilepagecomponents/SavedRecipes";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -117,6 +119,12 @@ export default function TabProfile() {
             icon={<DeliveryDiningOutlinedIcon />}
             iconPosition="start"
           />
+          <StyledTab
+            label="Recipes"
+            {...a11yProps(5)}
+            icon={<FavoriteIcon />}
+            iconPosition="start"
+          />
         </StyledTabs>
       </Box>
       <TabPanel  value={value} index={0}>
@@ -134,6 +142,10 @@ export default function TabProfile() {
       <TabPanel value={value} index={4}>
       Taken
       </TabPanel>
+      <TabPanel value={value} index={5}>
+        <SavedRecipes />
+      </TabPanel>
+
     </Box>
   );
 }

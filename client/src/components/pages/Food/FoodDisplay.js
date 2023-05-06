@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const FoodDisplay =({imageUrl,foods,error})=> {
 	 const food=  foods.map(item=>{
 	 	       return <li 
