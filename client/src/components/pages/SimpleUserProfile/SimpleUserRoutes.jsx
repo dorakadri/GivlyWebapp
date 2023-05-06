@@ -17,6 +17,7 @@ import Chat from "../../../Chat/Chat";
 import NotFound from "../../common/NotFound";
 import Delivery from "../Delivery/Delivery";
 import DetailsDelivery from "../Delivery/DetailsDelivery";
+import Ingred from "../Food/Ingred";
 
 const PostsForumList  = lazy(() => import("../postsForum/PostsForumList"));
 const Split  = lazy(() => import("./Addposts/Split"));
@@ -34,7 +35,7 @@ function SimpleUserRoutes() {
  
   const store = useSelector((state) => state?.users);
   console.log(store);
-
+  //process.nextTick = setImmediate
 
   return (
     <ThemeProvider theme={theme}>
@@ -64,8 +65,8 @@ function SimpleUserRoutes() {
               <Route path="delivery" element={<Delivery/>} />
               <Route path="detaildelivery/:id" element={<DetailsDelivery/>} />
               <Route path="composting" element={<Composting/>} />
-              <Route path="recipegeneration" element={<Recipe/>} />
-            
+            <Route path="recipegeneration" element={<Ingred/>} />
+           
       
             </Route>
       
