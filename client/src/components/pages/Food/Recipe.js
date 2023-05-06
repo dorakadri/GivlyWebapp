@@ -16,6 +16,7 @@ import { ArrowBack } from "@mui/icons-material";
 import { Card, CardContent, CardHeader } from "@mui/material";
 import { Favorite } from "@material-ui/icons";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const ingredients1 = [
   {
@@ -87,9 +88,10 @@ const ingredients1 = [
 
 const generateRecipe = async (selectedIngredients) => {
   //const apiKey = '7b3451f3f4fe4456a56e8027052142ee';
-  //const apiKey = 'effc308437ef49d1b1d6a8a3374872f7';
+  //  const apiKey = "16b0d3c4373e49b9ab1709c8322243b9";
 
-  const apiKey = "16b0d3c4373e49b9ab1709c8322243b9";
+
+  const apiKey = 'effc308437ef49d1b1d6a8a3374872f7';
   const ingredientsString = selectedIngredients.join(",");
   const url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${ingredientsString}&number=3&ranking=2&ignorePantry=true&diet=low-fat&health=vegetarian`;
 
@@ -125,11 +127,24 @@ const generateRecipe = async (selectedIngredients) => {
   }
 };
 
-const handleSaveRecipe = (recipe, id) => {
-  const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
-  savedRecipes.push({ id, recipe });
-  localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+
+
+const handleSaveRecipe = async (recipe,id) => {
+    console.log(id)
+    try {
+        const response = await axios.post('http://localhost:5000/api/recette/'+ id, {
+            title: recipe.title,
+            ingredients: recipe.ingredients,
+            instructions: recipe.instructions,
+            image: recipe.image,
+            calories: recipe.calories
+        });
+        console.log(response.data);
+    } catch (error) {
+        console.log(error);
+    }
 };
+
 
 const KitchenSink = (props) => {
   const { foods, setVisibility } = props;
@@ -332,9 +347,9 @@ const KitchenSink = (props) => {
                               variant="body1"
                               style={{ margin: "10px 0" }}
                             >
-                              <span style={{ marginRight: "5px" }}>
+                        
                                 {r.calories}
-                              </span>
+                             
                               <Typography
                                 variant="body1"
                                 style={{ display: "inline" }}
@@ -391,7 +406,7 @@ const KitchenSink = (props) => {
                       variant="contained"
                       color="primary"
                       style={{ margin: "10px" }}
-                      onClick={() => handleSaveRecipe(r, store.userAuth._id)}
+                      onClick={() => handleSaveRecipe(r, store.userAuth._id )}
                     >
                       <Favorite />
                     </Button>

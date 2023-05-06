@@ -20,6 +20,7 @@ const postRoutes=require("./routes/posts/postsRoute")
 const diyRoutes=require("./routes/Objects/objectRoute")
 const postForumRoute = require("./routes/postsForum/postForumRoute");
 const commentRoutes = require("./routes/comments/commentRoute");
+const  recetteRoutes = require("./routes/recettes/recetteRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const cors = require("cors");
 const deliveryRoutes = require("./routes/deliveries/delivery");
@@ -66,6 +67,8 @@ app.use("/api/Delivery", deliveryRoutes);
 app.use("/api/gift", giftsRoutes);
 app.use("/api/mainposts", postRoutes);
 app.use("/api/diy", diyRoutes);//chat
+app.use("/api/recette", recetteRoutes);
+
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {

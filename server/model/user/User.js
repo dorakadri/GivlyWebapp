@@ -105,6 +105,10 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Post'
     }],
+    recette: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Recipe'
+    }],
     Ownposts: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Post'
