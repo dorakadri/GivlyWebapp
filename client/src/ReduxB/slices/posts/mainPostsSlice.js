@@ -266,6 +266,30 @@ export const updateafterscan = createAsyncThunk(
   }
 );
 
+export const getgifts = createAsyncThunk(
+  "getgift",
+  async (_, { rejectWithValue, getState, dispatch }) => {
+  const { userAuth } = getState().users;
+
+  
+    try {
+    
+      const { data } = await axios.get(
+        `http://localhost:5000/api/gift/gift/${userAuth._id}`,
+      );
+      return data;
+   
+    } catch (error) {
+      if (!error?.response) throw error;
+      return rejectWithValue(error);
+    }
+  }
+);
+
+
+
+
+
 
 const mainPostsSlice = createSlice({
   name: "mainpost",
@@ -440,7 +464,24 @@ const mainPostsSlice = createSlice({
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
     });
+    //getgifts
+    builder.addCase(getgifts.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getgifts.fulfilled, (state, action) => {
+      state.giftowned= action?.payload;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(getgifts.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    
   },
 });
 
 export default mainPostsSlice.reducer;
+//getgifts

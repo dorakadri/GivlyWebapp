@@ -3796,11 +3796,6 @@ balanced-match@^1.0.0:
 
 base64-arraybuffer@^1.0.2:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/base64-arraybuffer/-/base64-arraybuffer-1.0.2.tgz#1c37589a7c4b0746e34bd1feb951da2df01c1bdc"
-  integrity sha512-I3yl4r9QB5ZRY3XuJVEPfc2XhZO6YweFPI+UovAzn+8/hb3oJ6lnysaFcjVpkCPfVWFUDvoZ8kmVDP7WyRtYtQ==
-
-base64-arraybuffer@^1.0.2:
-  version "1.0.2"
   resolved "https://registry.npmjs.org/base64-arraybuffer/-/base64-arraybuffer-1.0.2.tgz#1c37589a7c4b0746e34bd1feb951da2df01c1bdc"
   integrity sha512-I3yl4r9QB5ZRY3XuJVEPfc2XhZO6YweFPI+UovAzn+8/hb3oJ6lnysaFcjVpkCPfVWFUDvoZ8kmVDP7WyRtYtQ==
 
@@ -6132,9 +6127,9 @@ html-webpack-plugin@^5.5.0:
     pretty-error "^4.0.0"
     tapable "^2.0.0"
 
-html2canvas@1.4.1:
+html2canvas@^1.4.1:
   version "1.4.1"
-  resolved "https://registry.npmjs.org/html2canvas/-/html2canvas-1.4.1.tgz#7cef1888311b5011d507794a066041b14669a543"
+  resolved "https://registry.yarnpkg.com/html2canvas/-/html2canvas-1.4.1.tgz#7cef1888311b5011d507794a066041b14669a543"
   integrity sha512-fPU6BHNpsyIhr8yyMpTLLxAbkaK8ArIBcmZIRiBLiDhjeqvXolaEmDGmELFuX9I4xDcaKKcJl+TKZLqruBbmWA==
   dependencies:
     css-line-break "^2.1.0"
@@ -8897,9 +8892,9 @@ q@^1.1.2:
   resolved "https://registry.npmjs.org/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==
 
-qr-code-styling@1.6.0-rc.1:
+qr-code-styling@^1.6.0-rc.1:
   version "1.6.0-rc.1"
-  resolved "https://registry.npmjs.org/qr-code-styling/-/qr-code-styling-1.6.0-rc.1.tgz#6c89e185fa50cc9135101085c12ae95b06f1b290"
+  resolved "https://registry.yarnpkg.com/qr-code-styling/-/qr-code-styling-1.6.0-rc.1.tgz#6c89e185fa50cc9135101085c12ae95b06f1b290"
   integrity sha512-ModRIiW6oUnsP18QzrRYZSc/CFKFKIdj7pUs57AEVH20ajlglRpN3HukjHk0UbNMTlKGuaYl7Gt6/O5Gg2NU2Q==
   dependencies:
     qrcode-generator "^1.4.3"
@@ -8909,9 +8904,9 @@ qrcode-generator@^1.4.3:
   resolved "https://registry.npmjs.org/qrcode-generator/-/qrcode-generator-1.4.4.tgz#63f771224854759329a99048806a53ed278740e7"
   integrity sha512-HM7yY8O2ilqhmULxGMpcHSF1EhJJ9yBj8gvDEuZ6M+KGJ0YY2hKpnXvRD+hZPLrDVck3ExIGhmPtSdcjC+guuw==
 
-qrcode.react@3.1.0:
+qrcode.react@^3.1.0:
   version "3.1.0"
-  resolved "https://registry.npmjs.org/qrcode.react/-/qrcode.react-3.1.0.tgz#5c91ddc0340f768316fbdb8fff2765134c2aecd8"
+  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-3.1.0.tgz#5c91ddc0340f768316fbdb8fff2765134c2aecd8"
   integrity sha512-oyF+Urr3oAMUG/OiOuONL3HXM+53wvuH3mtIWQrYmsXoAq0DkvZp2RYUWFSMFtbdOpuS++9v+WAkzNVkMlNW6Q==
 
 qs@6.11.0:

@@ -408,12 +408,20 @@ if (!taker.Taken.includes(req.body.Post)) {
 }
 
 taker.matches.productId.pull(req.body.Post);
+taker.Rankpoints = taker.Rankpoints+5; 
+owner.Rankpoints= owner.Rankpoints +10;
 await taker.save();
+await owner.save();
+
+
+
     res.status(200)
   } catch (error) {
     res.json(error);
   }
 });
+
+
   
 
 module.exports = {
