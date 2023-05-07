@@ -12,6 +12,7 @@ import React, { useRef, useState } from "react";
 import QrReader from "react-qr-reader";
 import { updateafterscan } from "../../../../../ReduxB/slices/posts/mainPostsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Scanqrcode(props) {
   const [scanResultWebCam, setScanResultWebCam] = useState("");
@@ -20,6 +21,7 @@ export default function Scanqrcode(props) {
   const qrRef = useRef(null);
   const dispatch = useDispatch();
   const state = useSelector((state) => state?.users);
+
   const { userAuth } = state;
   const handleErrorFile = (error) => {
     console.log(error);
@@ -39,7 +41,11 @@ export default function Scanqrcode(props) {
         result1.Owner === props.data.userId.id
       ) {
         dispatch(updateafterscan(result1));
-     
+        setTimeout(() => {
+          props.close();
+        }, 2000);
+    
+   
       }
     
     }
@@ -66,7 +72,9 @@ export default function Scanqrcode(props) {
         result1.Owner === props.data.userId.id
       ) {
         dispatch(updateafterscan(result1));
-     
+        setTimeout(() => {
+          props.close();
+        }, 2000);
       } else {
         console.log("nope");
       }
@@ -106,7 +114,7 @@ export default function Scanqrcode(props) {
                 onError={handleErrorWebCam}
                 onScan={handleScanWebCam}
               />
-              <h3>Scanned Code: {scanResultWebCam}</h3>
+          
             </Grid>
           </Grid>
         </CardContent>

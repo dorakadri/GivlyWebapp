@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Card,
   CardContent,
@@ -8,7 +9,7 @@ import {
 } from "@mui/material";
 
 import React, { useRef, useState } from "react";
-
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import QrReader from "react-qr-reader";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +17,7 @@ import { updateOwnerAction, updateTakenAction } from "../../../ReduxB/slices/del
 
 export default function QrCode(props) {
   const [scanResultWebCam, setScanResultWebCam] = useState("");
-
+  const [alert, setAlert] = useState(false);
   const [scanResultFile, setScanResultFile] = useState("");
   const qrRef = useRef(null);
   const dispatch =useDispatch();
@@ -38,10 +39,11 @@ export default function QrCode(props) {
    if (userAuth._id === result1.Owner) {
 
       dispatch(updateOwnerAction(result1))
- 
+      setAlert(true);
   }else
   if (userAuth._id === result1.Taker){
     dispatch(updateTakenAction(result1))
+    setAlert(true);
   }
 
    
@@ -63,14 +65,15 @@ export default function QrCode(props) {
       }, {});
 
       setScanResultFile(result);
-   
+       
    if (userAuth._id === result1.Owner) {
 
       dispatch(updateOwnerAction(result1))
- 
+      setAlert(true);
   }else
   if (userAuth._id === result1.Taker){
     dispatch(updateTakenAction(result1))
+    setAlert(true);
   }
 
    
@@ -79,6 +82,10 @@ export default function QrCode(props) {
 
   return (
     <Container sx={{ mt: "2rem" }}>
+      {    alert && <Alert icon={false}
+      >
+     ❤   Code Scanned successfully  ❤
+      </Alert>}
       <Card>
         <CardContent>
           <Grid container spacing={2}>
@@ -100,7 +107,7 @@ export default function QrCode(props) {
                 onScan={handleScanFile}
                 legacyMode
               />
-              <h3>Scanned Code: {scanResultFile}</h3>
+        
             </Grid>
 
             <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ mt: "2rem" }}>
@@ -110,7 +117,7 @@ export default function QrCode(props) {
                 onError={handleErrorWebCam}
                 onScan={handleScanWebCam}
               />
-              <h3>Scanned Code: {scanResultWebCam}</h3>
+         
             </Grid>
           </Grid>
         </CardContent>

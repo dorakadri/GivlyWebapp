@@ -195,7 +195,7 @@ const [postdata, setPostdata] = React.useState();
    
         <Divider/>
         <DialogContent  sx={{height: "800px" }}>
-        <Scanqrcode data={postdata}  />
+        <Scanqrcode data={postdata} close={ handleClose1}  />
         </DialogContent>
   
       </Dialog>
