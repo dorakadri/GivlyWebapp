@@ -49,7 +49,7 @@ class Youtube extends Component {
         if (isLoading) {
             return <div>Loading...</div>;
         }
-        console.log(videos)
+   
         return (
             <Grid container spacing={3} p={"3rem"} >
             {videos.map((video, index) => (

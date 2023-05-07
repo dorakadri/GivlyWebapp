@@ -11,7 +11,7 @@ export default function Gifts() {
 
 
   const gifts = useSelector((state) => state?.mainpost.giftowned);
-  console.log(gifts);
+
 
 
  

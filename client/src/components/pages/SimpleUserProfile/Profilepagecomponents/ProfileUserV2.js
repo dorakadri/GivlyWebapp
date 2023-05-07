@@ -31,7 +31,7 @@ export const ProfileUserV2 = ({ data }) => {
 
   let level = 0; // Default level
 const rankPoints = data?.Rankpoints;
-console.log(rankPoints);
+
 if (rankPoints >= 100 && rankPoints <= 2000) {
 level = 1;
 } else if (rankPoints >= 3000 && rankPoints <= 6000) {

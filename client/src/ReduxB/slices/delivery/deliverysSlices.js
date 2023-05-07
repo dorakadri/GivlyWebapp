@@ -11,9 +11,9 @@ export const deliveryAction = createAsyncThunk(
 
 const { userAuth } = getState().users;
 const { profile} = getState().users;
-console.log(profile.location)
+
 const data= {...delivery,user:userAuth._id,locationUser:profile.location}
-console.log(data)
+
 
     try {
       const config = {
@@ -150,7 +150,7 @@ export const transactionAction = createAsyncThunk(
             export const updateOwnerAction = createAsyncThunk(
               "updateOwner",
               async (result, { rejectWithValue, getState, dispatch }) => {
-              console.log(result)
+          
                 try {
                   const config = {
                     headers: { "Content-Type": "application/json" },
@@ -214,7 +214,7 @@ const deliverySlices = createSlice({
         state.serverErr = undefined;
       });
       builder.addCase(deliveryAction.rejected, (state, action) => {
-        console.log(action.payload);
+      
         state.loading = false;
         state.appErr = action?.payload?.message;
         state.serverErr = action?.error?.message;
@@ -232,7 +232,7 @@ const deliverySlices = createSlice({
         state.serverErr = undefined;
       });
       builder.addCase(deliverygetAction.rejected, (state, action) => {
-        console.log(action.payload);
+    
         state.loading = false;
         state.appErr = action?.payload?.message;
         state.serverErr = action?.error?.message;
@@ -250,7 +250,7 @@ const deliverySlices = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(deliverylivgetAction.rejected, (state, action) => {
-      console.log(action.payload);
+   
       state.loading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
@@ -268,7 +268,7 @@ const deliverySlices = createSlice({
         state.serverErr = undefined;
       });
       builder.addCase(deliverydeleteAction.rejected, (state, action) => {
-        console.log(action.payload);
+    
         state.loading = false;
         state.appErr = action?.payload?.message;
         state.serverErr = action?.error?.message;
@@ -287,7 +287,7 @@ const deliverySlices = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(deliverygetOneAction.rejected, (state, action) => {
-      console.log(action.payload);
+   
       state.loading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
@@ -305,7 +305,7 @@ const deliverySlices = createSlice({
     state.serverErr = undefined;
   });
   builder.addCase(transactionAction.rejected, (state, action) => {
-    console.log(action.payload);
+  
     state.loading = false;
     state.appErr = action?.payload?.message;
     state.serverErr = action?.error?.message;
@@ -324,7 +324,7 @@ builder.addCase(updateOwnerAction.fulfilled, (state, action) => {
   state.serverErr = undefined;
 });
 builder.addCase(updateOwnerAction.rejected, (state, action) => {
-  console.log(action.payload);
+
   state.loading = false;
   state.appErr = action?.payload?.message;
   state.serverErr = action?.error?.message;
@@ -345,7 +345,7 @@ builder.addCase(updateTakenAction.fulfilled, (state, action) => {
   state.serverErr = undefined;
 });
 builder.addCase(updateTakenAction.rejected, (state, action) => {
-  console.log(action.payload);
+
   state.loading = false;
   state.appErr = action?.payload?.message;
   state.serverErr = action?.error?.message;

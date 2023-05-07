@@ -39,9 +39,9 @@ export default function Scanqrcode(props) {
         result1.Owner === props.data.userId.id
       ) {
         dispatch(updateafterscan(result1));
-        console.log(result1);
+     
       }
-      console.log("nope");
+    
     }
   };
   const onScanFile = () => {
@@ -66,7 +66,7 @@ export default function Scanqrcode(props) {
         result1.Owner === props.data.userId.id
       ) {
         dispatch(updateafterscan(result1));
-        console.log("dfo");
+     
       } else {
         console.log("nope");
       }

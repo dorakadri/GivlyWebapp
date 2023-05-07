@@ -98,7 +98,7 @@ const generateRecipe = async (selectedIngredients) => {
   try {
     const response = await fetch(url);
     const recipes = await response.json();
-   console.log(recipes)
+  
     if (recipes.length === 0) {
       throw new Error("No recipes found.");
     }
@@ -130,7 +130,7 @@ const generateRecipe = async (selectedIngredients) => {
 
 
 const handleSaveRecipe = async (recipe,id) => {
-    console.log(id)
+  
     try {
         const response = await axios.post('http://localhost:5000/api/recette/'+ id, {
             title: recipe.title,
@@ -139,7 +139,7 @@ const handleSaveRecipe = async (recipe,id) => {
             image: recipe.image,
             calories: recipe.calories
         });
-        console.log(response.data);
+      
     } catch (error) {
         console.log(error);
     }
@@ -160,7 +160,7 @@ const KitchenSink = (props) => {
 
   useEffect(() => {
     const result = ingredients1.filter((item1) =>
-      foods.some((item2) => item1.name.includes(item2.name))
+      foods?.some((item2) => item1.name.includes(item2.name))
     );
     const uniqueValus = Object.values(
       [...ingredients, ...result].reduce((obj, item) => {
@@ -238,7 +238,7 @@ const KitchenSink = (props) => {
             </div>
           </Grid>
 
-          {foods.length > 0 && (
+          {foods?.length > 0 && (
             <Grid
               item
               xs={12}

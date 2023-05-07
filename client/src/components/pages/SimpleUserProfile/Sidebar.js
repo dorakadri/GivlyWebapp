@@ -240,7 +240,7 @@ const Sidebar = () => {
                 <ListItemButton
                
                    onClick={() => {
-                    console.log(lcText);
+                  
                     navigate(`./${lcText}`);
                     setActive(lcText);
                   }}

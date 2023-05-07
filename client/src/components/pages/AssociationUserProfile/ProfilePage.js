@@ -8,7 +8,7 @@ import { userProfileAction } from '../../../ReduxB/slices/users/usersSlices';
 import styled from '@emotion/styled';
 import { Box } from '@mui/system';
 import { Grid, Paper } from '@mui/material';
-import AccountVerifed from '../Navigation/Alerts/AccountVerifed';
+
 
 
 
@@ -21,7 +21,7 @@ const Item = styled(Paper)(() => ({
 export default function ProfilePage() {
 
   const store = useSelector((state) => state?.users) 
-  console.log(store.userAuth._id)
+
   const dispatch = useDispatch()
 
   useEffect( () => {
@@ -30,7 +30,7 @@ export default function ProfilePage() {
   [store.userAuth._id,dispatch]
   )
 const { profile } = store 
-console.log(profile);
+
  
   
   return (

@@ -14,16 +14,11 @@ import Typography from '@mui/material/Typography';
 import { Box, Stack } from '@mui/system';
 import PhoneIcon from '@mui/icons-material/Phone';
 import HomeIcon from '@mui/icons-material/Home';
-import CardGiftcardOutlinedIcon from '@mui/icons-material/CardGiftcardOutlined';
-import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {useState,useEffect} from "react";
-import {
 
-  userProfileAction,
-}
- from "../../../ReduxB/slices/users/usersSlices"
+import {  useNavigate } from "react-router-dom";
+
+import {useState} from "react";
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -37,10 +32,10 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function ProfileCrad({data}) {
-  const [expanded, setExpanded] = useState(false);
+
   const [open, setOpen] = useState(false);
   const navigate=useNavigate();
-  console.log(data);
+
 
 
   return (

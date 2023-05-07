@@ -34,10 +34,9 @@ export default function QrCode(props) {
       }, {});
 
       setScanResultFile(result);
-      console.log(result1.Owner)
-      console.log(userAuth._id)
+     
    if (userAuth._id === result1.Owner) {
-    console.log(result1)
+
       dispatch(updateOwnerAction(result1))
  
   }else
@@ -64,10 +63,9 @@ export default function QrCode(props) {
       }, {});
 
       setScanResultFile(result);
-      console.log(result1.Owner)
-      console.log(userAuth._id)
+   
    if (userAuth._id === result1.Owner) {
-    console.log(result1)
+
       dispatch(updateOwnerAction(result1))
  
   }else

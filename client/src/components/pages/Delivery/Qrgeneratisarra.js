@@ -13,7 +13,7 @@ export default function Qrgeneratisarra(props) {
 const generate = () => {
   const toGenerate = "Owner-" + props.data.post.userId.id + "_Taker-" + props.data.user.id + "_Post-" + props.data.post._id +"_Delivery-" + props.data._id;
 
-console.log( props )
+
   seturl2( toGenerate )
   
 dispatch(transactionAction(props.data._id))

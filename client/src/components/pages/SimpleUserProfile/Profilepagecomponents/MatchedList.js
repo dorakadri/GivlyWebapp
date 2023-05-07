@@ -74,7 +74,7 @@ const [postdata, setPostdata] = React.useState();
     setOpen1(false);
   };
   function AddDelevery(e){
- console.log(e)
+
     let post=e._id
 
   let locationOwner=e.userId.location

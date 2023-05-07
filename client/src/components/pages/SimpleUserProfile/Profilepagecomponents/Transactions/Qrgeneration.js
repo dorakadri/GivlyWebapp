@@ -17,7 +17,7 @@ export default function Qrgeneration(props) {
       "_Post-" +
       props.post._id;
 
-    console.log(props.post._id);
+  
     seturl2(toGenerate);
   };
   return (

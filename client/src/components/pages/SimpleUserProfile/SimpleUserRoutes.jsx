@@ -21,6 +21,7 @@ import Recipe from "../Food/Recipe"
 import Composting from "../Food/Composting"
 import OrganisationList from "../Organisation/OrganisationList";
 import QrCode from "../Delivery/QrCode";
+import Ingred from "../Food/Ingred";
 
 
 
@@ -39,7 +40,7 @@ function SimpleUserRoutes() {
   const theme = useMemo(() => createTheme(themeSettingsall(mode)), [mode]);
  
   const store = useSelector((state) => state?.users);
-  console.log(store);
+
 
 
   return (
@@ -72,9 +73,9 @@ function SimpleUserRoutes() {
 
               <Route path="detaildelivery/:id" element={<DetailsDelivery/>} />
               <Route path="composting" element={<Composting/>} />
-              <Route path="recipegeneration" element={<Recipe/>} />
+              <Route path="recipegeneration" element={<Ingred/>} />
               <Route path="association" element={<OrganisationList />} />
-        
+     
             </Route>
       
             <Route

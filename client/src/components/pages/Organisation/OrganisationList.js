@@ -60,7 +60,7 @@ function OrganisationList() {
       return a.theme===theme;
     }
     });
-  console.log(filtredByThemeArticals.length/9)
+
   const currentArticles = filtredByThemeArticals.slice(
     indexOfFirstArticle,
     indexOfLastArticle

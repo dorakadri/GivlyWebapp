@@ -63,15 +63,15 @@ setData(selector );
 
     }, [])
 
-    console.log(selector);
+
 
    function Tracking(e){
     setPostdata(e)
 
-    console.log(e)
+
     setOpen1(true);
        // navigate(`../detaildelivery/${e._id}`)
-    console.log("livraison")
+
        
     }
 
@@ -211,7 +211,7 @@ setData(selector );
             };
         })
 
-        console.log(rows)
+   
 
     
 

@@ -35,7 +35,7 @@ useContext(AppContext);
   );
 
   useEffect(() => {
-    console.log(theme.mode);
+  
 
     if (theme.mode === "light") {
       const objectposts = postLists?.filter((e) => e.type === "object"  && e.isTaken === false);
@@ -62,7 +62,7 @@ useContext(AppContext);
         ownerId: thepost.userId.id,
       };
       dispatch(addmatches(data)).then((result) => {
-        console.log(result);
+    
         socket.emit('match');
       });
     }
@@ -75,7 +75,7 @@ useContext(AppContext);
   const cardRef = useRef(null);
 
   const handleButtonClick = async (buttonDirection) => {
-    console.log(buttonDirection);
+  
     await cardRef.current.swipe(buttonDirection);
   };
 

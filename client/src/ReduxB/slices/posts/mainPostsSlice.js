@@ -6,7 +6,7 @@ export const addPostAction = createAsyncThunk(
   "posts/",
   async (post, { rejectWithValue, getState, dispatch }) => {
     const { userAuth } = getState().users;
-    console.log(post);
+   
     try {
       const config = {
         headers: { "Content-Type": "application/json" },
@@ -72,8 +72,7 @@ export const deletewishlistAction = createAsyncThunk(
 export const updatePostAction = createAsyncThunk(
   "posts/update",
   async ({id,post}, { rejectWithValue, getState, dispatch }) => {
-  console.log(post)
-  console.log(id)
+
     try {
       
       const { data } = await axios.put(
@@ -158,7 +157,7 @@ export const addtowishlistAction = createAsyncThunk(
         `http://localhost:5000/api/mainposts/${id}/wishlist`,
         {_id},
       );
-      console.log(data)
+  
       return data;
    
     } catch (error) {
@@ -177,7 +176,7 @@ export const getpostbyid = createAsyncThunk(
       const { data } = await axios.get(
         `http://localhost:5000/api/mainposts/${id}`,
       );
-      console.log(data)
+    
       return data;
    
     } catch (error) {
@@ -191,12 +190,12 @@ export const addmatches = createAsyncThunk(
   async (match, { rejectWithValue, getState, dispatch }) => {
   
     try {
-      console.log(match)
+    
       const { data } = await axios.post(
         `http://localhost:5000/api/mainposts/post/add/matches`,
         match
       );
-      console.log(data)
+   
       dispatch(getmatchesuser());
       return data;
    

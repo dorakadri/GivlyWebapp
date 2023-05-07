@@ -21,7 +21,7 @@ export default function Steppergenerate(props) {
   ];
   const [activeStep, setActiveStep] = React.useState(0);
   
-console.log(matchdata)
+
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

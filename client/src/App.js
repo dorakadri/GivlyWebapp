@@ -47,8 +47,7 @@ function App() {
       const url = "http://localhost:5000/auth/login/success";
       const { data } = await axios.get(url, { withCredentials: true });
       setUser(data.user._json);
-      console.log(user);
-      console.log(data.user._json);
+  
     } catch (err) {
       console.log(err);
     }
