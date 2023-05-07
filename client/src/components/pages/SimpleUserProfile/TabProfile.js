@@ -16,6 +16,8 @@ import MatchedList from "./Profilepagecomponents/MatchedList";
 import AssistantOutlinedIcon from '@mui/icons-material/AssistantOutlined';
 import TakenList from "./Profilepagecomponents/TakenList";
 import Gifts from "./Profilepagecomponents/Gifts";
+import SavedRecipes from "./Profilepagecomponents/SavedRecipes";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -120,7 +122,14 @@ export default function TabProfile() {
             icon={<AssistantOutlinedIcon />}
             iconPosition="start"
           />
+           <StyledTab
+            label="Recipes"
+            {...a11yProps(5)}
+            icon={<FavoriteIcon />}
+            iconPosition="start"
+          />
         </StyledTabs>
+        
       </Box>
       <TabPanel  value={value} index={0}>
         <PostsList />
@@ -136,6 +145,9 @@ export default function TabProfile() {
       </TabPanel>
       <TabPanel value={value} index={4}>
       <TakenList/>
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        <SavedRecipes />
       </TabPanel>
     </Box>
   );

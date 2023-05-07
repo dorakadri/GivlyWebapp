@@ -52,7 +52,6 @@ const { socket } = useContext(AppContext);
   const store = useSelector((state) => state?.users);
   console.log(store);
   const { userAuth, loading, serverErr, appErr } = store;
-
   
   if (userAuth) {
     if (userAuth?.role === "Admin") {
