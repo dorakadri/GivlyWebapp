@@ -42,7 +42,7 @@ const { profile } = store
     <ProfileCrad data={profile}/>
         </Grid>
         <Grid item xs={8}>
-          <Item>  <TabProfile/></Item>
+          <TabProfile/>
         </Grid>
       </Grid>
     </Box>
