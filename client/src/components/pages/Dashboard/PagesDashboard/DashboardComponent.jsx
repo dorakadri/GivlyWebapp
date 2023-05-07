@@ -216,7 +216,7 @@ export default function DashboardComponent() {
                 fontWeight="600"
              
               >
-               User Distribution by Country
+               User Distribution by City
               </Typography>
          
             </Box>

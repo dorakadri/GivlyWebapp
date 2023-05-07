@@ -36,8 +36,6 @@ const { profile } = store
   return (
     <Box  sx={{ mx:"2rem" }}>
     <Grid container spacing={2} sx={{ mt:"2rem" }} >
-
- 
   <Grid item xs={4}>
     <ProfileCrad data={profile}/>
         </Grid>
