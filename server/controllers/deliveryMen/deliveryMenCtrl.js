@@ -10,7 +10,7 @@ const fetchById = expressAsyncHandler(async (req, res) => {
 
   try {
     const deliveryMen = await DeliveryMen.findById(id);
-    console.log(deliveryMen);
+  
     if (deliveryMen) {
       res.json(deliveryMen);
     } else {
@@ -24,7 +24,7 @@ const fetchById = expressAsyncHandler(async (req, res) => {
 
 const createDeliveryMenCtrl = expressAsyncHandler(async (req, res) => {
   const { firstName, phone, isAvailable } = req.body;
-  console.log(req.body);
+  
 
   try {
     const deliveryMen = await DeliveryMen.create({
@@ -53,7 +53,7 @@ const fetchAllDeliveryMenCtrl = expressAsyncHandler(async (req, res) => {
 //---- Update deliveryMen--
 
 const updateDeliveryMenCtrl = expressAsyncHandler(async (req, res) => {
-  console.log(req.user);
+
   const { id } = req.params;
   validateMongodbId(id);
 

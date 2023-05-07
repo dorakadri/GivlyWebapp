@@ -58,7 +58,7 @@ const deleteGiftCtrl = expressAsyncHandler(async (req, res) => {
 //---- Update gift--
 
 const updateGiftCtrl = expressAsyncHandler(async (req, res) => {
-  console.log(req.user);
+
   const { id } = req.params;
   validateMongodbId(id);
 
@@ -84,7 +84,7 @@ const fetchById = expressAsyncHandler(async (req, res) => {
  
   try {
     const gift = await Gift.findById(id);
-    console.log(gift);
+   
     if (gift) {
       res.json(gift);
     } else {
@@ -102,7 +102,7 @@ const fetchgiftbyuserid = expressAsyncHandler(async (req, res) => {
    const user = await User.findById(id).populate("Giftowned","giftPhoto name company")
    ;
    const gift = user.Giftowned
-   console.log(user);
+  
 
     res.json(gift)  } 
    catch (error) {

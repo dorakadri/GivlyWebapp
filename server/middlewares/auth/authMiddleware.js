@@ -27,7 +27,7 @@ const authMiddleware = expressAsyncHandler(async (req, res, next) => {
 
 const isAdmin = (req, res, next) => {
   const user = req.user;
-  console.log(user);
+
   try {
     if (user.role !== "Admin") {
       return res.status(403).json({ error: "Only admin are allowed" });

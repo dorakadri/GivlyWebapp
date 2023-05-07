@@ -53,7 +53,7 @@ const postSchema = new mongoose.Schema({
   postSchema.post("findOneAndRemove", async function (doc) {
     try {
       const id = doc._id;
-      console.log(id)
+   
       await User.updateMany(
         { 
           $or: [

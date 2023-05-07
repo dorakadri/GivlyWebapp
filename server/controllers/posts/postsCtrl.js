@@ -25,7 +25,7 @@ const createPost = expressAsyncHandler(async (req, res) => {
 //update post 
 const updatePost = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
- console.log(req.body.postpicture)
+
   try {
     const post = await Post.findByIdAndUpdate(
       id,
@@ -44,7 +44,7 @@ const updatePost = expressAsyncHandler(async (req, res) => {
 });
 const deletePost = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
- console.log(id)
+
   try {
     const post = await Post.findOneAndRemove({ _id: id });
    
@@ -100,7 +100,7 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
       if (!product) {
         return res.status(404).json({ error: "ost not found" });
       }
-      console.log(product)
+  
       const user = await User.findByIdAndUpdate(
         userId,
         {
@@ -139,7 +139,7 @@ const fetchAllPost = expressAsyncHandler(async (req, res) => {
  const addtowishlist=expressAsyncHandler(async(req,res)=>{
   const { id } = req.params;
   const { _id } = req.body;
-  console.log( _id)
+
   try {
     const user = await User.findByIdAndUpdate(
       id,
@@ -183,17 +183,17 @@ const addMatch = expressAsyncHandler(async (req, res) => {
     const user = await User.findById(userId);
     const owner = await User.findById(ownerId);
     if (userId === ownerId) {
-      console.log( "///////////////////////////////// ")
+    
       res.status(404).json({ message: `user is the same` });
  
     }
     if (!user) {
-      console.log( "///////////////////////////////// ")
+     
       res.status(404).json({ message: `User with id ${userId} not found` });
  
     }
     if (!owner) {
-      console.log( "///////////////////////////////// ")
+      
       res.status(404).json({ message: `User with id ${ownerId} not found` });
  
     }
@@ -209,12 +209,12 @@ const addMatch = expressAsyncHandler(async (req, res) => {
        return
     }
     if (!userIds.includes(ownerId)) {
-      console.log( "///////////////////////////////// ")
+   
       user.matches.userId.push(ownerId);
     }
 
     if (!productIds.includes(postId)) {
-      console.log( "///////////////////////////////// ")
+   
       user.matches.productId.push(postId);
     }
     ////////////////
@@ -237,7 +237,7 @@ const addMatch = expressAsyncHandler(async (req, res) => {
    await owner.save();
    await user.save();
 
-   console.log('Match added successfully');
+  
 
     res.json({ message: "Match added successfully" });
   } catch (error) {
@@ -396,10 +396,10 @@ const updateafterscan = expressAsyncHandler(async (req, res) => {
 
   try {
    
-console.log(req.body)
+
 const taker = await User.findById(req.body.Taker)
 const owner = await User.findById(req.body.Owner)
-console.log(owner)
+
 await Post.updateOne({_id:req.body.Post},{isTaken:true})
 
 if (!taker.Taken.includes(req.body.Post)) {

@@ -40,7 +40,7 @@ const createPostForumCtrl = expressAsyncHandler(async (req, res) => {
       user: _id,
       image: imgUploaded?.url,
     });
-    console.log(req.user);
+   
 
 
     //Remove uploaded img
@@ -127,7 +127,7 @@ const fetchPostForumCtrl = expressAsyncHandler(async (req, res) => {
 //------------------------------
 
 const updatePostForumCtrl =expressAsyncHandler(async (req, res) => {
-  console.log(req.user);
+
   const { id } = req.params;
   validateMongodbId(id);
 

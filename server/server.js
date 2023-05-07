@@ -121,7 +121,7 @@ io.on("connection", (socket) => {
     const allUserIds = [...userIds, ...userIdsAsOwner,userid];
     const uniqueUserIds = [...new Set(allUserIds)];
     const members = await User.find({ _id: { $in: uniqueUserIds } });
-    console.log(userid);
+  
     //const members = await User.find();
     socket.emit("new-user", members);
   });

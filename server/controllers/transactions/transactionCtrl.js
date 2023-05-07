@@ -13,7 +13,7 @@ const giveGift = require("../gift/giftOwned");
 
 const createTranCtrl = expressAsyncHandler(async (req, res) => {
     const {  id } = req.params;
-    console.log(id);
+   
   
     try {
       const transaction = await Transaction.create({
@@ -66,11 +66,11 @@ const createTranCtrl = expressAsyncHandler(async (req, res) => {
   const findbydelivery= expressAsyncHandler(async(req,res)=>{
 
     try{
-      console.log(req.body)
+  
       const { Delivery} = req.body;
 
       const transactions = await Transaction.findOne({ delivery: Delivery });
-      console.log(transactions);
+   
 
 if (transactions) {
   transactions.owner = true;
@@ -86,7 +86,7 @@ res.json(transactions);
 
     //update taker
     const updateTaker= expressAsyncHandler(async(req,res)=>{
- console.log(req.body)
+
       try{
        
       

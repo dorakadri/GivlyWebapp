@@ -9,7 +9,7 @@ async function giveGift(id) {
   const lux = [7000, 8000, 9000, 10000];
 
   const user = await User.findById(id);
-  console.log(user);
+
   if (low.includes(user.Rankpoints)) {
     const lowGift = await Gift.findOne({ giftType: 'basic' });
     user.Giftowned.push(lowGift._id);

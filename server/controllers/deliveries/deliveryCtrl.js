@@ -21,7 +21,7 @@ function getRandomDate() {
 
 const createDeliveryCtrl = expressAsyncHandler(async (req, res) => {
   const {locationOwner, locationUser, post, user} = req.body;
-  console.log(req.body);
+ 
 
   try {
     const deliveryId = await DeliveryMen.findOne({isAvailable:true},{_id:1})
@@ -56,7 +56,7 @@ const createDeliveryCtrl = expressAsyncHandler(async (req, res) => {
 async function updateOrderStatus() {
   const today = new Date().toISOString().substring(0, 10); // get the current date in ISO format (yyyy-mm-dd)
   const ordersToUpdate = await Delivery.find({dateLivraison:{ $gte: new Date(today), $lt: new Date(today + 'T23:59:59.999Z') }, state:'New'}); // find orders with the delivery date equal to today and the status not already 'pending'
- console.log(ordersToUpdate)
+
   ordersToUpdate.forEach(async (order) => {
     order.state = 'Transit'; // update the status to 'pending'
     await order.save(); 
@@ -86,7 +86,7 @@ const fetchAllDeliveryCtrl = expressAsyncHandler(async (req, res) => {
     
     ;
 
-  console.log("aaaa");
+
 
   res.json(deliveries);
   } catch (error) {
@@ -112,7 +112,7 @@ const fetchAllDeliveryCtrl = expressAsyncHandler(async (req, res) => {
       .populate("deliveryMen","firstName phone")
       ;
   
-    console.log("aaaa");
+
       res.json(deliveries);
     } catch (error) {
       res.json(error);
@@ -149,7 +149,7 @@ const getByIdCtrl =expressAsyncHandler(async (req, res) => {
   
   ;
 
-console.log("aaaa");
+
 
 res.json(deliveries);
 } catch (error) {
@@ -160,10 +160,10 @@ res.json(deliveries);
 const updateuserlocationCtrl = expressAsyncHandler(async (req, res) => {
   const {location} = req.body;
   const {userId } = req.params;
-console.log(userId)
+
   try {
     const user = await User.findOne({ _id: userId });
-    console.log(user)
+  
    user.location = location;
     user.save();
     res.json(user);

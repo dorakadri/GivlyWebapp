@@ -74,7 +74,7 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
 //get all user to test
 
 const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
-  console.log(req.headers);
+
   try {
     const users = await User.find({});
     res.json(users);
@@ -177,7 +177,7 @@ const generateVerificationTokenCtrl = expressAsyncHandler(async (req, res) => {
     const verificationToken = await user?.createAccountVerificationToken();
     //save the user
     await user.save();
-    console.log(verificationToken);
+  
     //build your message
 
     const resetURL =` If you were requested to verify your account, verify now within 10 minutes, otherwise ignore this message <a href="http://localhost:3000/verify-account/${verificationToken}">Click to verify your account</a>`;
@@ -205,14 +205,14 @@ const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
 
   //find this user by token
 
-  console.log(hashedToken);
+  
   const userFound = await User.findOne({
     accountVerificationToken: hashedToken,
     accountVerificationTokenExpires: { $gt: new Date() },
   });
   if (!userFound) throw new Error("Token expired, try again later");
 
-  console.log(userFound);
+
   //update the proprt to true
   userFound.isAccountVerified = true;
   userFound.accountVerificationToken = undefined;
@@ -229,7 +229,7 @@ const forgetPasswordToken = expressAsyncHandler(async (req, res) => {
   const { email } = req.body;
 
   const user = await User.findOne({ email });
-  console.log(user);
+
   if (!user) throw new Error("User Not Found");
 
   try {
@@ -237,7 +237,7 @@ const forgetPasswordToken = expressAsyncHandler(async (req, res) => {
     const token = await user.createPasswordResetToken();
     
 
-    console.log(token);
+ 
     await user.save();
 
     //build your message
@@ -248,7 +248,7 @@ const forgetPasswordToken = expressAsyncHandler(async (req, res) => {
       subject: "Reset Password",
       html: resetURL,
     };
-    console.log(msg);
+
     await sgMail.send(msg);
     res.json({
       msg: `A verification message is successfully sent to ${user?.email}. Reset now within 10 minutes, ${resetURL}`,
