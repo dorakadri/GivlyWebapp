@@ -41,6 +41,8 @@ export default function ProfileCrad({ data }) {
         display: "flex",
         flexDirection: "column",
         textAlign: "center",
+        height: "100%",
+        boxShadow: " 0 1px 2px rgba(0, 0, 0, 0.2)",
       }}
     >
       <CardHeader
@@ -106,26 +108,11 @@ export default function ProfileCrad({ data }) {
               {data?.associationPhone}
             </Typography>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "left",
-              alignItems: "center",
-              gap: 1,
-            }}
-          >
-            <Typography variant="body2" color="text.secondary">
-              {data?.bio}
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "left",
-              alignItems: "center",
-              gap: 1,
-            }}
-          ></Box>
+
+          <Typography textAlign="left" variant="body2" color="text.secondary">
+            {data?.bio}
+          </Typography>
+
           <Button
             fullWidth
             type="submit"
@@ -135,13 +122,14 @@ export default function ProfileCrad({ data }) {
               border: "none",
               fontWeight: " bold",
               cursor: "pointer",
-              mt: "0",
-              mb: "2rem",
               p: "1rem",
               textAlign: "center",
-
-              "&:hover": { color: "#06A696", backgroundColor: "#06A696" },
+              "&:hover": {
+                color: "#fff",
+                backgroundColor: "#06A696",
+              },
             }}
+            style={{ marginTop: "50px" }}
             onClick={() => navigate(`./update/${data?._id}`)}
           >
             edit

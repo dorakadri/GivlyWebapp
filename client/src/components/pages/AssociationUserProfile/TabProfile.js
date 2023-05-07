@@ -9,11 +9,8 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 //import { red } from "@mui/material/colors";
-import { Link } from "react-router-dom";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useEffect } from "react";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Grid } from "@material-ui/core";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   fetchPostsAction,
   toggleAddLikesToPost,
@@ -32,10 +29,14 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { useDispatch, useSelector } from "react-redux";
 
 import DateFormatter from "../../../utils/DateFormatter";
-import { Stack } from "@mui/system";
 import PostForumDetails from "../postsForum/PostForumDetails";
+function capitalizeFirstLetter(str) {
+  if (typeof str !== "string" || str.length === 0) {
+    return str;
+  }
 
-
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 const TabProfile = () => {
   const postForum = useSelector((state) => state?.postForum);
   const { postLists, likes, dislikes } = postForum;
@@ -52,7 +53,7 @@ const TabProfile = () => {
   };
   const handleClosedelete = () => {
     setOpen(false);
-    dispatch(fetchPostsAction("" ));
+    dispatch(fetchPostsAction(""));
   };
   const handleDetail = (id) => {
     setEditingPost(id);
@@ -64,122 +65,131 @@ const TabProfile = () => {
   useEffect(() => {
     dispatch(fetchPostsAction(""));
   }, [dispatch, likes, dislikes]);
-console.log(postLists);
+
   return (
-    <Box sx={{ margin: "auto", pt: "39px" }}>
-      {postLists?.filter((postForum) => postForum.user._id
- ===  user.userAuth._id )
-      .map((postForum) => (
-        <Card
-          spacing={10}
-          key={postForum?.id}
-          sx={{ mb: "2rem", maxwidth: "700px" }}
-        >
-          <CardHeader
-            avatar={
-              <Avatar
-                aria-label="recipe"
-                src={postForum?.user?.profilePhoto}
-              ></Avatar>
-            }
-            subheader={<DateFormatter date={postForum?.createdAt} />}
-            title={`${postForum?.user?.firstName} ${postForum?.user?.lastName}`}
-          />
-
-          <CardContent>
-            <Typography
-              variant="h4"
-              color="text.secondary"
-              paddingBottom="0.5 rem"
-            >
-              {postForum?.title}
-            </Typography>
-
-            <Typography variant="body2" color="text.secondary">
-              {postForum?.description}
-            </Typography>
-          </CardContent>
-          <CardMedia
-            component="img"
-            image={`${postForum?.image}`}
-            alt="Paella dish"
-          />
-          <CardActions
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Box
+    <Box sx={{ margin: "auto" }}>
+      {postLists &&
+        [...postLists, ...postLists]
+          ?.filter((postForum) => postForum.user._id === user.userAuth._id)
+          .map((postForum) => (
+            <Card
+              spacing={10}
+              key={postForum?.id}
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                mb: "2rem",
+                maxwidth: "700px",
+                boxShadow: " 0 1px 2px rgba(0, 0, 0, 0.2)",
               }}
             >
-              <IconButton
-                aria-label="Like"
-                onClick={() => {
-                  dispatch(toggleAddLikesToPost(postForum?._id));
+              <CardHeader
+                avatar={
+                  <Avatar
+                    aria-label="recipe"
+                    src={postForum?.user?.profilePhoto}
+                  ></Avatar>
+                }
+                subheader={<DateFormatter date={postForum?.createdAt} />}
+                title={`${capitalizeFirstLetter(
+                  postForum?.user?.firstName
+                )} ${capitalizeFirstLetter(postForum?.user?.lastName)}`}
+                titleTypographyProps={{ fontWeight: 600 }}
+              />
+
+              <CardContent>
+                <Typography
+                  variant="h4"
+                  color="text.secondary"
+                  paddingBottom="0.5 rem"
+                >
+                  {postForum?.title}
+                </Typography>
+
+                <Typography variant="body2" color="text.secondary">
+                  {postForum?.description}
+                </Typography>
+              </CardContent>
+              <CardMedia
+                component="img"
+                image={`${postForum?.image}`}
+                alt="Paella dish"
+                sx={{ width: "100%", height: "400px", objectFit: "contain" }}
+              />
+              <CardActions
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
-                <ThumbUpIcon color="primary" />
-              </IconButton>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <IconButton
+                    aria-label="Like"
+                    onClick={() => {
+                      dispatch(toggleAddLikesToPost(postForum?._id));
+                    }}
+                  >
+                    <ThumbUpIcon color="primary" />
+                  </IconButton>
 
-              <Typography color="text.secondary">
-                {" "}
-                {postForum?.likes?.length}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
+                  <Typography color="text.secondary">
+                    {" "}
+                    {postForum?.likes?.length}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
 
-                alignItems: "center",
-              }}
-            >
-              <IconButton
-                aria-label="disLike"
-                onClick={() => {
-                  dispatch(toggleAddDisLikesToPost(postForum?._id));
-                }}
-              >
-                <ThumbDownIcon color="disabled" />
-              </IconButton>
+                    alignItems: "center",
+                  }}
+                >
+                  <IconButton
+                    aria-label="disLike"
+                    onClick={() => {
+                      dispatch(toggleAddDisLikesToPost(postForum?._id));
+                    }}
+                  >
+                    <ThumbDownIcon color="disabled" />
+                  </IconButton>
 
-              <Typography color="text.secondary">
-                {" "}
-                {postForum?.disLikes?.length}{" "}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
+                  <Typography color="text.secondary">
+                    {" "}
+                    {postForum?.disLikes?.length}{" "}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
 
-                alignItems: "center",
-              }}
-            >
-              <IconButton aria-label="disLike">
-                <VisibilityIcon fontSize="small" color="primary" />
-              </IconButton>
-              <Typography color="text.secondary" sx={{ pr: "8px" }}>
-                {postForum?.numViews}
-              </Typography>
-            </Box>
-            <Button
-              sx={{ ml: "auto" }}
-              aria-label="Comment"
-              onClick={() => handleDetail(postForum?._id)}
-            >
-              <Typography variant="body2" color="text.secondary">
-                {" "}
-                Comments
-              </Typography>
-            </Button>{" "}
-          </CardActions>
-        </Card>
-      ))}
+                    alignItems: "center",
+                  }}
+                >
+                  <IconButton aria-label="disLike">
+                    <VisibilityIcon fontSize="small" color="primary" />
+                  </IconButton>
+                  <Typography color="text.secondary" sx={{ pr: "8px" }}>
+                    {postForum?.numViews}
+                  </Typography>
+                </Box>
+                <Button
+                  sx={{ ml: "auto" }}
+                  aria-label="Comment"
+                  onClick={() => handleDetail(postForum?._id)}
+                >
+                  <Typography variant="body2" color="text.secondary">
+                    {" "}
+                    Comments
+                  </Typography>
+                </Button>{" "}
+              </CardActions>
+            </Card>
+          ))}
       {editingPost && (
         <Dialog open={open} onClose={handleClose} fullWidth>
           <Box
