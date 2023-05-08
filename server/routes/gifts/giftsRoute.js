@@ -14,7 +14,7 @@ const giftsRoutes = express.Router();
 
 giftsRoutes.post("/",profilePhotoUpload.single("giftPhoto"),GiftImgResize, createGiftCtrl);
 
-giftsRoutes.get("/gift/all", fetchAllGiftCtrl);
+giftsRoutes.get("/all/gift/all", fetchAllGiftCtrl);
 giftsRoutes.get("/:id", fetchById);
 
 giftsRoutes.delete("/:id",  deleteGiftCtrl);
