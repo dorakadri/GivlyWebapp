@@ -33,12 +33,12 @@ return (
     <AiOutlineDownload />
     generate
   </Button>
-{ url2 &&  <Box sx={{ border:"thick double #32a1ce;"}} >
+{ url2 &&  <Box  >
   <QRCodeCanvas
     value={url2}
     size={300}
     bgColor={"#ffffff"}
-    fgColor={"#32a1ce"}
+    fgColor={"#000000"}
     level={"H"}
     includeMargin={false}
     imageSettings={{

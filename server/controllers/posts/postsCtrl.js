@@ -4,6 +4,7 @@ const validateMongodbId = require("../../utils/validateMongodbID");
 const express = require("express");
 const User = require('../../model/user/User');
 const Match = require('../../model/user/Matches');
+const giveGift = require("../gift/giftOwned");
 const createPost = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
@@ -413,7 +414,8 @@ owner.Rankpoints= owner.Rankpoints +10;
 await taker.save();
 await owner.save();
 
-
+giveGift(req.body.Taker);
+giveGift(req.body.Owner);
 
     res.status(200)
   } catch (error) {
